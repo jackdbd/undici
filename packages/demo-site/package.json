@@ -19,7 +19,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "ELEVENTY_ENV=production TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
+    "build": "ELEVENTY_ENV=production GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-wasm-news.json TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
     "build:watch": "ELEVENTY_ENV=production TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs --watch",
     "clean": "rimraf _site/",
     "lint": "eslint --config ../../config/eslint.cjs",
@@ -31,6 +31,7 @@
   "peerDependencies": {},
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1",
-    "@jackdbd/eleventy-telegram-plugin": "*"
+    "@jackdbd/eleventy-telegram-plugin": "*",
+    "@jackdbd/eleventy-plugin-text-to-speech": "*"
   }
 }

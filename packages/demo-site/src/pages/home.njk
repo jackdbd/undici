@@ -12,6 +12,17 @@ title: Hello world!
 <main class="wrapper">
   <h1>{{ title }}</h1>
   <p>This is a demo site</p>
+
+  <p>posts</p>
+  {% set posts = collections.post | reverse %}
+  {% include "components/post-list.njk" %}
+
+  <p>pages with audio</p>
+  <ul>
+  {%- for item in collections['pages-with-audio'] -%}
+    <li>{{ item.data.title }}</li>
+  {%- endfor -%}
+  </ul>
 </main>
 
 {% endblock content %}
