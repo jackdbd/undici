@@ -1,0 +1,57 @@
+name: 'release'
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - alpha
+      - beta
+
+jobs:
+  build-test-release:
+    name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ['16.15.1']
+    steps:
+      - name: 🛎️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: 👀 Check npm version
+        run: npm version
+
+      - name: ⬇️ Install dependencies
+        run: npm ci
+
+      - name: 🔧 Build all libraries
+        run: npm run build:libs
+
+      - name: 🛡️ Audit security
+        continue-on-error: true
+        if: ${{ matrix.os }} == 'ubuntu-latest'
+        run: npm audit --audit-level=moderate
+
+      - name: 🔍 Test all libraries
+        env:
+          TELEGRAM: ${{ secrets.TELEGRAM }}
+        run: npm run test:ci
+        
+      - name: 🚀 Release to npmjs
+        env:
+          # The github token must allow to push to this GitHub repository.
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
+        run: >
+          npx multi-semantic-release
+          --ignore-private
+          --ignore-packages=packages/demo-app
+
+

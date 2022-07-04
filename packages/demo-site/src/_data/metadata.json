@@ -1,0 +1,15 @@
+{
+  "author": {
+    "email": "giacomo@giacomodebidda.com",
+    "name": "Giacomo Debidda"
+  },
+  "description": "Giacomo Debidda's personal website and blog",
+  "lang": "en",
+  "ogp": {
+    "type": "website"
+  },
+  "profilePic": "https://res.cloudinary.com/jackdbd/image/upload/v1599389496/profile-pic_k8mn6r.jpg",
+  "short_name": "giacomodebidda",
+  "title": "Giacomo Debidda",
+  "url": "https://www.giacomodebidda.com"
+}
