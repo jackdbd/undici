@@ -1,0 +1,78 @@
+{
+  "name": "root",
+  "description": "Monorepo for my 11ty plugins",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "homepage": "https://github.com/jackdbd/undici",
+  "private": true,
+  "type": "module",
+  "keywords": [
+    "11ty",
+    "monorepo",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "bugs": {
+    "url": "https://github.com/jackdbd/undici/issues?q=is%3Aissue+label%3Abug"
+  },
+  "workspaces": [
+    "packages/*",
+    "scripts/*"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "scripts": {
+    "build": "run-s 'build:libs' 'build:site' --print-label",
+    "build:libs": "tsc --build --verbose",
+    "build:libs:watch": "tsc --build --watch",
+    "build:site": "npm run build -w packages/demo-site",
+    "build:site:watch": "npm run build:watch -w packages/demo-site",
+    "clean": "npm run clean --workspaces --if-present",
+    "dev": "run-p 'build:libs:watch' 'build:site:watch' --print-label",
+    "format": "npm run format --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "ncu:dev": "ncu --doctor --dep 'dev' --upgrade",
+    "nuke": "npm run clean && rm -rf node_modules package-lock.json",
+    "prepare": "husky install",
+    "release:dry": "multi-semantic-release --no-ci --dry-run --debug --ignore-private --ignore-packages=packages/demo-site",
+    "size": "npm run size --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:ci": "npm run test:ci --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1",
+    "@11ty/eleventy-fetch": "3.0.0",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "@panoply/11ty": "0.1.0",
+    "@qiwi/multi-semantic-release": "^6.4.0",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@types/debug": "^4.1.7",
+    "@typescript-eslint/eslint-plugin": "^5.27.1",
+    "debug": "^4.3.4",
+    "eslint": "^8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^8.0.1",
+    "jest": "^28.1.1",
+    "joi": "^17.6.0",
+    "lint-staged": "^13.0.1",
+    "npm-check-updates": "^13.1.3",
+    "npm-run-all": "^4.1.5",
+    "pkg-size": "^2.4.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^19.0.3",
+    "typescript": "^4.7.3",
+    "zx": "^6.2.4"
+  }
+}

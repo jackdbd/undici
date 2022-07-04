@@ -1,0 +1,36 @@
+{
+  "name": "@jackdbd/demo-site",
+  "version": "0.0.1",
+  "description": "11ty site test and showcase the usage of several 11ty plugins",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "private": true,
+  "keywords": [
+    "11ty"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "build": "ELEVENTY_ENV=production TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
+    "build:watch": "ELEVENTY_ENV=production TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs --watch",
+    "clean": "rimraf _site/",
+    "lint": "eslint --config ../../config/eslint.cjs",
+    "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
+  },
+  "dependencies": {},
+  "peerDependencies": {},
+  "devDependencies": {
+    "@11ty/eleventy": "^1.0.1",
+    "@jackdbd/eleventy-telegram-plugin": "*"
+  }
+}
