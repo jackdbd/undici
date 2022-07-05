@@ -17,6 +17,8 @@ title: Hello world!
   {% set posts = collections.post | reverse %}
   {% include "components/post-list.njk" %}
 
+  <a href="http://localhost:8090/packages/demo-site/_site/posts/">posts</a>
+
   <p>pages with audio</p>
   <ul>
   {%- for item in collections['pages-with-audio'] -%}

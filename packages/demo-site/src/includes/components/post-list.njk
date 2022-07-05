@@ -1,6 +1,8 @@
 <ul class="post-list">
   {% for post in posts | reverse %}
 
+  {# {{ post.url | log }} #}
+
   <li>
     <h2>
       <a href="{{ post.url | url }}">
