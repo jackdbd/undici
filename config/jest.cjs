@@ -60,8 +60,8 @@ const project = (package_name) => {
 
 // https://jestjs.io/docs/configuration#projects-arraystring--projectconfig
 const projects = [
-  project('eleventy-plugin-text-to-speech'),
-  project('eleventy-telegram-plugin')
+  project('eleventy-plugin-telegram'),
+  project('eleventy-plugin-text-to-speech')
 ]
 
 const config = {

@@ -3,7 +3,7 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/eleventy-telegram-plugin/tsconfig.json"
+      "path": "./packages/eleventy-plugin-telegram/tsconfig.json"
     },
     {
       "path": "./packages/eleventy-plugin-text-to-speech/tsconfig.json"

@@ -5,7 +5,7 @@ const base_config = require('../../config/semantic-release.cjs')
 // The rest of the semantic-release configuration should stay the same.
 // https://github.com/semantic-release/git#message
 const message =
-  'chore(eleventy-telegram-plugin): release v.${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
+  'chore(eleventy-plugin-telegram): release v.${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
 ////////////////////////////////////////////////////////////////////////////////
 
 const git = [

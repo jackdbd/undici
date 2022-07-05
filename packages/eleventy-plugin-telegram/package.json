@@ -1,6 +1,6 @@
 {
-  "name": "@jackdbd/eleventy-telegram-plugin",
-  "version": "1.0.0-alpha.1",
+  "name": "@jackdbd/eleventy-plugin-telegram",
+  "version": "0.0.1",
   "description": "Eleventy plugin for Telegram",
   "author": {
     "name": "Giacomo Debidda",
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/jackdbd/undici"
   },
-  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-telegram-plugin#readme",
+  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-telegram#readme",
   "engines": {
     "node": ">=16.0.0"
   },
@@ -53,8 +53,8 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-telegram-plugin",
-    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-telegram-plugin"
+    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-telegram",
+    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-telegram"
   },
   "dependencies": {
     "joi": "^17.6.0",
