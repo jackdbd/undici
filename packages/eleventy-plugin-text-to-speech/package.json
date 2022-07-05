@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-text-to-speech",
-  "version": "0.0.1",
+  "version": "1.0.0-alpha.1",
   "description": "Eleventy plugin for the Google Cloud Text-to-Speech API",
   "author": {
     "name": "Giacomo Debidda",
