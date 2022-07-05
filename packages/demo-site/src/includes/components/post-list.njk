@@ -1,0 +1,17 @@
+<ul class="post-list">
+  {% for post in posts | reverse %}
+
+  <li>
+    <h2>
+      <a href="{{ post.url | url }}">
+        {% if post.data.title %}
+        {{ post.data.title }}
+        {% else %}
+        Untitled post
+        {% endif %}
+      </a>
+    </h2>
+  </li>
+
+  {% endfor %}
+</ul>

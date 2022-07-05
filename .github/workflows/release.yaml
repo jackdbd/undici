@@ -41,6 +41,7 @@ jobs:
 
       - name: 🔍 Test all libraries
         env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           TELEGRAM: ${{ secrets.TELEGRAM }}
         run: npm run test:ci
         

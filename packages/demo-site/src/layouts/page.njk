@@ -1,0 +1,15 @@
+---
+layout: bare-minimum.njk
+---
+{% block content %}
+
+<main class="wrapper">
+  <div>
+    <h1>{{ title }}</h1>
+    {% block pagecontent %}
+    {{ content | safe }}
+    {% endblock pagecontent %}
+  </div>
+</main>
+
+{% endblock content %}

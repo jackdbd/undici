@@ -1,0 +1,14 @@
+---
+layout: bare-minimum.njk
+section: post
+---
+{% block content %}
+
+<main>
+  <article>
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </article>
+</main>
+
+{% endblock content %}
