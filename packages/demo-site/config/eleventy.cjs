@@ -1,6 +1,6 @@
 const path = require('node:path')
 const slugify = require('slugify')
-const { telegramPlugin } = require('@jackdbd/eleventy-telegram-plugin')
+const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
 const {
   textToSpeechPlugin
 } = require('@jackdbd/eleventy-plugin-text-to-speech')
@@ -36,7 +36,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(telegramPlugin, {
     chatId,
     token,
-    textBeforeBuild: `<i>demo-site</i> build <b>START</b>`
+    textBeforeBuild: `<i>demo-site</i> build <b>START</b>`,
+    textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
   })
 
   eleventyConfig.addPlugin(textToSpeechPlugin, {

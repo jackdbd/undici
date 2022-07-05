@@ -10,7 +10,7 @@ import type {
   TelegramAPISendMessageError
 } from './types.js'
 
-const debug = makeDebug('eleventy-telegram-plugin/send-message')
+const debug = makeDebug('eleventy-plugin-telegram/send-message')
 
 export interface SendMessageConfig {
   chatId: ChatId

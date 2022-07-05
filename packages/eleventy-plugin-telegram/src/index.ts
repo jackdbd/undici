@@ -7,7 +7,7 @@ import { sendMessage } from './send-message.js'
 import type { SendMessageConfig } from './send-message.js'
 import type { ChatId } from './types.js'
 
-const debug = makeDebug('eleventy-telegram-plugin/index')
+const debug = makeDebug('eleventy-plugin-telegram/index')
 
 const makeEleventyEventHandler = (
   _eleventyConfig: EleventyConfig,
