@@ -1,190 +1,197 @@
-import fs from 'node:fs'
-import stream from 'node:stream'
-import util from 'node:util'
 import makeDebug from 'debug'
-import path from 'node:path'
-import type { Storage } from '@google-cloud/storage'
 import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { JSDOM } from 'jsdom'
-import { htmlToText } from 'html-to-text'
-import { PREFIX } from './constants.js'
-import { textToSpeech } from './text-to-speech.js'
-import { audioBaseFilename, audioExtension, mediaType } from './utils.js'
-import type { AudioEncoding } from './types.js'
+import { DEBUG_PREFIX } from './constants.js'
+import {
+  cssSelectorMatchesToTexts,
+  xPathExpressionMatchesToTexts,
+  insertAudioPlayersMatchingCssSelector,
+  insertAudioPlayersMatchingXPathExpression
+} from './dom.js'
+import type { AudioEncoding, AudioInnerHTML, Rule } from './types.js'
+import type { Writer } from './writers.js'
+import { audioAssetsFromText } from './audio-assets-from-text.js'
 
-const writeFile = util.promisify(fs.writeFile)
+const debug = makeDebug(`${DEBUG_PREFIX}/transforms`)
 
-const debug = makeDebug('eleventy-plugin-text-to-speech/transforms')
+interface InjectIntoDomConfig {
+  audioEncodings: AudioEncoding[]
+  audioInnerHTML: AudioInnerHTML
+  cacheExpiration: string
+  dom: JSDOM
+  outputPath: string
+  textToSpeechClient: TextToSpeechClient
+  rule: Rule
+  voice: string
+  writer: Writer
+}
+
+const injectIntoDom = async ({
+  audioEncodings,
+  audioInnerHTML,
+  cacheExpiration,
+  dom,
+  outputPath,
+  rule,
+  textToSpeechClient,
+  voice,
+  writer
+}: InjectIntoDomConfig) => {
+  const doc = dom.window.document
+
+  const { regex, cssSelectors, xPathExpressions } = rule
+  debug(
+    `${outputPath} matches regex pattern "${regex.toString()}", so it will be transformed`
+  )
+
+  const cssMatches = cssSelectors.map((selector) => {
+    return {
+      selector,
+      texts: cssSelectorMatchesToTexts({ dom, selector })
+    }
+  })
+  debug(
+    `found ${cssMatches.length} CSS selector match/es on ${outputPath} (document title: ${doc.title})`
+  )
+
+  const cssPromises = cssMatches.map(async (cssMatch) => {
+    const assetsPromises = cssMatch.texts.map((text) =>
+      audioAssetsFromText({
+        audioEncodings,
+        cacheExpiration,
+        outputPath,
+        text,
+        textToSpeechClient,
+        voice,
+        writer
+      })
+    )
+    const results = await Promise.all(assetsPromises)
+    return { selector: cssMatch.selector, results }
+  })
+
+  const cssResults = await Promise.all(cssPromises)
+
+  cssResults.forEach((cssResult) => {
+    const hrefs = cssResult.results.map((res) => res.hrefs)
+    insertAudioPlayersMatchingCssSelector({
+      audioInnerHTML,
+      cssSelector: cssResult.selector,
+      dom,
+      hrefs
+    })
+  })
+  debug(
+    `${cssResults.length} audio tags injected because of CSS selector matches`
+  )
+
+  const xPathMatches = xPathExpressions.map((expression) => {
+    return {
+      expression,
+      texts: xPathExpressionMatchesToTexts({ dom, expression })
+    }
+  })
+  debug(
+    `found ${xPathMatches.length} XPath expression match/es on ${outputPath} (document title: ${doc.title})`
+  )
+
+  const xPathPromises = xPathMatches.map(async (xPathMatch) => {
+    const assetsPromises = xPathMatch.texts.map((text) =>
+      audioAssetsFromText({
+        audioEncodings,
+        cacheExpiration,
+        outputPath,
+        text,
+        textToSpeechClient,
+        voice,
+        writer
+      })
+    )
+    const results = await Promise.all(assetsPromises)
+    return { expression: xPathMatch.expression, results }
+  })
+
+  const xPathResults = await Promise.all(xPathPromises)
+
+  xPathResults.forEach((xPathResult) => {
+    const hrefs = xPathResult.results.map((res) => res.hrefs)
+    insertAudioPlayersMatchingXPathExpression({
+      audioInnerHTML,
+      dom,
+      expression: xPathResult.expression,
+      hrefs
+    })
+  })
+  debug(
+    `${xPathResults.length} audio tags injected because of XPath expression matches`
+  )
+}
 
 interface Config {
-  audioAssetsDir: string
-  audioEncoding: AudioEncoding
-  audioHost: string
-  bucketName: string
-  client: TextToSpeechClient
-  cssSelector: string
-  output: string
-  regexPattern: string
-  storage: Storage
-  voice: {
-    languageCode: string
-    name: string
-  }
+  audioEncodings: AudioEncoding[]
+  audioInnerHTML: AudioInnerHTML
+  cacheExpiration: string
+  rules: Rule[]
+  textToSpeechClient: TextToSpeechClient
+  transformName: string
+  voice: string
+  writer: Writer
 }
 
-/**
- * Creates an <audio> element to inject in the HTML page.
- *
- * Browser support for the <audio> element
- * https://caniuse.com/?search=audio
- *
- * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio
- *
- * Supported media types in various browsers
- * https://en.wikipedia.org/wiki/HTML5_audio
- */
-const audioTag = (href: string) => {
-  const { error, value } = mediaType(path.extname(href))
-
-  if (error) {
-    return `<p>${error.message}. Here is a <a href="${href}">link to the audio</a> instead.</p>`
-  }
-
-  if (value) {
-    return `
-  <audio controls>
-    <source src=${href} type="${value}">
-    <p>Your browser doesn't support HTML5 <code>audio</code>. Here is a <a href="${href}">link to the audio</a> instead.</p>
-  </audio>`
-  }
-
-  throw new Error('unreachable code')
-}
-
-export const makeHtmlToAudio = (config: Config) => {
+export const makeInjectAudioTagsIntoHtml = (config: Config) => {
   const {
-    audioAssetsDir,
-    audioEncoding,
-    audioHost,
-    bucketName,
-    client,
-    cssSelector,
-    output,
-    regexPattern,
-    storage,
-    voice
+    audioEncodings,
+    audioInnerHTML,
+    cacheExpiration,
+    rules,
+    textToSpeechClient,
+    transformName,
+    voice,
+    writer
   } = config
 
-  const extension = audioExtension(audioEncoding)
-  debug(`configured to generate ${extension} audio files`)
+  return async function injectAudioTagsIntoHtml(
+    content: string,
+    outputPath: string
+  ) {
+    debug(`transform ${transformName} invoked on ${outputPath}`)
 
-  const regex = new RegExp(regexPattern)
-
-  return async function makeHtmlToAudio(content: string, outputPath: string) {
-    const match = regex.test(outputPath)
-    if (!match) {
-      debug(
-        `${outputPath} does not match regex pattern "${regexPattern}", so it will not be altered`
-      )
-      return content
-    }
-
-    const baseFileNameWithExtension = audioBaseFilename({
-      extension,
-      output,
-      outputPath
-    })
-
-    const outputBaseDir = path.basename(output)
-
-    const parentPath = path.join(output, audioAssetsDir)
-    if (!fs.existsSync(parentPath)) {
-      fs.mkdirSync(parentPath, { recursive: true })
-    }
-
-    // https://github.com/html-to-text/node-html-to-text#options
-    // TODO: maybe allow the user to specify options for html-to-text? Maybe a
-    // subset of the available options?
-    const text = htmlToText(content, {
-      selectors: [
-        { selector: 'a', options: { ignoreHref: true } },
-        { selector: 'ul', options: { itemPrefix: ' * ' } }
-      ],
-      wordwrap: false
-    })
-
-    const { error, value: buffer } = await textToSpeech({
-      audioEncoding,
-      client,
-      text,
-      voice: { languageCode: voice.languageCode, name: voice.name }
-    })
-
-    if (error) {
-      console.error(
-        `${PREFIX} could not convert text into speech: ${error.message}`
-      )
-      return content
-    }
-
-    if (buffer) {
-      const audioUrl = new URL(
-        `${audioHost}/${audioAssetsDir}/${baseFileNameWithExtension}`
-      )
-
-      const outputFile = path.join(
-        outputBaseDir,
-        audioAssetsDir,
-        baseFileNameWithExtension
-      )
-
-      await writeFile(outputFile, buffer, { encoding: 'utf8' })
-      debug(`audio content written to file: ${outputFile}`)
-
-      const bkt = storage.bucket(bucketName)
-      const file = bkt.file(baseFileNameWithExtension)
-
-      // a PassThrough stream is a Duplex stream
-      const d = new stream.PassThrough()
-      d.write(buffer)
-      d.end()
-
-      d.pipe(file.createWriteStream()).on('finish', () => {
-        debug(`finished writing`)
+    const indexes = rules
+      .map((m, i) => {
+        return m.regex.test(outputPath)
+          ? { i, matched: true }
+          : { i, matched: false }
       })
+      .filter((d) => d.matched)
+      .map((d) => d.i)
 
-      const dom = new JSDOM(content)
-
-      // TODO: think about a way to decide where to append the <audio> element
-      // in the HTML page. Maybe allow to specify a CSS selector?
-      // const body = dom.window.document.querySelector('body')
-      const el = dom.window.document.querySelector(cssSelector)
-      if (!el) {
-        throw new Error(
-          `Found no matches for the CSS selector "${cssSelector}" on the page ${outputPath}`
-        )
-      }
-
-      el.innerHTML = [
-        `<p>audio hosted on ${audioHost}</p>`,
-        audioTag(audioUrl.href),
-        `<p>audio hosted on Cloud Storage</p>`,
-        audioTag(file.publicUrl())
-      ].join('')
-
-      // el.insertAdjacentHTML(
-      //   'afterbegin',
-      //   `<p>audio hosted on ${audioHost}</p>${audioTag(audioUrl.href)}`
-      // )
-
-      // el.insertAdjacentHTML(
-      //   'beforeend',
-      //   `<p>audio hosted on Cloud Storage</p>${audioTag(file.publicUrl())}`
-      // )
-
-      return dom.serialize()
+    if (indexes.length === 0) {
+      debug(
+        `${outputPath} does NOT match any regex pattern, so the transform ${transformName} will NOT transform it`
+      )
+      return content
+    } else {
+      debug(`${outputPath} matches ${indexes.length} regex pattern/s`)
     }
 
-    throw new Error('unreachable code')
+    const dom = new JSDOM(content)
+
+    const promises = indexes.map((i) => {
+      return injectIntoDom({
+        audioEncodings,
+        audioInnerHTML,
+        cacheExpiration,
+        dom,
+        outputPath,
+        rule: rules[i],
+        textToSpeechClient,
+        voice,
+        writer
+      })
+    })
+
+    await Promise.all(promises)
+
+    return dom.serialize()
   }
 }

@@ -2,12 +2,16 @@ const fs = require('node:fs')
 const path = require('node:path')
 const fsPromises = require('fs/promises')
 const Eleventy = require('@11ty/eleventy/src/Eleventy')
-const { textToSpeechPlugin } = require('../lib/index.js')
+const { plugin } = require('../lib/index.js')
+
+const configFunction = plugin.configFunction
 
 const PACKAGE_ROOT = path.join(__filename, '..', '..')
 const OUTPUT_DIR = path.join(PACKAGE_ROOT, '_site')
 
-describe('textToSpeechPlugin', () => {
+const audioHost = new URL('http://localhost:8090/assets/audio')
+
+describe('Eleventy Text-to-Speech plugin', () => {
   beforeAll(async () => {
     if (!fs.existsSync(OUTPUT_DIR)) {
       await fsPromises.mkdir(OUTPUT_DIR)
@@ -16,7 +20,7 @@ describe('textToSpeechPlugin', () => {
 
   afterAll(async () => {
     if (fs.existsSync(OUTPUT_DIR)) {
-      await fsPromises.rmdir(OUTPUT_DIR)
+      await fsPromises.rmdir(OUTPUT_DIR, { force: true, recursive: true })
     }
   })
 
@@ -26,19 +30,30 @@ describe('textToSpeechPlugin', () => {
     eleventyConfig = eleventy.eleventyConfig.userConfig
   })
 
-  it('throws when passed an `audioEncoding` unsupported by the Cloud Text-to-Speech API', () => {
+  it('throws when `audioHost` is `undefined`', () => {
     const userConfig = {
-      audioEncoding: 'foo'
+      audioHost: undefined
     }
 
     expect(() => {
-      textToSpeechPlugin(eleventyConfig, userConfig)
-    }).toThrowError('"audioEncoding" must be one of')
+      configFunction(eleventyConfig, userConfig)
+    }).toThrowError('"audioHost" is required')
   })
 
-  it('allows `audioEncoding` to be `MP3`', () => {
+  it('throws when passed an audio encoding unsupported by the Cloud Text-to-Speech API', () => {
     const userConfig = {
-      audioEncoding: 'MP3'
+      audioEncodings: ['foo']
+    }
+
+    expect(() => {
+      configFunction(eleventyConfig, userConfig)
+    }).toThrowError('must be one of')
+  })
+
+  it('allows `MP3` in `audioEncodings`', () => {
+    const userConfig = {
+      audioEncodings: ['MP3'],
+      audioHost
     }
 
     eleventyConfig.dir = {
@@ -46,13 +61,14 @@ describe('textToSpeechPlugin', () => {
     }
 
     expect(() => {
-      textToSpeechPlugin(eleventyConfig, userConfig)
+      configFunction(eleventyConfig, userConfig)
     }).not.toThrow()
   })
 
-  it('allows `audioEncoding` to be `OGG_OPUS`', () => {
+  it('allows `OGG_OPUS` in `audioEncodings`', () => {
     const userConfig = {
-      audioEncoding: 'OGG_OPUS'
+      audioEncodings: ['OGG_OPUS'],
+      audioHost
     }
 
     eleventyConfig.dir = {
@@ -60,7 +76,7 @@ describe('textToSpeechPlugin', () => {
     }
 
     expect(() => {
-      textToSpeechPlugin(eleventyConfig, userConfig)
+      configFunction(eleventyConfig, userConfig)
     }).not.toThrow()
   })
 })

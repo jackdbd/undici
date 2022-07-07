@@ -1,5 +1,8 @@
-import path from 'node:path'
+import makeDebug from 'debug'
+import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
 import type { AudioEncoding } from './types.js'
+
+const debug = makeDebug(`${DEBUG_PREFIX}/utils`)
 
 export const audioExtension = (audioEncoding: AudioEncoding) => {
   switch (audioEncoding) {
@@ -25,9 +28,11 @@ export const audioExtension = (audioEncoding: AudioEncoding) => {
 }
 
 /**
- * the <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).
- *
+ * The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).
  * https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm
+ *
+ * Supported media types in various browsers:
+ * https://en.wikipedia.org/wiki/HTML5_audio
  */
 export const mediaType = (ext: string) => {
   switch (ext) {
@@ -50,26 +55,31 @@ export const mediaType = (ext: string) => {
   }
 }
 
-interface Config {
-  extension: string
-  output: string
-  outputPath: string
+interface CredentialsConfig {
+  keyFilename?: string
+  what: string
 }
 
-export const audioBaseFilename = ({
-  extension,
-  output,
-  outputPath
-}: Config) => {
-  const splits = outputPath.split(path.sep)
+export const clientLibraryCredentials = ({
+  keyFilename,
+  what
+}: CredentialsConfig) => {
+  let credentials: string | undefined = undefined
 
-  const outputBaseDir = path.basename(output)
-
-  const [parent, child] = splits.splice(splits.length - 2)
-
-  if (parent === outputBaseDir) {
-    return `${path.parse(child).name}.${extension}`
+  if (keyFilename) {
+    debug(`initialize ${what} using keyFilename`)
+    credentials = keyFilename
   } else {
-    return `${path.parse(parent).name}.${extension}`
+    debug(
+      `initialize ${what} using environment variable GOOGLE_APPLICATION_CREDENTIALS`
+    )
+    credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
   }
+
+  if (!credentials) {
+    const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: neither keyFilename nor GOOGLE_APPLICATION_CREDENTIALS are set. Cannot initialize ${what}.`
+    throw new Error(message)
+  }
+
+  return credentials
 }
