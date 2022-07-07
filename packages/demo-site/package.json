@@ -31,8 +31,8 @@
   "dependencies": {
     "@11ty/eleventy": "^1.0.1",
     "@11ty/eleventy-navigation": "^0.3.3",
-    "@jackdbd/eleventy-plugin-telegram": "*",
-    "@jackdbd/eleventy-plugin-text-to-speech": "*",
+    "@jackdbd/eleventy-plugin-telegram": "1.0.0-alpha.1",
+    "@jackdbd/eleventy-plugin-text-to-speech": "1.0.0-alpha.2",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "peerDependencies": {},

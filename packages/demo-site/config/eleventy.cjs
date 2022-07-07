@@ -1,4 +1,5 @@
-// const path = require('node:path')
+const fs = require('node:fs')
+const path = require('node:path')
 const slugify = require('slugify')
 const navigation = require('@11ty/eleventy-navigation')
 const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
@@ -7,8 +8,6 @@ const {
 } = require('@jackdbd/eleventy-plugin-text-to-speech')
 const helmet = require('eleventy-plugin-helmet')
 const shortcodes = require('../src/shortcodes')
-
-const isProduction = () => process.env.NODE_ENV === 'production'
 
 // add a dev server as soon as it is available in Eleventy 2.0
 // https://www.11ty.dev/docs/watch-serve/
@@ -54,21 +53,49 @@ module.exports = function (eleventyConfig) {
     textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
   })
 
-  // const ELEVENTY_ENV = process.env.ELEVENTY_ENV
+  // https://developers.cloudflare.com/pages/platform/build-configuration/#environment-variables
+  console.log('=== ENVIRONMENT ===', {
+    CF_PAGES: process.env.CF_PAGES,
+    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+    CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
+    CF_PAGES_URL: process.env.CF_PAGES_URL,
+    ELEVENTY_ENV: process.env.ELEVENTY_ENV,
+    NODE_ENV: process.env.NODE_ENV
+  })
 
-  const audioHost = isProduction()
-    ? 'https://undici.pages.dev'
+  let keyFilename
+  if (process.env.CF_PAGES) {
+    keyFilename = 'sa-storage-uploader.json'
+    // on Cloudflare Pages, GOOGLE_APPLICATION_CREDENTIALS is a JSON string, so
+    // we need to write it to a file. I think this works automatically on GitHub
+    // actions (using a GitHub secret), but I tried and it seems it is not
+    // working automatically on Cloudflare Pages.
+    fs.writeFile(
+      keyFilename,
+      process.env.GOOGLE_APPLICATION_CREDENTIALS,
+      (err) => {
+        if (err) {
+          console.log(`=== ERROR ===${err.message}`)
+        }
+      }
+    )
+  } else {
+    // on my laptop, GOOGLE_APPLICATION_CREDENTIALS is a filepath
+    keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS
+  }
+
+  const audioHost = process.env.CF_PAGES_URL
+    ? process.env.CF_PAGES_URL
     : 'http://localhost:8090'
 
   eleventyConfig.addPlugin(textToSpeechPlugin, {
     audioAssetsDir: 'assets/audio',
     audioEncoding: 'MP3',
-    // audioEncoding: 'LINEAR16',
     audioHost,
     cloudStorageBucket: 'bkt-eleventy-plugin-text-to-speech-audio-files',
     cssSelector: 'div.audio-demos',
     // regexPattern: '.*/posts/.*.html$',
-    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    keyFilename,
     voice: { languageCode: 'en-GB', name: 'en-GB-Wavenet-C' }
   })
 
