@@ -1,0 +1,21 @@
+:root {
+  /* Actual color names: use them only in THIS file. ------------------------ */
+  /* Check the colors here: */
+  /* https://www.colorhexa.com */
+  /* https://encycolorpedia.com */
+
+  --color-alabaster: #f2f0e6;
+  --color-baby-powder: #fefefa;
+  --color-bone: #e3dac9;
+  --color-gray20: #333333;
+  --color-red: #d7000c;
+  --color-slategray: #708090;
+  --color-snow: #fffafa;
+  --color-white: white;
+
+  /* Website color names: use these ones for styling and themes ------------- */
+  --color-accent: var(--color-red);
+  --color-background: var(--color-baby-powder);
+  --color-headings: var(--color-red);
+  --color-text: var(--color-gray20);
+}

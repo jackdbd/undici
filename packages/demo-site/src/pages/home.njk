@@ -1,30 +1,42 @@
 ---
-description: Demo site
-layout: bare-minimum.njk
-ogp:
-  title: home page of the demo site
+layout: page.njk
 permalink: /
 section: home
-title: Hello world!
+title: 11ty demo site
+description: 11ty site to test and showcase the usage of several 11ty plugins
+ogp:
+  title: home page of the demo site
 ---
-{% block content %}
+{% block pagecontent %}
 
-<main class="wrapper">
-  <h1>{{ title }}</h1>
-  <p>This is a demo site</p>
+<p>Posts</p>
+<ul>
+{%- for item in collections.post | reverse -%}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled post
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
 
-  <p>posts</p>
-  {% set posts = collections.post | reverse %}
-  {% include "components/post-list.njk" %}
+<p>Pages with audio</p>
+<ul>
+{%- for item in collections['pages-with-audio'] -%}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled page
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
 
-  <a href="http://localhost:8090/packages/demo-site/_site/posts/">posts</a>
-
-  <p>pages with audio</p>
-  <ul>
-  {%- for item in collections['pages-with-audio'] -%}
-    <li>{{ item.data.title }}</li>
-  {%- endfor -%}
-  </ul>
-</main>
-
-{% endblock content %}
+{% endblock pagecontent %}

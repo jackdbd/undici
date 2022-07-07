@@ -1,0 +1,19 @@
+<header>
+  <ul class="cluster wrapper region justify-content:space-between list-style:none">
+    <li>
+      <a href="{{ '/' | url }}">{{ metadata.title }}</a>
+    </li>
+    <li>
+      <ul class="cluster" data-align="start">
+        {% set navPages = collections.all | eleventyNavigation %}
+        {% for entry in navPages %}
+        <li>
+          <a href="{{ entry.url | url }}" {% if entry.url == page.url %} data-current="current item" {% endif %}>
+            {{ entry.title }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+    </ul>
+</header>

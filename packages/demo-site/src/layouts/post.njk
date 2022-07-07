@@ -1,15 +1,11 @@
 ---
-layout: bare-minimum.njk
+layout: page.njk
 section: post
 ---
-{% block content %}
+{% block pagecontent %}
 
-<main>
-  <article>
-    <h1>{{ title }}</h1>
-    {{ content | safe }}
-  </article>
-  <p>go back to the <a href="{{ 'http://localhost:8090/packages/demo-site/_site/' }}">home</a>.</p>
-</main>
+<article>
+  {{ content | safe }}
+</article>
 
-{% endblock content %}
+{% endblock pagecontent %}

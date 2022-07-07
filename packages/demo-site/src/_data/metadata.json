@@ -3,13 +3,12 @@
     "email": "giacomo@giacomodebidda.com",
     "name": "Giacomo Debidda"
   },
-  "description": "Giacomo Debidda's personal website and blog",
+  "description": "11ty site to test and showcase the usage of several 11ty plugins",
+  "domain": "undici.pages.dev",
   "lang": "en",
   "ogp": {
     "type": "website"
   },
-  "profilePic": "https://res.cloudinary.com/jackdbd/image/upload/v1599389496/profile-pic_k8mn6r.jpg",
-  "short_name": "giacomodebidda",
-  "title": "Giacomo Debidda",
-  "url": "https://www.giacomodebidda.com"
+  "title": "11ty demo site",
+  "url": "https://undici.pages.dev"
 }
