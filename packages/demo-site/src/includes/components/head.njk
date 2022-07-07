@@ -6,4 +6,49 @@
   {% set absolutePageUrl %}
     {{ page.url | url }}
   {% endset %}
+
+  {# Plausible analytics #}
+  <link rel="preconnect" href="https://plausible.io" crossorigin>
+  <link rel="dns-prefetch" href="https://plausible.io">
+
+  {# Cloudinary (CDN where I host all my images and media) #}
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="dns-prefetch" href="https://res.cloudinary.com">
+
+  {# OGP meta Tags for Facebook #}
+  {# https://ogp.me/ #}
+  <meta property="og:title" content="{{ title or metadata.title }}">
+  <meta property="og:type" content="{{ ogp.type or metadata.ogp.type }}">
+  {% if ogp.image %}
+    <meta property="og:image" content="{{ ogp.image }}">
+  {% endif %}
+  <meta property="og:image:alt" content="{{ ogp.imageAlt or metadata.description }}" />
+  <meta property="og:url" content="{{ absolutePageUrl }}">
+  <meta property="og:description" content="{{ description or metadata.description }}">
+  <meta property="og:locale" content="en_US">
+  {% if ogp.video %}
+    <meta property="og:video" content="{{ ogp.video }}">
+  {% endif %}
+
+  {# Twitter card #}
+  {# https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup #}
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@jackdbd">
+  <meta name="twitter:title" content="{{ title or metadata.title }}">
+  <meta name="twitter:description" content="{{ description or metadata.description }}">
+  {% if ogp.image %}
+    <meta name="twitter:image" content="{{ ogp.image }}">
+  {% endif %}
+  <meta name="twitter:image:alt" content="{{ ogp.imageAlt or metadata.description }}">
+
+  {# Preload fonts to improve performance
+  Note: crossorigin is required even for fonts hosted on this origin.
+  See here: https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/ #}
+  <link rel="preload" href="/assets/fonts/nunito-v16-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/merriweather-v22-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/merriweather-v22-latin-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/merriweather-v22-latin-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/merriweather-v22-latin-700italic.woff2" as="font" type="font/woff2" crossorigin>
+
+  <script defer data-domain="{{ metadata.domain }}" src="https://plausible.io/js/plausible.js"></script>
 </head>

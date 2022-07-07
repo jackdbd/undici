@@ -19,19 +19,22 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "ELEVENTY_ENV=production GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-wasm-news.json TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
-    "build:watch": "ELEVENTY_ENV=production TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs --watch",
+    "build": "ELEVENTY_ENV=production GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
+    "build:watch": "npm run build -- --watch",
     "clean": "rimraf _site/",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "serve": "http-server ./_site/ --port 8090",
     "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
   },
-  "dependencies": {},
-  "peerDependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "@11ty/eleventy": "^1.0.1",
+    "@11ty/eleventy-navigation": "^0.3.3",
     "@jackdbd/eleventy-plugin-telegram": "*",
-    "@jackdbd/eleventy-plugin-text-to-speech": "*"
-  }
+    "@jackdbd/eleventy-plugin-text-to-speech": "*",
+    "eleventy-plugin-helmet": "^0.2.2"
+  },
+  "peerDependencies": {},
+  "devDependencies": {}
 }

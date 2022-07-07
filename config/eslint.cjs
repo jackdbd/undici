@@ -10,6 +10,9 @@ const config = {
     // https://github.com/prettier/eslint-plugin-prettier#recommended-configuration
     'plugin:prettier/recommended'
   ],
+  env: {
+    node: true
+  },
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {

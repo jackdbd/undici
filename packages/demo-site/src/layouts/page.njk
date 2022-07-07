@@ -3,13 +3,32 @@ layout: bare-minimum.njk
 ---
 {% block content %}
 
-<main class="wrapper">
-  <div>
-    <h1>{{ title }}</h1>
-    {% block pagecontent %}
-    {{ content | safe }}
-    {% endblock pagecontent %}
-  </div>
-</main>
+<div id="wrapper-for-sticky-footer">
+
+  {% include "components/header.njk" %}
+
+  <main class="wrapper">
+    <div class="flow region">
+      <h1>{{ title }}</h1>
+      {% block pagecontent %}
+      {{ content | safe }}
+      {% endblock pagecontent %}
+      <div class="audio-demos"></div>
+    </div>
+  </main>
+
+  {% include "components/footer.njk" %}
+
+</div>
 
 {% endblock content %}
+
+{# external CSS assets #}
+<link data-helmet rel="stylesheet" href="/assets/css/remedy.css">
+<link data-helmet rel="stylesheet" href="/assets/css/colors.css">
+<link data-helmet rel="stylesheet" href="/assets/css/scale.css">
+<link data-helmet rel="stylesheet" href="/assets/css/fonts.css">
+<link data-helmet rel="stylesheet" href="/assets/css/styleguide.css">
+<link data-helmet rel="stylesheet" href="/assets/css/utils.css">
+<link data-helmet rel="stylesheet" href="/assets/css/layouts.css">
+<link data-helmet rel="stylesheet" href="/assets/css/components.css">

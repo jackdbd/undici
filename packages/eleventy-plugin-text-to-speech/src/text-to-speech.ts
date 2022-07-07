@@ -24,6 +24,8 @@ export const textToSpeech = async ({
     voice
   }
 
+  // the Cloud Text-to-Speech API has a limit of 5000 characters
+
   debug(`try converting text => ${audioEncoding} using this voice: %O`, voice)
   try {
     const [response] = await client.synthesizeSpeech(request)

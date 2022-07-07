@@ -1,5 +1,6 @@
 import makeDebug from 'debug'
 import type { EleventyConfig } from '@panoply/11ty'
+import { Storage } from '@google-cloud/storage'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { PREFIX, TRANSFORM_NAME } from './constants.js'
 import { plugin_options as options_schema } from './schemas.js'
@@ -10,6 +11,10 @@ const debug = makeDebug('eleventy-plugin-text-to-speech/index')
 
 export interface Options {
   audioEncoding?: AudioEncoding
+  audioAssetsDir?: string
+  audioHost?: string
+  cloudStorageBucket?: string
+  cssSelector?: string
   keyFilename?: string
   regexPattern?: string
   voice?: {
@@ -28,8 +33,15 @@ export const textToSpeechPlugin = (
     throw new Error(message)
   }
 
-  const { audioEncoding, regexPattern, voice } =
-    result.value as Required<Options>
+  const {
+    audioAssetsDir,
+    audioEncoding,
+    audioHost,
+    cloudStorageBucket,
+    cssSelector,
+    regexPattern,
+    voice
+  } = result.value as Required<Options>
 
   let keyFilename = result.value.keyFilename
   if (keyFilename) {
@@ -46,15 +58,43 @@ export const textToSpeechPlugin = (
     throw new Error(message)
   }
 
+  // TODO: add an 11ty collection with this plugin
+
+  // console.log('🚀 ~ this', this)
+  // console.log('🚀 ~ eleventyConfig', eleventyConfig)
+
+  // const collectionName = 'eleventy-plugin-text-to-speech-pages-with-audio'
+  // const globPatterns = ['**/pages/*.njk', '**/posts/*.md']
+
+  // const that = eleventyConfig as any
+  // // const addCollection = that.addCollection.bind(eleventyConfig)
+
+  // const cb = function templatesWithAudio(collectionApi: any) {
+  //   const templates = collectionApi.getFilteredByGlob(globPatterns)
+  //   return templates
+  // }
+
+  // // addCollection(collectionName, cb)
+  // that.collections[collectionName] = cb
+  // eleventyConfig = that
+
   const client = new TextToSpeechClient({ keyFilename })
+  const storage = new Storage({ keyFilename })
+
+  const output = (eleventyConfig as any).dir.output as string
 
   eleventyConfig.addTransform(
     TRANSFORM_NAME,
     makeHtmlToAudio({
+      audioAssetsDir,
       audioEncoding,
+      audioHost,
+      bucketName: cloudStorageBucket,
       client,
-      eleventyConfig,
+      cssSelector,
+      output,
       regexPattern,
+      storage,
       voice
     })
   )

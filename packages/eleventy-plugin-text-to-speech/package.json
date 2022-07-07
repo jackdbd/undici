@@ -54,10 +54,11 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-wasm-news.json TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-text-to-speech",
+    "test": "GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-text-to-speech",
     "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-text-to-speech"
   },
   "dependencies": {
+    "@google-cloud/storage": "^6.2.2",
     "@google-cloud/text-to-speech": "^4.0.0",
     "html-to-text": "^8.2.0",
     "joi": "^17.6.0",
