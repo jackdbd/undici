@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram)
 ![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-telegram)
 
-Eleventy plugin that send messages to a Telegram chat of your choice.
+Eleventy plugin that sends messages to a Telegram chat of your choice.
 
 ## Installation
 

@@ -58,6 +58,7 @@
     "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-text-to-speech"
   },
   "dependencies": {
+    "@11ty/eleventy-fetch": "3.0.0",
     "@google-cloud/storage": "^6.2.2",
     "@google-cloud/text-to-speech": "^4.0.0",
     "html-to-text": "^8.2.0",
