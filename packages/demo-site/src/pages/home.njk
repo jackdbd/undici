@@ -1,0 +1,42 @@
+---
+layout: page.njk
+permalink: /
+section: home
+title: 11ty demo site
+description: 11ty site to test and showcase the usage of several 11ty plugins
+ogp:
+  title: home page of the demo site
+---
+{% block pagecontent %}
+
+<p>Posts</p>
+<ul>
+{%- for item in collections.post | reverse -%}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled post
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+
+<p>Pages with audio</p>
+<ul>
+{%- for item in collections['pages-with-audio'] -%}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled page
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+
+{% endblock pagecontent %}

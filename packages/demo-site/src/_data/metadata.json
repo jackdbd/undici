@@ -1,0 +1,14 @@
+{
+  "author": {
+    "email": "giacomo@giacomodebidda.com",
+    "name": "Giacomo Debidda"
+  },
+  "description": "11ty site to test and showcase the usage of several 11ty plugins",
+  "domain": "undici.pages.dev",
+  "lang": "en",
+  "ogp": {
+    "type": "website"
+  },
+  "title": "11ty demo site",
+  "url": "https://undici.pages.dev"
+}

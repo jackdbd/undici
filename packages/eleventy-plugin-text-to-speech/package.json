@@ -1,0 +1,74 @@
+{
+  "name": "@jackdbd/eleventy-plugin-text-to-speech",
+  "version": "1.0.0-alpha.2",
+  "description": "Eleventy plugin for the Google Cloud Text-to-Speech API",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "11ty",
+    "gcp",
+    "plugin",
+    "text-to-speech"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-text-to-speech#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "module": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/*.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "scripts": {
+    "build": "run-s 'build:ts' --print-label",
+    "build:ts": "tsc -p tsconfig.json",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "format": "../../scripts/format.mjs",
+    "lint": "eslint --config ../../config/eslint.cjs",
+    "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
+    "test": "GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-text-to-speech",
+    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-text-to-speech"
+  },
+  "dependencies": {
+    "@google-cloud/storage": "^6.2.2",
+    "@google-cloud/text-to-speech": "^4.0.0",
+    "html-to-text": "^8.2.0",
+    "joi": "^17.6.0",
+    "jsdom": "^20.0.0"
+  },
+  "peerDependencies": {
+    "@11ty/eleventy": ">=1.0.0",
+    "debug": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@panoply/11ty": "^0.1.0"
+  }
+}

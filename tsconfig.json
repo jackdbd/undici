@@ -1,0 +1,12 @@
+{
+  "extends": "./config/tsconfig.base.json",
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/eleventy-plugin-telegram/tsconfig.json"
+    },
+    {
+      "path": "./packages/eleventy-plugin-text-to-speech/tsconfig.json"
+    }
+  ]
+}
