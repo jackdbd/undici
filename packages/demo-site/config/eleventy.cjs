@@ -41,36 +41,34 @@ module.exports = function (eleventyConfig) {
     textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
   })
 
-  // https://developers.cloudflare.com/pages/platform/build-configuration/#environment-variables
-  // console.log('=== ENVIRONMENT ===', {
-  //   CF_PAGES: process.env.CF_PAGES,
-  //   CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
-  //   CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
-  //   CF_PAGES_URL: process.env.CF_PAGES_URL,
-  //   ELEVENTY_ENV: process.env.ELEVENTY_ENV,
-  //   NODE_ENV: process.env.NODE_ENV
-  // })
-
   let keyFilename
   if (process.env.CF_PAGES) {
-    keyFilename = 'sa-storage-uploader.json'
-    // on Cloudflare Pages, GOOGLE_APPLICATION_CREDENTIALS is a JSON string, so
-    // we need to write it to a file. I think this works automatically on GitHub
-    // actions (using a GitHub secret), but I tried and it seems it is not
-    // working automatically on Cloudflare Pages.
-    fs.writeFile(
-      keyFilename,
-      process.env.GOOGLE_APPLICATION_CREDENTIALS,
-      (err) => {
-        if (err) {
-          console.log(`=== ERROR ===${err.message}`)
-        }
-      }
-    )
+    keyFilename = 'credentials.json'
+    // on Cloudflare Pages, I set GCP_CREDENTIALS_JSON as a JSON string.
+    fs.writeFileSync(keyFilename, process.env.GCP_CREDENTIALS_JSON)
+
+    // I also have to set GOOGLE_APPLICATION_CREDENTIALS as a filepath because
+    // when the eleventy-text-to-speech-plugin is registered without passing
+    // `keyFilename`, it uses the environment variable
+    // GOOGLE_APPLICATION_CREDENTIALS. That plugin expects
+    // GOOGLE_APPLICATION_CREDENTIALS to be a filepath (as it should always be).
+    process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename
   } else {
     // on my laptop, GOOGLE_APPLICATION_CREDENTIALS is a filepath
     keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS
   }
+
+  // https://developers.cloudflare.com/pages/platform/build-configuration/#environment-variables
+  console.log('=== ENVIRONMENT ===', {
+    CF_PAGES: process.env.CF_PAGES,
+    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+    CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
+    CF_PAGES_URL: process.env.CF_PAGES_URL,
+    ELEVENTY_ENV: process.env.ELEVENTY_ENV,
+    // GCP_CREDENTIALS_JSON: process.env.GCP_CREDENTIALS_JSON,
+    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    NODE_ENV: process.env.NODE_ENV
+  })
 
   // default configuration
   eleventyConfig.addPlugin(tts, {
