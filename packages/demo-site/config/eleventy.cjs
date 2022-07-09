@@ -1,11 +1,9 @@
 const fs = require('node:fs')
-const path = require('node:path')
 const slugify = require('slugify')
 const navigation = require('@11ty/eleventy-navigation')
 const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
-const {
-  textToSpeechPlugin
-} = require('@jackdbd/eleventy-plugin-text-to-speech')
+const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
+
 const helmet = require('eleventy-plugin-helmet')
 const shortcodes = require('../src/shortcodes')
 
@@ -33,16 +31,6 @@ module.exports = function (eleventyConfig) {
     console.log('=== LOG ===', value)
   })
 
-  // https://www.11ty.dev/docs/collections/
-  eleventyConfig.addCollection('pages-with-audio', (collectionApi) => {
-    // const all_items = collectionApi.getAll()
-    const items = collectionApi.getFilteredByGlob([
-      '**/pages/*.njk',
-      '**/posts/*.md'
-    ])
-    return items
-  })
-
   eleventyConfig.addPlugin(helmet)
   eleventyConfig.addPlugin(navigation)
 
@@ -54,14 +42,14 @@ module.exports = function (eleventyConfig) {
   })
 
   // https://developers.cloudflare.com/pages/platform/build-configuration/#environment-variables
-  console.log('=== ENVIRONMENT ===', {
-    CF_PAGES: process.env.CF_PAGES,
-    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
-    CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
-    CF_PAGES_URL: process.env.CF_PAGES_URL,
-    ELEVENTY_ENV: process.env.ELEVENTY_ENV,
-    NODE_ENV: process.env.NODE_ENV
-  })
+  // console.log('=== ENVIRONMENT ===', {
+  //   CF_PAGES: process.env.CF_PAGES,
+  //   CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+  //   CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
+  //   CF_PAGES_URL: process.env.CF_PAGES_URL,
+  //   ELEVENTY_ENV: process.env.ELEVENTY_ENV,
+  //   NODE_ENV: process.env.NODE_ENV
+  // })
 
   let keyFilename
   if (process.env.CF_PAGES) {
@@ -84,19 +72,44 @@ module.exports = function (eleventyConfig) {
     keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS
   }
 
-  const audioHost = process.env.CF_PAGES_URL
-    ? process.env.CF_PAGES_URL
-    : 'http://localhost:8090'
+  // default configuration
+  eleventyConfig.addPlugin(tts, {
+    audioHost: process.env.CF_PAGES_URL
+      ? new URL(`${process.env.CF_PAGES_URL}/assets/audio`)
+      : new URL('http://localhost:8090/assets/audio')
+  })
 
-  eleventyConfig.addPlugin(textToSpeechPlugin, {
-    audioAssetsDir: 'assets/audio',
-    audioEncoding: 'MP3',
-    audioHost,
-    cloudStorageBucket: 'bkt-eleventy-plugin-text-to-speech-audio-files',
-    cssSelector: 'div.audio-demos',
-    // regexPattern: '.*/posts/.*.html$',
+  // host these audio files on Cloud Storage, and use a non-default voice
+  eleventyConfig.addPlugin(tts, {
+    audioHost: {
+      bucketName: 'bkt-eleventy-plugin-text-to-speech-audio-files',
+      keyFilename
+    },
+    // we are registering the plugin a second time, so we can't use the default
+    // name for the 11ty collection created by this plugin (11ty would throw an
+    // Error)
+    collectionName: 'audio-items-cloud-storage',
     keyFilename,
-    voice: { languageCode: 'en-GB', name: 'en-GB-Wavenet-C' }
+    rules: [
+      {
+        xPathExpressions: ['//p[starts-with(., "If you prefer not to litter")]']
+      },
+      {
+        cssSelectors: ['div.custom-tts > p:nth-child(2)']
+      },
+      {
+        regex: new RegExp('posts\\/.*\\.html$'),
+        xPathExpressions: [
+          '//p[contains(., "savannas")]',
+          '//p[starts-with(., "One of the most")]'
+        ]
+      }
+    ],
+    // we are registering the plugin a second time, so we can't use the default
+    // name for the 11ty transform created by this plugin (11ty would NOT throw
+    // an Error, but the plugin would not work as expected)
+    transformName: 'inject-audio-tags-into-html-cloud-storage',
+    voice: 'en-GB-Wavenet-C'
   })
 
   // Static assets
@@ -106,11 +119,6 @@ module.exports = function (eleventyConfig) {
     'src/includes/assets/img': 'assets/img',
     'src/includes/assets/js': 'assets/js'
   })
-
-  console.log(
-    '=== available 11ty collections for demo-site ===',
-    Object.keys(eleventyConfig.collections)
-  )
 
   // https://www.11ty.dev/docs/config/#configuration-options
   return {

@@ -21,7 +21,7 @@
   "scripts": {
     "build": "ELEVENTY_ENV=production GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
     "build:watch": "npm run build -- --watch",
-    "clean": "rimraf _site/",
+    "clean": "rimraf _site/ .cache/",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
@@ -31,8 +31,8 @@
   "dependencies": {
     "@11ty/eleventy": "^1.0.1",
     "@11ty/eleventy-navigation": "^0.3.3",
-    "@jackdbd/eleventy-plugin-telegram": "1.0.0-alpha.1",
-    "@jackdbd/eleventy-plugin-text-to-speech": "1.0.0-alpha.2",
+    "@jackdbd/eleventy-plugin-telegram": "1.0.0",
+    "@jackdbd/eleventy-plugin-text-to-speech": "1.1.0-alpha.1",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "peerDependencies": {},
