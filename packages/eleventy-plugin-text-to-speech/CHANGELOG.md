@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech 1.1.0-alpha.1 (2022-07-09)
+
+* feat(eleventy-plugin-text-to-speech): new API that uses rules with regexes ([58b5181](https://github.com/jackdbd/undici/commit/58b5181))
+
 ## @jackdbd/eleventy-plugin-text-to-speech 1.0.0 (2022-07-07)
 
 * chore(eleventy-plugin-text-to-speech): release v.1.0.0-alpha.1 [skip ci] ([07126ca](https://github.com/jackdbd/undici/commit/07126ca))
