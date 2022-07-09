@@ -1,23 +1,24 @@
 import makeDebug from 'debug'
 import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import type { google } from '@google-cloud/text-to-speech/build/protos/protos'
+import { DEBUG_PREFIX } from './constants.js'
 import type { AudioEncoding } from './types.js'
 
-const debug = makeDebug('eleventy-plugin-text-to-speech/text-to-speech')
+const debug = makeDebug(`${DEBUG_PREFIX}/text-to-speech`)
 
-interface Config {
+interface SynthesizeSpeechConfig {
   audioEncoding: AudioEncoding
   client: TextToSpeechClient
   text: string
   voice: google.cloud.texttospeech.v1.IVoiceSelectionParams
 }
 
-export const textToSpeech = async ({
+export const synthesizeSpeech = async ({
   audioEncoding,
   client,
   text,
   voice
-}: Config) => {
+}: SynthesizeSpeechConfig) => {
   const request = {
     audioConfig: { audioEncoding },
     input: { text },

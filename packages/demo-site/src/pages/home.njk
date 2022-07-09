@@ -9,7 +9,22 @@ ogp:
 ---
 {% block pagecontent %}
 
-<p>Posts</p>
+<p>Items from the <code>all</code> collection. The items that have <code>eleventyExcludeFromCollections: true</code> in the frontmatter do <strong>not</strong> show up.</p>
+<ul>
+{%- for item in collections.all -%}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled post
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+
+<p>Items from the <code>post</code> collection (reversed).</p>
 <ul>
 {%- for item in collections.post | reverse -%}
   <li>
@@ -24,9 +39,36 @@ ogp:
 {%- endfor -%}
 </ul>
 
-<p>Pages with audio</p>
+<p class="text-to-speech">This text is synthesized to speech because it has the default CSS selector used by the eleventy-plugin-text-to-speech.</p>
+
+<div class="custom-tts">
+  <p>This paragraph—first child of <code>div.custom-tts</code>—is <strong>not</strong> synthesized to speech.</p>
+  <p>This paragraph—second child of <code>div.custom-tts</code>—is synthesized to speech, since there is a rule in the eleventy-plugin-text-to-speech configuration that matches this custom CSS selector.</p>
+  <p>This paragraph—third child of <code>div.custom-tts</code>—is <strong>not</strong> synthesized to speech.</p>
+<div>
+
+<p>If you prefer not to litter your HTML with CSS classes, keep in mind that you can instead use XPath expressions.</p>
+
+<p>Items from the <code>audio-items</code> collection.</p>
 <ul>
-{%- for item in collections['pages-with-audio'] -%}
+{%- for item in collections['audio-items'] -%}
+  {# {{ item | log }} #}
+  <li>
+    <a href="{{ item.url | url }}">
+      {% if item.data.title %}
+        {{ item.data.title }}
+      {% else %}
+        Untitled page
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+
+<p>Items from the <code>audio-items-cloud-storage</code> collection.</p>
+<ul>
+{%- for item in collections['audio-items-cloud-storage'] -%}
+  {# {{ item | log }} #}
   <li>
     <a href="{{ item.url | url }}">
       {% if item.data.title %}

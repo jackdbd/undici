@@ -16,3 +16,6 @@ packages/**/lib/
 packages/**/dist/
 packages/**/_site/
 packages/**/tsconfig.tsbuildinfo
+
+# default cache directory of @11ty/eleventy-fetch
+packages/**/.cache/
