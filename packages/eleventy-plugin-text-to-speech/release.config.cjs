@@ -18,8 +18,9 @@ const git = [
 
 const config = {
   ...base_config,
-  branches: [...base_config.branches],
   plugins: [...base_config.plugins, git]
 }
+
+// console.log('=== semantic-release (eleventy-plugin-text-to-speech) ===', config)
 
 module.exports = config
