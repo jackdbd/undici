@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [2.0.0-alpha.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@1.1.0...@jackdbd/eleventy-plugin-text-to-speech@2.0.0-alpha.1) (2022-07-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-text-to-speech:** this commit should trigger a new major release.
+
+### Features
+
+* **eleventy-plugin-text-to-speech:** test major version bump ([625a961](https://github.com/jackdbd/undici/commit/625a9614ea11784a2df150d210e063be78213049))
+
 ## @jackdbd/eleventy-plugin-text-to-speech 1.1.0 (2022-07-09)
 
 * chore(eleventy-plugin-text-to-speech): release v.1.1.0-alpha.1 [skip ci] ([28c1962](https://github.com/jackdbd/undici/commit/28c1962))
