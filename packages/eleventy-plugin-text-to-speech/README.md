@@ -157,6 +157,8 @@ Have a look at the Eleventy configuration of the [demo-site in this monorepo](..
 | `voice` | `en-US-Standard-J` | Voice to use when generating audio assets from text matches. The Speech-to-Text API supports [these voices](https://cloud.google.com/text-to-speech/docs/voices), and might have different [pricing](https://cloud.google.com/text-to-speech/pricing) for diffent voices. |
 
 > :warning: Don't forget to set either `keyFilename` or the `GOOGLE_APPLICATION_CREDENTIALS` environment variable on your build server.
+>
+> *Tip*: check what I did in the Eleventy configuration file for the [demo-site](../demo-site/README.md) of this monorepo.
 
 ## Debug
 

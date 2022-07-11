@@ -52,6 +52,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
         run: >
           npx multi-semantic-release
+          --debug
           --ignore-private
           --ignore-packages=packages/demo-app
 
