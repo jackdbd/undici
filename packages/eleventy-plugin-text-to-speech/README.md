@@ -55,7 +55,7 @@ gcloud services enable texttospeech.googleapis.com
 
 This plugin uses the [official Node.js client library for the Text-to-Speech API](https://github.com/googleapis/nodejs-text-to-speech). In order to authenticate to any Google Cloud API you will need some kind of credentials. At the moment this plugin supports only authentication via a service account JSON key.
 
-First, create a service account that can use the Text-to-Speech API. You can also reuse an existing service account if you want. You just need the service account, no need to configure any IAM permissions.
+First, create a service account that can use the Text-to-Speech API. You can also reuse an existing service account if you want. This service account should have the necessary IAM permissions to create/delete objects in a Cloud Storage bucket. You can grant the service account the [Storage Object Admin predefined IAM role](https://cloud.google.com/storage/docs/access-control/iam-roles).
 
 ```sh
 gcloud iam service-accounts create sa-text-to-speech-user \
