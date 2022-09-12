@@ -53,8 +53,9 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-telegram",
-    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-telegram"
+    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) ../../scripts/test.mjs",
+    "test:ci": "../../scripts/test.mjs --ci",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "joi": "^17.6.0",
