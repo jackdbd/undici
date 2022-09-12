@@ -56,6 +56,5 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: false
-          files: ./packages/eleventy-plugin-telegram/coverage/clover.xml,./packages/eleventy-plugin-text-to-speech/coverage/clover.xml
           # fail_ci_if_error: true
           verbose: true
