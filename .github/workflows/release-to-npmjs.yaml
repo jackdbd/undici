@@ -1,15 +1,14 @@
-name: 'release'
+name: 'release-to-npmjs'
 
 on:
   pull_request:
   push:
     branches:
+      - canary
       - main
-      - alpha
-      - beta
 
 jobs:
-  build-test-release:
+  build-audit-release:
     name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -20,31 +19,25 @@ jobs:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⚙️ Setup Node.js ${{ matrix.node }}
+      - name: ⚙️ Set up Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
-      - name: 👀 Check npm version
-        run: npm version
-
       - name: ⬇️ Install dependencies
         run: npm ci
 
-      - name: 🔧 Build all libraries
+      - name: 🛡️ Audit dependencies (audit-level high)
+        # https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level
+        run: npm audit --audit-level high
+
+      - name: 🛡️ Audit dependencies (audit-level moderate)
+        continue-on-error: true
+        run: npm audit --audit-level moderate
+
+      - name: 📦 Build all libraries
         run: npm run build:libs
 
-      - name: 🛡️ Audit security
-        continue-on-error: true
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: npm audit --audit-level=moderate
-
-      - name: 🔍 Test all libraries
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          TELEGRAM: ${{ secrets.TELEGRAM }}
-        run: npm run test:ci
-        
       - name: 🚀 Release to npmjs
         env:
           # The github token must allow to push to this GitHub repository.
@@ -53,6 +46,6 @@ jobs:
         run: >
           npx multi-semantic-release
           --ignore-private
-          --ignore-packages=packages/demo-app
+          --ignore-packages=packages/demo-site
 
 

@@ -1,7 +1,9 @@
-# undici
+# undici 🕚
 
 ![CI workflow](https://github.com/jackdbd/undici/actions/workflows/ci.yaml/badge.svg)
 ![release workflow](https://github.com/jackdbd/undici/actions/workflows/release.yaml/badge.svg)
+[![codecov](https://codecov.io/gh/jackdbd/undici/branch/main/graph/badge.svg?token=P5uJ3doRer)](https://codecov.io/gh/jackdbd/undici)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
 Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 

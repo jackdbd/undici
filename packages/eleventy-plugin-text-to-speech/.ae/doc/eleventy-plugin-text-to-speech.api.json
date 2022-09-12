@@ -1,0 +1,561 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.30.0",
+    "schemaVersion": 1009,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!",
+  "docComment": "",
+  "name": "@jackdbd/eleventy-plugin-text-to-speech",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!audioExtension:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "audioExtension: "
+            },
+            {
+              "kind": "Content",
+              "text": "(audioEncoding: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AudioEncoding",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~AudioEncoding:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => \"alaw\" | \"l16\" | \"mp3\" | \"mulaw\" | \"opus\" | \"wav\""
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "audioExtension",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!mediaType:var",
+          "docComment": "/**\n * The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm\n *\n * Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5_audio\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "mediaType: "
+            },
+            {
+              "kind": "Content",
+              "text": "(ext: string) => {\n    value: string;\n    error?: undefined;\n} | {\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n}"
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "mediaType",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 4
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface Options "
+            }
+          ],
+          "releaseTag": "Public",
+          "name": "Options",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioEncodings:member",
+              "docComment": "/**\n * List of encodings to use when generating audio assets from text matches.\n *\n * See here for the audio encodings supported by the Speech-to-Text API: https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "audioEncodings?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "AudioEncoding",
+                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~AudioEncoding:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "audioEncodings",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioHost:member",
+              "docComment": "/**\n * Where to host the audio assets. Each audio host should have a matching writer responsible for writing/uploading the assets to the host.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "audioHost: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "URL",
+                  "canonicalReference": "!URL:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "CloudStorageHost",
+                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~CloudStorageHost:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "audioHost",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 4
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioInnerHTML:member",
+              "docComment": "/**\n * Function to use to generate the innerHTML of the `<audio>` tag to inject in the page for each text match.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "audioInnerHTML?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "AudioInnerHTML",
+                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~AudioInnerHTML:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "audioInnerHTML",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#cacheExpiration:member",
+              "docComment": "/**\n * Expiration for the 11ty AssetCache. https://www.11ty.dev/docs/plugins/fetch/#options\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "cacheExpiration?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "cacheExpiration",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#collectionName:member",
+              "docComment": "/**\n * Name of the 11ty collection created by this plugin.\n *\n * Note: if you register this plugin more than once, you will need to use a different name every time (otherwise 11ty would throw an Error).\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "collectionName?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "collectionName",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#keyFilename:member",
+              "docComment": "/**\n * Absolute filepath to the service account JSON key used to authenticate the Text-to-Speech client library. These credentials might be different from the ones used to authenticate the Cloud Storage client library. If not provided, this plugin will try initializing client libraries using the GOOGLE_APPLICATION_CREDENTIALS environment variable.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "keyFilename?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "keyFilename",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#rules:member",
+              "docComment": "/**\n * Rules that determine which texts to convert into speech.\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "rules: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Rule",
+                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~Rule:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "[]"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": false,
+              "releaseTag": "Public",
+              "name": "rules",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#transformName:member",
+              "docComment": "/**\n * Name of the 11ty transform created by this plugin.\n *\n * Note: if you register this plugin more than once, you will need to use a different name every time (11ty would NOT throw an Error, but this plugin will not work as expected).\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "transformName?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "transformName",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#voice:member",
+              "docComment": "/**\n * Voice to use when generating audio assets from text matches.\n *\n * See here for the voices supported by the Speech-to-Text API: https://cloud.google.com/text-to-speech/docs/voices\n *\n * Note: different voices might have different prices: https://cloud.google.com/text-to-speech/pricing\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "voice?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "voice",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!plugin:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "plugin: "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    initArguments: {};\n    configFunction: (eleventyConfig: "
+            },
+            {
+              "kind": "Reference",
+              "text": "EleventyConfig",
+              "canonicalReference": "@panoply/11ty!EleventyConfig:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Options",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ") => void;\n}"
+            }
+          ],
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "plugin",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 6
+          }
+        }
+      ]
+    }
+  ]
+}

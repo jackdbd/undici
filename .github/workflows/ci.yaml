@@ -4,41 +4,58 @@ on:
   pull_request:
   push:
     branches:
+      - canary
       - main
 
 jobs:
-  build-test-release:
+  build-audit-test:
     name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ['16.15.1']
+        # pick at least one Node.js `lts` version and the `current` version (i.e. the latest Node.js version available)
+        # https://nodejs.org/en/
+        node: ['16.15.1', 'current']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⚙️ Setup Node.js ${{ matrix.node }}
+      - name: ⚙️ Set up Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
 
-      - name: 👀 Check npm version
-        run: npm version
-
       - name: ⬇️ Install dependencies
         run: npm ci
 
-      - name: 🔧 Build all libraries
+      - name: 🛡️ Audit dependencies (audit-level high)
+        # https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level
+        run: npm audit --audit-level high
+
+      - name: 🛡️ Audit dependencies (audit-level moderate)
+        continue-on-error: true
+        run: npm audit --audit-level moderate
+
+      - name: 📦 Build all libraries
         run: npm run build:libs
 
-      - name: 🛡️ Audit security
-        continue-on-error: true
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: npm audit --audit-level=moderate
+      - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
+        env:
+          TELEGRAM: ${{ secrets.TELEGRAM }}
+        run: npm run test:ci -w packages/eleventy-plugin-telegram
 
-      - name: 🔍 Test all libraries
+      - name: 🔍 Test @jackdbd/eleventy-plugin-text-to-speech
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           TELEGRAM: ${{ secrets.TELEGRAM }}
-        run: npm run test:ci
+        run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
+
+      - name: ⬆️ Upload test coverage to Codecov
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: false
+          files: ./packages/eleventy-plugin-telegram/coverage/clover.xml,./packages/eleventy-plugin-text-to-speech/coverage/clover.xml
+          # fail_ci_if_error: true
+          verbose: true

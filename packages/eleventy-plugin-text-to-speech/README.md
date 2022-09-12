@@ -13,6 +13,28 @@ Eleventy plugin that synthesizes **any text** you want, on **any page** of your 
 >
 > - [this discussion on Google Groups](https://groups.google.com/g/google-translate-api/c/2JsRdq0tEdA)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details><summary>Table of Contents</summary>
+
+- [Installation](#installation)
+- [Preliminary Operations](#preliminary-operations)
+  - [Enable the Text-to-Speech API](#enable-the-text-to-speech-api)
+  - [Set up authentication via a service account](#set-up-authentication-via-a-service-account)
+  - [Optional: Create Cloud Storage bucket (only if you want to host audio files on Cloud Storage)](#optional-create-cloud-storage-bucket-only-if-you-want-to-host-audio-files-on-cloud-storage)
+- [Usage](#usage)
+  - [Self-hosting the generated audio assets](#self-hosting-the-generated-audio-assets)
+  - [Hosting the generated audio assets on Cloud Storage](#hosting-the-generated-audio-assets-on-cloud-storage)
+  - [Multiple hosts](#multiple-hosts)
+- [Configuration](#configuration)
+  - [Required parameters](#required-parameters)
+  - [Options](#options)
+- [Debug](#debug)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+</details>
+
 ## Installation
 
 ```sh
@@ -33,7 +55,7 @@ gcloud services enable texttospeech.googleapis.com
 
 This plugin uses the [official Node.js client library for the Text-to-Speech API](https://github.com/googleapis/nodejs-text-to-speech). In order to authenticate to any Google Cloud API you will need some kind of credentials. At the moment this plugin supports only authentication via a service account JSON key.
 
-First, create a service account that can use the Text-to-Speech API. You can also reuse an existing service account if you want. You just need the service account, no need to configure any IAM permissions.
+First, create a service account that can use the Text-to-Speech API. You can also reuse an existing service account if you want. This service account should have the necessary IAM permissions to create/delete objects in a Cloud Storage bucket. You can grant the service account the [Storage Object Admin predefined IAM role](https://cloud.google.com/storage/docs/access-control/iam-roles).
 
 ```sh
 gcloud iam service-accounts create sa-text-to-speech-user \
@@ -157,6 +179,8 @@ Have a look at the Eleventy configuration of the [demo-site in this monorepo](..
 | `voice` | `en-US-Standard-J` | Voice to use when generating audio assets from text matches. The Speech-to-Text API supports [these voices](https://cloud.google.com/text-to-speech/docs/voices), and might have different [pricing](https://cloud.google.com/text-to-speech/pricing) for diffent voices. |
 
 > :warning: Don't forget to set either `keyFilename` or the `GOOGLE_APPLICATION_CREDENTIALS` environment variable on your build server.
+>
+> *Tip*: check what I did in the Eleventy configuration file for the [demo-site](../demo-site/README.md) of this monorepo.
 
 ## Debug
 

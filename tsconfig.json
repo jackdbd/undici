@@ -1,6 +1,7 @@
 {
   "extends": "./config/tsconfig.base.json",
   "files": [],
+  // IMPORTANT: do NOT change the order
   "references": [
     {
       "path": "./packages/eleventy-plugin-telegram/tsconfig.json"

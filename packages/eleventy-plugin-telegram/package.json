@@ -45,16 +45,22 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' --print-label",
+    "build": "run-s 'build:ts' 'build:docs' --print-label",
+    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-telegram",
-    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-telegram"
+    "test": "TELEGRAM=$(cat ../../secrets/telegram.json) ../../scripts/test.mjs",
+    "test:ci": "../../scripts/test.mjs --ci",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "joi": "^17.6.0",

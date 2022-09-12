@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-text-to-speech",
-  "version": "1.1.0",
+  "version": "2.0.0-canary.1",
   "description": "Eleventy plugin for the Google Cloud Text-to-Speech API",
   "author": {
     "name": "Giacomo Debidda",
@@ -46,16 +46,22 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' --print-label",
+    "build": "run-s 'build:ts' 'build:docs' --print-label",
+    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) jest --config ../../config/jest.cjs --rootDir ../../ --selectProjects eleventy-plugin-text-to-speech",
-    "test:ci": "jest --config ../../config/jest.cjs --rootDir ../../ --ci --coverage --selectProjects eleventy-plugin-text-to-speech"
+    "test": "GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json TELEGRAM=$(cat ../../secrets/telegram.json) ../../scripts/test.mjs",
+    "test:ci": "../../scripts/test.mjs --ci",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "3.0.0",
