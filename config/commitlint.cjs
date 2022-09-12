@@ -39,6 +39,9 @@ const config = {
         ) ||
         message.includes(
           'feat(eleventy-plugin-text-to-speech): allow hosting audio files on Cloud Storage'
+        ) ||
+        message.includes(
+          'chore(eleventy-plugin-text-to-speech): release v.2.0.0-canary.1 [skip ci]'
         )
       )
     }

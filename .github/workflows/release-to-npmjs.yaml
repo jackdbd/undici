@@ -38,12 +38,6 @@ jobs:
       - name: 📦 Build all libraries
         run: npm run build:libs
 
-      - name: 🔍 Test all libraries
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          TELEGRAM: ${{ secrets.TELEGRAM }}
-        run: npm run test:ci
-        
       - name: 🚀 Release to npmjs
         env:
           # The github token must allow to push to this GitHub repository.
