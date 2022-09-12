@@ -46,9 +46,14 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' --print-label",
+    "build": "run-s 'build:ts' 'build:docs' --print-label",
+    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",

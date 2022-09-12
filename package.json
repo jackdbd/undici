@@ -30,7 +30,10 @@
     "npm": ">=7.0.0"
   },
   "scripts": {
-    "build": "run-s 'build:libs' 'build:site' --print-label",
+    "build": "run-s 'build:libs' 'build:docs' 'build:site' --print-label",
+    "build:docs": "run-s 'build:docs:packages' 'build:docs:index' --print-label",
+    "build:docs:packages": "npm run build:docs --workspaces --if-present",
+    "build:docs:index": "./scripts/docs-index.mjs",
     "build:libs": "tsc --build --verbose",
     "build:libs:watch": "tsc --build --watch",
     "build:site": "npm run build -w packages/demo-site",
@@ -53,6 +56,9 @@
     "@11ty/eleventy-fetch": "3.0.0",
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "@jackdbd/checks": "^2.0.0",
+    "@microsoft/api-documenter": "^7.17.17",
+    "@microsoft/api-extractor": "^7.25.0",
     "@panoply/11ty": "0.1.0",
     "@qiwi/multi-semantic-release": "^6.4.0",
     "@semantic-release/changelog": "^6.0.1",
@@ -62,6 +68,7 @@
     "@types/jsdom": "^16.2.14",
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "debug": "^4.3.4",
+    "doctoc": "^2.2.0",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -76,6 +83,8 @@
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "semantic-release": "^19.0.3",
+    "tsm": "^2.2.2",
+    "typedoc": "^0.22.17",
     "typescript": "^4.7.3",
     "zx": "^6.2.4"
   }

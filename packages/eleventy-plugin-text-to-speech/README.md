@@ -13,6 +13,28 @@ Eleventy plugin that synthesizes **any text** you want, on **any page** of your 
 >
 > - [this discussion on Google Groups](https://groups.google.com/g/google-translate-api/c/2JsRdq0tEdA)
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<details><summary>Table of Contents</summary>
+
+- [Installation](#installation)
+- [Preliminary Operations](#preliminary-operations)
+  - [Enable the Text-to-Speech API](#enable-the-text-to-speech-api)
+  - [Set up authentication via a service account](#set-up-authentication-via-a-service-account)
+  - [Optional: Create Cloud Storage bucket (only if you want to host audio files on Cloud Storage)](#optional-create-cloud-storage-bucket-only-if-you-want-to-host-audio-files-on-cloud-storage)
+- [Usage](#usage)
+  - [Self-hosting the generated audio assets](#self-hosting-the-generated-audio-assets)
+  - [Hosting the generated audio assets on Cloud Storage](#hosting-the-generated-audio-assets-on-cloud-storage)
+  - [Multiple hosts](#multiple-hosts)
+- [Configuration](#configuration)
+  - [Required parameters](#required-parameters)
+  - [Options](#options)
+- [Debug](#debug)
+- [Credits](#credits)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+</details>
+
 ## Installation
 
 ```sh
