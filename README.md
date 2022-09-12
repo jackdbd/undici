@@ -1,4 +1,4 @@
-# undici
+# undici 🕚
 
 ![CI workflow](https://github.com/jackdbd/undici/actions/workflows/ci.yaml/badge.svg)
 ![release workflow](https://github.com/jackdbd/undici/actions/workflows/release.yaml/badge.svg)
