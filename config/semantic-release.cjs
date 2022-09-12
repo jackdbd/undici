@@ -6,16 +6,6 @@
  * EACH PACKAGE root, not from the monorepo root.
  *
  * https://github.com/qiwi/multi-semantic-release#configuration
- *
- * See here for examples of conventional commit messages that trigger a
- * patch/minor/major release with semantic-release:
- * https://www.conventionalcommits.org/en/v1.0.0/#summary
- *
- * <type>[optional scope]: <description>
- *
- * [optional body]
- *
- * [optional footer(s)]
  */
 const {
   changelog,
@@ -27,14 +17,10 @@ const {
 
 const config = {
   // https://semantic-release.gitbook.io/semantic-release/usage/configuration#branches
-  branches: [
-    'main',
-    'next',
-    { name: 'beta', prerelease: true },
-    { name: 'alpha', prerelease: true },
-    { name: 'semantic-release-fixes', prerelease: true }
-  ],
+  branches: ['main', { name: 'canary', prerelease: true }],
+
   ci: true,
+
   // each package in this monorepo extends this `plugins` array
   // The git plugin must be called AFTER the npm plugin. See here:
   // https://github.com/semantic-release/git#examples

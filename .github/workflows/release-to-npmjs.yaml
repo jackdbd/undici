@@ -1,12 +1,11 @@
-name: 'release'
+name: 'release-to-npmjs'
 
 on:
   pull_request:
   push:
     branches:
+      - canary
       - main
-      - alpha
-      - beta
 
 jobs:
   build-test-release:
@@ -20,7 +19,7 @@ jobs:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: ⚙️ Setup Node.js ${{ matrix.node }}
+      - name: ⚙️ Set up Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
@@ -31,13 +30,16 @@ jobs:
       - name: ⬇️ Install dependencies
         run: npm ci
 
-      - name: 🔧 Build all libraries
-        run: npm run build:libs
+      - name: 🛡️ Audit dependencies (audit-level high)
+        # https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level
+        run: npm audit --audit-level high
 
-      - name: 🛡️ Audit security
+      - name: 🛡️ Audit dependencies (audit-level moderate)
         continue-on-error: true
-        if: ${{ matrix.os }} == 'ubuntu-latest'
-        run: npm audit --audit-level=moderate
+        run: npm audit --audit-level moderate
+
+      - name: 📦 Build all libraries
+        run: npm run build:libs
 
       - name: 🔍 Test all libraries
         env:
@@ -52,8 +54,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.SEMANTIC_RELEASE_BOT_NPM_TOKEN }}
         run: >
           npx multi-semantic-release
-          --debug
           --ignore-private
-          --ignore-packages=packages/demo-app
+          --ignore-packages=packages/demo-site
 
 
