@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-telegram [1.1.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.0...@jackdbd/eleventy-plugin-telegram@1.1.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-telegram:** improve Joi schemas and rebuild docs ([a6066c0](https://github.com/jackdbd/undici/commit/a6066c03e0e39fc34cf2b224cb53225eeebb15d9))
+
 ## @jackdbd/eleventy-plugin-telegram 1.1.0 (2022-07-09)
 
 * chore(eleventy-plugin-telegram): release v.1.1.0-alpha.1 [skip ci] ([9c623aa](https://github.com/jackdbd/undici/commit/9c623aa))
