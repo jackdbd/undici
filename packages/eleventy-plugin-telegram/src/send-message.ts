@@ -4,7 +4,6 @@ import makeDebug from 'debug'
 import { PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import type {
-  ChatId,
   SendMessageResponseBody,
   TelegramAPISendMessageSuccess,
   TelegramAPISendMessageError
@@ -13,7 +12,7 @@ import type {
 const debug = makeDebug('eleventy-plugin-telegram/send-message')
 
 export interface SendMessageConfig {
-  chatId: ChatId
+  chatId: number | string
   token: string
   text: string
 }

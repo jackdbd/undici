@@ -5,7 +5,6 @@ import { DEFAULT, PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import { sendMessage } from './send-message.js'
 import type { SendMessageConfig } from './send-message.js'
-import type { ChatId } from './types.js'
 
 const debug = makeDebug('eleventy-plugin-telegram/index')
 
@@ -18,7 +17,7 @@ const makeEleventyEventHandler = (
 }
 
 export interface Options {
-  chatId: ChatId
+  chatId: number | string
   token: string
   textBeforeBuild: string
   textAfterBuild: string

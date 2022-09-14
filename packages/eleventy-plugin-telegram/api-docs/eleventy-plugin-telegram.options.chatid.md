@@ -7,5 +7,5 @@
 <b>Signature:</b>
 
 ```typescript
-chatId: ChatId;
+chatId: number | string;
 ```
