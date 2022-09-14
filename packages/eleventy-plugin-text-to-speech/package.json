@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-text-to-speech#readme",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=14.20.0"
   },
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",

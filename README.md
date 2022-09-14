@@ -1,7 +1,7 @@
 # undici 🕚
 
 ![CI workflow](https://github.com/jackdbd/undici/actions/workflows/ci.yaml/badge.svg)
-![release workflow](https://github.com/jackdbd/undici/actions/workflows/release.yaml/badge.svg)
+![Release to npmjs.com workflow](https://github.com/jackdbd/undici/actions/workflows/release-to-npmjs.yaml/badge.svg)
 [![codecov](https://codecov.io/gh/jackdbd/undici/branch/main/graph/badge.svg?token=P5uJ3doRer)](https://codecov.io/gh/jackdbd/undici)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
@@ -11,7 +11,9 @@ Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 > 
 > All libraries of this monorepo are published to npmjs as CommonJS.
 >
-> At the moment no one of these packages has a ESM build.
+> At the moment none of these packages has a ESM build.
+>
+> See also:
 >
 > - [Eleventy issue #836](https://github.com/11ty/eleventy/issues/836)
 
@@ -66,7 +68,8 @@ Build all libraries and the demo site, both in watch mode, and serve the demo si
 ```sh
 npm run dev
 ```
-Note: you will still need to refresh the browser.
+
+Note: you will still need to refresh the browser (this might change when [Eleventy 2.0 will add a dev server](https://www.11ty.dev/docs/watch-serve/)).
 
 ## Test
 

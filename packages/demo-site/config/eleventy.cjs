@@ -34,12 +34,14 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(helmet)
   eleventyConfig.addPlugin(navigation)
 
-  eleventyConfig.addPlugin(telegramPlugin, {
-    chatId,
-    token,
-    textBeforeBuild: `<i>demo-site</i> build <b>START</b>`,
-    textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
-  })
+  if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {
+    eleventyConfig.addPlugin(telegramPlugin, {
+      chatId,
+      token,
+      textBeforeBuild: `<i>demo-site</i> build <b>START</b>`,
+      textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
+    })
+  }
 
   let keyFilename
   if (process.env.CF_PAGES) {

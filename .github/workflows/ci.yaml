@@ -14,9 +14,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        # pick at least one Node.js `lts` version and the `current` version (i.e. the latest Node.js version available)
+        # Test all packages with:
+        # 1. Maintenance LTS 14.20.0
+        # 2. Active LTS
+        # 3. Current (i.e. the latest Node.js version available)
         # https://nodejs.org/en/
-        node: ['16.15.1', 'current']
+        # https://nodejs.org/en/about/releases/
+        # 14.20.0 seems to have some issues with chokidar and fsevents...
+        node: ['16.17.0', 'current']
+        eleventy: ['1.0.0']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v3
@@ -28,6 +34,9 @@ jobs:
 
       - name: ⬇️ Install dependencies
         run: npm ci
+      
+      - name: ⬇️ Install Eleventy ${{ matrix.eleventy }}
+        run: npm install @11ty/eleventy@${{ matrix.eleventy }}
 
       - name: 🛡️ Audit dependencies (audit-level high)
         # https://docs.npmjs.com/cli/v8/commands/npm-audit#audit-level
@@ -57,6 +66,6 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          fail_ci_if_error: false
-          # fail_ci_if_error: true
+          # fail_ci_if_error: false
+          fail_ci_if_error: true
           verbose: true
