@@ -10,10 +10,8 @@ import type { EleventyConfig } from '@panoply/11ty';
 //
 // @public (undocumented)
 export interface Options {
-    // Warning: (ae-forgotten-export) The symbol "ChatId" needs to be exported by the entry point index.d.ts
-    //
     // (undocumented)
-    chatId: ChatId;
+    chatId: number | string;
     // (undocumented)
     textAfterBuild: string;
     // (undocumented)

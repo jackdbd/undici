@@ -1,8 +1,11 @@
 const fs = require('node:fs')
 const path = require('node:path')
+const { promisify } = require('node:util')
 const fsPromises = require('fs/promises')
 const Eleventy = require('@11ty/eleventy/src/Eleventy')
 const { plugin } = require('../lib/index.js')
+
+const rmP = promisify(fs.rm)
 
 const configFunction = plugin.configFunction
 
@@ -20,7 +23,7 @@ describe('Eleventy Text-to-Speech plugin', () => {
 
   afterAll(async () => {
     if (fs.existsSync(OUTPUT_DIR)) {
-      await fsPromises.rmdir(OUTPUT_DIR, { force: true, recursive: true })
+      await rmP(OUTPUT_DIR, { force: true, recursive: true })
     }
   })
 

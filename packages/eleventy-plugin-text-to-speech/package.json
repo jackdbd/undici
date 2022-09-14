@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-text-to-speech#readme",
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=14.20.0"
   },
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -64,10 +64,10 @@
     "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
-    "@11ty/eleventy-fetch": "3.0.0",
-    "@google-cloud/storage": "^6.2.2",
-    "@google-cloud/text-to-speech": "^4.0.0",
-    "html-to-text": "^8.2.0",
+    "@11ty/eleventy-fetch": "^3.0.0",
+    "@google-cloud/storage": "^6.4.2",
+    "@google-cloud/text-to-speech": "^4.0.2",
+    "html-to-text": "^8.2.1",
     "joi": "^17.6.0",
     "jsdom": "^20.0.0"
   },

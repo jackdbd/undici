@@ -31,10 +31,10 @@
     // https://www.typescriptlang.org/tsconfig#isolatedModules
     "isolatedModules": true,
 
-    // Leave "lib" empty here, and define it in the tsconfig of each package, so
-    // it's more explicit.
     // https://www.typescriptlang.org/tsconfig#lib
-    "lib": [],
+    // Check Node.js ES2020 Support and Node.js ES2021 Support here:
+    // https://node.green/
+    "lib": ["ES2020"],
 
     // All of the libraries of this monorepo are compiled for CJS (no ESM).
     // https://www.typescriptlang.org/tsconfig#module

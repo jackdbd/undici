@@ -9,6 +9,7 @@
 |  Interface | Description |
 |  --- | --- |
 |  [Options](./eleventy-plugin-text-to-speech.options.md) |  |
+|  [Rule](./eleventy-plugin-text-to-speech.rule.md) |  |
 
 ## Variables
 
@@ -17,4 +18,12 @@
 |  [audioExtension](./eleventy-plugin-text-to-speech.audioextension.md) |  |
 |  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | <p>The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm</p><p>Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5\_audio</p> |
 |  [plugin](./eleventy-plugin-text-to-speech.plugin.md) |  |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [AudioEncoding](./eleventy-plugin-text-to-speech.audioencoding.md) |  |
+|  [AudioInnerHTML](./eleventy-plugin-text-to-speech.audioinnerhtml.md) |  |
+|  [CloudStorageHost](./eleventy-plugin-text-to-speech.cloudstoragehost.md) |  |
 

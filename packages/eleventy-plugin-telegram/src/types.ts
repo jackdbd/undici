@@ -1,17 +1,25 @@
-export type ChatId = number | string
-
-// https://core.telegram.org/bots/api#chat
+/**
+ * Telegram chat.
+ *
+ * @public
+ * @see [Chat - Telegram Bot API](https://core.telegram.org/bots/api#chat)
+ */
 export interface Chat {
   description?: string
   first_name?: string
-  id: ChatId
+  id: number | string
   last_name?: string
   title?: string
   type: 'private' | 'group' | 'supergroup' | 'channel'
   username?: string
 }
 
-// https://core.telegram.org/bots/api#user
+/**
+ * Telegram user or bot.
+ *
+ * @public
+ * @see [User - Telegram Bot API](https://core.telegram.org/bots/api#user)
+ */
 export interface User {
   first_name: string
   id: number
