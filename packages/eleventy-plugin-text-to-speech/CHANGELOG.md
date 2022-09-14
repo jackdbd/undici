@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [2.0.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@2.0.0...@jackdbd/eleventy-plugin-text-to-speech@2.0.1) (2022-09-14)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-text-to-speech:** rebuild docs ([e71792f](https://github.com/jackdbd/undici/commit/e71792f282d1205a5286d28484ab6d2c17805d60))
+
 ## @jackdbd/eleventy-plugin-text-to-speech [2.0.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@1.1.0...@jackdbd/eleventy-plugin-text-to-speech@2.0.0) (2022-09-12)
 
 
