@@ -14,6 +14,12 @@ import type {
   CloudStorageHost,
   Rule
 } from './types.js'
+export type {
+  AudioEncoding,
+  AudioInnerHTML,
+  CloudStorageHost,
+  Rule
+} from './types.js'
 import { clientLibraryCredentials } from './utils.js'
 import { selfHostWriter, cloudStorageWriter } from './writers.js'
 import type { Writer } from './writers.js'

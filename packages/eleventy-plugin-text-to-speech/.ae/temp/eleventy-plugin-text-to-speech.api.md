@@ -6,11 +6,28 @@
 
 import type { EleventyConfig } from '@panoply/11ty';
 
-// Warning: (ae-forgotten-export) The symbol "AudioEncoding" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "AudioEncoding" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type AudioEncoding = 'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS';
+
 // Warning: (ae-missing-release-tag) "audioExtension" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
 export const audioExtension: (audioEncoding: AudioEncoding) => "alaw" | "l16" | "mp3" | "mulaw" | "opus" | "wav";
+
+// Warning: (ae-missing-release-tag) "AudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type AudioInnerHTML = (hrefs: string[]) => string;
+
+// Warning: (ae-missing-release-tag) "CloudStorageHost" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type CloudStorageHost = {
+    bucketName: string;
+    keyFilename: string;
+};
 
 // Warning: (ae-missing-release-tag) "mediaType" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -28,14 +45,11 @@ export const mediaType: (ext: string) => {
 // @public (undocumented)
 export interface Options {
     audioEncodings?: AudioEncoding[];
-    // Warning: (ae-forgotten-export) The symbol "CloudStorageHost" needs to be exported by the entry point index.d.ts
     audioHost: URL | CloudStorageHost;
-    // Warning: (ae-forgotten-export) The symbol "AudioInnerHTML" needs to be exported by the entry point index.d.ts
     audioInnerHTML?: AudioInnerHTML;
     cacheExpiration?: string;
     collectionName?: string;
     keyFilename?: string;
-    // Warning: (ae-forgotten-export) The symbol "Rule" needs to be exported by the entry point index.d.ts
     rules: Rule[];
     transformName?: string;
     voice?: string;
@@ -48,6 +62,18 @@ export const plugin: {
     initArguments: {};
     configFunction: (eleventyConfig: EleventyConfig, options: Options) => void;
 };
+
+// Warning: (ae-missing-release-tag) "Rule" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export interface Rule {
+    // (undocumented)
+    cssSelectors: string[];
+    // (undocumented)
+    regex: RegExp;
+    // (undocumented)
+    xPathExpressions: string[];
+}
 
 // (No @packageDocumentation comment for this package)
 
