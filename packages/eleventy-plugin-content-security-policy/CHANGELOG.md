@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [1.0.0-canary.2](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@1.0.0-canary.1...@jackdbd/eleventy-plugin-content-security-policy@1.0.0-canary.2) (2022-10-04)
+
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** add option to write JSON recap ([ff9cb87](https://github.com/jackdbd/undici/commit/ff9cb87ce329e200f098244213e05983b0a43ed3))
+
 ## @jackdbd/eleventy-plugin-content-security-policy 1.0.0-canary.1 (2022-10-04)
 
 
