@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "@hapi/hoek": "^10.0.1",
-    "@jackdbd/content-security-policy": "1.0.0-canary.4",
+    "@jackdbd/content-security-policy": "^1.0.0",
     "joi": "^17.6.0"
   },
   "peerDependencies": {
