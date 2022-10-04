@@ -4,7 +4,10 @@ const config = {
   '{src,__tests__}/**/*.{js,cjs,mjs,ts}': [
     'prettier --config ../../config/prettier.cjs --write'
   ],
-  'src/**/*.{js,cjs,mjs,ts}': ['eslint --config ../../config/eslint.cjs']
+  'src/**/*.ts': ['eslint --config ../../config/eslint.cjs'],
+  'src/**/*.{js,cjs,mjs}': [
+    'eslint --config ../../config/eslint-no-typescript.cjs'
+  ]
 }
 
 // console.log('=== lint-staged config ===', config)

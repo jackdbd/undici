@@ -45,7 +45,8 @@ const config = {
         ) ||
         message.includes(
           'chore(eleventy-plugin-ensure-env-vars): release v.1.0.0-canary.1 [skip ci]'
-        )
+        ) ||
+        message.includes('eleventy-plugin-content-security-policy')
       )
     }
   ],
