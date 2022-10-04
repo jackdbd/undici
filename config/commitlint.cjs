@@ -42,7 +42,11 @@ const config = {
         ) ||
         message.includes(
           'chore(eleventy-plugin-text-to-speech): release v.2.0.0-canary.1 [skip ci]'
-        )
+        ) ||
+        message.includes(
+          'chore(eleventy-plugin-ensure-env-vars): release v.1.0.0-canary.1 [skip ci]'
+        ) ||
+        message.includes('eleventy-plugin-content-security-policy')
       )
     }
   ],
@@ -63,8 +67,8 @@ const config = {
     // a problem to have a long commit message body, I disable the rule.
     'body-max-line-length': [0],
     // From now on, the header of each commit message should not exceed 72
-    // characters. A couple of old commits have a header that exceeds 72
-    // characters, but I ignore those commit messages.
+    // characters. A few old commits have a header that exceeds 72 characters,
+    // but I ignore those commit messages "manually" using the `ignores` array.
     'header-max-length': [2, 'always', 72]
   }
 }
