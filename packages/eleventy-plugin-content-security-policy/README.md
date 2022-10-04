@@ -92,4 +92,5 @@ None.
 | `globPatterns` | `['/', '/*/']` | Files that match these patterns will be searched. |
 | `globPatternsDetach` | `[]` | Files that match these patterns will **not** be served with the Content-Security-Policy (or Content-Security-Policy-Report-Only) header. |
 | `includePatterns` | `['/**/**.html']` | Files that match these patterns will be served with the Content-Security-Policy (or Content-Security-Policy-Report-Only) header. |
+| `jsonRecap` | `false` | whether to write a JSON containing the configuration of this plugin. This can useful for troubleshooting the CSP and/or to consume the CSP with some other tool (e.g. send a Telegram message containing the current CSP directives). |
 | `reportOnly` | `false` | whether the policy should be applied to the Content-Security-Policy header, or to the Content-Security-Policy-Report-Only header. |

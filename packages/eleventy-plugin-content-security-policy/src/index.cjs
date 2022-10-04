@@ -66,6 +66,13 @@ const contentSecurityPolicy = (eleventyConfig, providedOptions) => {
       }
     }
 
+    if (pluginConfig.jsonRecap) {
+      await writeFileAsync(
+        path.join(outdir, `${NAMESPACE}-config.json`),
+        JSON.stringify(pluginConfig, null, 2)
+      )
+    }
+
     const directives = await cspDirectives({
       directives: pluginConfig.directives,
       patterns
@@ -75,14 +82,6 @@ const contentSecurityPolicy = (eleventyConfig, providedOptions) => {
       fs.writeFileSync(headersFilepath, '', { encoding: 'utf8' })
       debug(`${headersFilepath} did not exist, so it was created`)
     }
-
-    // this is useful for troubleshooting the CSP and/or make it easier to
-    // consume by other tools (e.g. send a Telegram message containing the
-    // current CSP directives)
-    await writeFileAsync(
-      path.join(outdir, 'eleventy-plugin-csp-config.json'),
-      JSON.stringify(pluginConfig, null, 2)
-    )
 
     const headerKey = pluginConfig.reportOnly
       ? 'Content-Security-Policy-Report-Only'

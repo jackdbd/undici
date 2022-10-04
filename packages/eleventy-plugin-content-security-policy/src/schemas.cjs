@@ -12,6 +12,7 @@ const defaultOptions = {
   globPatternsDetach: [],
   excludePatterns: [],
   includePatterns: ['/**/**.html'],
+  jsonRecap: false,
   reportOnly: false
 }
 
@@ -37,6 +38,8 @@ const makePluginOptions = async () => {
     includePatterns: glob_patterns
       .min(1)
       .default(defaultOptions.includePatterns),
+
+    jsonRecap: Joi.boolean().default(defaultOptions.jsonRecap),
 
     reportOnly: Joi.boolean().default(defaultOptions.reportOnly)
   })
