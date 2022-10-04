@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-ensure-env-vars",
-  "version": "0.0.0",
+  "version": "1.0.0-canary.1",
   "description": "Eleventy plugin to check environment variables before the eleventy build",
   "author": {
     "name": "Giacomo Debidda",
