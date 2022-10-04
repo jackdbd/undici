@@ -49,6 +49,14 @@ jobs:
       - name: 📦 Build all libraries
         run: npm run build:libs
 
+      - name: 🔍 Test @jackdbd/eleventy-plugin-content-security-policy
+        run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
+
+      - name: 🔍 Test @jackdbd/eleventy-plugin-ensure-env-vars
+        env:
+          NODE_ENV: test
+        run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
+
       - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
         env:
           TELEGRAM: ${{ secrets.TELEGRAM }}

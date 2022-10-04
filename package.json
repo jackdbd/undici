@@ -34,7 +34,7 @@
     "build:docs": "run-s 'build:docs:packages' 'build:docs:index' --print-label",
     "build:docs:packages": "npm run build:docs --workspaces --if-present",
     "build:docs:index": "./scripts/docs-index.mjs",
-    "build:libs": "tsc --build --verbose",
+    "build:libs": "tsc --build --verbose && npm run build -w packages/eleventy-plugin-content-security-policy",
     "build:libs:show-config": "tsc --showConfig -p packages/eleventy-plugin-text-to-speech",
     "build:libs:watch": "tsc --build --watch",
     "build:site": "npm run build -w packages/demo-site",
