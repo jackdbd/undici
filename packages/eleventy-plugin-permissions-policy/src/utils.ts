@@ -5,7 +5,7 @@ import type { Directive } from './schemas.js'
  */
 export const featurePolicyDirectiveMapper = (d: Directive) => {
   const allowlist =
-    d.allowlist.length === 0
+    d.allowlist === undefined || d.allowlist.length === 0
       ? `'none'`
       : d.allowlist
           .map((s) => {
@@ -20,11 +20,14 @@ export const featurePolicyDirectiveMapper = (d: Directive) => {
  * Converts a Permissions-Policy directive to a string.
  */
 export const permissionsPolicyDirectiveMapper = (d: Directive) => {
-  const allowlist = d.allowlist
-    .map((s) => {
-      return s.includes('http') ? `"${s}"` : s
-    })
-    .join(' ')
+  const allowlist =
+    d.allowlist === undefined || d.allowlist.length === 0
+      ? ''
+      : d.allowlist
+          .map((s) => {
+            return s.includes('http') ? `"${s}"` : s
+          })
+          .join(' ')
 
   if (allowlist === '*') {
     return `${d.feature}=*`
