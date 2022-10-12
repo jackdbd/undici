@@ -32,10 +32,6 @@ const plausible = (eleventyConfig, providedOptions) => {
   const { apiKey, ...safeConfig } = pluginConfig
   debug(`plugin config (Plausible API KEY not shown) %O`, safeConfig)
 
-  // eleventyConfig.on('eleventy.before', async () => {
-  //   console.log('=== eleventy.before event handler ===')
-  // })
-
   eleventyConfig.addGlobalData(
     pluginConfig.statsBreakdownGlobalDataKey,
     // Note: I find it a bit surprising, but this async function is invoked
