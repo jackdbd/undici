@@ -19,3 +19,7 @@ packages/**/tsconfig.tsbuildinfo
 
 # default cache directory of @11ty/eleventy-fetch
 packages/**/.cache/
+
+# default cache directory of @jackdbd/eleventy-plugin-plausible
+packages/eleventy-plugin-plausible/.cache-plausible-json-responses/
+packages/demo-site/.cache-plausible-json-responses/

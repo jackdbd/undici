@@ -1,8 +1,8 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.31.0",
-    "schemaVersion": 1009,
+    "toolVersion": "7.33.0",
+    "schemaVersion": 1010,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
       "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
@@ -190,6 +190,7 @@
               "text": ";"
             }
           ],
+          "fileUrlPath": "src/types.ts",
           "releaseTag": "Public",
           "name": "AudioEncoding",
           "typeTokenRange": {
@@ -220,6 +221,7 @@
               "text": ") => \"alaw\" | \"l16\" | \"mp3\" | \"mulaw\" | \"opus\" | \"wav\""
             }
           ],
+          "fileUrlPath": "src/utils.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "audioExtension",
@@ -246,6 +248,7 @@
               "text": ";"
             }
           ],
+          "fileUrlPath": "src/types.ts",
           "releaseTag": "Public",
           "name": "AudioInnerHTML",
           "typeTokenRange": {
@@ -271,6 +274,7 @@
               "text": ";"
             }
           ],
+          "fileUrlPath": "src/types.ts",
           "releaseTag": "Public",
           "name": "CloudStorageHost",
           "typeTokenRange": {
@@ -301,6 +305,7 @@
               "text": ";\n    value?: undefined;\n}"
             }
           ],
+          "fileUrlPath": "src/utils.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "mediaType",
@@ -319,6 +324,7 @@
               "text": "export interface Options "
             }
           ],
+          "fileUrlPath": "src/index.ts",
           "releaseTag": "Public",
           "name": "Options",
           "preserveMemberOrder": false,
@@ -622,6 +628,7 @@
               "text": ") => void;\n}"
             }
           ],
+          "fileUrlPath": "src/index.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "plugin",
@@ -640,6 +647,7 @@
               "text": "export interface Rule "
             }
           ],
+          "fileUrlPath": "src/types.ts",
           "releaseTag": "Public",
           "name": "Rule",
           "preserveMemberOrder": false,

@@ -1,0 +1,62 @@
+{
+  "name": "@jackdbd/eleventy-plugin-plausible",
+  "version": "1.0.0-canary.2",
+  "description": "Eleventy plugin that retrieves analytics data from the Plausible API",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "11ty",
+    "plugin",
+    "analytics",
+    "plausible"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-plausible#readme",
+  "engines": {
+    "node": ">=14.20.0"
+  },
+  "main": "lib/index.cjs",
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "scripts": {
+    "build": "run-s 'build:code' 'build:docs' --print-label",
+    "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
+    "build:docs": "run-s 'docs:doctoc' --print-label",
+    "build:watch": "nodemon --watch 'src/**/*' -e cjs,js --exec 'npm run build:code'",
+    "clean": "rimraf lib/",
+    "dev": "run-p 'build:watch' 'test:watch' --print-label",
+    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "format": "../../scripts/format.mjs",
+    "lint": "eslint --config ../../config/eslint-no-typescript.cjs",
+    "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
+    "test": "PLAUSIBLE=$(cat ../../secrets/plausible.json) NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs",
+    "test:ci": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs --ci",
+    "test:watch": "npm run test -- --watch"
+  },
+  "dependencies": {
+    "@jackdbd/plausible-client": "^1.0.2",
+    "joi": "^17.6.0"
+  },
+  "peerDependencies": {
+    "@11ty/eleventy": ">=1.0.0",
+    "debug": ">=4.0.0"
+  },
+  "devDependencies": {}
+}

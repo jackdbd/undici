@@ -79,6 +79,10 @@ Run all tests on all packages:
 npm run test
 ```
 
+## Demo
+
+See these plugins configured for the [demo Eleventy site](./packages/demo-site/README.md) that you can find in this monorepo. Live at: https://undici.pages.dev/
+
 ## Monorepo management
 
 See [scripts](./scripts/README.md).
