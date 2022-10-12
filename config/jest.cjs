@@ -62,6 +62,7 @@ const project = (package_name) => {
 const projects = [
   project('eleventy-plugin-content-security-policy'),
   project('eleventy-plugin-ensure-env-vars'),
+  project('eleventy-plugin-permissions-policy'),
   project('eleventy-plugin-plausible'),
   project('eleventy-plugin-telegram'),
   project('eleventy-plugin-text-to-speech')

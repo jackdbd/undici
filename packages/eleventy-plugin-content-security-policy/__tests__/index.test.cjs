@@ -121,8 +121,8 @@ describe('plugin', () => {
       expect(eleventyConfig.events._eventsCount).toBe(1)
       expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
       expect(eleventyConfig.events._events['eleventy.after']).toBeDefined()
-      expect(eleventyConfig.emit('eleventy.after'))
 
+      eleventyConfig.emit('eleventy.after')
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
     },
