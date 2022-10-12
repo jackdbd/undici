@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [1.1.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@1.0.0...@jackdbd/eleventy-plugin-content-security-policy@1.1.0-canary.1) (2022-10-12)
+
+
+### Features
+
+* **eleventy-plugin-permissions-policy:** add package ([8829e2b](https://github.com/jackdbd/undici/commit/8829e2b8c66a82a9d1e96db4b52b15c08f15c638))
+
 ## @jackdbd/eleventy-plugin-content-security-policy 1.0.0 (2022-10-04)
 
 
