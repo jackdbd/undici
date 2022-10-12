@@ -57,6 +57,11 @@ jobs:
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
 
+      - name: 🔍 Test @jackdbd/eleventy-plugin-plausible
+        env:
+          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
+        run: npm run test:ci -w packages/eleventy-plugin-plausible
+
       - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
         env:
           TELEGRAM: ${{ secrets.TELEGRAM }}
