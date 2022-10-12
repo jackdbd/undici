@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-permissions-policy [1.0.0-canary.2](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-permissions-policy@1.0.0-canary.1...@jackdbd/eleventy-plugin-permissions-policy@1.0.0-canary.2) (2022-10-12)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-permissions-policy:** fix mappers for policy directives ([8d161a2](https://github.com/jackdbd/undici/commit/8d161a272c69e609b4c772b468e5f82ba3dc7137))
+
 ## @jackdbd/eleventy-plugin-permissions-policy 1.0.0-canary.1 (2022-10-12)
 
 
