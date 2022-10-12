@@ -39,6 +39,24 @@ ogp:
 {%- endfor -%}
 </ul>
 
+<h2>eleventy-plugin-plausible</h2>
+<p><a href="https://plausible.io/docs/stats-api#get-apiv1statsbreakdown" rel="noopener noreferrer" target="_blank">Stats breakdown</a> from Plausible analytics.</p>
+<ul>
+{%- for item in plausibleStatsBreakdown -%}
+  {# {{ item | log }} #}
+  <li>
+    <a href="{{ item.page | url }}">
+      {% if item.page %}
+        <span>{{ item.page | slugify }}</span> <span>({{ item.visitors }} visitors)</span>
+      {% else %}
+        Untitled page
+      {% endif %}
+    </a>
+  </li>
+{%- endfor -%}
+</ul>
+
+<h2>eleventy-plugin-text-to-speech</h2>
 <p class="text-to-speech">This text is synthesized to speech because it has the default CSS selector used by the eleventy-plugin-text-to-speech.</p>
 
 <div class="custom-tts">

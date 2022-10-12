@@ -2,6 +2,7 @@ const fs = require('node:fs')
 const slugify = require('slugify')
 const navigation = require('@11ty/eleventy-navigation')
 const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
+const plausible = require('@jackdbd/eleventy-plugin-plausible')
 const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
 
 const helmet = require('eleventy-plugin-helmet')
@@ -11,8 +12,6 @@ const shortcodes = require('../src/shortcodes')
 // https://www.11ty.dev/docs/watch-serve/
 
 module.exports = function (eleventyConfig) {
-  const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
-
   // 11ty shortcodes
   // https://www.11ty.dev/docs/shortcodes/
   Object.keys(shortcodes).forEach((name) => {
@@ -32,8 +31,13 @@ module.exports = function (eleventyConfig) {
   })
 
   eleventyConfig.addPlugin(helmet)
+
   eleventyConfig.addPlugin(navigation)
 
+  const { api_key: apiKey, site_id: siteId } = JSON.parse(process.env.PLAUSIBLE)
+  eleventyConfig.addPlugin(plausible, { apiKey, siteId })
+
+  const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
   if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {
     eleventyConfig.addPlugin(telegramPlugin, {
       chatId,
