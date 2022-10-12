@@ -15,5 +15,6 @@
 
 |  Variable | Description |
 |  --- | --- |
+|  [appendToHeadersFile](./eleventy-plugin-permissions-policy.appendtoheadersfile.md) |  |
 |  [permissionsPolicyPlugin](./eleventy-plugin-permissions-policy.permissionspolicyplugin.md) | Plugin configuration function. |
 

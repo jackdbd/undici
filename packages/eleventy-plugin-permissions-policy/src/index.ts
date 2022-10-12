@@ -8,9 +8,13 @@ import path from 'node:path'
 import util from 'node:util'
 import makeDebug from 'debug'
 import { options as optionsSchema } from './schemas.js'
-import type { Directive, Options } from './schemas.js'
+import type { Options } from './schemas.js'
 export type { Directive, Options } from './schemas.js'
 import type { EleventyConfig } from '@panoply/11ty'
+import {
+  featurePolicyDirectiveMapper,
+  permissionsPolicyDirectiveMapper
+} from './utils.js'
 
 const NAMESPACE = `eleventy-plugin-permissions-policy`
 
@@ -18,15 +22,7 @@ const debug = makeDebug(NAMESPACE)
 
 const writeFileAsync = util.promisify(fs.writeFile)
 
-const featurePolicyDirectiveMapper = (d: Directive) => {
-  return `${d.feature} ${d.allowlist.map((s) => `'${s}'`).join(' ')}`
-}
-
-const permissionsPolicyDirectiveMapper = (d: Directive) => {
-  return `${d.feature}=(${d.allowlist.map((s) => `'${s}'`).join(' ')})`
-}
-
-const appendToHeadersFile = (
+export const appendToHeadersFile = (
   headerKey: string,
   headerValue: string,
   headersFilepath: string,

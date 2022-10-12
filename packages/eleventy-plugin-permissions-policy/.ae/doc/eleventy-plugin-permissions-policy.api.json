@@ -173,6 +173,29 @@
       "preserveMemberOrder": false,
       "members": [
         {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-permissions-policy!appendToHeadersFile:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "appendToHeadersFile: "
+            },
+            {
+              "kind": "Content",
+              "text": "(headerKey: string, headerValue: string, headersFilepath: string, patterns: string[]) => void"
+            }
+          ],
+          "fileUrlPath": "src/index.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "appendToHeadersFile",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Interface",
           "canonicalReference": "@jackdbd/eleventy-plugin-permissions-policy!Directive:interface",
           "docComment": "",

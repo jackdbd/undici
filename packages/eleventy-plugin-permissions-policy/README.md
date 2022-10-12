@@ -34,10 +34,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addPlugin(permissionsPolicyPlugin, {
     directives: [
-      { feature: 'fullscreen', allowlist: ['*'] },
-      { feature: 'geolocation', allowlist: ['none'] },
-      { feature: 'camera', allowlist: ['self'] },
-      { feature: 'microphone', allowlist: ['self'] }
+      { feature: 'autoplay', allowlist: ['*'] },
+      { feature: 'geolocation', allowlist: ['self'] },
+      { feature: 'camera', allowlist: ['self', 'https://trusted-site.example'] },
+      { feature: 'fullscreen', allowlist: [] }
     ],
     includeFeaturePolicy: true
   })

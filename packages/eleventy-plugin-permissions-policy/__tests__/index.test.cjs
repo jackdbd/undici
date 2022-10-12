@@ -106,14 +106,15 @@ describe('permissionsPolicyPlugin', () => {
     'config with some directives',
     async () => {
       const userConfig = {
+        // https://developer.chrome.com/en/docs/privacy-sandbox/permissions-policy/#migration-from-feature-policy
         directives: [
-          { feature: 'fullscreen', allowlist: ['*'] },
-          { feature: 'geolocation', allowlist: ['none'] },
-          { feature: 'camera', allowlist: ['self'] },
+          { feature: 'autoplay', allowlist: ['*'] },
+          { feature: 'geolocation', allowlist: ['self'] },
           {
-            feature: 'microphone',
-            allowlist: ['self', 'https://www.example.com']
-          }
+            feature: 'camera',
+            allowlist: ['self', 'https://trusted-site.example']
+          },
+          { feature: 'fullscreen', allowlist: [] }
         ]
       }
 
@@ -131,10 +132,14 @@ describe('permissionsPolicyPlugin', () => {
       expect(str).toContain(HEADERS_CONTENT)
       expect(str).toContain('Permissions-Policy:')
       expect(str).toContain('Feature-Policy:')
-      expect(str).toContain(`fullscreen=('*')`)
-      expect(str).toContain(`geolocation=('none')`)
-      expect(str).toContain(`camera=('self')`)
-      expect(str).toContain(`microphone=('self' 'https://www.example.com')`)
+      expect(str).toContain(`autoplay *;`) // Feature-Policy
+      expect(str).toContain(`autoplay=*,`) // Permissions-Policy
+      expect(str).toContain(`geolocation 'self';`) // Feature-Policy
+      expect(str).toContain(`geolocation=(self),`) // Permissions-Policy
+      expect(str).toContain(`camera 'self' 'https://trusted-site.example';`) // Feature-Policy
+      expect(str).toContain(`camera=(self "https://trusted-site.example"),`) // Permissions-Policy
+      expect(str).toContain(`fullscreen 'none'`) // Feature-Policy
+      expect(str).toContain(`fullscreen=()`) // Permissions-Policy
     },
     timeoutMs
   )

@@ -6,6 +6,11 @@
 
 import type { EleventyConfig } from '@panoply/11ty';
 
+// Warning: (ae-missing-release-tag) "appendToHeadersFile" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const appendToHeadersFile: (headerKey: string, headerValue: string, headersFilepath: string, patterns: string[]) => void;
+
 // Warning: (ae-missing-release-tag) "Directive" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
