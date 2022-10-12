@@ -3,6 +3,9 @@ const slugify = require('slugify')
 const navigation = require('@11ty/eleventy-navigation')
 const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
 const plausible = require('@jackdbd/eleventy-plugin-plausible')
+const {
+  ensureEnvVarsPlugin
+} = require('@jackdbd/eleventy-plugin-ensure-env-vars')
 const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
 
 const helmet = require('eleventy-plugin-helmet')
@@ -33,6 +36,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(helmet)
 
   eleventyConfig.addPlugin(navigation)
+
+  eleventyConfig.addPlugin(ensureEnvVarsPlugin)
 
   const { api_key: apiKey, site_id: siteId } = JSON.parse(process.env.PLAUSIBLE)
   eleventyConfig.addPlugin(plausible, { apiKey, siteId })
