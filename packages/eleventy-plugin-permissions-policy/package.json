@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-permissions-policy",
-  "version": "1.0.0-canary.3",
+  "version": "1.0.0",
   "description": "Eleventy plugin for Permissions-Policy and Feature-Policy headers",
   "author": {
     "name": "Giacomo Debidda",
