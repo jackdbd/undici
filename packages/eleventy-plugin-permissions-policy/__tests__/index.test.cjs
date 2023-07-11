@@ -61,13 +61,14 @@ describe('permissionsPolicyPlugin', () => {
     'adds one `eleventy.after` event handler',
     async () => {
       const userConfig = {}
+      const initial_events_count = 1
 
       expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
       expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
       permissionsPolicyPlugin(eleventyConfig, userConfig)
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
       expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
       expect(eleventyConfig.events._events['eleventy.after']).toBeDefined()
 
@@ -82,11 +83,12 @@ describe('permissionsPolicyPlugin', () => {
     'default config',
     async () => {
       const userConfig = {}
+      const initial_events_count = 1
 
       permissionsPolicyPlugin(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -117,11 +119,12 @@ describe('permissionsPolicyPlugin', () => {
           { feature: 'fullscreen', allowlist: [] }
         ]
       }
+      const initial_events_count = 1
 
       permissionsPolicyPlugin(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)

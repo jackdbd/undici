@@ -4,10 +4,10 @@
 
 ## CloudStorageHost type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type CloudStorageHost = {
+export type CloudStorageHost = {
     bucketName: string;
     keyFilename: string;
 };

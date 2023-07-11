@@ -45,13 +45,11 @@ npm run build:libs
 
 Build the demo 11ty site:
 
-
 ```sh
 npm run build:site
 ```
 
 Build all libraries and the demo site:
-
 
 ```sh
 npm run build
@@ -77,6 +75,17 @@ Run all tests on all packages:
 
 ```sh
 npm run test
+```
+
+Run tests on a single package:
+
+```sh
+npm run test -w packages/eleventy-plugin-content-security-policy
+npm run test -w packages/eleventy-plugin-ensure-env-vars
+npm run test -w packages/eleventy-plugin-permissions-policy
+npm run test -w packages/eleventy-plugin-plausible
+npm run test -w packages/eleventy-plugin-telegram
+npm run test -w packages/eleventy-plugin-text-to-speech
 ```
 
 ## Demo

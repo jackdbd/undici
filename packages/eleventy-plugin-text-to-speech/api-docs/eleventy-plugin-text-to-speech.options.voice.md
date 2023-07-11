@@ -10,7 +10,7 @@ See here for the voices supported by the Speech-to-Text API: https://cloud.googl
 
 Note: different voices might have different prices: https://cloud.google.com/text-to-speech/pricing
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 voice?: string;

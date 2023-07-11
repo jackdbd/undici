@@ -4,7 +4,7 @@
 
 ## Options.directives property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 directives?: Directive[];

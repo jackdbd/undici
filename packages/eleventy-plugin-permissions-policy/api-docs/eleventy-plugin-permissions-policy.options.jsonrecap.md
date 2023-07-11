@@ -4,7 +4,7 @@
 
 ## Options.jsonRecap property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 jsonRecap: boolean;

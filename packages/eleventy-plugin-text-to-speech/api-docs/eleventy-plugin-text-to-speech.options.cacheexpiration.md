@@ -6,7 +6,7 @@
 
 Expiration for the 11ty AssetCache. https://www.11ty.dev/docs/plugins/fetch/\#options
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 cacheExpiration?: string;

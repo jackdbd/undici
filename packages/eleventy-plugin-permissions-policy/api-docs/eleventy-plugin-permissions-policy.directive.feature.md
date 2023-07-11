@@ -4,7 +4,7 @@
 
 ## Directive.feature property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 feature: string;

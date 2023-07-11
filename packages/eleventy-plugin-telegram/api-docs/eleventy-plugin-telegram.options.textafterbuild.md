@@ -4,7 +4,7 @@
 
 ## Options.textAfterBuild property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 textAfterBuild: string;

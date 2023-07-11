@@ -8,7 +8,7 @@ List of encodings to use when generating audio assets from text matches.
 
 See here for the audio encodings supported by the Speech-to-Text API: https://cloud.google.com/speech-to-text/docs/encoding\#audio-encodings
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 audioEncodings?: AudioEncoding[];

@@ -4,8 +4,8 @@
 
 ## AudioInnerHTML type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type AudioInnerHTML = (hrefs: string[]) => string;
+export type AudioInnerHTML = (hrefs: string[]) => string;
 ```

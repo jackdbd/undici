@@ -4,7 +4,7 @@
 
 ## Options.textBeforeBuild property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 textBeforeBuild: string;

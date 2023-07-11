@@ -6,7 +6,7 @@
 
 Function to use to generate the innerHTML of the `<audio>` tag to inject in the page for each text match.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 audioInnerHTML?: AudioInnerHTML;

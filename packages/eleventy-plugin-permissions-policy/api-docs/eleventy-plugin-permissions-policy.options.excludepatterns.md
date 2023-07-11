@@ -4,7 +4,7 @@
 
 ## Options.excludePatterns property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 excludePatterns: string[];

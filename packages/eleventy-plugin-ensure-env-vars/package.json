@@ -69,7 +69,5 @@
     "@11ty/eleventy": ">=1.0.0",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {
-    "@panoply/11ty": "^0.1.0"
-  }
+  "devDependencies": {}
 }

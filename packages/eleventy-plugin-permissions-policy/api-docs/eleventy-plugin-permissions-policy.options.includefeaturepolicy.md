@@ -4,7 +4,7 @@
 
 ## Options.includeFeaturePolicy property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 includeFeaturePolicy: boolean;

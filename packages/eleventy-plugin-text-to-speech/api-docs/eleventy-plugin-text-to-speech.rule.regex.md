@@ -4,7 +4,7 @@
 
 ## Rule.regex property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 regex: RegExp;

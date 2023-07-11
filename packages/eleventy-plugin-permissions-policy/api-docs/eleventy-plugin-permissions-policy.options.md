@@ -4,7 +4,7 @@
 
 ## Options interface
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 export interface Options 
@@ -14,7 +14,7 @@ export interface Options
 
 |  Property | Modifiers | Type | Description |
 |  --- | --- | --- | --- |
-|  [directives?](./eleventy-plugin-permissions-policy.options.directives.md) |  | [Directive](./eleventy-plugin-permissions-policy.directive.md)<!-- -->\[\] | <i>(Optional)</i> |
+|  [directives?](./eleventy-plugin-permissions-policy.options.directives.md) |  | [Directive](./eleventy-plugin-permissions-policy.directive.md)<!-- -->\[\] | _(Optional)_ |
 |  [excludePatterns](./eleventy-plugin-permissions-policy.options.excludepatterns.md) |  | string\[\] |  |
 |  [includeFeaturePolicy](./eleventy-plugin-permissions-policy.options.includefeaturepolicy.md) |  | boolean |  |
 |  [includePatterns](./eleventy-plugin-permissions-policy.options.includepatterns.md) |  | string\[\] |  |

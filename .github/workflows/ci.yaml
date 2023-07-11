@@ -15,14 +15,12 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         # Test all packages with:
-        # 1. Maintenance LTS 14.20.0
+        # 1. Maintenance LTS
         # 2. Active LTS
         # 3. Current (i.e. the latest Node.js version available)
-        # https://nodejs.org/en/
         # https://nodejs.org/en/about/releases/
-        # 14.20.0 seems to have some issues with chokidar and fsevents...
-        node: ['16.17.0', 'current']
-        eleventy: ['1.0.0']
+        node: ['lts/gallium', 'lts/hydrogen', 'current']
+        eleventy: ['2.0.0']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v3

@@ -4,7 +4,7 @@
 
 ## appendToHeadersFile variable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 appendToHeadersFile: (headerKey: string, headerValue: string, headersFilepath: string, patterns: string[]) => void

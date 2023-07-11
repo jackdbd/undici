@@ -6,7 +6,7 @@
 
 Absolute filepath to the service account JSON key used to authenticate the Text-to-Speech client library. These credentials might be different from the ones used to authenticate the Cloud Storage client library. If not provided, this plugin will try initializing client libraries using the GOOGLE\_APPLICATION\_CREDENTIALS environment variable.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 keyFilename?: string;

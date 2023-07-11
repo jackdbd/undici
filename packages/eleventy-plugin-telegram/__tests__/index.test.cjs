@@ -34,13 +34,15 @@ describe('telegramPlugin', () => {
 
   it('adds one `eleventy.after` event handler by default', () => {
     const userConfig = { chatId, token }
+    const initial_events_count = 1
 
+    expect(eleventyConfig.events._eventsCount).toBe(initial_events_count)
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
     telegramPlugin(eleventyConfig, userConfig)
 
-    expect(eleventyConfig.events._eventsCount).toBe(1)
+    expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).toBeDefined()
   })
@@ -63,13 +65,14 @@ describe('telegramPlugin', () => {
       token,
       textBeforeBuild: undefined
     }
+    const initial_events_count = 1
 
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
     telegramPlugin(eleventyConfig, userConfig)
 
-    expect(eleventyConfig.events._eventsCount).toBe(1)
+    expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).toBeDefined()
   })
@@ -80,13 +83,14 @@ describe('telegramPlugin', () => {
       token,
       textBeforeBuild: '<b>start</b> 11ty site build'
     }
+    const initial_events_count = 1
 
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
     telegramPlugin(eleventyConfig, userConfig)
 
-    expect(eleventyConfig.events._eventsCount).toBe(1)
+    expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
     expect(eleventyConfig.events._events['eleventy.before']).toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
   })

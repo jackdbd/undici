@@ -4,7 +4,7 @@
 
 ## Options.includePatterns property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 includePatterns: string[];

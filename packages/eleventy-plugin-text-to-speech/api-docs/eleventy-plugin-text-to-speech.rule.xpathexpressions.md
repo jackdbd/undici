@@ -4,7 +4,7 @@
 
 ## Rule.xPathExpressions property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 xPathExpressions: string[];

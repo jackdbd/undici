@@ -6,7 +6,7 @@
 
 Rules that determine which texts to convert into speech.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 rules: Rule[];

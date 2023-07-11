@@ -51,15 +51,13 @@
     "test:ci": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs --ci"
   },
   "dependencies": {
-    "@hapi/hoek": "^10.0.1",
-    "@jackdbd/content-security-policy": "^1.0.0",
-    "joi": "^17.6.0"
+    "@hapi/hoek": "^11.0.2",
+    "@jackdbd/content-security-policy": "^2.0.0",
+    "joi": "^17.9.2"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=1.0.0",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {
-    "@panoply/11ty": "^0.1.0"
-  }
+  "devDependencies": {}
 }

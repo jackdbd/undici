@@ -8,7 +8,7 @@ Name of the 11ty transform created by this plugin.
 
 Note: if you register this plugin more than once, you will need to use a different name every time (11ty would NOT throw an Error, but this plugin will not work as expected).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 transformName?: string;

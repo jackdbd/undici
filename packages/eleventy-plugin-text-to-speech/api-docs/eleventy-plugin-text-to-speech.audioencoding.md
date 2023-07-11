@@ -4,8 +4,8 @@
 
 ## AudioEncoding type
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
-export declare type AudioEncoding = 'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS';
+export type AudioEncoding = 'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS';
 ```

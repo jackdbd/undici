@@ -218,7 +218,7 @@ export const insertAudioPlayersMatchingXPathExpression = ({
           node.parentNode.appendChild(audio)
         }
       } else {
-        const message = `node that matches XPath expression ${expression} on page ${doc.title} has no`
+        const message = `node that matches XPath expression ${expression} on page ${doc.title} has no parent`
         debug(message)
         // maybe try inserting using previousSibling?
       }

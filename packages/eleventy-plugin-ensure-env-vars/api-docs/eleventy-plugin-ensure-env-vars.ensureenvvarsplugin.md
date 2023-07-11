@@ -5,7 +5,7 @@
 ## ensureEnvVarsPlugin variable
 
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 ensureEnvVarsPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void

@@ -4,7 +4,7 @@
 
 ## Rule.cssSelectors property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 cssSelectors: string[];

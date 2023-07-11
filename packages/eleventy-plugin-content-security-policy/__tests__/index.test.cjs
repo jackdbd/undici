@@ -112,13 +112,14 @@ describe('plugin', () => {
     'adds one `eleventy.after` event handler',
     async () => {
       const userConfig = {}
+      const initial_events_count = 1
 
       expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
       expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
       plugin.configFunction(eleventyConfig, userConfig)
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
       expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
       expect(eleventyConfig.events._events['eleventy.after']).toBeDefined()
 
@@ -137,7 +138,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -161,7 +162,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -185,7 +186,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -215,7 +216,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -235,7 +236,6 @@ describe('plugin', () => {
       expect(str).toContain(`img-src 'self'`)
       expect(str).toContain(`manifest-src 'self'`)
       expect(str).toContain(`object-src 'none'`)
-      expect(str).toContain(`prefetch-src 'self'`)
       expect(str).toContain(`script-src 'self'`)
       expect(str).toContain(`style-src 'self'`)
       expect(str).toContain(`upgrade-insecure-requests`)
@@ -260,7 +260,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs / 4)
       clearTimeout(timeout)
@@ -291,7 +291,7 @@ describe('plugin', () => {
       plugin.configFunction(eleventyConfig, userConfig)
       eleventyConfig.emit('eleventy.after')
 
-      expect(eleventyConfig.events._eventsCount).toBe(1)
+      expect(eleventyConfig.events._eventsCount).toBe(2)
 
       const timeout = await waitMs(timeoutMs - 1000)
       clearTimeout(timeout)

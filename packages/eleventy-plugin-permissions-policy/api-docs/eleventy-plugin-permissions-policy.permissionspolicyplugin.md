@@ -6,7 +6,7 @@
 
 Plugin configuration function.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 permissionsPolicyPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
