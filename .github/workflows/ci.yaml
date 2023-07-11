@@ -58,11 +58,6 @@ jobs:
       - name: 🔍 Test @jackdbd/eleventy-plugin-permissions-policy
         run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
 
-      - name: 🔍 Test @jackdbd/eleventy-plugin-plausible
-        env:
-          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
-        run: npm run test:ci -w packages/eleventy-plugin-plausible
-
       - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
         env:
           TELEGRAM: ${{ secrets.TELEGRAM }}
