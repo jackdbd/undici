@@ -4,7 +4,7 @@
 
 ## audioExtension variable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 audioExtension: (audioEncoding: AudioEncoding) => "alaw" | "l16" | "mp3" | "mulaw" | "opus" | "wav"

@@ -4,7 +4,7 @@
 
 ## telegramPlugin variable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 telegramPlugin: (eleventyConfig: EleventyConfig, options: Options) => void

@@ -8,7 +8,7 @@ Name of the 11ty collection created by this plugin.
 
 Note: if you register this plugin more than once, you will need to use a different name every time (otherwise 11ty would throw an Error).
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 collectionName?: string;

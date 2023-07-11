@@ -33,12 +33,12 @@ npm install --save-dev @jackdbd/eleventy-plugin-content-security-policy
 const cspPlugin = require('@jackdbd/eleventy-plugin-content-security-policy')
 
 module.exports = function (eleventyConfig) {
-  // some eleventy configuration...
+  // some other eleventy configuration...
 
-  // use the default CSP directives (not recommended)
+  // use the default CSP directives (not recommended)...
   eleventyConfig.addPlugin(cspPlugin)
 
-  // or, define your CSP directives. For example:
+  // ...or define your CSP directives
   eleventyConfig.addPlugin(cspPlugin, {
     allowDeprecatedDirectives: true,
     
@@ -70,7 +70,7 @@ module.exports = function (eleventyConfig) {
     includePatterns: ['/**/**.html']
   })
 
-  // some more eleventy configuration...
+  // some other eleventy configuration...
 }
 ```
 

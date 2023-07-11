@@ -6,7 +6,7 @@
 
 Where to host the audio assets. Each audio host should have a matching writer responsible for writing/uploading the assets to the host.
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 audioHost: URL | CloudStorageHost;

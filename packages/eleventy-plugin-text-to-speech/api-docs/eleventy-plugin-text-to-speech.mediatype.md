@@ -8,7 +8,7 @@ The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and
 
 Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5\_audio
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 mediaType: (ext: string) => {

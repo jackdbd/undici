@@ -27,9 +27,7 @@ const config = {
   // no subject, it would throw an error because there is a rule in the
   // @commitlint/config-conventional preset that disallows empty subjects. Since
   // I don't care about the commit message of the first commit, I ignore it.
-  // There are also a couple of commit messages that have a header a bit too
-  // long. Since they are old commits and I want to enforce a max length for the
-  // commit message header, I ignore them.
+  // There are also a few commit messages that have a header a bit too long.
   ignores: [
     (message) => {
       return (
@@ -40,13 +38,10 @@ const config = {
         message.includes(
           'feat(eleventy-plugin-text-to-speech): allow hosting audio files on Cloud Storage'
         ) ||
-        message.includes(
-          'chore(eleventy-plugin-text-to-speech): release v.2.0.0-canary.1 [skip ci]'
-        ) ||
-        message.includes(
-          'chore(eleventy-plugin-ensure-env-vars): release v.1.0.0-canary.1 [skip ci]'
-        ) ||
-        message.includes('eleventy-plugin-content-security-policy')
+        message.includes('chore(eleventy-plugin-text-to-speech): release') ||
+        message.includes('chore(eleventy-plugin-ensure-env-vars): release') ||
+        message.includes('eleventy-plugin-content-security-policy') ||
+        message.includes('eleventy-plugin-permissions-policy')
       )
     }
   ],

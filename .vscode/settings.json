@@ -5,6 +5,7 @@
   // For tsconfig files we can use jsonc without issues.
   // https://marketplace.visualstudio.com/items?itemName=pflannery.vscode-versionlens
   "files.associations": {
+    "_headers": "toml",
     "*.json": "json",
     "tsconfig*.json": "jsonc"
   },

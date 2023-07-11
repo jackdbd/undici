@@ -4,7 +4,7 @@
 
 ## plugin variable
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 plugin: {

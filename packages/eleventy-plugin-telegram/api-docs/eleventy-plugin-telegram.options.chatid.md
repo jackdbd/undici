@@ -4,7 +4,7 @@
 
 ## Options.chatId property
 
-<b>Signature:</b>
+**Signature:**
 
 ```typescript
 chatId: number | string;

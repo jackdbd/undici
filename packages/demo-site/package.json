@@ -31,10 +31,10 @@
   "dependencies": {
     "@11ty/eleventy": "^1.0.1",
     "@11ty/eleventy-navigation": "^0.3.3",
-    "@jackdbd/eleventy-plugin-ensure-env-vars": "1.0.0",
-    "@jackdbd/eleventy-plugin-plausible": "1.0.0-canary.1",
-    "@jackdbd/eleventy-plugin-telegram": "1.0.0",
-    "@jackdbd/eleventy-plugin-text-to-speech": "2.0.1",
+    "@jackdbd/eleventy-plugin-ensure-env-vars": "^1.0.0",
+    "@jackdbd/eleventy-plugin-plausible": "^1.0.0",
+    "@jackdbd/eleventy-plugin-telegram": "^1.0.0",
+    "@jackdbd/eleventy-plugin-text-to-speech": "^2.0.1",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "peerDependencies": {},

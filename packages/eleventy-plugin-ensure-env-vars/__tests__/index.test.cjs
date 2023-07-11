@@ -26,13 +26,14 @@ describe('ensureEnvVarsPlugin', () => {
 
   it('adds one `eleventy.before` event handler', () => {
     const userConfig = { envVars: ['ELEVENTY_ENV', 'NODE_ENV'] }
+    const initial_events_count = 1
 
     expect(eleventyConfig.events._events['eleventy.before']).not.toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
 
     ensureEnvVarsPlugin(eleventyConfig, userConfig)
 
-    expect(eleventyConfig.events._eventsCount).toBe(1)
+    expect(eleventyConfig.events._eventsCount).toBe(initial_events_count + 1)
     expect(eleventyConfig.events._events['eleventy.before']).toBeDefined()
     expect(eleventyConfig.events._events['eleventy.after']).not.toBeDefined()
   })
