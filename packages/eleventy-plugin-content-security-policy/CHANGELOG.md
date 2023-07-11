@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [2.0.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@1.1.0-canary.1...@jackdbd/eleventy-plugin-content-security-policy@2.0.0-canary.1) (2023-07-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-content-security-policy:** upgraded content-security-policy package to ^2.0.0
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** bump version ([d40f12b](https://github.com/jackdbd/undici/commit/d40f12b5e47ba9d836545f52fd5a1b391c0f2505))
+
 ## @jackdbd/eleventy-plugin-content-security-policy [1.1.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@1.0.0...@jackdbd/eleventy-plugin-content-security-policy@1.1.0-canary.1) (2022-10-12)
 
 
