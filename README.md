@@ -86,6 +86,7 @@ npm run test -w packages/eleventy-plugin-permissions-policy
 npm run test -w packages/eleventy-plugin-plausible
 npm run test -w packages/eleventy-plugin-telegram
 npm run test -w packages/eleventy-plugin-text-to-speech
+npm run test -w packages/eleventy-plugin-webmention
 ```
 
 ## Demo
