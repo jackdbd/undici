@@ -19,6 +19,11 @@ packages/**/tsconfig.tsbuildinfo
 
 # default cache directory of @11ty/eleventy-fetch
 packages/**/.cache/
+.cache/
+
+# cache directory of eleventy-plugin-webmention (the cache inside the package it's used by tests)
+packages/eleventy-plugin-webmention/.cache-webmentions/
+.cache-webmentions/
 
 # default cache directory of @jackdbd/eleventy-plugin-plausible
 packages/eleventy-plugin-plausible/.cache-plausible-json-responses/

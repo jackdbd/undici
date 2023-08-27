@@ -57,7 +57,8 @@ const projects = [
   project('eleventy-plugin-permissions-policy'),
   project('eleventy-plugin-plausible'),
   project('eleventy-plugin-telegram'),
-  project('eleventy-plugin-text-to-speech')
+  project('eleventy-plugin-text-to-speech'),
+  project('eleventy-plugin-webmention')
 ]
 
 const config = {
