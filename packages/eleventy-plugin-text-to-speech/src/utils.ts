@@ -2,7 +2,7 @@ import makeDebug from 'debug'
 import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
 import type { AudioEncoding } from './types.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/utils`)
+const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
 
 export const audioExtension = (audioEncoding: AudioEncoding) => {
   switch (audioEncoding) {

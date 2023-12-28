@@ -24,9 +24,14 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-plausible#readme",
   "engines": {
-    "node": ">=14.20.0"
+    "node": ">=16"
   },
-  "main": "lib/index.cjs",
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./schemas": "./lib/schemas.js",
+    "./package.json": "./package.json"
+  },
   "files": [
     "CHANGELOG.md",
     "LICENSE",
@@ -46,17 +51,19 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs",
-    "test:ci": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs --ci",
-    "test:watch": "npm run test -- --watch"
+    "test": "node --test",
+    "test:ci": "node --test",
+    "test:watch": "node --test --watch"
   },
   "dependencies": {
     "@jackdbd/plausible-client": "^1.0.2",
-    "joi": "^17.6.0"
+    "joi": "^17.11.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=1.0.0",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@jackdbd/eleventy-test-utils": "*"
+  }
 }

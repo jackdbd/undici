@@ -4,14 +4,16 @@
  * @packageDocumentation
  */
 import makeDebug from 'debug'
+// import type { EleventyConfig } from '@11ty/eleventy'
+import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
 import { ensureEnvVars as fn } from './lib.js'
 import { pluginOptions as optionsSchema } from './schemas.js'
 import type { Options } from './schemas.js'
-import type { EleventyConfig } from '@panoply/11ty'
 
-const NAMESPACE = `eleventy-plugin-ensure-env-vars`
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type EleventyConfig = any
 
-const debug = makeDebug(NAMESPACE)
+const debug = makeDebug(`${DEBUG_PREFIX}`)
 
 /**
  * @public
@@ -28,7 +30,9 @@ export const ensureEnvVarsPlugin = (
   })
 
   if (error) {
-    throw new Error(`[${NAMESPACE}] ${error.message}`)
+    throw new Error(
+      `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${error.message}`
+    )
   }
 
   const config = {} as Required<Options>
@@ -37,7 +41,9 @@ export const ensureEnvVarsPlugin = (
   eleventyConfig.on('eleventy.before', () => {
     const errors = fn(config.envVars)
     if (errors.length > 0) {
-      throw new Error(`[${NAMESPACE}] ${errors.join('; ')}`)
+      throw new Error(
+        `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: ${errors.join('; ')}`
+      )
     }
   })
   debug('attached `eleventy.before` event handler')

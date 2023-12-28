@@ -5,7 +5,7 @@ import type { JSDOM } from 'jsdom'
 import { DEBUG_PREFIX } from './constants.js'
 import { mediaType } from './utils.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/dom`)
+const debug = makeDebug(`${DEBUG_PREFIX}:dom`)
 
 interface CssSelectorConfig {
   dom: JSDOM

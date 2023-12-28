@@ -4,8 +4,9 @@ import stream from 'node:stream'
 import util from 'node:util'
 import makeDebug from 'debug'
 import type { Storage } from '@google-cloud/storage'
+import { DEBUG_PREFIX } from './constants.js'
 
-const debug = makeDebug('eleventy-plugin-text-to-speech/writers')
+const debug = makeDebug(`${DEBUG_PREFIX}:writers`)
 
 const writeFile = util.promisify(fs.writeFile)
 

@@ -4,11 +4,11 @@ import * as eleventyFetch from '@11ty/eleventy-fetch'
 import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { DEBUG_PREFIX } from './constants.js'
 import { synthesizeSpeech } from './text-to-speech.js'
-import type { AudioEncoding } from './types'
+import type { AudioEncoding } from './types.js'
 import { audioExtension } from './utils.js'
 import type { Writer } from './writers.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/audio-assets-from-text`)
+const debug = makeDebug(`${DEBUG_PREFIX}:audio-assets-from-text`)
 
 interface Config {
   audioEncodings: AudioEncoding[]
@@ -56,6 +56,7 @@ export const audioAssetsFromText = async ({
     // https://github.com/11ty/eleventy-fetch/blob/master/src/AssetCache.js
     // https://github.com/11ty/eleventy-fetch/blob/master/src/RemoteAssetCache.js
     // https://www.11ty.dev/docs/plugins/fetch/#options
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const AssetCache = (eleventyFetch as any).AssetCache
 
     const uniqueKey = `${contentHash}_${extension}_${audioEncoding}`

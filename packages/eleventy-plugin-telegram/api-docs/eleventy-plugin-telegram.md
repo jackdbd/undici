@@ -16,3 +16,9 @@
 |  --- | --- |
 |  [telegramPlugin](./eleventy-plugin-telegram.telegramplugin.md) |  |
 
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [EleventyConfig](./eleventy-plugin-telegram.eleventyconfig.md) |  |
+

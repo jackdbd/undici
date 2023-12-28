@@ -1,10 +1,10 @@
 import makeDebug from 'debug'
 import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
-import type { google } from '@google-cloud/text-to-speech/build/protos/protos'
+import type { google } from '@google-cloud/text-to-speech/build/protos/protos.js'
 import { DEBUG_PREFIX } from './constants.js'
 import type { AudioEncoding } from './types.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/text-to-speech`)
+const debug = makeDebug(`${DEBUG_PREFIX}:text-to-speech`)
 
 interface SynthesizeSpeechConfig {
   audioEncoding: AudioEncoding
@@ -39,6 +39,7 @@ export const synthesizeSpeech = async ({
         )
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     return { error: new Error(err.message) }
   }

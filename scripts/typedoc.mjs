@@ -1,10 +1,13 @@
 #!/usr/bin/env zx
 
-import 'zx/globals'
+import { debuglog } from 'node:util'
+// import 'zx/globals'
 import {
   throwIfInvokedFromMonorepoRoot,
   unscopedPackageName
 } from './utils.mjs'
+
+const debug = debuglog('script:typedoc')
 
 // Usage (from a package root):
 // ../../scripts/typedoc.mjs
@@ -18,7 +21,8 @@ const monorepo_root = path.join(package_root, '..', '..')
 const library_entrypoint = path.join(package_root, 'src', 'index.ts')
 const docs_out = path.join(monorepo_root, 'docs', unscoped_name)
 
-await $`typedoc ${library_entrypoint} \
+debug(`running typedoc on entrypoint %s`, library_entrypoint)
+await $`npx typedoc ${library_entrypoint} \
 --excludeInternal \
 --excludePrivate \
 --out ${docs_out} \

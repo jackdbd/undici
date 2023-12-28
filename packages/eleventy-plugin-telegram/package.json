@@ -23,14 +23,14 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-telegram#readme",
   "engines": {
-    "node": ">=14.20.0"
+    "node": ">=16"
   },
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "type": "module",
   "exports": {
     ".": "./lib/index.js",
     "./package.json": "./package.json"
   },
+  "typings": "lib/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -49,6 +49,7 @@
     "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p watch:src watch:test --print-label",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
@@ -58,17 +59,20 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "../../scripts/test.mjs",
-    "test:ci": "../../scripts/test.mjs --ci",
-    "test:watch": "npm run test -- --watch"
+    "test": "node --test",
+    "test:ci": "node --test",
+    "watch:src": "tsc -p tsconfig.json --watch",
+    "watch:test": "node --test --watch"
   },
   "dependencies": {
-    "joi": "^17.6.0",
-    "phin": "^3.6.1"
+    "joi": "^17.11.0",
+    "phin": "^3.7.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=1.0.0",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@jackdbd/eleventy-test-utils": "*"
+  }
 }

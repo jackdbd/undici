@@ -12,7 +12,7 @@ import type { AudioEncoding, AudioInnerHTML, Rule } from './types.js'
 import type { Writer } from './writers.js'
 import { audioAssetsFromText } from './audio-assets-from-text.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/transforms`)
+const debug = makeDebug(`${DEBUG_PREFIX}:transforms`)
 
 interface InjectIntoDomConfig {
   audioEncodings: AudioEncoding[]

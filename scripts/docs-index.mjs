@@ -1,13 +1,16 @@
 #!/usr/bin/env zx
 
-import { fs, path } from 'zx'
-import 'zx/globals'
+import { debuglog } from 'node:util'
+// import { fs, path } from 'zx'
+// import 'zx/globals'
 import { throwIfNotInvokedFromMonorepoRoot } from './utils.mjs'
 
 // Usage (from the monorepo root):
-// ../../scripts/docs-index.mjs
+// ./scripts/docs-index.mjs
 
 throwIfNotInvokedFromMonorepoRoot(process.env.PWD)
+
+const debug = debuglog('script:docs-index')
 
 const PACKAGES_EXCLUDED_FROM_INDEX = ['demo-site']
 
@@ -50,3 +53,4 @@ const ul = items.map((item) => `- ${item}`).join('\n')
 const md = `${intro}\n${ul}`
 
 await fs.writeFile(output, md, { encoding: 'utf8' })
+debug(`wrote ${output} %O`, md)

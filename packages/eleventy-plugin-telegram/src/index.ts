@@ -1,12 +1,15 @@
 import makeDebug from 'debug'
 import Joi from 'joi'
-import type { EleventyConfig } from '@panoply/11ty'
-import { DEFAULT, PREFIX } from './constants.js'
+// import type { EleventyConfig } from '@11ty/eleventy'
+import { DEFAULT, PREFIX, DEBUG_PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import { sendMessage } from './send-message.js'
 import type { SendMessageConfig } from './send-message.js'
 
-const debug = makeDebug('eleventy-plugin-telegram/index')
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type EleventyConfig = any
+
+const debug = makeDebug(`${DEBUG_PREFIX}`)
 
 const makeEleventyEventHandler = (
   _eleventyConfig: EleventyConfig,

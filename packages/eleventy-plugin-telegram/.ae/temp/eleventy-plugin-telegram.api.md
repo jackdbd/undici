@@ -4,7 +4,10 @@
 
 ```ts
 
-import type { EleventyConfig } from '@panoply/11ty';
+// Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type EleventyConfig = any;
 
 // Warning: (ae-missing-release-tag) "Options" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

@@ -4,8 +4,6 @@
 
 ```ts
 
-import type { EleventyConfig } from '@panoply/11ty';
-
 // Warning: (ae-missing-release-tag) "AudioEncoding" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -28,6 +26,11 @@ export type CloudStorageHost = {
     bucketName: string;
     keyFilename: string;
 };
+
+// Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type EleventyConfig = any;
 
 // Warning: (ae-missing-release-tag) "mediaType" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -55,14 +58,6 @@ export interface Options {
     voice?: string;
 }
 
-// Warning: (ae-missing-release-tag) "plugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export const plugin: {
-    initArguments: {};
-    configFunction: (eleventyConfig: EleventyConfig, options: Options) => void;
-};
-
 // Warning: (ae-missing-release-tag) "Rule" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -74,6 +69,11 @@ export interface Rule {
     // (undocumented)
     xPathExpressions: string[];
 }
+
+// Warning: (ae-missing-release-tag) "textToSpeechPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, options: Options) => void;
 
 // (No @packageDocumentation comment for this package)
 

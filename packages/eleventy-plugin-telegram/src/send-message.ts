@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import phin from 'phin'
 import makeDebug from 'debug'
-import { PREFIX } from './constants.js'
+import { PREFIX, DEBUG_PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import type {
   SendMessageResponseBody,
@@ -9,7 +9,7 @@ import type {
   TelegramAPISendMessageError
 } from './types.js'
 
-const debug = makeDebug('eleventy-plugin-telegram/send-message')
+const debug = makeDebug(`${DEBUG_PREFIX}:send-message`)
 
 export interface SendMessageConfig {
   chatId: number | string
@@ -70,6 +70,7 @@ export const sendMessage = async (config: SendMessageConfig) => {
         message: `${PREFIX} message id ${r.message_id} delivered to chat id ${r.chat.id} (username ${r.chat.username}) by bot ${r.from.first_name}`
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
     debug(`${PREFIX}❌ ${err.message}`)
   }

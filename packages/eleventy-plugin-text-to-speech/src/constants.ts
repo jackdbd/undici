@@ -1,4 +1,4 @@
-export const DEBUG_PREFIX = 'eleventy-plugin-text-to-speech'
+export const DEBUG_PREFIX = '11ty-plugin:text-to-speech'
 
 export const ERROR_MESSAGE_PREFIX = {
   invalidConfiguration: '[🗣️ 11ty-plugin-text-to-speech] INVALID CONFIGURATION'

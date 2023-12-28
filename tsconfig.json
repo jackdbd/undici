@@ -7,9 +7,6 @@
       "path": "./packages/eleventy-plugin-ensure-env-vars/tsconfig.json"
     },
     {
-      "path": "./packages/eleventy-plugin-permissions-policy/tsconfig.json"
-    },
-    {
       "path": "./packages/eleventy-plugin-telegram/tsconfig.json"
     },
     {

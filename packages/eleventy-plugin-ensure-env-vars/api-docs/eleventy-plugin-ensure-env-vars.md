@@ -10,3 +10,9 @@
 |  --- | --- |
 |  [ensureEnvVarsPlugin](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md) |  |
 
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [EleventyConfig](./eleventy-plugin-ensure-env-vars.eleventyconfig.md) |  |
+

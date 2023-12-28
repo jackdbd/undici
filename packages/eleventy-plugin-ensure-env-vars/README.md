@@ -24,7 +24,6 @@ Eleventy plugin that checks environment variables before Eleventy builds your si
 npm install --save-dev @jackdbd/eleventy-plugin-ensure-env-vars
 ```
 
-
 ## Usage
 
 ```js

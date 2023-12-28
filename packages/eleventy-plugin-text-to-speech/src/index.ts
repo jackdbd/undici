@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import makeDebug from 'debug'
-import type { EleventyConfig } from '@panoply/11ty'
 import { Storage } from '@google-cloud/storage'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
@@ -24,9 +23,12 @@ import { clientLibraryCredentials } from './utils.js'
 import { selfHostWriter, cloudStorageWriter } from './writers.js'
 import type { Writer } from './writers.js'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type EleventyConfig = any
+
 export { audioExtension, mediaType } from './utils.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/index`)
+const debug = makeDebug(`${DEBUG_PREFIX}`)
 
 export interface Options {
   /**
@@ -101,10 +103,16 @@ export interface Options {
 /**
  * Adds Text-to-Speech functionality to an Eleventy site.
  */
-const configFunction = (eleventyConfig: EleventyConfig, options: Options) => {
+export const textToSpeechPlugin = (
+  eleventyConfig: EleventyConfig,
+  options: Options
+) => {
   const result = optionsSchema.validate(options)
+  // console.log('TextToSpeech VALIDATION result.value', result.value)
+  // console.log('TextToSpeech VALIDATION result.error', result.error)
 
   if (result.error) {
+    debug(`validation result %O`, result)
     const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${result.error.message}`
     throw new Error(message)
   }
@@ -190,9 +198,4 @@ const configFunction = (eleventyConfig: EleventyConfig, options: Options) => {
   })
 
   eleventyConfig.addTransform(transformName, injectAudioTagsIntoHtml)
-}
-
-export const plugin = {
-  initArguments: {},
-  configFunction
 }

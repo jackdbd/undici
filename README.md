@@ -5,51 +5,85 @@
 [![codecov](https://codecov.io/gh/jackdbd/undici/branch/main/graph/badge.svg?token=P5uJ3doRer)](https://codecov.io/gh/jackdbd/undici)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
+> 📌 **Note to self**
+>
+> When Eleventy 3 becomes available as a regular release and is no longer in [alpha](https://www.zachleat.com/web/eleventy-v3-alpha/), update the `peerDependencies` of all packages from:
+>
+> ```txt
+> "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4"
+> ```
+>
+> to:
+>
+> ```txt
+> "@11ty/eleventy": ">=3.0.0"
+> ```
+>
+> Also, don't forget to update the GitHub workflows.
+>
+> **Note:** Eleventy supports **both** CJS and ESM [from version 3 onwards](https://github.com/11ty/eleventy/pull/3074). However, I plan to publish **only** ESM packages for my Eleventy plugins. This means that each one of my plugins should declare `>=3.0.0` in its `peerDependencies`.
+
 Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 
-> 📦 **CJS only:**
+> 📦 **ESM only:**
 >
-> All libraries of this monorepo are published to npmjs as CommonJS.
->
-> At the moment none of these packages has a ESM build.
+> All libraries of this monorepo are published to npmjs as ECMAScript modules.
 >
 > See also:
 >
 > - [Eleventy issue #836](https://github.com/11ty/eleventy/issues/836)
+> - [ELEVENTY V3 WITH ESM SUPPORT NOW ON THE CANARY CHANNEL](https://www.zachleat.com/web/eleventy-v3-alpha/)
+> - [CALLING ALL COURAGEOUS CANARY TESTERS FOR ELEVENTY V3.0](https://www.11ty.dev/blog/canary-eleventy-v3/)
 
 ## Installation
 
 Clone the repo:
 
-```shell
+```sh
 git clone git@github.com:jackdbd/undici.git
+
+cd undici
 ```
 
-This project defines a virtual environment with all the necessary dependencies. This environment is declared by the `mkShell` function in the `flake.nix` file you can find in the root directory of this monorepo. Thanks to nix, direnv and the `.envrc` file, you can activate this environment just by entering this monorepo (e.g. with `cd undici`).
+Ensure you have a Node.js version supported by this project. You can use a Node.js version manager like [nvm](https://github.com/nvm-sh/nvm), [asdf](https://github.com/asdf-vm/asdf-nodejs) or [volta](https://volta.sh/).
 
-If you don't use nix, ensure you have a Node.js version supported by this project. You could use a Node.js version manager like [nvm](https://github.com/nvm-sh/nvm), [asdf](https://github.com/asdf-vm/asdf-nodejs) or [volta](https://volta.sh/).
-
-Install all dependencies from npm.js (by passing `--include dev` we can be sure that we are installing `devDependencies` even when `NODE_ENV` is set to `production`):
+Install all dependencies from npm.js:
 
 ```sh
-npm install --include dev --include prod
+npm install --include dev
 ```
 
-If you don't use nix, install [zx](https://github.com/google/zx) globally.
+> :information_source: by passing `--include dev` we can be sure that we are installing `devDependencies` even when `NODE_ENV` is set to `production`. This is important because [we should **always**](https://youtu.be/HMM7GJC5E2o?si=RaVgw65WMOXDpHT2) set `NODE_ENV=production`.
+
+Setup/update `./git/hooks` with [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks).
 
 ```sh
-npm install --global zx
+npx simple-git-hooks
 ```
 
 ## Development
 
 This monorepo uses [Typescript project references](https://www.typescriptlang.org/docs/handbook/project-references.html) to build all of its libraries.
 
-Build all libraries (i.e. 11ty plugins):
+### Packages
+
+Build all libraries (i.e. 11ty plugins) in watch mode:
 
 ```sh
-npm run build:libs
+npm run dev:libs
 ```
+
+You can also run `build` / `dev` / `test` on a single package. For example:
+
+```sh
+npm run build -w packages/eleventy-plugin-telegram
+npm run dev -w packages/eleventy-plugin-telegram
+npm run test -w packages/eleventy-plugin-telegram
+```
+
+### Demo site
+
+> :warning: Before building the demo site, be sure to build all other packages first.
 
 Build the demo 11ty site:
 
@@ -63,24 +97,22 @@ Build all libraries and the demo site:
 npm run build
 ```
 
-Serve the demo site:
-
-```sh
-npm run serve:site
-```
-
-Build all libraries and the demo site, both in watch mode, and serve the demo site:
+Build all libraries and the demo site, both in watch mode, and serve the demo site with the [Eleventy dev server](https://www.11ty.dev/docs/dev-server/):
 
 ```sh
 npm run dev
 ```
 
-Note: you will still need to refresh the browser (this might change when [Eleventy 2.0 will add a dev server](https://www.11ty.dev/docs/watch-serve/)).
-
-If you want to [update your git hooks](https://github.com/toplenboren/simple-git-hooks?tab=readme-ov-file#update-git-hooks-command) edit the `simple-git-hooks` section in `package.json`, then run:
+Watch only the demo site and serve it using the Eleventy dev server:
 
 ```sh
-npx simple-git-hooks
+npm run dev -w packages/demo-site
+```
+
+Serve the production build of the demo site:
+
+```sh
+npm run serve -w packages/demo-site
 ```
 
 ## Test
@@ -113,4 +145,6 @@ See these plugins configured for the [demo Eleventy site](./packages/demo-site/R
 
 ## Monorepo management
 
-See [scripts](./scripts/README.md).
+For local development I rely on some environment variables and secrets. They are all set using a `.envrc` file. In my case this `.envrc` file **can** be tracked in git because the environment variables I use are non-sensitive configuration, and the secrets exist only on my filesystem. See also [nix-config](https://github.com/jackdbd/nix-config/) to learn how I encrypt my secrets.
+
+See also [scripts](./scripts/README.md).

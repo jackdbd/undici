@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.36.1",
+    "toolVersion": "7.39.1",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -173,6 +173,32 @@
       "preserveMemberOrder": false,
       "members": [
         {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!EleventyConfig:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type EleventyConfig = "
+            },
+            {
+              "kind": "Content",
+              "text": "any"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/index.ts",
+          "releaseTag": "Public",
+          "name": "EleventyConfig",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
           "kind": "Interface",
           "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:interface",
           "docComment": "",
@@ -314,7 +340,7 @@
             {
               "kind": "Reference",
               "text": "EleventyConfig",
-              "canonicalReference": "@panoply/11ty!EleventyConfig:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!EleventyConfig:type"
             },
             {
               "kind": "Content",

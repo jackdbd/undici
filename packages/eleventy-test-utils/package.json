@@ -1,0 +1,47 @@
+{
+  "name": "@jackdbd/eleventy-test-utils",
+  "version": "1.0.0",
+  "description": "Eleventy test utils",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "11ty",
+    "plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-test-utils#readme",
+  "engines": {
+    "node": ">=16"
+  },
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "scripts": {
+    "format": "prettier --config ../../config/prettier.cjs --write lib/**/*.js",
+    "lint": "eslint --config ../../config/eslint.cjs",
+    "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
+    "debug": ">=4.0.0"
+  },
+  "devDependencies": {}
+}
