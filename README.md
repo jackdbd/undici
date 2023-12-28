@@ -27,11 +27,13 @@ git clone git@github.com:jackdbd/undici.git
 cd undici
 ```
 
-Install all dependencies from npm.js and setup git hooks with [husky](https://typicode.github.io/husky/):
+Install all dependencies from npm.js:
 
 ```sh
 npm install
 ```
+
+Setup git hooks with [simple-git-hooks](https://github.com/toplenboren/simple-git-hooks).
 
 ## Development
 
