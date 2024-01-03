@@ -29,10 +29,16 @@ This project defines a virtual environment with all the necessary dependencies. 
 
 If you don't use nix, ensure you have a Node.js version supported by this project. You could use a Node.js version manager like [nvm](https://github.com/nvm-sh/nvm), [asdf](https://github.com/asdf-vm/asdf-nodejs) or [volta](https://volta.sh/).
 
-Install all dependencies from npm.js:
+Install all dependencies from npm.js (by passing `--include dev` we can be sure that we are installing `devDependencies` even when `NODE_ENV` is set to `production`):
 
 ```sh
-npm install
+npm install --include dev --include prod
+```
+
+If you don't use nix, install [zx](https://github.com/google/zx) globally.
+
+```sh
+npm install --global zx
 ```
 
 ## Development

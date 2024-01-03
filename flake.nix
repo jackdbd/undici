@@ -37,9 +37,9 @@
   in {
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [nodejs pnpm];
+        packages = with pkgs; [nodejs pnpm zx];
         shellHook = ''
-          echo "welcome to undici dev shell"
+          echo "🕚 undici dev shell (Node.js $(node -v) / zx $(zx --version))"
           export TELEGRAM=$(cat ./secrets/telegram.json);
         '';
         # environment variables

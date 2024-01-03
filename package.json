@@ -51,7 +51,8 @@
     "serve:site": "npm run serve -w packages/demo-site",
     "size": "npm run size --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "test:ci": "npm run test:ci --workspaces --if-present"
+    "test:ci": "npm run test:ci --workspaces --if-present",
+    "test:tts": "npm run test -w packages/eleventy-plugin-text-to-speech"
   },
   "simple-git-hooks": {
     "pre-commit": "npm run precommit --workspaces --if-present",
@@ -81,7 +82,7 @@
     "http-server": "^14.1.1",
     "jest": "^29.6.1",
     "joi": "^17.9.2",
-    "lint-staged": "^13.2.3",
+    "lint-staged": "^15.2.0",
     "nodemon": "^3.0.1",
     "npm-check-updates": "^16.10.15",
     "npm-run-all": "^4.1.5",
