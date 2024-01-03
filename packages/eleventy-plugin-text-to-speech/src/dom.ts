@@ -166,7 +166,9 @@ export const insertAudioPlayersMatchingCssSelector = ({
 
   elements.forEach((el, i) => {
     const innerHTML = `<audio controls>${audioInnerHTML(hrefs[i])}</audio>`
-    debug(`insert player ${position} CSS selector ${cssSelector} match ${i}`)
+    debug(
+      `insert player ${position} CSS selector ${cssSelector} match index ${i}`
+    )
     el.insertAdjacentHTML(position, innerHTML)
   })
 }

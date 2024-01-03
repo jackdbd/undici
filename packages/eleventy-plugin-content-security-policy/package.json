@@ -45,7 +45,7 @@
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint-no-typescript.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs",
     "test:ci": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs --ci"

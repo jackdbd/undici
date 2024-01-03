@@ -2,7 +2,6 @@ const fs = require('node:fs')
 const slugify = require('slugify')
 const navigation = require('@11ty/eleventy-navigation')
 const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
-const plausible = require('@jackdbd/eleventy-plugin-plausible')
 const {
   ensureEnvVarsPlugin
 } = require('@jackdbd/eleventy-plugin-ensure-env-vars')
@@ -38,9 +37,6 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(navigation)
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
-
-  const { api_key: apiKey, site_id: siteId } = JSON.parse(process.env.PLAUSIBLE)
-  eleventyConfig.addPlugin(plausible, { apiKey, siteId })
 
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
   if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {

@@ -8,7 +8,7 @@
 Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 
 > 📦 **CJS only:**
-> 
+>
 > All libraries of this monorepo are published to npmjs as CommonJS.
 >
 > At the moment none of these packages has a ESM build.
@@ -23,14 +23,22 @@ Clone the repo:
 
 ```shell
 git clone git@github.com:jackdbd/undici.git
-
-cd undici
 ```
 
-Install all dependencies from npm.js and setup git hooks with [husky](https://typicode.github.io/husky/):
+This project defines a virtual environment with all the necessary dependencies. This environment is declared by the `mkShell` function in the `flake.nix` file you can find in the root directory of this monorepo. Thanks to nix, direnv and the `.envrc` file, you can activate this environment just by entering this monorepo (e.g. with `cd undici`).
+
+If you don't use nix, ensure you have a Node.js version supported by this project. You could use a Node.js version manager like [nvm](https://github.com/nvm-sh/nvm), [asdf](https://github.com/asdf-vm/asdf-nodejs) or [volta](https://volta.sh/).
+
+Install all dependencies from npm.js (by passing `--include dev` we can be sure that we are installing `devDependencies` even when `NODE_ENV` is set to `production`):
 
 ```sh
-npm install
+npm install --include dev --include prod
+```
+
+If you don't use nix, install [zx](https://github.com/google/zx) globally.
+
+```sh
+npm install --global zx
 ```
 
 ## Development
@@ -69,6 +77,12 @@ npm run dev
 
 Note: you will still need to refresh the browser (this might change when [Eleventy 2.0 will add a dev server](https://www.11ty.dev/docs/watch-serve/)).
 
+If you want to [update your git hooks](https://github.com/toplenboren/simple-git-hooks?tab=readme-ov-file#update-git-hooks-command) edit the `simple-git-hooks` section in `package.json`, then run:
+
+```sh
+npx simple-git-hooks
+```
+
 ## Test
 
 Run all tests on all packages:
@@ -81,10 +95,15 @@ Run tests on a single package:
 
 ```sh
 npm run test -w packages/eleventy-plugin-content-security-policy
+
 npm run test -w packages/eleventy-plugin-ensure-env-vars
+
 npm run test -w packages/eleventy-plugin-permissions-policy
+
 npm run test -w packages/eleventy-plugin-plausible
+
 npm run test -w packages/eleventy-plugin-telegram
+
 npm run test -w packages/eleventy-plugin-text-to-speech
 ```
 
