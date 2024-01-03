@@ -5,6 +5,11 @@
 secrets/*
 !secrets/README.md
 
+#Clojure formatter (it's the Calva VS Code extension that creates it)
+.clj-kondo/
+# language server protocol
+.lsp/
+
 # test coverage
 **/coverage/
 
