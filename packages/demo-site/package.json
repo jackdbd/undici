@@ -24,7 +24,7 @@
     "clean": "rimraf _site/ .cache/",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "serve": "http-server ./_site/ --port 8090",
     "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
   },
