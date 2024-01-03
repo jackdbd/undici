@@ -11,7 +11,7 @@ Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 >
 > All libraries of this monorepo are published to npmjs as CommonJS.
 >
-> At the moment none of these packages has a ESM build.
+> At the moment none of these packages has an ESM build. It wouldn't make sense to build 11ty plugins as ECMA Script Modules until 11ty [allows to return a promise for its configuration](https://github.com/11ty/eleventy/issues/614#issuecomment-1696207457). And this feature is tied to ESM support, which will land in Eleventy v3.0.0.
 >
 > See also:
 >

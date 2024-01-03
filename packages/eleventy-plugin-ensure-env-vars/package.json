@@ -25,6 +25,7 @@
   "engines": {
     "node": ">=14.20.0"
   },
+  "type": "module",
   "module": "lib/index.js",
   "typings": "lib/index.d.ts",
   "exports": {
@@ -58,7 +59,7 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "../../scripts/test.mjs",
+    "test": "node --test __tests__/",
     "test:ci": "../../scripts/test.mjs --ci",
     "test:watch": "npm run test -- --watch"
   },

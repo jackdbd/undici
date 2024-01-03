@@ -1,20 +1,15 @@
-const fs = require('node:fs')
-const slugify = require('slugify')
-const navigation = require('@11ty/eleventy-navigation')
-const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
-const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
-
-const helmet = require('eleventy-plugin-helmet')
-const shortcodes = require('../src/shortcodes')
+import navigation from '@11ty/eleventy-navigation'
+import slugify from 'slugify'
+import helmet from 'eleventy-plugin-helmet'
+import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
+import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
+import { plugin as tts } from '@jackdbd/eleventy-plugin-text-to-speech'
+import shortcodes from '../src/shortcodes/index.js'
 
 // add a dev server as soon as it is available in Eleventy 2.0
 // https://www.11ty.dev/docs/watch-serve/
 
-module.exports = async function (eleventyConfig) {
-  const { ensureEnvVarsPlugin } = await import(
-    '@jackdbd/eleventy-plugin-ensure-env-vars'
-  )
-
+export default function (eleventyConfig) {
   // 11ty shortcodes
   // https://www.11ty.dev/docs/shortcodes/
   Object.keys(shortcodes).forEach((name) => {

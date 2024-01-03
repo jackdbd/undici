@@ -7,7 +7,7 @@ import makeDebug from 'debug'
 import { ensureEnvVars as fn } from './lib.js'
 import { pluginOptions as optionsSchema } from './schemas.js'
 import type { Options } from './schemas.js'
-import type { EleventyConfig } from '@panoply/11ty'
+import type { UserConfig } from '@11ty/eleventy'
 
 const NAMESPACE = `eleventy-plugin-ensure-env-vars`
 
@@ -17,7 +17,7 @@ const debug = makeDebug(NAMESPACE)
  * @public
  */
 export const ensureEnvVarsPlugin = (
-  eleventyConfig: EleventyConfig,
+  eleventyConfig: UserConfig,
   options?: Options
 ) => {
   debug(`options %O`, options)

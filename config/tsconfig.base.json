@@ -28,16 +28,15 @@
     "isolatedModules": true,
 
     // https://www.typescriptlang.org/tsconfig#lib
-    // Check Node.js ES2020 Support and Node.js ES2021 Support here:
     // https://node.green/
-    "lib": ["ES2020"],
+    "lib": ["ES2022"],
 
     // All of the libraries of this monorepo are compiled for CJS (no ESM).
     // https://www.typescriptlang.org/tsconfig#module
-    "module": "CommonJS",
+    "module": "NodeNext",
 
     // https://www.typescriptlang.org/docs/handbook/module-resolution.html
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
 
     // https://www.typescriptlang.org/tsconfig#noImplicitAny
     "noImplicitAny": true,
@@ -88,7 +87,7 @@
     // just set target for convenience.
     // https://www.typescriptlang.org/tsconfig#target
     // https://node.green/
-    "target": "es2020",
+    "target": "ES2022",
 
     // https://www.typescriptlang.org/tsconfig#typeRoots
     "typeRoots": ["../node_modules/@types", "../custom-types"]
