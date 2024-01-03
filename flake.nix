@@ -38,6 +38,12 @@
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
         packages = with pkgs; [nodejs pnpm];
+        shellHook = ''
+          echo "welcome to undici dev shell"
+        '';
+        # environment variables
+        # DEBUG = "Eleventy:UserConfig";
+        DEBUG = "eleventy-plugin-text-to-speech*";
       };
     });
   };
