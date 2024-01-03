@@ -40,10 +40,15 @@
         packages = with pkgs; [nodejs pnpm];
         shellHook = ''
           echo "welcome to undici dev shell"
+          export TELEGRAM=$(cat ./secrets/telegram.json);
         '';
         # environment variables
         # DEBUG = "Eleventy:UserConfig";
-        DEBUG = "eleventy-plugin-text-to-speech*";
+        DEBUG = "eleventy-plugin-text-to-speech/*,-eleventy-plugin-text-to-speech/transforms";
+        ELEVENTY_ENV = "development";
+        GOOGLE_APPLICATION_CREDENTIALS = "/home/jack/repos/undici/secrets/sa-storage-uploader.json";
+        NODE_ENV = "production";
+        SKIP_TELEGRAM_MESSAGES = 1;
       };
     });
   };

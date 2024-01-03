@@ -40,7 +40,7 @@
     "build:libs:show-config": "tsc --showConfig -p packages/eleventy-plugin-text-to-speech",
     "build:libs:watch": "tsc --build --watch",
     "build:site": "npm run build -w packages/demo-site",
-    "build:site:watch": "SKIP_TELEGRAM_MESSAGES=true npm run build:watch -w packages/demo-site",
+    "build:site:watch": "npm run build:watch -w packages/demo-site",
     "clean": "npm run clean --workspaces --if-present",
     "dev": "run-p 'build:libs:watch' 'build:site:watch' 'serve:site' --print-label",
     "format": "npm run format --workspaces --if-present",

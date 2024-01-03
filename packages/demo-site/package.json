@@ -19,7 +19,7 @@
     "node": ">=16.0.0"
   },
   "scripts": {
-    "build": "ELEVENTY_ENV=production GOOGLE_APPLICATION_CREDENTIALS=~/repos/undici/secrets/sa-storage-uploader.json NODE_ENV=production PLAUSIBLE=$(cat ../../secrets/plausible.json) TELEGRAM=$(cat ../../secrets/telegram.json) eleventy --config config/eleventy.cjs",
+    "build": "eleventy --config config/eleventy.cjs",
     "build:watch": "npm run build -- --watch",
     "clean": "rimraf _site/ .cache/",
     "lint": "eslint --config ../../config/eslint.cjs",
