@@ -46,7 +46,7 @@
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "PLAUSIBLE=$(cat ../../secrets/plausible.json) NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs",
+    "test": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs",
     "test:ci": "NODE_OPTIONS=--experimental-vm-modules ../../scripts/test.mjs --ci",
     "test:watch": "npm run test -- --watch"
   },
