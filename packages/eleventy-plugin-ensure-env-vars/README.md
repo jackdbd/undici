@@ -14,6 +14,7 @@ Eleventy plugin that checks environment variables before Eleventy builds your si
 - [Configuration](#configuration)
   - [Required parameters](#required-parameters)
   - [Options](#options)
+- [Trobleshooting](#trobleshooting)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 </details>

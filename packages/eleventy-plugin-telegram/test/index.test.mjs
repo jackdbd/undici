@@ -1,10 +1,10 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
-import { makeEleventy } from '@jackdbd/eleventy-test-utils'
+import {
+  makeEleventy,
+  INITIAL_ELEVENTY_EVENTS_COUNT
+} from '@jackdbd/eleventy-test-utils'
 import { telegramPlugin } from '../lib/index.js'
-
-// By default, Eleventy listens to an `eleventy.layout` event
-const INITIAL_ELEVENTY_EVENTS_COUNT = 1
 
 const credentials = () => {
   const parsed = JSON.parse(process.env.TELEGRAM)

@@ -4,6 +4,8 @@
 
 ```ts
 
+import { z } from 'zod';
+
 // Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)

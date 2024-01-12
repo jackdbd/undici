@@ -45,16 +45,16 @@ export const synthesizeSpeech = async ({
   }
 }
 
-interface ListVoicesConfig {
-  client: TextToSpeechClient
-  languageCode?: string
-}
+// interface ListVoicesConfig {
+//   client: TextToSpeechClient
+//   languageCode?: string
+// }
 
 // https://cloud.google.com/text-to-speech/docs/voices
-export const listVoices = async ({
-  client,
-  languageCode
-}: ListVoicesConfig) => {
-  const [result] = await client.listVoices({ languageCode })
-  return result.voices
-}
+// export const listVoices = async ({
+//   client,
+//   languageCode
+// }: ListVoicesConfig) => {
+//   const [result] = await client.listVoices({ languageCode })
+//   return result.voices
+// }

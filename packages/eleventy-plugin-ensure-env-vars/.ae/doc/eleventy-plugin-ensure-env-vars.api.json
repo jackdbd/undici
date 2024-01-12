@@ -223,7 +223,7 @@
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!~Options:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!~Options:type"
             },
             {
               "kind": "Content",

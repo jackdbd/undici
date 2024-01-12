@@ -26,6 +26,14 @@
     ".": "./lib/index.js",
     "./package.json": "./package.json"
   },
+  "typings": "lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/*.d.ts"
+      ]
+    }
+  },
   "files": [
     "CHANGELOG.md",
     "LICENSE",
@@ -33,10 +41,16 @@
     "lib"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "format": "prettier --config ../../config/prettier.cjs --write lib/**/*.js",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "lint-staged --config ../../config/lint-staged.cjs"
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
+    "test": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch"
   },
   "dependencies": {},
   "peerDependencies": {
