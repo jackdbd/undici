@@ -51,3 +51,13 @@ None.
 | Option | Default | Explanation |
 | --- | --- | --- |
 | `envVars` | `['ELEVENTY_ENV', 'NODE_ENV']` | environment variables to check before the Eleventy build. |
+
+## Trobleshooting
+
+This plugin declares [debug](https://github.com/debug-js/debug) as a peer dependency. Since Eleventy itself declares `debug` in [its dependencies](https://github.com/11ty/eleventy/blob/main/package.json), there is no need for you to declare `debug` as a direct dependency in your project.
+
+You can selectively enable debug logging for each module of this plugin. For example:
+
+```sh
+export DEBUG="11ty-plugin:ensure-env-vars:*"
+```

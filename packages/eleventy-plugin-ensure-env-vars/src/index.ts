@@ -6,14 +6,14 @@
 import makeDebug from 'debug'
 // import type { EleventyConfig } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
-import { ensureEnvVars as fn } from './lib.js'
+import { ensureEnvVars } from './lib.js'
 import { pluginOptions as optionsSchema } from './schemas.js'
 import type { Options } from './schemas.js'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EleventyConfig = any
 
-const debug = makeDebug(`${DEBUG_PREFIX}`)
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
 /**
  * @public
@@ -34,13 +34,16 @@ export const ensureEnvVarsPlugin = (
       `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${error.message}`
     )
   }
+  debug('validated provided plugin options')
 
   const config = {} as Required<Options>
   Object.assign(config, value)
 
   eleventyConfig.on('eleventy.before', () => {
-    const errors = fn(config.envVars)
-    if (errors.length > 0) {
+    const errors = ensureEnvVars(config.envVars)
+    if (errors.length === 0) {
+      debug(`validated execution environment`)
+    } else {
       throw new Error(
         `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: ${errors.join('; ')}`
       )
