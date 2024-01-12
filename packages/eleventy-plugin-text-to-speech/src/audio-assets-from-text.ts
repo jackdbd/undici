@@ -1,42 +1,46 @@
 import crypto from 'node:crypto'
 import makeDebug from 'debug'
+import { fromZodError } from 'zod-validation-error'
 import * as eleventyFetch from '@11ty/eleventy-fetch'
-import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { DEBUG_PREFIX } from './constants.js'
+import { audio_assets_from_text_config as schema } from './schemas.js'
+import type { AudioAssetsFromTextConfig } from './schemas.js'
 import { synthesizeSpeech } from './text-to-speech.js'
-import type { AudioEncoding } from './types.js'
 import { audioExtension } from './utils.js'
-import type { Writer } from './writers.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:audio-assets-from-text`)
-
-interface Config {
-  audioEncodings: AudioEncoding[]
-  cacheExpiration: string
-  outputPath: string
-  text: string
-  textToSpeechClient: TextToSpeechClient
-  voice: string
-  writer: Writer
-}
 
 /**
  * Synthesize a `text` into audio assets using the Cloud Text-to-Speech API.
  *
+ * @internal
+ *
+ * @remarks
  * Generate as many audio buffers as the specified `audioEncodings`,
  * using the specified `voice`.
  *
  * Write all generated audio assets using the specified `writer`.
+ *
  */
-export const audioAssetsFromText = async ({
-  audioEncodings,
-  cacheExpiration,
-  outputPath,
-  text,
-  textToSpeechClient,
-  voice,
-  writer
-}: Config) => {
+export const audioAssetsFromText = async (
+  config: AudioAssetsFromTextConfig
+) => {
+  const result = schema.safeParse(config)
+
+  if (!result.success) {
+    return { error: fromZodError(result.error) }
+  }
+
+  const {
+    audioEncodings,
+    cacheExpiration,
+    outputPath,
+    text,
+    textToSpeechClient,
+    voice,
+    writer
+  } = result.data
+
   const md5 = crypto.createHash('md5')
   const contentHash = md5.update(text).digest('hex')
   const audioBasename = contentHash
@@ -69,8 +73,14 @@ export const audioAssetsFromText = async ({
       const buffer = await cachedAsset.getCachedValue()
       // even if the asset was retrieved from the 11ty cache (e.g. .cache/), we
       // still need to write it to the 11ty output directory (e.g. _site/)
-      const { href } = await writer.write({ assetName, buffer })
-      return { href }
+      const { error, value } = await writer.write({ assetName, buffer })
+
+      if (error) {
+        return { error }
+      } else {
+        debug(value!.message)
+        return { value: value! }
+      }
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -101,13 +111,20 @@ export const audioAssetsFromText = async ({
     }
 
     if (buffer) {
-      const { href } = await writer.write({ assetName, buffer })
+      const { error, value } = await writer.write({ assetName, buffer })
 
-      debug(`try caching asset ${uniqueKey}`)
-      await cachedAsset.save(buffer, 'buffer')
-      debug(`cached asset ${uniqueKey}`)
+      if (error) {
+        return { error }
+      } else {
+        const { message } = value!
+        debug(message)
 
-      return { href }
+        debug(`try caching asset ${uniqueKey}`)
+        await cachedAsset.save(buffer, 'buffer')
+        debug(`cached asset ${uniqueKey}`)
+
+        return { value: value! }
+      }
     }
 
     throw new Error(
@@ -115,16 +132,16 @@ export const audioAssetsFromText = async ({
     )
   })
 
-  const conversionResults = await Promise.allSettled(conversionPromises)
+  const conversionResults = await Promise.all(conversionPromises)
 
   const successes: { href: string }[] = []
   const failures: string[] = []
 
   conversionResults.forEach((res) => {
-    if (res.status === 'fulfilled') {
-      successes.push({ href: res.value.href })
+    if (res.error) {
+      failures.push(res.error.message)
     } else {
-      failures.push(res.reason.message as string)
+      successes.push({ href: res.value.href })
     }
   })
 
@@ -138,9 +155,11 @@ export const audioAssetsFromText = async ({
     )})`
     debug(message)
     return {
-      contentHash,
-      hrefs,
-      warnings: [] as string[]
+      value: {
+        contentHash,
+        hrefs,
+        warnings: [] as string[]
+      }
     }
   } else if (
     successes.length >= 1 &&
@@ -149,18 +168,22 @@ export const audioAssetsFromText = async ({
     const message = `${conversionResults.length} requests for ${audioBasename}, but only ${successes.length} were successful`
     debug(message)
     return {
-      contentHash,
-      hrefs,
-      warnings: failures
+      value: {
+        contentHash,
+        hrefs,
+        warnings: failures
+      }
     }
   } else {
     const message = `cannot synthesize ${audioBasename}: ${failures.join(' ')}`
     debug(message)
     return {
-      contentHash,
-      error: new Error(message),
-      hrefs: [] as string[],
-      warnings: [] as string[]
+      value: {
+        contentHash,
+        error: new Error(message),
+        hrefs: [] as string[],
+        warnings: [] as string[]
+      }
     }
   }
 }

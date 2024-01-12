@@ -8,23 +8,28 @@
 
 |  Interface | Description |
 |  --- | --- |
-|  [Options](./eleventy-plugin-text-to-speech.options.md) |  |
-|  [Rule](./eleventy-plugin-text-to-speech.rule.md) |  |
+|  [LegacyOptions](./eleventy-plugin-text-to-speech.legacyoptions.md) | Options for this Eleventy plugin. |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [audioExtension](./eleventy-plugin-text-to-speech.audioextension.md) |  |
-|  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | <p>The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm</p><p>Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5\_audio</p> |
+|  [cloud\_storage\_asset\_config](./eleventy-plugin-text-to-speech.cloud_storage_asset_config.md) |  |
+|  [collection\_name](./eleventy-plugin-text-to-speech.collection_name.md) |  |
+|  [DEBUG\_PREFIX](./eleventy-plugin-text-to-speech.debug_prefix.md) |  |
+|  [DEFAULT\_TRANSFORM\_NAME](./eleventy-plugin-text-to-speech.default_transform_name.md) |  |
+|  [DEFAULT\_VOICE\_NAME](./eleventy-plugin-text-to-speech.default_voice_name.md) |  |
+|  [defaultAudioInnerHTML](./eleventy-plugin-text-to-speech.defaultaudioinnerhtml.md) |  |
+|  [options](./eleventy-plugin-text-to-speech.options.md) | Plugin options schema. |
 |  [textToSpeechPlugin](./eleventy-plugin-text-to-speech.texttospeechplugin.md) | Adds Text-to-Speech functionality to an Eleventy site. |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [AudioEncoding](./eleventy-plugin-text-to-speech.audioencoding.md) |  |
-|  [AudioInnerHTML](./eleventy-plugin-text-to-speech.audioinnerhtml.md) |  |
 |  [CloudStorageHost](./eleventy-plugin-text-to-speech.cloudstoragehost.md) |  |
-|  [EleventyConfig](./eleventy-plugin-text-to-speech.eleventyconfig.md) |  |
+|  [Options](./eleventy-plugin-text-to-speech.options.md) | Plugin options. |
+|  [Writer](./eleventy-plugin-text-to-speech.writer.md) |  |
+|  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) |  |
+|  [WriteSuccess](./eleventy-plugin-text-to-speech.writesuccess.md) |  |
 

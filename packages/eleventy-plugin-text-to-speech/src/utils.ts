@@ -1,6 +1,6 @@
 import makeDebug from 'debug'
-import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
-import type { AudioEncoding } from './types.js'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import type { AudioEncoding } from './schemas.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
 
@@ -77,7 +77,7 @@ export const clientLibraryCredentials = ({
   }
 
   if (!credentials) {
-    const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: neither keyFilename nor GOOGLE_APPLICATION_CREDENTIALS are set. Cannot initialize ${what}.`
+    const message = `${ERR_PREFIX}: neither keyFilename nor GOOGLE_APPLICATION_CREDENTIALS are set. Cannot initialize ${what}.`
     throw new Error(message)
   }
 

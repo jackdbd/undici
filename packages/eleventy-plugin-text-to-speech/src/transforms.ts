@@ -8,8 +8,7 @@ import {
   insertAudioPlayersMatchingCssSelector,
   insertAudioPlayersMatchingXPathExpression
 } from './dom.js'
-import type { AudioEncoding, AudioInnerHTML, Rule } from './types.js'
-import type { Writer } from './writers.js'
+import type { AudioEncoding, AudioInnerHTML, Rule, Writer } from './schemas.js'
 import { audioAssetsFromText } from './audio-assets-from-text.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:transforms`)
@@ -73,7 +72,16 @@ const injectIntoDom = async ({
   const cssResults = await Promise.all(cssPromises)
 
   cssResults.forEach((cssResult) => {
-    const hrefs = cssResult.results.map((res) => res.hrefs)
+    // TODO: double check if string[][] is correct
+    // const hrefs = cssResult.results.map((res) => res.value.hrefs) as string[][]
+
+    const hrefs = [] as string[][]
+    cssResult.results.map((res) => {
+      if (res.value) {
+        hrefs.push(res.value.hrefs)
+      }
+    })
+
     insertAudioPlayersMatchingCssSelector({
       audioInnerHTML,
       cssSelector: cssResult.selector,
@@ -114,7 +122,15 @@ const injectIntoDom = async ({
   const xPathResults = await Promise.all(xPathPromises)
 
   xPathResults.forEach((xPathResult) => {
-    const hrefs = xPathResult.results.map((res) => res.hrefs)
+    // TODO: double check if string[][] is correct
+    // const hrefs = xPathResult.results.map((res) => res.hrefs) as string[][]
+    const hrefs = [] as string[][]
+    xPathResult.results.map((res) => {
+      if (res.value) {
+        hrefs.push(res.value.hrefs)
+      }
+    })
+
     insertAudioPlayersMatchingXPathExpression({
       audioInnerHTML,
       dom,

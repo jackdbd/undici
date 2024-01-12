@@ -1,31 +1,35 @@
 import makeDebug from 'debug'
-import type { TextToSpeechClient } from '@google-cloud/text-to-speech'
-import type { google } from '@google-cloud/text-to-speech/build/protos/protos.js'
+import { fromZodError } from 'zod-validation-error'
 import { DEBUG_PREFIX } from './constants.js'
-import type { AudioEncoding } from './types.js'
+import { synthesize_speech_config as schema } from './schemas.js'
+import type { SynthesizeSpeechConfig } from './schemas.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:text-to-speech`)
 
-interface SynthesizeSpeechConfig {
-  audioEncoding: AudioEncoding
-  client: TextToSpeechClient
-  text: string
-  voice: google.cloud.texttospeech.v1.IVoiceSelectionParams
-}
+/**
+ * Synthesizes some text using the Cloud Text-to-Speech API.
+ *
+ * @internal
+ * @param config - configuration object
+ * @returns a result object that contains either `error` or `value`
+ *
+ * @remarks
+ * The Cloud Text-to-Speech API has a [limit of 5000 characters](https://cloud.google.com/text-to-speech/quotas).
+ */
+export const synthesizeSpeech = async (config: SynthesizeSpeechConfig) => {
+  const result = schema.safeParse(config)
 
-export const synthesizeSpeech = async ({
-  audioEncoding,
-  client,
-  text,
-  voice
-}: SynthesizeSpeechConfig) => {
+  if (!result.success) {
+    return { error: fromZodError(result.error) }
+  }
+
+  const { audioEncoding, client, text, voice } = result.data
+
   const request = {
     audioConfig: { audioEncoding },
     input: { text },
     voice
   }
-
-  // the Cloud Text-to-Speech API has a limit of 5000 characters
 
   debug(`try converting text => ${audioEncoding} using this voice: %O`, voice)
   try {
@@ -44,17 +48,3 @@ export const synthesizeSpeech = async ({
     return { error: new Error(err.message) }
   }
 }
-
-// interface ListVoicesConfig {
-//   client: TextToSpeechClient
-//   languageCode?: string
-// }
-
-// https://cloud.google.com/text-to-speech/docs/voices
-// export const listVoices = async ({
-//   client,
-//   languageCode
-// }: ListVoicesConfig) => {
-//   const [result] = await client.listVoices({ languageCode })
-//   return result.voices
-// }

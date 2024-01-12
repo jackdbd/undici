@@ -4,20 +4,31 @@
 
 ```ts
 
-// Warning: (ae-missing-release-tag) "AudioEncoding" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type AudioEncoding = 'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS';
+/// <reference types="11ty__eleventy" />
 
-// Warning: (ae-missing-release-tag) "audioExtension" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export const audioExtension: (audioEncoding: AudioEncoding) => "alaw" | "l16" | "mp3" | "mulaw" | "opus" | "wav";
+import type { EleventyConfig } from '@11ty/eleventy';
+import { Storage as Storage_2 } from '@google-cloud/storage';
+import { z } from 'zod';
 
-// Warning: (ae-missing-release-tag) "AudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "cloud_storage_asset_config" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type AudioInnerHTML = (hrefs: string[]) => string;
+export const cloud_storage_asset_config: z.ZodObject<{
+    assetName: z.ZodString;
+    buffer: z.ZodUnion<[z.ZodString, z.ZodType<Uint8Array, z.ZodTypeDef, Uint8Array>]>;
+    bucketName: z.ZodString;
+    storage: z.ZodType<Storage_2, z.ZodTypeDef, Storage_2>;
+}, "strip", z.ZodTypeAny, {
+    bucketName: string;
+    assetName: string;
+    buffer: (string | Uint8Array) & (string | Uint8Array | undefined);
+    storage: Storage_2;
+}, {
+    bucketName: string;
+    assetName: string;
+    buffer: (string | Uint8Array) & (string | Uint8Array | undefined);
+    storage: Storage_2;
+}>;
 
 // Warning: (ae-missing-release-tag) "CloudStorageHost" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -27,53 +38,164 @@ export type CloudStorageHost = {
     keyFilename: string;
 };
 
-// Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "collection_name" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type EleventyConfig = any;
+export const collection_name: z.ZodString;
 
-// Warning: (ae-missing-release-tag) "mediaType" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "DEBUG_PREFIX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
+// @public (undocumented)
+export const DEBUG_PREFIX = "11ty-plugin:text-to-speech";
+
+// Warning: (ae-missing-release-tag) "DEFAULT_TRANSFORM_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const DEFAULT_TRANSFORM_NAME = "inject-audio-tags-into-html";
+
+// Warning: (ae-missing-release-tag) "DEFAULT_VOICE_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const DEFAULT_VOICE_NAME = "en-US-Standard-J";
+
+// Warning: (ae-missing-release-tag) "defaultAudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const defaultAudioInnerHTML: (hrefs: string[]) => string;
+
 // @public
-export const mediaType: (ext: string) => {
-    value: string;
-    error?: undefined;
-} | {
-    error: Error;
-    value?: undefined;
-};
-
-// Warning: (ae-missing-release-tag) "Options" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface Options {
+export interface LegacyOptions {
+    // Warning: (ae-forgotten-export) The symbol "AudioEncoding" needs to be exported by the entry point index.d.ts
     audioEncodings?: AudioEncoding[];
-    audioHost: URL | CloudStorageHost;
-    audioInnerHTML?: AudioInnerHTML;
     cacheExpiration?: string;
     collectionName?: string;
     keyFilename?: string;
+    // Warning: (ae-forgotten-export) The symbol "Rule" needs to be exported by the entry point index.d.ts
     rules: Rule[];
     transformName?: string;
     voice?: string;
 }
 
-// Warning: (ae-missing-release-tag) "Rule" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface Rule {
-    // (undocumented)
-    cssSelectors: string[];
-    // (undocumented)
-    regex: RegExp;
-    // (undocumented)
-    xPathExpressions: string[];
-}
+// @public
+export type Options = z.input<typeof options>;
+
+// @public
+export const options: z.ZodObject<{
+    audioEncodings: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodUnion<[z.ZodLiteral<"ALAW">, z.ZodLiteral<"AUDIO_ENCODING_UNSPECIFIED">, z.ZodLiteral<"LINEAR16">, z.ZodLiteral<"MP3">, z.ZodLiteral<"MULAW">, z.ZodLiteral<"OGG_OPUS">]>, "many">, ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[], ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[]>>;
+    audioHost: z.ZodUnion<[z.ZodObject<{
+        origin: z.ZodString;
+        pathname: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        origin: string;
+        pathname: string;
+    }, {
+        origin: string;
+        pathname: string;
+    }>, z.ZodObject<{
+        bucketName: z.ZodString;
+        keyFilename: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    }, {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    }>]>;
+    audioInnerHTML: z.ZodOptional<z.ZodFunction<z.ZodTuple<[z.ZodArray<z.ZodString, "many">], z.ZodUnknown>, z.ZodString>>;
+    cacheExpiration: z.ZodDefault<z.ZodString>;
+    collectionName: z.ZodDefault<z.ZodString>;
+    keyFilename: z.ZodOptional<z.ZodString>;
+    rules: z.ZodDefault<z.ZodArray<z.ZodObject<{
+        regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
+        cssSelectors: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+        xPathExpressions: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+    }, "strip", z.ZodTypeAny, {
+        regex: RegExp;
+        cssSelectors: string[];
+        xPathExpressions: string[];
+    }, {
+        regex?: RegExp | undefined;
+        cssSelectors?: string[] | undefined;
+        xPathExpressions?: string[] | undefined;
+    }>, "many">>;
+    transformName: z.ZodDefault<z.ZodString>;
+    voice: z.ZodDefault<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    voice: string;
+    audioEncodings: ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[];
+    cacheExpiration: string;
+    audioHost: ({
+        origin: string;
+        pathname: string;
+    } | {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    }) & ({
+        origin: string;
+        pathname: string;
+    } | {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    } | undefined);
+    collectionName: string;
+    rules: {
+        regex: RegExp;
+        cssSelectors: string[];
+        xPathExpressions: string[];
+    }[];
+    transformName: string;
+    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    keyFilename?: string | undefined;
+}, {
+    audioHost: ({
+        origin: string;
+        pathname: string;
+    } | {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    }) & ({
+        origin: string;
+        pathname: string;
+    } | {
+        bucketName: string;
+        keyFilename?: string | undefined;
+    } | undefined);
+    audioEncodings?: ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[] | undefined;
+    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    cacheExpiration?: string | undefined;
+    collectionName?: string | undefined;
+    keyFilename?: string | undefined;
+    rules?: {
+        regex?: RegExp | undefined;
+        cssSelectors?: string[] | undefined;
+        xPathExpressions?: string[] | undefined;
+    }[] | undefined;
+    transformName?: string | undefined;
+    voice?: string | undefined;
+}>;
 
 // Warning: (ae-missing-release-tag) "textToSpeechPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public
-export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, options: Options) => void;
+export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
+
+// Warning: (ae-forgotten-export) The symbol "writer" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Writer" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Writer = z.infer<typeof writer>;
+
+// Warning: (ae-forgotten-export) The symbol "write_result" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "WriteResult" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type WriteResult = z.infer<typeof write_result>;
+
+// Warning: (ae-forgotten-export) The symbol "write_success" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "WriteSuccess" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type WriteSuccess = z.infer<typeof write_success>;
 
 // (No @packageDocumentation comment for this package)
 

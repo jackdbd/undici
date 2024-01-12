@@ -1,7 +1,6 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
 import { sendMessage } from '../lib/send-message.js'
-import { ERROR_MESSAGE_PREFIX } from '../lib/constants.js'
 
 const credentials = () => {
   const parsed = JSON.parse(process.env.TELEGRAM)

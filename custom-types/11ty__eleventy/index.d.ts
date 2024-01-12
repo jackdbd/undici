@@ -1,8 +1,10 @@
 declare module '@11ty/eleventy' {
+  type TransformFn = (content: string, outputPath: string) => Promise<string>
   export interface EleventyConfig {
     userConfig: any
     verbose: boolean
     addPlugin(pluginFn: () => void, pluginOptions: Object): Promise<void>
+    addTransform(name: string, fn: TransformFn): Promise<void>
   }
 
   interface Options {

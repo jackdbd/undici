@@ -26,4 +26,5 @@ await $`npx typedoc ${library_entrypoint} \
 --excludeInternal \
 --excludePrivate \
 --out ${docs_out} \
+--plugin typedoc-plugin-zod \
 --theme default`

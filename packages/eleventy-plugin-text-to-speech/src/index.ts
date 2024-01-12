@@ -1,36 +1,51 @@
-import fs from 'node:fs'
+/**
+ * Eleventy plugin that synthesizes **any text** you want, on **any page** of
+ * your Eleventy site, using the
+ * [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech).
+ *
+ * You can either self-host the audio assets this plugin generates, or host them
+ * on [Cloud Storage](https://cloud.google.com/storage).
+ *
+ * @packageDocumentation
+ */
 import path from 'node:path'
 import makeDebug from 'debug'
+import { fromZodError } from 'zod-validation-error'
+import type { EleventyConfig } from '@11ty/eleventy'
 import { Storage } from '@google-cloud/storage'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
-import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import { defaultAudioInnerHTML } from './dom.js'
-import { options as optionsSchema } from './schemas.js'
+import { options as schema } from './schemas.js'
 import { makeInjectAudioTagsIntoHtml } from './transforms.js'
-import type {
-  AudioEncoding,
-  AudioInnerHTML,
-  CloudStorageHost,
-  Rule
-} from './types.js'
-export type {
-  AudioEncoding,
-  AudioInnerHTML,
-  CloudStorageHost,
-  Rule
-} from './types.js'
+import type { AudioEncoding, Options, Rule, Writer } from './schemas.js'
 import { clientLibraryCredentials } from './utils.js'
-import { selfHostWriter, cloudStorageWriter } from './writers.js'
-import type { Writer } from './writers.js'
+import { cloudStorageWriter } from './cloud-storage-writer.js'
+import { selfHostWriter } from './self-hosted-writer.js'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type EleventyConfig = any
+// exports for TypeDoc
+export {
+  DEBUG_PREFIX,
+  DEFAULT_TRANSFORM_NAME,
+  DEFAULT_VOICE_NAME
+} from './constants.js'
+export { defaultAudioInnerHTML } from './dom.js'
+export {
+  options,
+  collection_name,
+  cloud_storage_asset_config
+} from './schemas.js'
+export type { Options, Writer, WriteResult, WriteSuccess } from './schemas.js'
+export type { CloudStorageHost } from './types.js'
 
-export { audioExtension, mediaType } from './utils.js'
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
-const debug = makeDebug(`${DEBUG_PREFIX}`)
-
-export interface Options {
+/**
+ * Options for this Eleventy plugin.
+ *
+ * @public
+ */
+export interface LegacyOptions {
   /**
    * List of encodings to use when generating audio assets from text matches.
    *
@@ -43,13 +58,13 @@ export interface Options {
    * Where to host the audio assets. Each audio host should have a matching
    * writer responsible for writing/uploading the assets to the host.
    */
-  audioHost: URL | CloudStorageHost
+  // audioHost: URL | CloudStorageHost
 
   /**
    * Function to use to generate the innerHTML of the `<audio>` tag to inject in
    * the page for each text match.
    */
-  audioInnerHTML?: AudioInnerHTML
+  // audioInnerHTML?: AudioInnerHTML
 
   /**
    * Expiration for the 11ty AssetCache.
@@ -105,26 +120,38 @@ export interface Options {
  */
 export const textToSpeechPlugin = (
   eleventyConfig: EleventyConfig,
-  options: Options
+  options?: Options
 ) => {
-  const result = optionsSchema.validate(options)
-  // console.log('TextToSpeech VALIDATION result.value', result.value)
-  // console.log('TextToSpeech VALIDATION result.error', result.error)
+  debug('plugin options (provided by user) %O', options)
 
-  if (result.error) {
-    debug(`validation result %O`, result)
-    const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${result.error.message}`
-    throw new Error(message)
+  const result = schema.safeParse(options)
+
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
 
+  debug('plugin config (provided by user + defaults) %O', result.data)
+
+  const {
+    audioEncodings,
+    cacheExpiration,
+    collectionName,
+    keyFilename,
+    rules,
+    transformName,
+    voice
+  } = result.data
+
   let writer: Writer
-  if ('bucketName' in options.audioHost) {
-    const bucketName = options.audioHost.bucketName
+  if ('bucketName' in result.data.audioHost) {
+    const bucketName = result.data.audioHost.bucketName
 
     const storage = new Storage({
       keyFilename: clientLibraryCredentials({
         what: 'Cloud Storage',
-        keyFilename: options.audioHost.keyFilename
+        // this might be a different JSON key than the one used for the Text-To-Speech synthesis
+        keyFilename: result.data.audioHost.keyFilename
       })
     })
 
@@ -133,15 +160,10 @@ export const textToSpeechPlugin = (
   } else {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     const output = (eleventyConfig as any).dir.output as string
-    const { origin, pathname } = options.audioHost
-
+    const { origin, pathname } = result.data.audioHost
     const hrefBase = `${origin}${pathname}`
 
     const outputBase = path.join(path.basename(output), pathname)
-
-    if (!fs.existsSync(outputBase)) {
-      fs.mkdirSync(outputBase, { recursive: true })
-    }
 
     writer = selfHostWriter({ hrefBase, outputBase })
     debug(
@@ -149,17 +171,8 @@ export const textToSpeechPlugin = (
     )
   }
 
-  const {
-    audioEncodings,
-    cacheExpiration,
-    collectionName,
-    rules,
-    transformName,
-    voice
-  } = result.value as Required<Options>
-
-  const audioInnerHTML = options.audioInnerHTML
-    ? options.audioInnerHTML
+  const audioInnerHTML = result.data.audioInnerHTML
+    ? result.data.audioInnerHTML
     : defaultAudioInnerHTML
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
@@ -169,7 +182,7 @@ export const textToSpeechPlugin = (
   const textToSpeechClient = new TextToSpeechClient({
     keyFilename: clientLibraryCredentials({
       what: 'Text-to-Speech client library',
-      keyFilename: result.value.keyFilename
+      keyFilename: keyFilename
     })
   })
 

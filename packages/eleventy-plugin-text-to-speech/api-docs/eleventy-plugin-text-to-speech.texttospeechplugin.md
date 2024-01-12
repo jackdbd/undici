@@ -9,5 +9,5 @@ Adds Text-to-Speech functionality to an Eleventy site.
 **Signature:**
 
 ```typescript
-textToSpeechPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
+textToSpeechPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
 ```
