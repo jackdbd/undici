@@ -16,6 +16,12 @@ Build the index page for the docs:
 ./scripts/docs-index.mjs
 ```
 
+Serve the docs:
+
+```sh
+npx http-server ./docs/ --port 8090
+```
+
 ## Upgrade dependencies
 
 Upgrade dependencies all packages, interactively:

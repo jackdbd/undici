@@ -199,132 +199,6 @@
           }
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:interface",
-          "docComment": "",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "export interface Options "
-            }
-          ],
-          "fileUrlPath": "src/index.ts",
-          "releaseTag": "Public",
-          "name": "Options",
-          "preserveMemberOrder": false,
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#chatId:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "chatId: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number | string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "chatId",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#textAfterBuild:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "textAfterBuild: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "textAfterBuild",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#textBeforeBuild:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "textBeforeBuild: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "textBeforeBuild",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#token:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "token: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "token",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
-        },
-        {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-telegram!telegramPlugin:var",
           "docComment": "",
@@ -344,12 +218,12 @@
             },
             {
               "kind": "Content",
-              "text": ", options: "
+              "text": ", options?: "
             },
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!~Options:type"
             },
             {
               "kind": "Content",

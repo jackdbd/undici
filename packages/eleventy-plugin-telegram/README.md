@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram)
 [![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-telegram)](https://security.snyk.io/vuln?search=%40jackdbd%2Feleventy-plugin-telegram)
 
-Eleventy plugin that sends messages to a Telegram chat of your choice.
+Eleventy plugin that sends Telegram messages when Eleventy starts/finishes building your site.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -11,9 +11,8 @@ Eleventy plugin that sends messages to a Telegram chat of your choice.
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Configuration](#configuration)
-  - [Required parameters](#required-parameters)
-  - [Options](#options)
+- [Options](#options)
+- [Trobleshooting](#trobleshooting)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 </details>
@@ -35,8 +34,8 @@ export default function (eleventyConfig) {
   // some eleventy configuration...
 
   eleventyConfig.addPlugin(telegramPlugin, {
-    chatId: 'YOUR_TELEGRAM_CHAT_ID',
-    token: 'YOUR_TELEGRAM_BOT_TOKEN',
+    chatId: 'YOUR_TELEGRAM_CHAT_ID', // or set process.env.TELEGRAM_CHAT_ID and leave this undefined
+    token: 'YOUR_TELEGRAM_BOT_TOKEN', // or set process.env.TELEGRAM_TOKEN and leave this undefined
     textBeforeBuild: '⏱️ 11ty <b>started</b> building my website',
     textAfterBuild: '🏁 11ty <b>finished</b> building my website'
   })
@@ -47,21 +46,16 @@ export default function (eleventyConfig) {
 
 See Telegram [sendMessage](https://core.telegram.org/bots/api#sendmessage) API method for formatting options.
 
-## Configuration
-
-### Required parameters
-
-| Parameter | Explanation |
-| --- | --- |
-| `chatId` | Your Telegram chat ID. |
-| `token` | Your Telegram Bot token. If you forgot the API token of a Telegram bot you created, you can retrieve it at any time using BotFather. Just go to `BotFather > bot list > API token`. |
-
-### Options
+## Options
 
 | Option | Default | Explanation |
 | --- | --- | --- |
-| `textBeforeBuild` | `🏎️ 11ty has <b>started</b> building the site` | Text message to send when Eleventy starts building the site. |
-| `textAfterBuild` | `🏁 11ty has <b>finished</b> building the site` | Text message to send when Eleventy finishes building the site. |
+| `chatId` | `process.env.TELEGRAM_CHAT_ID` | Your Telegram chat ID  |
+| `token` | `process.env.TELEGRAM_TOKEN` | Your Telegram Bot token. |
+| `textBeforeBuild` | `undefined` | Text message to send when Eleventy starts building the site. |
+| `textAfterBuild` | `undefined` | Text message to send when Eleventy finishes building the site. |
+
+If you forgot the API token of a Telegram bot you created, you can retrieve it at any time using BotFather. Just go to `BotFather > bot list > API token`.
 
 > :warning: **A few things to keep in mind**
 >

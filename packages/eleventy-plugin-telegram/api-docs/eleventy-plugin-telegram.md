@@ -4,12 +4,6 @@
 
 ## eleventy-plugin-telegram package
 
-## Interfaces
-
-|  Interface | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-telegram.options.md) |  |
-
 ## Variables
 
 |  Variable | Description |

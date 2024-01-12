@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-telegramPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
+telegramPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
 ```

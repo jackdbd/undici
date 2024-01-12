@@ -4,29 +4,18 @@
 
 ```ts
 
+import { z } from 'zod';
+
 // Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
 export type EleventyConfig = any;
 
-// Warning: (ae-missing-release-tag) "Options" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface Options {
-    // (undocumented)
-    chatId: number | string;
-    // (undocumented)
-    textAfterBuild: string;
-    // (undocumented)
-    textBeforeBuild: string;
-    // (undocumented)
-    token: string;
-}
-
+// Warning: (ae-forgotten-export) The symbol "Options" needs to be exported by the entry point index.d.ts
 // Warning: (ae-missing-release-tag) "telegramPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const telegramPlugin: (eleventyConfig: EleventyConfig, options: Options) => void;
+export const telegramPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
 
 // (No @packageDocumentation comment for this package)
 
