@@ -24,7 +24,6 @@ Eleventy plugin that retrieves analytics data from the [Plausible API](https://p
 npm install --save-dev @jackdbd/eleventy-plugin-plausible
 ```
 
-
 ## Usage
 
 Configure the plugin with your Plausible API key and site ID, and the options you want.
@@ -57,7 +56,6 @@ eleventyConfig.on('eleventy.after', async () => {
 ```
 
 ...or in your templates (here is an example with nunjucks):
-
 
 ```html
 <p>Breakdown from Plausible analytics.</p>

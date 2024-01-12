@@ -65,8 +65,7 @@
     "watch:test": "node --test --watch"
   },
   "dependencies": {
-    "joi": "^17.11.0",
-    "phin": "^3.7.0"
+    "joi": "^17.11.0"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",

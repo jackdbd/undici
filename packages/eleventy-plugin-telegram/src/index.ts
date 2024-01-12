@@ -1,7 +1,7 @@
 import makeDebug from 'debug'
 import Joi from 'joi'
 // import type { EleventyConfig } from '@11ty/eleventy'
-import { DEFAULT, PREFIX, DEBUG_PREFIX } from './constants.js'
+import { DEFAULT, DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import { sendMessage } from './send-message.js'
 import type { SendMessageConfig } from './send-message.js'
@@ -9,7 +9,7 @@ import type { SendMessageConfig } from './send-message.js'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EleventyConfig = any
 
-const debug = makeDebug(`${DEBUG_PREFIX}`)
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
 const makeEleventyEventHandler = (
   _eleventyConfig: EleventyConfig,
@@ -47,9 +47,10 @@ export const telegramPlugin = (
 ) => {
   const result = options_schema.validate(options)
   if (result.error) {
-    const message = `${PREFIX} invalid configuration: ${result.error.message}`
+    const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${result.error.message}`
     throw new Error(message)
   }
+  debug('validated provided plugin options')
 
   const { chatId, token, textBeforeBuild, textAfterBuild } =
     result.value as Required<Options>

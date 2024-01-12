@@ -1,7 +1,7 @@
 # @jackdbd/eleventy-plugin-telegram
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-telegram)
+[![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-telegram)](https://security.snyk.io/vuln?search=%40jackdbd%2Feleventy-plugin-telegram)
 
 Eleventy plugin that sends messages to a Telegram chat of your choice.
 
@@ -24,20 +24,21 @@ Eleventy plugin that sends messages to a Telegram chat of your choice.
 npm install --save-dev @jackdbd/eleventy-plugin-telegram
 ```
 
-
 ## Usage
 
-```js
-const { telegramPlugin } = require('@jackdbd/eleventy-plugin-telegram')
+In your Eleventy config file:
 
-module.exports = function (eleventyConfig) {
+```js
+import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
+
+export default function (eleventyConfig) {
   // some eleventy configuration...
 
   eleventyConfig.addPlugin(telegramPlugin, {
     chatId: 'YOUR_TELEGRAM_CHAT_ID',
     token: 'YOUR_TELEGRAM_BOT_TOKEN',
-    textBeforeBuild: '11ty have just started building my site',
-    textAfterBuild: '11ty has finished building my awesome site'
+    textBeforeBuild: '⏱️ 11ty <b>started</b> building my website',
+    textAfterBuild: '🏁 11ty <b>finished</b> building my website'
   })
 
   // some more eleventy configuration...
@@ -62,4 +63,17 @@ See Telegram [sendMessage](https://core.telegram.org/bots/api#sendmessage) API m
 | `textBeforeBuild` | `🏎️ 11ty has <b>started</b> building the site` | Text message to send when Eleventy starts building the site. |
 | `textAfterBuild` | `🏁 11ty has <b>finished</b> building the site` | Text message to send when Eleventy finishes building the site. |
 
-> :information_source: a Telegram message can be 1-4096 characters long, after entities parsing. See [formatting options here](https://core.telegram.org/bots/api#formatting-options).
+> :warning: **A few things to keep in mind**
+>
+> - Telegram messages can be 1-4096 characters long, after entities parsing. See [formatting options here](https://core.telegram.org/bots/api#formatting-options).
+> - Depending on the environment your building your 11ty website in, this plugin might not be able to send you the text message defined in `textAfterBuild`. For example, when building on Cloudflare Pages, I always receive the `textBeforeBuild` text, but not always the `textAfterBuild` text. My guess is that Cloudflare kills the Node.js process before all event handlers registered with `eleventy.after` are resolved.
+
+## Trobleshooting
+
+This plugin declares [debug](https://github.com/debug-js/debug) as a peer dependency. Since Eleventy itself declares `debug` in [its dependencies](https://github.com/11ty/eleventy/blob/main/package.json), there is no need for you to declare `debug` as a direct dependency in your project.
+
+You can selectively enable debug logging for each module of this plugin. For example:
+
+```sh
+export DEBUG="11ty-plugin:telegram:*,-11ty-plugin:telegram:index"
+```

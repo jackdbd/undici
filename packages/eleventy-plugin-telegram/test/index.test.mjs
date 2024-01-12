@@ -1,6 +1,9 @@
 import assert from 'node:assert'
 import { describe, it, before } from 'node:test'
-import { updatedEleventyConfig } from '@jackdbd/eleventy-test-utils'
+import {
+  makeEleventy,
+  updatedEleventyConfig
+} from '@jackdbd/eleventy-test-utils'
 import { telegramPlugin } from '../lib/index.js'
 
 describe('telegramPlugin', () => {
@@ -37,14 +40,16 @@ describe('telegramPlugin', () => {
   })
 
   it('adds one `eleventy.after` event handler by default', async () => {
-    const updatedConfig = await updatedEleventyConfig({
+    const eleventy = await makeEleventy({
       plugin: telegramPlugin,
       pluginConfig: { chatId, token }
     })
 
-    assert.equal(updatedConfig.events._eventsCount, 2)
-    assert.equal(updatedConfig.events._events['eleventy.before'], undefined)
-    assert.notEqual(updatedConfig.events._events['eleventy.after'], undefined)
+    const userConfig = eleventy.eleventyConfig.userConfig
+
+    assert.equal(userConfig.events._eventsCount, 2)
+    assert.equal(userConfig.events._events['eleventy.before'], undefined)
+    assert.notEqual(userConfig.events._events['eleventy.after'], undefined)
   })
 
   it('allows `textBeforeBuild` to be `undefined`', () => {

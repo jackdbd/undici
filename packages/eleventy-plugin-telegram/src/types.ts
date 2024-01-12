@@ -46,6 +46,3 @@ export interface TelegramAPISendMessageSuccess {
 }
 
 // https://core.telegram.org/bots/api#message
-export type SendMessageResponseBody =
-  | TelegramAPISendMessageError
-  | TelegramAPISendMessageSuccess

@@ -1,10 +1,8 @@
 import Joi from 'joi'
-import phin from 'phin'
 import makeDebug from 'debug'
-import { PREFIX, DEBUG_PREFIX } from './constants.js'
+import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX, OK_PREFIX } from './constants.js'
 import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
 import type {
-  SendMessageResponseBody,
   TelegramAPISendMessageSuccess,
   TelegramAPISendMessageError
 } from './types.js'
@@ -32,20 +30,22 @@ export const sendMessage = async (config: SendMessageConfig) => {
   const { chatId: chat_id, token, text } = config
 
   try {
-    const response = await phin<SendMessageResponseBody>({
-      data: {
-        chat_id,
-        disable_notification: true,
-        disable_web_page_preview: false,
-        parse_mode: 'HTML',
-        text
-      },
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      parse: 'json',
-      // https://core.telegram.org/bots/api#sendmessage
-      url: `https://api.telegram.org/bot${token}/sendMessage`
-    })
+    const res = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id,
+          disable_notification: true,
+          disable_web_page_preview: false,
+          parse_mode: 'HTML',
+          text
+        })
+      }
+    )
+
+    const response = await res.json()
 
     if (!response.body.ok) {
       const b = response.body as TelegramAPISendMessageError
@@ -55,7 +55,7 @@ export const sendMessage = async (config: SendMessageConfig) => {
       )
       return {
         delivered: false,
-        message: `${PREFIX} ${b.description} (error code ${b.error_code})`
+        message: `${ERROR_MESSAGE_PREFIX.telegramAPIDidNotRespondOk}: ${b.description} (error code ${b.error_code})`
       }
     } else {
       const b = response.body as TelegramAPISendMessageSuccess
@@ -67,11 +67,11 @@ export const sendMessage = async (config: SendMessageConfig) => {
       return {
         delivered: true,
         deliveredAt: new Date(r.date * 1000).toISOString(),
-        message: `${PREFIX} message id ${r.message_id} delivered to chat id ${r.chat.id} (username ${r.chat.username}) by bot ${r.from.first_name}`
+        message: `${OK_PREFIX} message id ${r.message_id} delivered to chat id ${r.chat.id} (username ${r.chat.username}) by bot ${r.from.first_name}`
       }
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    debug(`${PREFIX}❌ ${err.message}`)
+    debug(`${ERROR_MESSAGE_PREFIX.couldNotCallTelegramAPI}: ${err.message}`)
   }
 }
