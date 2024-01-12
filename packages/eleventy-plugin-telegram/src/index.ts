@@ -1,8 +1,8 @@
 import makeDebug from 'debug'
-import Joi from 'joi'
-// import type { EleventyConfig } from '@11ty/eleventy'
-import { DEFAULT, DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
-import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
+import { fromZodError } from 'zod-validation-error'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import { options as schema } from './schemas.js'
+import type { Options } from './schemas.js'
 import { sendMessage } from './send-message.js'
 import type { SendMessageConfig } from './send-message.js'
 
@@ -15,47 +15,43 @@ const makeEleventyEventHandler = (
   _eleventyConfig: EleventyConfig,
   config: SendMessageConfig
 ) => {
-  // partial application, to obtain a niladic function
+  // partial application
   return sendMessage.bind(null, config)
 }
 
-export interface Options {
-  chatId: number | string
-  token: string
-  textBeforeBuild: string
-  textAfterBuild: string
-}
-
-const options_schema = Joi.object().keys({
-  chatId: telegram_chat_id.required(),
-  token: telegram_token.required(),
-  textBeforeBuild: Joi.alternatives().conditional('textAfterBuild', {
-    is: Joi.exist(),
-    then: telegram_text.optional(),
-    otherwise: telegram_text.optional()
-  }),
-  textAfterBuild: Joi.alternatives().conditional('textBeforeBuild', {
-    is: Joi.exist(),
-    then: telegram_text.optional(),
-    otherwise: telegram_text.default(DEFAULT.TEXT_AFTER_BUILD)
-  })
-})
-
 export const telegramPlugin = (
   eleventyConfig: EleventyConfig,
-  options: Options
+  options?: Options
 ) => {
-  const result = options_schema.validate(options)
-  if (result.error) {
-    const message = `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${result.error.message}`
-    throw new Error(message)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { token: options_minus_token, ...safe_options } = options || {}
+  debug('plugin options provided by user (token not shown) %O', safe_options)
+
+  const result = schema.safeParse(options)
+
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
-  debug('validated provided plugin options')
 
-  const { chatId, token, textBeforeBuild, textAfterBuild } =
-    result.value as Required<Options>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { token: config_minus_token, ...safe_config } = result.data
+  debug(
+    'plugin options provided by user + defaults (token not shown) %O',
+    safe_config
+  )
 
-  // https://www.11ty.dev/docs/events/#event-arguments
+  const { textBeforeBuild, textAfterBuild } = result.data
+  const chatId = result.data.chatId || process.env.TELEGRAM_CHAT_ID
+  const token = result.data.token || process.env.TELEGRAM_TOKEN
+
+  if (!chatId) {
+    throw new Error(`${ERR_PREFIX} Telegram Chat ID not set`)
+  }
+  if (!token) {
+    throw new Error(`${ERR_PREFIX} Telegram bot token not set`)
+  }
+
   if (textBeforeBuild) {
     const onBefore = makeEleventyEventHandler(eleventyConfig, {
       chatId,

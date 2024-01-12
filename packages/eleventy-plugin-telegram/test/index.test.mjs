@@ -1,97 +1,137 @@
 import assert from 'node:assert'
-import { describe, it, before } from 'node:test'
-import {
-  makeEleventy,
-  updatedEleventyConfig
-} from '@jackdbd/eleventy-test-utils'
+import { describe, it } from 'node:test'
+import { makeEleventy } from '@jackdbd/eleventy-test-utils'
 import { telegramPlugin } from '../lib/index.js'
 
+// By default, Eleventy listens to an `eleventy.layout` event
+const INITIAL_ELEVENTY_EVENTS_COUNT = 1
+
+const credentials = () => {
+  const parsed = JSON.parse(process.env.TELEGRAM)
+  return { chat_id: parsed.chat_id, token: parsed.token }
+}
+
+const setValidChatId = () => {
+  process.env.TELEGRAM_CHAT_ID = credentials().chat_id
+}
+
+const setValidToken = () => {
+  process.env.TELEGRAM_TOKEN = credentials().token
+}
+
+const setValidEnvironmentVariables = () => {
+  const { chat_id, token } = credentials()
+  process.env.TELEGRAM_CHAT_ID = chat_id
+  process.env.TELEGRAM_TOKEN = token
+}
+
+const setInvalidEnvironmentVariables = () => {
+  process.env.TELEGRAM_CHAT_ID = 'invalid-chat-id'
+  process.env.TELEGRAM_TOKEN = 'invalid-bot-token'
+}
+
+const setEmptyEnvironmentVariables = () => {
+  process.env.TELEGRAM_CHAT_ID = ''
+  process.env.TELEGRAM_TOKEN = ''
+}
+
 describe('telegramPlugin', () => {
-  let chatId
-  let token
-  before(() => {
-    const parsed = JSON.parse(process.env.TELEGRAM)
-    chatId = parsed.chat_id
-    token = parsed.token
+  it('allows empty user config that registers no event handlers (valid env vars for Telegram chat_id/token)', async () => {
+    setValidEnvironmentVariables()
+    const eleventy = await makeEleventy({
+      plugin: telegramPlugin
+    })
+    const userConfig = eleventy.eleventyConfig.userConfig
+    assert.equal(userConfig.plugins.length, 1)
+    assert.equal(userConfig.events._eventsCount, INITIAL_ELEVENTY_EVENTS_COUNT)
   })
 
-  it('throws when `chatId` is not provided', () => {
-    const eleventyConfig = undefined
-    const userConfig = {}
+  it('allows empty user config that registers no event handlers (valid env vars variables for Telegram chat_id/token)', async () => {
+    // when Telegram chat_id and token are invalid, no message will be delivered
+    // to the Telegram chat, but this plugin will not throw any error (use DEBUG
+    // to see the error messages returned by the Telegram API)
+    setInvalidEnvironmentVariables()
+    const eleventy = await makeEleventy({
+      plugin: telegramPlugin
+    })
+    const userConfig = eleventy.eleventyConfig.userConfig
+    assert.equal(userConfig.plugins.length, 1)
+    assert.equal(userConfig.events._eventsCount, INITIAL_ELEVENTY_EVENTS_COUNT)
+  })
 
-    assert.throws(
+  it('rejects with the expected error message when the Telegram bot token is not provided', async () => {
+    setEmptyEnvironmentVariables()
+    setValidChatId()
+    await assert.rejects(
       () => {
-        telegramPlugin(eleventyConfig, userConfig)
+        return makeEleventy({
+          plugin: telegramPlugin,
+          pluginConfig: { token: undefined }
+        })
       },
-      { message: /"chatId" is required/ }
+      (err) => {
+        assert.match(
+          err.message,
+          /Error processing the `telegramPlugin` plugin/
+        )
+        assert.match(err.originalError.message, /token not set/)
+        return true
+      }
     )
   })
 
-  it.only('throws when `token` is not provided', () => {
-    const eleventyConfig = undefined
-    const userConfig = { chatId }
-
-    assert.throws(
+  it('rejects with the expected error message when the Telegram Chat ID is not provided', async () => {
+    setEmptyEnvironmentVariables()
+    setValidToken()
+    await assert.rejects(
       () => {
-        telegramPlugin(eleventyConfig, userConfig)
+        return makeEleventy({
+          plugin: telegramPlugin,
+          pluginConfig: { chat_id: undefined }
+        })
       },
-      { message: /"token" is required/ }
+      (err) => {
+        assert.match(
+          err.message,
+          /Error processing the `telegramPlugin` plugin/
+        )
+        assert.match(err.originalError.message, /Chat ID not set/)
+        return true
+      }
     )
   })
 
-  it('adds one `eleventy.after` event handler by default', async () => {
+  it('adds only an `eleventy.before` event handler if only `textBeforeBuild` is set', async () => {
+    const { chat_id, token } = credentials()
     const eleventy = await makeEleventy({
       plugin: telegramPlugin,
-      pluginConfig: { chatId, token }
+      pluginConfig: {
+        chatId: chat_id,
+        token,
+        textBeforeBuild: '<b>TEST</b> only <code>textBeforeBuild</code>'
+      }
     })
-
     const userConfig = eleventy.eleventyConfig.userConfig
-
-    assert.equal(userConfig.events._eventsCount, 2)
-    assert.equal(userConfig.events._events['eleventy.before'], undefined)
-    assert.notEqual(userConfig.events._events['eleventy.after'], undefined)
+    assert.equal(
+      userConfig.events._eventsCount,
+      INITIAL_ELEVENTY_EVENTS_COUNT + 1
+    )
   })
 
-  it('allows `textBeforeBuild` to be `undefined`', () => {
-    assert.doesNotReject(() => {
-      return updatedEleventyConfig({
-        plugin: telegramPlugin,
-        pluginConfig: {
-          chatId,
-          token,
-          textBeforeBuild: undefined
-        }
-      })
-    })
-  })
-
-  it('adds only one `eleventy.after` event handler when `textBeforeBuild` is undefined', async () => {
-    const updatedConfig = await updatedEleventyConfig({
+  it('adds only an `eleventy.after` event handler if only `textAfterBuild` is set', async () => {
+    const { chat_id, token } = credentials()
+    const eleventy = await makeEleventy({
       plugin: telegramPlugin,
       pluginConfig: {
-        chatId,
+        chatId: chat_id,
         token,
-        textBeforeBuild: undefined
+        textAfterBuild: '<b>TEST</b> only <code>textAfterBuild</code>'
       }
     })
-
-    assert.equal(updatedConfig.events._eventsCount, 2)
-    assert.equal(updatedConfig.events._events['eleventy.before'], undefined)
-    assert.notEqual(updatedConfig.events._events['eleventy.after'], undefined)
-  })
-
-  it('adds only one `eleventy.before` event handler when `textAfterBuild` is undefined', async () => {
-    const updatedConfig = await updatedEleventyConfig({
-      plugin: telegramPlugin,
-      pluginConfig: {
-        chatId,
-        token,
-        textBeforeBuild: '<b>start</b> 11ty site build'
-      }
-    })
-
-    assert.equal(updatedConfig.events._eventsCount, 2)
-    assert.notEqual(updatedConfig.events._events['eleventy.before'], undefined)
-    assert.equal(updatedConfig.events._events['eleventy.after'], undefined)
+    const userConfig = eleventy.eleventyConfig.userConfig
+    assert.equal(
+      userConfig.events._eventsCount,
+      INITIAL_ELEVENTY_EVENTS_COUNT + 1
+    )
   })
 })
