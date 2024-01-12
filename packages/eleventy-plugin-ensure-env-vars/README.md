@@ -56,8 +56,8 @@ None.
 
 This plugin declares [debug](https://github.com/debug-js/debug) as a peer dependency. Since Eleventy itself declares `debug` in [its dependencies](https://github.com/11ty/eleventy/blob/main/package.json), there is no need for you to declare `debug` as a direct dependency in your project.
 
-You can selectively enable debug logging for each module of this plugin. For example:
+You can enable debug logging for this plugin setting the `DEBUG` environment variable:
 
 ```sh
-export DEBUG="11ty-plugin:ensure-env-vars:*"
+export DEBUG="11ty-plugin:ensure-env-vars"
 ```

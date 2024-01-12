@@ -4,16 +4,15 @@
  * @packageDocumentation
  */
 import makeDebug from 'debug'
-// import type { EleventyConfig } from '@11ty/eleventy'
-import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
-import { ensureEnvVars } from './lib.js'
-import { pluginOptions as optionsSchema } from './schemas.js'
-import type { Options } from './schemas.js'
+import { fromZodError } from 'zod-validation-error'
+import { ERROR_MESSAGE_PREFIX, ERR_PREFIX } from './constants.js'
+import { options as schema } from './schemas.js'
+import type { Options, EventArguments } from './schemas.js'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EleventyConfig = any
 
-const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+const debug = makeDebug(`11ty-plugin:ensure-env-vars`)
 
 /**
  * @public
@@ -22,32 +21,29 @@ export const ensureEnvVarsPlugin = (
   eleventyConfig: EleventyConfig,
   options?: Options
 ) => {
-  debug(`options %O`, options)
+  debug('plugin options (provided by user) %O', options)
 
-  const { error, value } = optionsSchema.validate(options, {
-    allowUnknown: true,
-    stripUnknown: true
-  })
+  const result = schema.safeParse(options)
 
-  if (error) {
-    throw new Error(
-      `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${error.message}`
-    )
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
-  debug('validated provided plugin options')
 
-  const config = {} as Required<Options>
-  Object.assign(config, value)
+  debug('plugin config (provided by user + defaults) %O', result.data)
 
-  eleventyConfig.on('eleventy.before', () => {
-    const errors = ensureEnvVars(config.envVars)
-    if (errors.length === 0) {
-      debug(`validated execution environment`)
-    } else {
-      throw new Error(
-        `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: ${errors.join('; ')}`
-      )
-    }
-  })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const throwIfAnyEnvVarIsMissing = (_args: EventArguments) => {
+    result.data.envVars.forEach((k) => {
+      if (process.env[k] === undefined) {
+        throw new Error(
+          `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: environment variable ${k} not set`
+        )
+      }
+    })
+    debug(`validated execution environment`)
+  }
+
+  eleventyConfig.on('eleventy.before', throwIfAnyEnvVarIsMissing)
   debug('attached `eleventy.before` event handler')
 }
