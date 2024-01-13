@@ -24,6 +24,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./constants": "./lib/constants.js",
     "./package.json": "./package.json"
   },
   "typings": "lib/index.d.ts",
@@ -52,7 +53,9 @@
     "test:ci": "node --test --experimental-test-coverage",
     "test:watch": "node --test --watch"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@jackdbd/checks": "^2.0.0"
+  },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
     "debug": ">=4.0.0"

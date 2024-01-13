@@ -745,7 +745,7 @@
         {
           "kind": "TypeAlias",
           "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options:type",
-          "docComment": "/**\n * Plugin options.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Plugin options.\n *\n * @interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -951,7 +951,61 @@
             },
             {
               "kind": "Content",
-              "text": ";\n        keyFilename: "
+              "text": ";\n        storageClientOptions: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n            credentials: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                client_email: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                private_key: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n            }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                client_email: string;\n                private_key: string;\n            }, {\n                client_email: string;\n                private_key: string;\n            }>>;\n            keyFilename: "
             },
             {
               "kind": "Reference",
@@ -969,7 +1023,7 @@
             },
             {
               "kind": "Content",
-              "text": ">;\n    }, \"strip\", "
+              "text": ">;\n        }, \"strip\", "
             },
             {
               "kind": "Reference",
@@ -978,7 +1032,16 @@
             },
             {
               "kind": "Content",
-              "text": ", {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    }, {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    }>]>;\n    audioInnerHTML: "
+              "text": ", {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        }, {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        }>;\n    }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    }, {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    }>]>;\n    audioInnerHTML: "
             },
             {
               "kind": "Reference",
@@ -1065,24 +1128,6 @@
               "kind": "Reference",
               "text": "z.ZodDefault",
               "canonicalReference": "zod!ZodDefault:class"
-            },
-            {
-              "kind": "Content",
-              "text": "<"
-            },
-            {
-              "kind": "Reference",
-              "text": "z.ZodString",
-              "canonicalReference": "zod!ZodString:class"
-            },
-            {
-              "kind": "Content",
-              "text": ">;\n    keyFilename: "
-            },
-            {
-              "kind": "Reference",
-              "text": "z.ZodOptional",
-              "canonicalReference": "zod!ZodOptional:class"
             },
             {
               "kind": "Content",
@@ -1266,7 +1311,88 @@
             },
             {
               "kind": "Content",
-              "text": " | undefined;\n        cssSelectors?: string[] | undefined;\n        xPathExpressions?: string[] | undefined;\n    }>, \"many\">>;\n    transformName: "
+              "text": " | undefined;\n        cssSelectors?: string[] | undefined;\n        xPathExpressions?: string[] | undefined;\n    }>, \"many\">>;\n    textToSpeechClientOptions: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n        credentials: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n            client_email: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n            private_key: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n            client_email: string;\n            private_key: string;\n        }, {\n            client_email: string;\n            private_key: string;\n        }>>;\n        keyFilename: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n        credentials?: {\n            client_email: string;\n            private_key: string;\n        } | undefined;\n        keyFilename?: string | undefined;\n    }, {\n        credentials?: {\n            client_email: string;\n            private_key: string;\n        } | undefined;\n        keyFilename?: string | undefined;\n    }>;\n    transformName: "
             },
             {
               "kind": "Reference",
@@ -1311,7 +1437,7 @@
             },
             {
               "kind": "Content",
-              "text": ", {\n    voice: string;\n    audioEncodings: (\"ALAW\" | \"AUDIO_ENCODING_UNSPECIFIED\" | \"LINEAR16\" | \"MP3\" | \"MULAW\" | \"OGG_OPUS\")[];\n    cacheExpiration: string;\n    audioHost: ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    }) & ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    } | undefined);\n    collectionName: string;\n    rules: {\n        regex: "
+              "text": ", {\n    voice: string;\n    audioEncodings: (\"ALAW\" | \"AUDIO_ENCODING_UNSPECIFIED\" | \"LINEAR16\" | \"MP3\" | \"MULAW\" | \"OGG_OPUS\")[];\n    cacheExpiration: string;\n    audioHost: ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    }) & ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    } | undefined);\n    collectionName: string;\n    rules: {\n        regex: "
             },
             {
               "kind": "Reference",
@@ -1320,7 +1446,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n        cssSelectors: string[];\n        xPathExpressions: string[];\n    }[];\n    transformName: string;\n    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    keyFilename?: string | undefined;\n}, {\n    audioHost: ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    }) & ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        keyFilename?: string | undefined;\n    } | undefined);\n    audioEncodings?: (\"ALAW\" | \"AUDIO_ENCODING_UNSPECIFIED\" | \"LINEAR16\" | \"MP3\" | \"MULAW\" | \"OGG_OPUS\")[] | undefined;\n    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    cacheExpiration?: string | undefined;\n    collectionName?: string | undefined;\n    keyFilename?: string | undefined;\n    rules?: {\n        regex?: "
+              "text": ";\n        cssSelectors: string[];\n        xPathExpressions: string[];\n    }[];\n    textToSpeechClientOptions: {\n        credentials?: {\n            client_email: string;\n            private_key: string;\n        } | undefined;\n        keyFilename?: string | undefined;\n    };\n    transformName: string;\n    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n}, {\n    audioHost: ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    }) & ({\n        origin: string;\n        pathname: string;\n    } | {\n        bucketName: string;\n        storageClientOptions: {\n            credentials?: {\n                client_email: string;\n                private_key: string;\n            } | undefined;\n            keyFilename?: string | undefined;\n        };\n    } | undefined);\n    textToSpeechClientOptions: {\n        credentials?: {\n            client_email: string;\n            private_key: string;\n        } | undefined;\n        keyFilename?: string | undefined;\n    };\n    audioEncodings?: (\"ALAW\" | \"AUDIO_ENCODING_UNSPECIFIED\" | \"LINEAR16\" | \"MP3\" | \"MULAW\" | \"OGG_OPUS\")[] | undefined;\n    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    cacheExpiration?: string | undefined;\n    collectionName?: string | undefined;\n    rules?: {\n        regex?: "
             },
             {
               "kind": "Reference",
@@ -1338,7 +1464,7 @@
           "name": "options",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 121
+            "endIndex": 149
           }
         },
         {

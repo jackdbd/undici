@@ -14,12 +14,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+        # os: [ubuntu-latest, macos-latest, windows-latest]
         # Test all packages with:
         # 1. Maintenance LTS
         # 2. Active LTS
         # 3. Current (i.e. the latest Node.js version available)
         # https://nodejs.org/en/about/previous-releases
-        node: ['lts/Hydrogen', 'lts/Iron', 'current']
+        node: [ lts/Iron]
+        # node: [lts/Hydrogen, lts/Iron, current]
         # https://www.npmjs.com/package/@11ty/eleventy?activeTab=versions
         eleventy: ['3.0.0-alpha.4']
     steps:
@@ -53,11 +56,12 @@ jobs:
 
       - name: 🔍 Test @jackdbd/eleventy-plugin-ensure-env-vars
         env:
+          DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
 
-      - name: 🔍 Test @jackdbd/eleventy-plugin-permissions-policy
-        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
+      # - name: 🔍 Test @jackdbd/eleventy-plugin-permissions-policy
+      #   run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
 
       - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
         env:
@@ -66,16 +70,20 @@ jobs:
 
       - name: 🔍 Test @jackdbd/eleventy-plugin-text-to-speech
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          TELEGRAM: ${{ secrets.TELEGRAM }}
+          SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
+          SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
         run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
 
-      - name: ⬆️ Upload test coverage to Codecov
-        # https://github.com/marketplace/actions/codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          # fail_ci_if_error: false
-          fail_ci_if_error: true
-          verbose: true
+
+      # TODO: all my tests use the Node.js test runner, which can print coverage
+      # reports to stdout. However, I still need to figure out how to generate
+      # the coverage files (which I will then upload to CodeCov with this action).
+      # - name: ⬆️ Upload test coverage to Codecov
+      #   # https://github.com/marketplace/actions/codecov
+      #   uses: codecov/codecov-action@v3
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      #   with:
+      #     # fail_ci_if_error: false
+      #     fail_ci_if_error: true
+      #     verbose: true

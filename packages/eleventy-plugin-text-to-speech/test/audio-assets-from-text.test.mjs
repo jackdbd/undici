@@ -1,29 +1,25 @@
 import assert from 'node:assert'
 import { describe, it, before, after } from 'node:test'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
+import { cloudTextToSpeechClientOptions } from '@jackdbd/eleventy-test-utils'
 import { audioAssetsFromText } from '../lib/audio-assets-from-text.js'
 import { testWriter } from '../lib/test-writer.js'
-import { clientLibraryCredentials } from '../lib/utils.js'
 
 describe('audio-assets-from-text.ts', () => {
   const audioEncodings = ['MP3', 'OGG_OPUS']
   const cacheExpiration = '5s'
   const outputPath = '.'
-  let textToSpeechClient
+  let client
   const voice = 'en-GB-Wavenet-C'
   const writer = testWriter()
 
   before(() => {
-    textToSpeechClient = new TextToSpeechClient({
-      keyFilename: clientLibraryCredentials({
-        what: 'Text-to-Speech client library'
-      })
-    })
+    client = new TextToSpeechClient(cloudTextToSpeechClientOptions())
   })
 
   after(() => {
     // I'm not sure if this is necessary, but I guess it doesn't hurt
-    textToSpeechClient.close()
+    client.close()
   })
 
   describe('audioAssetsFromText', () => {
@@ -42,7 +38,7 @@ describe('audio-assets-from-text.ts', () => {
         cacheExpiration,
         outputPath,
         text,
-        textToSpeechClient,
+        textToSpeechClient: client,
         voice,
         writer
       })

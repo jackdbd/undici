@@ -4,17 +4,21 @@
 
 ```ts
 
+/// <reference types="11ty__eleventy" />
+
+import { EleventyConfig } from '@11ty/eleventy';
 import { z } from 'zod';
 
-// Warning: (ae-missing-release-tag) "EleventyConfig" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type EleventyConfig = any;
+export { EleventyConfig }
 
-// Warning: (ae-forgotten-export) The symbol "Options" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "telegramPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-forgotten-export) The symbol "options" needs to be exported by the entry point index.d.ts
 //
-// @public (undocumented)
+// @public
+export type Options = z.infer<typeof options>;
+
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: This type of declaration is not supported yet by the resolver
+//
+// @public
 export const telegramPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
 
 // (No @packageDocumentation comment for this package)

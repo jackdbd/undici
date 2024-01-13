@@ -34,7 +34,7 @@ module.exports = function (eleventyConfig) {
   // some eleventy configuration...
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin, {
-    envVars: ['DEBUG', 'ELEVENTY_ENV', 'NODE_ENV']
+    envVars: ['DEBUG', 'NODE_ENV']
   })
 
   // some more eleventy configuration...
@@ -51,7 +51,7 @@ None.
 
 | Option | Default | Explanation |
 | --- | --- | --- |
-| `envVars` | `['ELEVENTY_ENV', 'NODE_ENV']` | environment variables to check before the Eleventy build. |
+| `envVars` | `['ELEVENTY_ROOT', 'ELEVENTY_SOURCE', 'ELEVENTY_RUN_MODE', 'NODE_ENV']` | environment variables to check before the Eleventy build. |
 
 ## Trobleshooting
 

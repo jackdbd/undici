@@ -8,11 +8,12 @@
 
 |  Variable | Description |
 |  --- | --- |
-|  [ensureEnvVarsPlugin](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md) |  |
+|  [ensureEnvVarsPlugin](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md) | Plugin that checks whether the environment variables you specified are set when Eleventy builds your site. |
+|  [env\_var](./eleventy-plugin-ensure-env-vars.env_var.md) | Schema for an environment variable name. |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [EleventyConfig](./eleventy-plugin-ensure-env-vars.eleventyconfig.md) |  |
+|  [Options](./eleventy-plugin-ensure-env-vars.options.md) | <p>Plugin options.</p> |
 

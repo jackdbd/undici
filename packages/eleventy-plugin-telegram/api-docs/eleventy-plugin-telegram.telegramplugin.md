@@ -4,8 +4,15 @@
 
 ## telegramPlugin variable
 
+Plugin that sends Telegram messages when Eleventy starts/finishes building your site.
+
 **Signature:**
 
 ```typescript
 telegramPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
 ```
+
+## Remarks
+
+The \[Telegram sendMessage API\](https://core.telegram.org/bots/api\#sendmessage) allows text messages of 1-4096 characters (after entities parsing).
+

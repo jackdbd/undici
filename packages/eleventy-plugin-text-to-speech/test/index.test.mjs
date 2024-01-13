@@ -5,7 +5,12 @@ import path from 'node:path'
 import util from 'node:util'
 import { describe, it, before, after } from 'node:test'
 import { fileURLToPath } from 'node:url'
-import { makeEleventy } from '@jackdbd/eleventy-test-utils'
+import {
+  makeEleventy,
+  cloudStorageUploaderClientOptions,
+  cloudTextToSpeechClientOptions,
+  CLOUD_STORAGE_BUCKET_AUDIO_FILES
+} from '@jackdbd/eleventy-test-utils'
 import { textToSpeechPlugin } from '../lib/index.js'
 
 const rmP = util.promisify(fs.rm)
@@ -15,9 +20,17 @@ const __filename = fileURLToPath(import.meta.url)
 const PACKAGE_ROOT = path.join(__filename, '..', '..')
 const OUTPUT_DIR = path.join(PACKAGE_ROOT, '_site')
 
-const audioHost = new URL('http://localhost:8090/assets/audio')
+// TODO: double check what is correct. Write at least one test that self-hosts 1-2 audio assets
+// const audioHost = new URL('http://localhost:8090/assets/audio')
+// const origin = 'http://localhost:8090'
+// const pathname = '/assets/audio'
+// const selfHost = { origin, pathname }
 
 describe('index.ts', () => {
+  const storageClientOptions = cloudStorageUploaderClientOptions()
+  const textToSpeechClientOptions = cloudTextToSpeechClientOptions()
+  const transformName = 'plugin-transform-test'
+
   describe('textToSpeechPlugin', () => {
     before(async () => {
       if (!fs.existsSync(OUTPUT_DIR)) {
@@ -97,31 +110,47 @@ describe('index.ts', () => {
     })
 
     it('allows `MP3` in `audioEncodings`', async () => {
-      await assert.doesNotReject(() => {
-        return makeEleventy({
-          input: undefined,
-          output: undefined,
-          plugin: textToSpeechPlugin,
-          pluginConfig: {
-            audioEncodings: ['MP3'],
-            audioHost
-          }
-        })
+      const eleventy = await makeEleventy({
+        input: undefined,
+        output: undefined,
+        plugin: textToSpeechPlugin,
+        pluginConfig: {
+          audioEncodings: ['MP3'],
+          audioHost: {
+            bucketName: CLOUD_STORAGE_BUCKET_AUDIO_FILES,
+            storageClientOptions
+          },
+          textToSpeechClientOptions,
+          transformName
+        }
       })
+
+      const userConfig = eleventy.eleventyConfig.userConfig
+
+      assert.equal(userConfig.plugins.length, 1)
+      assert.notEqual(userConfig.transforms[transformName], undefined)
     })
 
     it('allows `OGG_OPUS` in `audioEncodings`', async () => {
-      await assert.doesNotReject(() => {
-        return makeEleventy({
-          input: undefined,
-          output: undefined,
-          plugin: textToSpeechPlugin,
-          pluginConfig: {
-            audioEncodings: ['OGG_OPUS'],
-            audioHost
-          }
-        })
+      const eleventy = await makeEleventy({
+        input: undefined,
+        output: undefined,
+        plugin: textToSpeechPlugin,
+        pluginConfig: {
+          audioEncodings: ['OGG_OPUS'],
+          audioHost: {
+            bucketName: CLOUD_STORAGE_BUCKET_AUDIO_FILES,
+            storageClientOptions
+          },
+          textToSpeechClientOptions,
+          transformName
+        }
       })
+
+      const userConfig = eleventy.eleventyConfig.userConfig
+
+      assert.equal(userConfig.plugins.length, 1)
+      assert.notEqual(userConfig.transforms[transformName], undefined)
     })
   })
 })

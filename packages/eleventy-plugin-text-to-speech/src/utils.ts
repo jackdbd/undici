@@ -1,8 +1,4 @@
-import makeDebug from 'debug'
-import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import type { AudioEncoding } from './schemas.js'
-
-const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
 
 export const audioExtension = (audioEncoding: AudioEncoding) => {
   switch (audioEncoding) {
@@ -53,33 +49,4 @@ export const mediaType = (ext: string) => {
       }
     }
   }
-}
-
-interface CredentialsConfig {
-  keyFilename?: string
-  what: string
-}
-
-export const clientLibraryCredentials = ({
-  keyFilename,
-  what
-}: CredentialsConfig) => {
-  let credentials: string | undefined = undefined
-
-  if (keyFilename) {
-    debug(`initialize ${what} using keyFilename`)
-    credentials = keyFilename
-  } else {
-    debug(
-      `initialize ${what} using environment variable GOOGLE_APPLICATION_CREDENTIALS`
-    )
-    credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
-  }
-
-  if (!credentials) {
-    const message = `${ERR_PREFIX}: neither keyFilename nor GOOGLE_APPLICATION_CREDENTIALS are set. Cannot initialize ${what}.`
-    throw new Error(message)
-  }
-
-  return credentials
 }

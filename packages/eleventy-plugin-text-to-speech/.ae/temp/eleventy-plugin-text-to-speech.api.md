@@ -93,18 +93,53 @@ export const options: z.ZodObject<{
         pathname: string;
     }>, z.ZodObject<{
         bucketName: z.ZodString;
-        keyFilename: z.ZodOptional<z.ZodString>;
+        storageClientOptions: z.ZodObject<{
+            credentials: z.ZodOptional<z.ZodObject<{
+                client_email: z.ZodString;
+                private_key: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                client_email: string;
+                private_key: string;
+            }, {
+                client_email: string;
+                private_key: string;
+            }>>;
+            keyFilename: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        }, {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        }>;
     }, "strip", z.ZodTypeAny, {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     }, {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     }>]>;
     audioInnerHTML: z.ZodOptional<z.ZodFunction<z.ZodTuple<[z.ZodArray<z.ZodString, "many">], z.ZodUnknown>, z.ZodString>>;
     cacheExpiration: z.ZodDefault<z.ZodString>;
     collectionName: z.ZodDefault<z.ZodString>;
-    keyFilename: z.ZodOptional<z.ZodString>;
     rules: z.ZodDefault<z.ZodArray<z.ZodObject<{
         regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
         cssSelectors: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
@@ -118,6 +153,31 @@ export const options: z.ZodObject<{
         cssSelectors?: string[] | undefined;
         xPathExpressions?: string[] | undefined;
     }>, "many">>;
+    textToSpeechClientOptions: z.ZodObject<{
+        credentials: z.ZodOptional<z.ZodObject<{
+            client_email: z.ZodString;
+            private_key: z.ZodString;
+        }, "strip", z.ZodTypeAny, {
+            client_email: string;
+            private_key: string;
+        }, {
+            client_email: string;
+            private_key: string;
+        }>>;
+        keyFilename: z.ZodOptional<z.ZodString>;
+    }, "strip", z.ZodTypeAny, {
+        credentials?: {
+            client_email: string;
+            private_key: string;
+        } | undefined;
+        keyFilename?: string | undefined;
+    }, {
+        credentials?: {
+            client_email: string;
+            private_key: string;
+        } | undefined;
+        keyFilename?: string | undefined;
+    }>;
     transformName: z.ZodDefault<z.ZodString>;
     voice: z.ZodDefault<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
@@ -129,13 +189,25 @@ export const options: z.ZodObject<{
         pathname: string;
     } | {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     }) & ({
         origin: string;
         pathname: string;
     } | {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     } | undefined);
     collectionName: string;
     rules: {
@@ -143,28 +215,52 @@ export const options: z.ZodObject<{
         cssSelectors: string[];
         xPathExpressions: string[];
     }[];
+    textToSpeechClientOptions: {
+        credentials?: {
+            client_email: string;
+            private_key: string;
+        } | undefined;
+        keyFilename?: string | undefined;
+    };
     transformName: string;
     audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
-    keyFilename?: string | undefined;
 }, {
     audioHost: ({
         origin: string;
         pathname: string;
     } | {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     }) & ({
         origin: string;
         pathname: string;
     } | {
         bucketName: string;
-        keyFilename?: string | undefined;
+        storageClientOptions: {
+            credentials?: {
+                client_email: string;
+                private_key: string;
+            } | undefined;
+            keyFilename?: string | undefined;
+        };
     } | undefined);
+    textToSpeechClientOptions: {
+        credentials?: {
+            client_email: string;
+            private_key: string;
+        } | undefined;
+        keyFilename?: string | undefined;
+    };
     audioEncodings?: ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[] | undefined;
     audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
     cacheExpiration?: string | undefined;
     collectionName?: string | undefined;
-    keyFilename?: string | undefined;
     rules?: {
         regex?: RegExp | undefined;
         cssSelectors?: string[] | undefined;

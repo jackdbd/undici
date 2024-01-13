@@ -6,6 +6,11 @@ import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
 // import { plausiblePlugin } from '@jackdbd/eleventy-plugin-plausible'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
+import {
+  CLOUD_STORAGE_BUCKET_AUDIO_FILES,
+  cloudStorageUploaderClientOptions,
+  cloudTextToSpeechClientOptions
+} from '@jackdbd/eleventy-test-utils'
 import { copyright } from '../src/shortcodes/index.js'
 
 // add a dev server as soon as it is available in Eleventy 2.0
@@ -47,23 +52,6 @@ export default function (eleventyConfig) {
     })
   }
 
-  let keyFilename
-  if (process.env.CF_PAGES) {
-    keyFilename = 'credentials.json'
-    // on Cloudflare Pages, I set GCP_CREDENTIALS_JSON as a JSON string.
-    fs.writeFileSync(keyFilename, process.env.GCP_CREDENTIALS_JSON)
-
-    // I also have to set GOOGLE_APPLICATION_CREDENTIALS as a filepath because
-    // when the eleventy-text-to-speech-plugin is registered without passing
-    // `keyFilename`, it uses the environment variable
-    // GOOGLE_APPLICATION_CREDENTIALS. That plugin expects
-    // GOOGLE_APPLICATION_CREDENTIALS to be a filepath (as it should always be).
-    process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename
-  } else {
-    // on my laptop, GOOGLE_APPLICATION_CREDENTIALS is a filepath
-    keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS
-  }
-
   // Static assets
   eleventyConfig.addPassthroughCopy({
     'src/includes/assets/css': 'assets/css',
@@ -78,9 +66,14 @@ export default function (eleventyConfig) {
   //   CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
   //   CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
   //   CF_PAGES_URL: process.env.CF_PAGES_URL,
-  //   ELEVENTY_ENV: process.env.ELEVENTY_ENV,
-  //   // GCP_CREDENTIALS_JSON: process.env.GCP_CREDENTIALS_JSON,
+  //   // environment variables supplied by Eleventy
+  //   // https://www.11ty.dev/docs/environment-vars/#eleventy-supplied
+  //   ELEVENTY_ROOT: process.env.ELEVENTY_ROOT,
+  //   ELEVENTY_SOURCE: process.env.ELEVENTY_SOURCE,
+  //   ELEVENTY_RUN_MODE: process.env.ELEVENTY_RUN_MODE,
   //   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+  //   SA_JSON_KEY_STORAGE_UPLOADER: process.env.SA_JSON_KEY_STORAGE_UPLOADER,
+  //   SA_JSON_KEY_TEXT_TO_SPEECH: process.env.SA_JSON_KEY_TEXT_TO_SPEECH,
   //   NODE_ENV: process.env.NODE_ENV
   // })
 
@@ -92,42 +85,39 @@ export default function (eleventyConfig) {
   })
 
   // TODO: fix the text-to-speech plugin and re-enable
-  if (false) {
-    // host these audio files on Cloud Storage, and use a non-default voice
-    eleventyConfig.addPlugin(textToSpeechPlugin, {
-      audioHost: {
-        bucketName: 'bkt-eleventy-plugin-text-to-speech-audio-files',
-        keyFilename
+  // host these audio files on Cloud Storage, and use a non-default voice
+  eleventyConfig.addPlugin(textToSpeechPlugin, {
+    audioHost: {
+      bucketName: CLOUD_STORAGE_BUCKET_AUDIO_FILES,
+      storageClientOptions: cloudStorageUploaderClientOptions()
+    },
+    // we are registering the plugin a second time, so we can't use the default
+    // name for the 11ty collection created by this plugin (11ty would throw an
+    // Error)
+    collectionName: 'audio-items-cloud-storage',
+    keyFilename,
+    rules: [
+      {
+        xPathExpressions: ['//p[starts-with(., "If you prefer not to litter")]']
       },
-      // we are registering the plugin a second time, so we can't use the default
-      // name for the 11ty collection created by this plugin (11ty would throw an
-      // Error)
-      collectionName: 'audio-items-cloud-storage',
-      keyFilename,
-      rules: [
-        {
-          xPathExpressions: [
-            '//p[starts-with(., "If you prefer not to litter")]'
-          ]
-        },
-        {
-          cssSelectors: ['div.custom-tts > p:nth-child(2)']
-        },
-        {
-          regex: new RegExp('posts\\/.*\\.html$'),
-          xPathExpressions: [
-            '//p[contains(., "savannas")]',
-            '//p[starts-with(., "One of the most")]'
-          ]
-        }
-      ],
-      // we are registering the plugin a second time, so we can't use the default
-      // name for the 11ty transform created by this plugin (11ty would NOT throw
-      // an Error, but the plugin would not work as expected)
-      transformName: 'inject-audio-tags-into-html-cloud-storage',
-      voice: 'en-GB-Wavenet-C'
-    })
-  }
+      {
+        cssSelectors: ['div.custom-tts > p:nth-child(2)']
+      },
+      {
+        regex: new RegExp('posts\\/.*\\.html$'),
+        xPathExpressions: [
+          '//p[contains(., "savannas")]',
+          '//p[starts-with(., "One of the most")]'
+        ]
+      }
+    ],
+    textToSpeechClientOptions: cloudTextToSpeechClientOptions(),
+    // we are registering the plugin a second time, so we can't use the default
+    // name for the 11ty transform created by this plugin (11ty would NOT throw
+    // an Error, but the plugin would not work as expected)
+    transformName: 'inject-audio-tags-into-html-cloud-storage',
+    voice: 'en-GB-Wavenet-C'
+  })
 
   // Static assets
   eleventyConfig.addPassthroughCopy({

@@ -19,7 +19,6 @@ import { defaultAudioInnerHTML } from './dom.js'
 import { options as schema } from './schemas.js'
 import { makeInjectAudioTagsIntoHtml } from './transforms.js'
 import type { AudioEncoding, Options, Rule, Writer } from './schemas.js'
-import { clientLibraryCredentials } from './utils.js'
 import { cloudStorageWriter } from './cloud-storage-writer.js'
 import { selfHostWriter } from './self-hosted-writer.js'
 
@@ -135,32 +134,26 @@ export const textToSpeechPlugin = (
 
   const {
     audioEncodings,
+    audioHost,
     cacheExpiration,
     collectionName,
-    keyFilename,
     rules,
+    textToSpeechClientOptions,
     transformName,
     voice
   } = result.data
 
   let writer: Writer
-  if ('bucketName' in result.data.audioHost) {
-    const bucketName = result.data.audioHost.bucketName
-
-    const storage = new Storage({
-      keyFilename: clientLibraryCredentials({
-        what: 'Cloud Storage',
-        // this might be a different JSON key than the one used for the Text-To-Speech synthesis
-        keyFilename: result.data.audioHost.keyFilename
-      })
-    })
+  if ('bucketName' in audioHost) {
+    const bucketName = audioHost.bucketName
+    const storage = new Storage(audioHost.storageClientOptions)
 
     writer = cloudStorageWriter({ bucketName, storage })
     debug(`audio assets will be hosted on Cloud Storage bucket ${bucketName}`)
   } else {
     /* eslint-disable  @typescript-eslint/no-explicit-any */
     const output = (eleventyConfig as any).dir.output as string
-    const { origin, pathname } = result.data.audioHost
+    const { origin, pathname } = audioHost
     const hrefBase = `${origin}${pathname}`
 
     const outputBase = path.join(path.basename(output), pathname)
@@ -179,12 +172,7 @@ export const textToSpeechPlugin = (
   const cfg = eleventyConfig as any
   const addCollection = cfg.addCollection.bind(eleventyConfig)
 
-  const textToSpeechClient = new TextToSpeechClient({
-    keyFilename: clientLibraryCredentials({
-      what: 'Text-to-Speech client library',
-      keyFilename: keyFilename
-    })
-  })
+  const textToSpeechClient = new TextToSpeechClient(textToSpeechClientOptions)
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   const cb = function templatesWithAudio(collectionApi: any) {

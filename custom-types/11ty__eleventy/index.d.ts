@@ -1,10 +1,42 @@
 declare module '@11ty/eleventy' {
-  type TransformFn = (content: string, outputPath: string) => Promise<string>
+  /**
+   * Event names available in Eleventy plugins.
+   *
+   * @see [Events](https://www.11ty.dev/docs/events/)
+   */
+  export type EventName =
+    | 'eleventy.before'
+    | 'eleventy.after'
+    | 'eleventy.beforeWatch'
+
+  /**
+   * Object available in `eleventy.before` and `eleventy.after` event handlers.
+   *
+   * @see [Event Arguments](https://www.11ty.dev/docs/events/#event-arguments)
+   */
+  export interface EventArguments {
+    inputDir: string
+    dir: { input: string; includes: string; data: string; output: string }
+    runMode: 'build' | 'watch' | 'serve'
+    outputMode: 'fs' | 'json' | 'ndjson'
+    incremental: boolean
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    results?: any
+  }
+
+  type EventHandler = (arg: EventArguments) => void | Promise<void>
+
+  type TransformHandler = (
+    content: string,
+    outputPath: string
+  ) => string | Promise<string>
+
   export interface EleventyConfig {
     userConfig: any
     verbose: boolean
     addPlugin(pluginFn: () => void, pluginOptions: Object): Promise<void>
-    addTransform(name: string, fn: TransformFn): Promise<void>
+    addTransform(transformName: string, fn: TransformHandler): Promise<void>
+    on(eventName: EventName, fn: EventHandler): Promise<void>
   }
 
   interface Options {

@@ -8,11 +8,11 @@
 
 |  Variable | Description |
 |  --- | --- |
-|  [telegramPlugin](./eleventy-plugin-telegram.telegramplugin.md) |  |
+|  [telegramPlugin](./eleventy-plugin-telegram.telegramplugin.md) | Plugin that sends Telegram messages when Eleventy starts/finishes building your site. |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [EleventyConfig](./eleventy-plugin-telegram.eleventyconfig.md) |  |
+|  [Options](./eleventy-plugin-telegram.options.md) | <p>Plugin options.</p> |
 

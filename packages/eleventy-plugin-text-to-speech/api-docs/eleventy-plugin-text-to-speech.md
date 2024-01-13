@@ -28,7 +28,7 @@
 |  Type Alias | Description |
 |  --- | --- |
 |  [CloudStorageHost](./eleventy-plugin-text-to-speech.cloudstoragehost.md) |  |
-|  [Options](./eleventy-plugin-text-to-speech.options.md) | Plugin options. |
+|  [Options](./eleventy-plugin-text-to-speech.options.md) | <p>Plugin options.</p> |
 |  [Writer](./eleventy-plugin-text-to-speech.writer.md) |  |
 |  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) |  |
 |  [WriteSuccess](./eleventy-plugin-text-to-speech.writesuccess.md) |  |

@@ -1,8 +1,8 @@
 import assert from 'node:assert'
 import { describe, it, before, after } from 'node:test'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
+import { cloudTextToSpeechClientOptions } from '@jackdbd/eleventy-test-utils'
 import { synthesizeSpeech } from '../lib/text-to-speech.js'
-import { clientLibraryCredentials } from '../lib/utils.js'
 
 describe('text-to-speech.ts', () => {
   let client
@@ -10,11 +10,7 @@ describe('text-to-speech.ts', () => {
   //   const voice = { name: 'en-US-Standard-J', languageCode: 'en-US' }
 
   before(() => {
-    client = new TextToSpeechClient({
-      keyFilename: clientLibraryCredentials({
-        what: 'Text-to-Speech client library'
-      })
-    })
+    client = new TextToSpeechClient(cloudTextToSpeechClientOptions())
 
     // const [response] = await client.listVoices()
     // console.log(`${response.voices.length} voices available`)

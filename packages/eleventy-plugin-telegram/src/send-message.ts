@@ -7,16 +7,14 @@ import {
   ERR_PREFIX
 } from './constants.js'
 import { send_message_config as schema } from './schemas.js'
+import type { SendMessageConfig } from './schemas.js'
 import type { TelegramAPISendMessageResponseBody } from './types.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:send-message`)
 
-export interface SendMessageConfig {
-  chatId: number | string
-  token: string
-  text: string
-}
-
+/**
+ * @internal
+ */
 export const sendMessage = async (config: SendMessageConfig) => {
   debug('validating sendMessage config')
   const result = schema.safeParse(config)

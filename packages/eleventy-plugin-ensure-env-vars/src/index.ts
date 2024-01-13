@@ -5,17 +5,25 @@
  */
 import makeDebug from 'debug'
 import { fromZodError } from 'zod-validation-error'
+import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
 import { ERROR_MESSAGE_PREFIX, ERR_PREFIX } from './constants.js'
 import { options as schema } from './schemas.js'
-import type { Options, EventArguments } from './schemas.js'
+import type { Options } from './schemas.js'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type EleventyConfig = any
+// exports for TypeDoc
+export type { EleventyConfig } from '@11ty/eleventy'
+export { env_var } from './schemas.js'
+export type { Options } from './schemas.js'
 
 const debug = makeDebug(`11ty-plugin:ensure-env-vars`)
 
 /**
+ * Plugin that checks whether the environment variables you specified are set
+ * when Eleventy builds your site.
+ *
  * @public
+ * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.
+ * @param options - Plugin {@link Options | options}.
  */
 export const ensureEnvVarsPlugin = (
   eleventyConfig: EleventyConfig,

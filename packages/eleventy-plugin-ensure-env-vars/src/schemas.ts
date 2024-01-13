@@ -1,45 +1,21 @@
 import { z } from 'zod'
+import { DEFAULT_ENV_VARS, REQUIRED_ENV_VARS } from './constants.js'
 
 /**
- * @public
- */
-export const REQUIRED_ENV_VARS = ['ELEVENTY_ENV', 'NODE_ENV']
-
-/**
- * @public
- */
-export const DEFAULT_ENV_VARS = ['DEBUG', 'ELEVENTY_ENV', 'NODE_ENV']
-
-/**
- * Object available in `eleventy.before` and `eleventy.after` event handlers.
+ * Schema for an environment variable name.
  *
  * @public
- * @see [Event Arguments](https://www.11ty.dev/docs/events/#event-arguments)
+ *
+ * @remarks
+ * What is the maximum length of an environment variable NAME?
+ *
+ * @see [What is the maximum length of an environment variable?](https://devblogs.microsoft.com/oldnewthing/20100203-00/?p=15083)
+ * @see [What is the maximum size of a Linux environment variable value?](https://stackoverflow.com/questions/1078031/what-is-the-maximum-size-of-a-linux-environment-variable-value)
  */
-export interface EventArguments {
-  inputDir: string
-  dir: { input: string; includes: string; data: string; output: string }
-  runMode: 'build' | 'watch' | 'serve'
-  outputMode: 'fs' | 'json' | 'ndjson'
-  incremental: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  results?: any
-}
+export const env_var = z.string().min(1)
 
-// TODO: what is the maximum length of an environment variable NAME?
-// https://devblogs.microsoft.com/oldnewthing/20100203-00/?p=15083
-// https://stackoverflow.com/questions/1078031/what-is-the-maximum-size-of-a-linux-environment-variable-value
-
-/**
- * @public
- */
-export const envVar = z.string().min(1)
-
-/**
- * @public
- */
-export const envVars = z
-  .array(envVar)
+export const env_vars = z
+  .array(env_var)
   .min(1)
   .refine((arr) => {
     return REQUIRED_ENV_VARS.every((required) => arr.includes(required))
@@ -49,19 +25,25 @@ export const envVars = z
   )
 
 /**
+ * Options for this Eleventy plugin.
+ *
  * @public
  */
 export const options = z
-  .optional(
-    z.object({
-      envVars: z.optional(envVars).default(DEFAULT_ENV_VARS)
-    })
-  )
+  .object({
+    /**
+     * Environment variables you want to ensure are set when building your Eleventy site.
+     */
+    envVars: env_vars.default(DEFAULT_ENV_VARS)
+  })
   .default({
     envVars: DEFAULT_ENV_VARS
   })
 
 /**
+ * Plugin options.
+ *
  * @public
+ * @interface
  */
 export type Options = z.infer<typeof options>

@@ -29,7 +29,7 @@ describe('ensureEnvVarsPlugin', () => {
       () => {
         return makeEleventy({
           plugin: ensureEnvVarsPlugin,
-          pluginConfig: { envVars: ['ELEVENTY_ENV'] }
+          pluginConfig: { envVars: ['DEBUG'] }
         })
       },
       (err) => {
@@ -59,7 +59,14 @@ describe('ensureEnvVarsPlugin', () => {
   it('adds one `eleventy.before` event handler', async () => {
     const eleventy = await makeEleventy({
       plugin: ensureEnvVarsPlugin,
-      pluginConfig: { envVars: ['ELEVENTY_ENV', 'NODE_ENV'] }
+      pluginConfig: {
+        envVars: [
+          'ELEVENTY_ROOT',
+          'ELEVENTY_SOURCE',
+          'ELEVENTY_RUN_MODE',
+          'NODE_ENV'
+        ]
+      }
     })
 
     const userConfig = eleventy.eleventyConfig.userConfig

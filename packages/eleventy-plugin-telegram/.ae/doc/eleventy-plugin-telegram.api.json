@@ -174,34 +174,48 @@
       "members": [
         {
           "kind": "TypeAlias",
-          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!EleventyConfig:type",
-          "docComment": "",
+          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:type",
+          "docComment": "/**\n * Plugin options.\n *\n * @interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export type EleventyConfig = "
+              "text": "export type Options = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
             },
             {
               "kind": "Content",
-              "text": "any"
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "options",
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!~options:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
             },
             {
               "kind": "Content",
               "text": ";"
             }
           ],
-          "fileUrlPath": "src/index.ts",
+          "fileUrlPath": "src/schemas.ts",
           "releaseTag": "Public",
-          "name": "EleventyConfig",
+          "name": "Options",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 2
+            "endIndex": 5
           }
         },
         {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-telegram!telegramPlugin:var",
-          "docComment": "",
+          "docComment": "/**\n * Plugin that sends Telegram messages when Eleventy starts/finishes building your site.\n *\n * @remarks\n *\n * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage) allows text messages of 1-4096 characters (after entities parsing).\n *\n * @param eleventyConfig - Eleventy config. See {@link EleventyConfig | Eleventy config here}.\n *\n * @param options - Plugin {@link Options | options}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -214,7 +228,7 @@
             {
               "kind": "Reference",
               "text": "EleventyConfig",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!EleventyConfig:type"
+              "canonicalReference": "!\"\\\"@11ty/eleventy\\\"\".EleventyConfig:interface"
             },
             {
               "kind": "Content",
@@ -223,7 +237,7 @@
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!~Options:type"
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:type"
             },
             {
               "kind": "Content",

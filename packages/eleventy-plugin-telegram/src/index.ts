@@ -1,24 +1,42 @@
 import makeDebug from 'debug'
 import { fromZodError } from 'zod-validation-error'
+import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import { options as schema } from './schemas.js'
-import type { Options } from './schemas.js'
+import type { Options, SendMessageConfig } from './schemas.js'
 import { sendMessage } from './send-message.js'
-import type { SendMessageConfig } from './send-message.js'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type EleventyConfig = any
+// exports for TypeDoc
+export type { EleventyConfig } from '@11ty/eleventy'
+export type { Options } from './schemas.js'
+// export { telegram_text } from './schemas.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
-const makeEleventyEventHandler = (
-  _eleventyConfig: EleventyConfig,
-  config: SendMessageConfig
-) => {
-  // partial application
-  return sendMessage.bind(null, config)
+/**
+ * @internal
+ */
+const makeEleventyEventHandler = (config: SendMessageConfig) => {
+  debug(`create Eleventy event handler`)
+  return async (arg: EventArguments) => {
+    debug(`current Eleventy project directories %o`, arg.dir)
+    const { message } = await sendMessage(config)
+    debug(message)
+  }
 }
 
+/**
+ * Plugin that sends Telegram messages when Eleventy starts/finishes building
+ * your site.
+ *
+ * @public
+ * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.
+ * @param options - Plugin {@link Options | options}.
+ *
+ * @remarks
+ * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage)
+ * allows text messages of 1-4096 characters (after entities parsing).
+ */
 export const telegramPlugin = (
   eleventyConfig: EleventyConfig,
   options?: Options
@@ -53,7 +71,7 @@ export const telegramPlugin = (
   }
 
   if (textBeforeBuild) {
-    const onBefore = makeEleventyEventHandler(eleventyConfig, {
+    const onBefore = makeEleventyEventHandler({
       chatId,
       text: textBeforeBuild,
       token
@@ -63,7 +81,7 @@ export const telegramPlugin = (
   }
 
   if (textAfterBuild) {
-    const onAfter = makeEleventyEventHandler(eleventyConfig, {
+    const onAfter = makeEleventyEventHandler({
       chatId,
       text: textAfterBuild,
       token

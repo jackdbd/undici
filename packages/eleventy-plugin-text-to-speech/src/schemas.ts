@@ -55,9 +55,23 @@ export const audio_self_host = z.object({
 // https://cloud.google.com/storage/docs/naming-buckets
 export const cloud_storage_bucket_name = z.string().min(3).max(63)
 
+export const client_email = z.string().min(1).email()
+
+export const private_key = z.string().min(1)
+
+export const credentials = z.object({
+  client_email,
+  private_key
+})
+
+export const gcp_client_options = z.object({
+  credentials: credentials.optional(),
+  keyFilename: service_account_json_key_filename.optional()
+})
+
 export const audio_cloud_storage_host = z.object({
   bucketName: cloud_storage_bucket_name,
-  keyFilename: service_account_json_key_filename.optional()
+  storageClientOptions: gcp_client_options
 })
 
 export const audio_host = z.union([audio_self_host, audio_cloud_storage_host])
@@ -68,7 +82,7 @@ export const css_selectors = z.array(css_selector).refine(isUnique, {
   message: 'Must be an array of unique strings'
 })
 
-// const regex = Joi.object<RegExp>().instance(RegExp)
+const regex = z.instanceof(RegExp)
 
 const voice_name = z.string().min(6)
 
@@ -93,7 +107,7 @@ const xpath_expressions = z.array(xpath_expression).refine(isUnique, {
 // })
 
 export const rule = z.object({
-  regex: z.instanceof(RegExp).default(DEFAULT_REGEX),
+  regex: regex.default(DEFAULT_REGEX),
   cssSelectors: css_selectors.default([]),
   xPathExpressions: xpath_expressions.default([])
 })
@@ -104,24 +118,6 @@ export const rule = z.object({
  * @public
  */
 export type Rule = z.infer<typeof rule>
-
-// export const options = Joi.object().keys({
-//   audioEncodings: audioEncodings.default(DEFAULT.audioEncodingsJoi),
-
-//   audioHost: audioHost.required(),
-
-//   cacheExpiration: Joi.string().min(1).default(DEFAULT.cacheExpiration),
-
-//   collectionName: Joi.string().min(1).default(DEFAULT.collectionName),
-
-//   keyFilename: serviceAccountJsonKeyFilename,
-
-//   rules: Joi.array().items(rule).default(DEFAULT.rules),
-
-//   transformName: Joi.string().min(1).default(DEFAULT.transformName),
-
-//   voice: voice.default(DEFAULT.voiceName)
-// })
 
 // https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings
 const DEFAULT_AUDIO_ENCODINGS: AudioEncoding[] = ['OGG_OPUS', 'MP3']
@@ -186,11 +182,6 @@ export const test_asset_config = z.object({
 // export type AssetConfig = z.infer<typeof test_asset_config>
 export type AssetConfig = z.input<typeof test_asset_config>
 
-// export interface AssetConfig {
-//   assetName: string
-//   buffer: string | Uint8Array
-// }
-
 export const self_asset_config = z.object({
   assetName: asset_name,
   buffer: string_or_uint8,
@@ -198,10 +189,12 @@ export const self_asset_config = z.object({
   outputBase: z.string()
 })
 
-export interface SelfHostConfig extends AssetConfig {
-  hrefBase: string
-  outputBase: string
-}
+export type SelfHostConfig = z.infer<typeof self_asset_config>
+
+// export interface SelfHostConfig extends AssetConfig {
+//   hrefBase: string
+//   outputBase: string
+// }
 
 export const cloud_storage_asset_config = z.object({
   assetName: asset_name,
@@ -210,12 +203,12 @@ export const cloud_storage_asset_config = z.object({
   storage: z.instanceof(Storage)
 })
 
-// export const CloudStorageHostConfig = z.infer<typeof cloud_storage_asset_config>
+export type CloudStorageHostConfig = z.infer<typeof cloud_storage_asset_config>
 
-export interface CloudStorageHostConfig extends AssetConfig {
-  bucketName: string
-  storage: Storage
-}
+// export interface CloudStorageHostConfig extends AssetConfig {
+//   bucketName: string
+//   storage: Storage
+// }
 
 export const href = z.string().min(1).url()
 
@@ -292,18 +285,15 @@ export const options = z.object({
   /**
    * List of encodings to use when generating audio assets from text matches.
    *
-   * See here for the audio encodings supported by the Speech-to-Text API:
-   * https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings
+   * @see [List of audio encodings supported by the Speech-to-Text API](https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings)
    */
   audioEncodings: audio_encodings.default(DEFAULT_AUDIO_ENCODINGS),
 
   /**
    * Where to host the audio assets. Each audio host should have a matching
    * writer responsible for writing/uploading the assets to the host.
-   *
-   * @public
    */
-  audioHost: audio_host,
+  audioHost: audio_host, // I don't think we can set a default value for this.
 
   /**
    * Function to use to generate the innerHTML of the `<audio>` tag to inject in
@@ -313,26 +303,19 @@ export const options = z.object({
 
   /**
    * Expiration for the 11ty AssetCache.
-   * https://www.11ty.dev/docs/plugins/fetch/#options
+   *
+   * @see Eleventy AssetCache [options](https://www.11ty.dev/docs/plugins/fetch/#options).
    */
   cacheExpiration: cache_expiration.default(DEFAULT_CACHE_EXPIRATION),
 
   /**
    * Name of the 11ty collection created by this plugin.
    *
-   * Note: if you register this plugin more than once, you will need to use a
+   * @remarks
+   * If you register this plugin more than once, you will need to use a
    * different name every time (otherwise 11ty would throw an Error).
    */
   collectionName: collection_name.default(DEFAULT_COLLECTION_NAME),
-
-  /**
-   * Absolute filepath to the service account JSON key used to authenticate the
-   * Text-to-Speech client library. These credentials might be different from
-   * the ones used to authenticate the Cloud Storage client library. If not
-   * provided, this plugin will try initializing client libraries using the
-   * GOOGLE_APPLICATION_CREDENTIALS environment variable.
-   */
-  keyFilename: service_account_json_key_filename.optional(),
 
   /**
    * Rules that determine which texts to convert into speech.
@@ -340,9 +323,39 @@ export const options = z.object({
   rules: z.array(rule).default(DEFAULT_RULES),
 
   /**
+   * Client options to initialize the GCP Text-To-Speech client library.
+   *
+   * These credentials might be different from the ones used to authenticate
+   * the Cloud Storage client library.
+   *
+   * @remarks
+   * If no credentials are explicitly provided, every Google Cloud client library
+   * will use the GOOGLE_APPLICATION_CREDENTIALS environment variable.
+   *
+   * @example
+   * The credentials can be provided using a filepath to a service account JSON key:
+   * ```ts
+   * textToSpeechClientOptions = {
+   *   keyFilename: 'path/to/service-account-key.json'
+   * }
+   * ```
+   *
+   * @example
+   * The credentials
+   * ```ts
+   * textToSpeechClientOptions = {
+   *   client_email: "SERVICE-ACCOUNT-EMAIL@GCP-PROJECT-ID.iam.gserviceaccount.com",
+   *   private_key: "-----BEGIN PRIVATE KEY-----\n ... \n-----END PRIVATE KEY-----\n"
+   * }
+   * ```
+   */
+  textToSpeechClientOptions: gcp_client_options,
+
+  /**
    * Name of the 11ty transform created by this plugin.
    *
-   * Note: if you register this plugin more than once, you will need to use a
+   * @remarks
+   * If you register this plugin more than once, you will need to use a
    * different name every time (11ty would NOT throw an Error, but this plugin
    * will not work as expected).
    */
@@ -351,11 +364,9 @@ export const options = z.object({
   /**
    * Voice to use when generating audio assets from text matches.
    *
-   * See here for the voices supported by the Speech-to-Text API:
-   * https://cloud.google.com/text-to-speech/docs/voices
+   * @see [Voices supported by the Speech-to-Text API](https://cloud.google.com/text-to-speech/docs/voices)
+   * @see [Different voices might have different prices](https://cloud.google.com/text-to-speech/pricing)
    *
-   * Note: different voices might have different prices:
-   * https://cloud.google.com/text-to-speech/pricing
    */
   voice: voice_name.default(DEFAULT_VOICE_NAME)
 })
@@ -364,5 +375,6 @@ export const options = z.object({
  * Plugin options.
  *
  * @public
+ * @interface
  */
 export type Options = z.input<typeof options>
