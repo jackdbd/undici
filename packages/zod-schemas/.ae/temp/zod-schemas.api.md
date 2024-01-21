@@ -93,7 +93,7 @@ export const css_selector: z.ZodString;
 // Warning: (ae-missing-release-tag) "api_key" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const elevenlabs_api_key: z.ZodString;
+export const elevenlabs_api_key: z.ZodDefault<z.ZodString>;
 
 // Warning: (ae-missing-release-tag) "model_id" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -184,7 +184,5 @@ export const user_email: z.ZodString;
 //
 // @public (undocumented)
 export const xpath_expression: z.ZodString;
-
-// (No @packageDocumentation comment for this package)
 
 ```

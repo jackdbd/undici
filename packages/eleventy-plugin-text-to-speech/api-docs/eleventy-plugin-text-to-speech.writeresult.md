@@ -4,6 +4,8 @@
 
 ## WriteResult type
 
+Write result.
+
 **Signature:**
 
 ```typescript

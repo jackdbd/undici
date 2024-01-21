@@ -42,7 +42,6 @@
     "build": "run-s 'build:code' 'build:docs' --print-label",
     "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
     "build:docs": "run-s 'docs:doctoc' --print-label",
-    "build:watch": "nodemon --watch 'src/**/*' -e cjs,js --exec 'npm run build:code'",
     "clean": "rimraf lib/",
     "dev": "run-p 'build:watch' 'test:watch' --print-label",
     "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",

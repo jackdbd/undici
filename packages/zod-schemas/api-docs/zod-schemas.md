@@ -4,6 +4,8 @@
 
 ## zod-schemas package
 
+Zod schemas that I reuse across projects.
+
 ## Variables
 
 |  Variable | Description |

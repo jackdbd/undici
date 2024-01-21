@@ -1,20 +1,24 @@
-import fs from 'node:fs'
+import path from 'node:path'
 import slugify from 'slugify'
 import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
 import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
-// import { plausiblePlugin } from '@jackdbd/eleventy-plugin-plausible'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
+import { defClient as defCloudflareR2Client } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloudflare-r2'
+import { defClient as defCloudStorageClient } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloud-storage'
+import { defClient as defFilesystemClient } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/fs'
+import { defClient as defGoogleCloudTextToSpeechClient } from '@jackdbd/eleventy-plugin-text-to-speech/synthesis/gcp-text-to-speech'
 import {
-  CLOUD_STORAGE_BUCKET_AUDIO_FILES,
+  CLOUD_STORAGE_BUCKET_AUDIO_FILES_NAME,
+  CLOUDFLARE_R2_BUCKET_AUDIO_FILES_CUSTOM_DOMAIN,
+  CLOUDFLARE_R2_BUCKET_AUDIO_FILES_NAME,
+  CLOUDFLARE_ACCOUNT_ID,
   cloudStorageUploaderClientOptions,
-  cloudTextToSpeechClientOptions
+  cloudTextToSpeechClientOptions,
+  REPO_ROOT
 } from '@jackdbd/eleventy-test-utils'
 import { copyright } from '../src/shortcodes/index.js'
-
-// add a dev server as soon as it is available in Eleventy 2.0
-// https://www.11ty.dev/docs/watch-serve/
 
 export default function (eleventyConfig) {
   // 11ty shortcodes
@@ -38,9 +42,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(navigation)
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
-
-  // const { api_key: apiKey, site_id: siteId } = JSON.parse(process.env.PLAUSIBLE)
-  // eleventyConfig.addPlugin(plausiblePlugin, { apiKey, siteId })
 
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
   if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {
@@ -77,46 +78,86 @@ export default function (eleventyConfig) {
   //   NODE_ENV: process.env.NODE_ENV
   // })
 
-  // default configuration
-  eleventyConfig.addPlugin(textToSpeechPlugin, {
-    audioHost: process.env.CF_PAGES_URL
-      ? new URL(`${process.env.CF_PAGES_URL}/assets/audio`)
-      : new URL('http://localhost:8090/assets/audio')
+  const ttsOpusEnUS = defGoogleCloudTextToSpeechClient({
+    ...cloudTextToSpeechClientOptions(),
+    audioEncoding: 'OGG_OPUS',
+    voiceName: 'en-US-Standard-J'
   })
 
-  // TODO: fix the text-to-speech plugin and re-enable
-  // host these audio files on Cloud Storage, and use a non-default voice
+  const ttsOpusEnIN = defGoogleCloudTextToSpeechClient({
+    ...cloudTextToSpeechClientOptions(),
+    audioEncoding: 'OGG_OPUS',
+    voiceName: 'en-IN-Neural2-A'
+  })
+
+  const ttsMp3EnAU = defGoogleCloudTextToSpeechClient({
+    ...cloudTextToSpeechClientOptions(),
+    audioEncoding: 'MP3',
+    voiceName: 'en-AU-Standard-B'
+  })
+
+  const assetBasepath = path.join(
+    REPO_ROOT,
+    'packages',
+    'demo-site',
+    '_site',
+    'assets',
+    'audio'
+  )
+
+  const hrefBase = `http://localhost:8090/assets/audio`
+
+  const fsClient = defFilesystemClient({ assetBasepath, hrefBase })
+
+  const { access_key_id: accessKeyId, secret_access_key: secretAccessKey } =
+    JSON.parse(process.env.CLOUDFLARE_R2)
+
+  const cloudflareR2 = defCloudflareR2Client({
+    accountId: CLOUDFLARE_ACCOUNT_ID,
+    accessKeyId,
+    secretAccessKey,
+    bucketName: CLOUDFLARE_R2_BUCKET_AUDIO_FILES_NAME,
+    customDomain: CLOUDFLARE_R2_BUCKET_AUDIO_FILES_CUSTOM_DOMAIN
+  })
+
+  const cloudStorage = defCloudStorageClient({
+    ...cloudStorageUploaderClientOptions(),
+    bucketName: CLOUD_STORAGE_BUCKET_AUDIO_FILES_NAME
+  })
+
   eleventyConfig.addPlugin(textToSpeechPlugin, {
-    audioHost: {
-      bucketName: CLOUD_STORAGE_BUCKET_AUDIO_FILES,
-      storageClientOptions: cloudStorageUploaderClientOptions()
-    },
-    // we are registering the plugin a second time, so we can't use the default
-    // name for the 11ty collection created by this plugin (11ty would throw an
-    // Error)
-    collectionName: 'audio-items-cloud-storage',
-    keyFilename,
+    // If we register this plugin a second time, we have to a different name for
+    // the 11ty collection created by this plugin (otherwise 11ty would throw an
+    // Error).
     rules: [
       {
-        xPathExpressions: ['//p[starts-with(., "If you prefer not to litter")]']
+        xPathExpressions: [
+          '//p[starts-with(., "If you prefer not to litter")]',
+          '//p[contains(., "Cultural depictions of lions")]'
+        ],
+        synthesis: ttsOpusEnUS,
+        hosting: fsClient
       },
       {
-        cssSelectors: ['div.custom-tts > p:nth-child(2)']
+        cssSelectors: ['div.custom-tts > p:nth-child(2)'],
+        synthesis: ttsOpusEnIN,
+        hosting: cloudStorage
+      },
+      {
+        cssSelectors: ['div.custom-tts > p:nth-child(2)'],
+        synthesis: ttsMp3EnAU,
+        hosting: fsClient
       },
       {
         regex: new RegExp('posts\\/.*\\.html$'),
         xPathExpressions: [
           '//p[contains(., "savannas")]',
           '//p[starts-with(., "One of the most")]'
-        ]
+        ],
+        synthesis: ttsMp3EnAU,
+        hosting: cloudflareR2
       }
-    ],
-    textToSpeechClientOptions: cloudTextToSpeechClientOptions(),
-    // we are registering the plugin a second time, so we can't use the default
-    // name for the 11ty transform created by this plugin (11ty would NOT throw
-    // an Error, but the plugin would not work as expected)
-    transformName: 'inject-audio-tags-into-html-cloud-storage',
-    voice: 'en-GB-Wavenet-C'
+    ]
   })
 
   // Static assets

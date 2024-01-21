@@ -215,7 +215,7 @@
         {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-telegram!telegramPlugin:var",
-          "docComment": "/**\n * Plugin that sends Telegram messages when Eleventy starts/finishes building your site.\n *\n * @remarks\n *\n * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage) allows text messages of 1-4096 characters (after entities parsing).\n *\n * @param eleventyConfig - Eleventy config. See {@link EleventyConfig | Eleventy config here}.\n *\n * @param options - Plugin {@link Options | options}.\n *\n * @public\n */\n",
+          "docComment": "/**\n * Plugin that sends Telegram messages when Eleventy starts/finishes building your site.\n *\n * @remarks\n *\n * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage) allows text messages of 1-4096 characters (after entities parsing).\n *\n * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.\n *\n * @param options - Plugin {@link Options | options}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",

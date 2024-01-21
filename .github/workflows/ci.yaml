@@ -70,6 +70,8 @@ jobs:
 
       - name: 🔍 Test @jackdbd/eleventy-plugin-text-to-speech
         env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2: ${{ secrets.CLOUDFLARE_R2 }}
           SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
           SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
         run: npm run test:ci -w packages/eleventy-plugin-text-to-speech

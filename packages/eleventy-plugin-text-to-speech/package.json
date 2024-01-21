@@ -28,13 +28,42 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./hosting": {
+      "types": "./lib/hosting/index.d.ts",
+      "import": "./lib/hosting/index.js"
+    },
+    "./hosting/*": {
+      "types": "./lib/hosting/*.d.ts",
+      "import": "./lib/hosting/*.js"
+    },
+    "./schemas/*": {
+      "types": "./lib/schemas/*.d.ts",
+      "import": "./lib/schemas/*.js"
+    },
+    "./synthesis": {
+      "types": "./lib/synthesis/index.d.ts",
+      "import": "./lib/synthesis/index.js"
+    },
+    "./synthesis/*": {
+      "types": "./lib/synthesis/*.d.ts",
+      "import": "./lib/synthesis/*.js"
+    },
+    "./text-to-audio-asset": {
+      "types": "./lib/text-to-audio-asset.d.ts",
+      "import": "./lib/text-to-audio-asset.js"
+    }
   },
-  "typings": "lib/index.d.ts",
   "typesVersions": {
-    "*": {
+    ">=4.0": {
       "*": [
+        "./lib/hosting/*.d.ts",
+        "./lib/schemas/*.d.ts",
+        "./lib/synthesis/*.d.ts",
+        "./lib/text-to-audio-asset.d.ts",
         "./lib/*.d.ts"
       ]
     }
@@ -49,6 +78,7 @@
     "build": "run-s 'build:ts' 'build:docs' --print-label",
     "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
@@ -65,18 +95,36 @@
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.0",
-    "@google-cloud/storage": "^7.7.0",
-    "@google-cloud/text-to-speech": "^5.0.1",
     "html-to-text": "^9.0.5",
     "zod": "^3.22.4",
-    "zod-validation-error": "^2.1.0",
-    "jsdom": "^23.2.0"
+    "zod-validation-error": "^3.0.0",
+    "jsdom": "^24.0.0",
+    "specificity": "^1.0.0"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
+    "@aws-sdk/client-s3": ">=3.0.0",
+    "@aws-sdk/lib-storage": ">=3.0.0",
+    "@google-cloud/storage": ">=7.0.0",
+    "@google-cloud/text-to-speech": ">=5.0.0",
     "debug": ">=4.0.0"
   },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@aws-sdk/lib-storage": {
+      "optional": true
+    },
+    "@google-cloud/storage": {
+      "optional": true
+    },
+    "@google-cloud/text-to-speech": {
+      "optional": true
+    }
+  },
   "devDependencies": {
-    "@jackdbd/eleventy-test-utils": "*"
+    "@jackdbd/eleventy-test-utils": "*",
+    "@jackdbd/zod-schemas": "*"
   }
 }

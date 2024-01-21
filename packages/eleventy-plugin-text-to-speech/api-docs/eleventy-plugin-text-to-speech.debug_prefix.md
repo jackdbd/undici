@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-DEBUG_PREFIX = "11ty-plugin:text-to-speech"
+DEBUG_PREFIX = "11ty-plugin:TTS"
 ```

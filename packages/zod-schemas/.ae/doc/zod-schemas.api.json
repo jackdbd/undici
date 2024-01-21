@@ -162,7 +162,7 @@
   },
   "kind": "Package",
   "canonicalReference": "@jackdbd/zod-schemas!",
-  "docComment": "",
+  "docComment": "/**\n * Zod schemas that I reuse across projects.\n *\n * @packageDocumentation\n */\n",
   "name": "@jackdbd/zod-schemas",
   "preserveMemberOrder": false,
   "members": [
@@ -738,8 +738,21 @@
             },
             {
               "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
               "text": "z.ZodString",
               "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
             }
           ],
           "fileUrlPath": "src/elevenlabs/index.ts",
@@ -748,7 +761,7 @@
           "name": "elevenlabs_api_key",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 2
+            "endIndex": 5
           }
         },
         {

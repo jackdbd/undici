@@ -4,32 +4,29 @@
 
 ## eleventy-plugin-text-to-speech package
 
-## Interfaces
-
-|  Interface | Description |
-|  --- | --- |
-|  [LegacyOptions](./eleventy-plugin-text-to-speech.legacyoptions.md) | Options for this Eleventy plugin. |
-
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [cloud\_storage\_asset\_config](./eleventy-plugin-text-to-speech.cloud_storage_asset_config.md) |  |
-|  [collection\_name](./eleventy-plugin-text-to-speech.collection_name.md) |  |
+|  [config](./eleventy-plugin-text-to-speech.config.md) | <p>Config of this Eleventy plugin.</p> |
 |  [DEBUG\_PREFIX](./eleventy-plugin-text-to-speech.debug_prefix.md) |  |
+|  [DEFAULT\_COLLECTION\_NAME](./eleventy-plugin-text-to-speech.default_collection_name.md) |  |
 |  [DEFAULT\_TRANSFORM\_NAME](./eleventy-plugin-text-to-speech.default_transform_name.md) |  |
-|  [DEFAULT\_VOICE\_NAME](./eleventy-plugin-text-to-speech.default_voice_name.md) |  |
 |  [defaultAudioInnerHTML](./eleventy-plugin-text-to-speech.defaultaudioinnerhtml.md) |  |
-|  [options](./eleventy-plugin-text-to-speech.options.md) | Plugin options schema. |
+|  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | The <code>&lt;audio&gt;</code> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). |
+|  [textToAudioAsset](./eleventy-plugin-text-to-speech.texttoaudioasset.md) | Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech. |
 |  [textToSpeechPlugin](./eleventy-plugin-text-to-speech.texttospeechplugin.md) | Adds Text-to-Speech functionality to an Eleventy site. |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [CloudStorageHost](./eleventy-plugin-text-to-speech.cloudstoragehost.md) |  |
-|  [Options](./eleventy-plugin-text-to-speech.options.md) | <p>Plugin options.</p> |
-|  [Writer](./eleventy-plugin-text-to-speech.writer.md) |  |
-|  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) |  |
-|  [WriteSuccess](./eleventy-plugin-text-to-speech.writesuccess.md) |  |
+|  [Config](./eleventy-plugin-text-to-speech.config.md) | <p>Configuration for this Eleventy plugin.</p> |
+|  [Hosting](./eleventy-plugin-text-to-speech.hosting.md) |  |
+|  [Rule](./eleventy-plugin-text-to-speech.rule.md) | <p>Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.</p> |
+|  [Synthesis](./eleventy-plugin-text-to-speech.synthesis.md) |  |
+|  [Synthesize](./eleventy-plugin-text-to-speech.synthesize.md) |  |
+|  [SynthesizeResult](./eleventy-plugin-text-to-speech.synthesizeresult.md) | Synthesize result. |
+|  [Write](./eleventy-plugin-text-to-speech.write.md) | Write function. |
+|  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) | Write result. |
 

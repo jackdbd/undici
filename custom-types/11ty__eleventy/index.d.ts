@@ -26,7 +26,22 @@ declare module '@11ty/eleventy' {
 
   type EventHandler = (arg: EventArguments) => void | Promise<void>
 
-  type TransformHandler = (
+  export interface EleventyTemplate {
+    outputPath: string
+  }
+
+  // https://www.11ty.dev/docs/collections/#collection-api-methods
+  export interface CollectionApi {
+    getAll: () => EleventyTemplate[]
+    getAllSorted: () => EleventyTemplate[]
+    getFilteredByTag: (tagName: string) => EleventyTemplate[]
+    getFilteredByTags: (...args: string[]) => EleventyTemplate[]
+    getFilteredByGlob: (glob: any) => EleventyTemplate[]
+  }
+
+  type CollectionFn = (collectionApi: CollectionApi) => void
+
+  type TransformFn = (
     content: string,
     outputPath: string
   ) => string | Promise<string>
@@ -34,8 +49,9 @@ declare module '@11ty/eleventy' {
   export interface EleventyConfig {
     userConfig: any
     verbose: boolean
+    addCollection(collectionName: string, fn: CollectionFn): Promise<void>
     addPlugin(pluginFn: () => void, pluginOptions: Object): Promise<void>
-    addTransform(transformName: string, fn: TransformHandler): Promise<void>
+    addTransform(transformName: string, fn: TransformFn): Promise<void>
     on(eventName: EventName, fn: EventHandler): Promise<void>
   }
 

@@ -2,7 +2,7 @@ import assert from 'node:assert'
 import { describe, it } from 'node:test'
 import {
   makeEleventy,
-  INITIAL_ELEVENTY_EVENTS_COUNT
+  ELEVENTY_INITIAL_EVENTS_COUNT
 } from '@jackdbd/eleventy-test-utils'
 import { telegramPlugin } from '../lib/index.js'
 
@@ -43,7 +43,7 @@ describe('telegramPlugin', () => {
     })
     const userConfig = eleventy.eleventyConfig.userConfig
     assert.equal(userConfig.plugins.length, 1)
-    assert.equal(userConfig.events._eventsCount, INITIAL_ELEVENTY_EVENTS_COUNT)
+    assert.equal(userConfig.events._eventsCount, ELEVENTY_INITIAL_EVENTS_COUNT)
   })
 
   it('allows empty user config that registers no event handlers (valid env vars variables for Telegram chat_id/token)', async () => {
@@ -56,7 +56,7 @@ describe('telegramPlugin', () => {
     })
     const userConfig = eleventy.eleventyConfig.userConfig
     assert.equal(userConfig.plugins.length, 1)
-    assert.equal(userConfig.events._eventsCount, INITIAL_ELEVENTY_EVENTS_COUNT)
+    assert.equal(userConfig.events._eventsCount, ELEVENTY_INITIAL_EVENTS_COUNT)
   })
 
   it('rejects with the expected error message when the Telegram bot token is not provided', async () => {
@@ -114,7 +114,7 @@ describe('telegramPlugin', () => {
     const userConfig = eleventy.eleventyConfig.userConfig
     assert.equal(
       userConfig.events._eventsCount,
-      INITIAL_ELEVENTY_EVENTS_COUNT + 1
+      ELEVENTY_INITIAL_EVENTS_COUNT + 1
     )
   })
 
@@ -131,7 +131,7 @@ describe('telegramPlugin', () => {
     const userConfig = eleventy.eleventyConfig.userConfig
     assert.equal(
       userConfig.events._eventsCount,
-      INITIAL_ELEVENTY_EVENTS_COUNT + 1
+      ELEVENTY_INITIAL_EVENTS_COUNT + 1
     )
   })
 })

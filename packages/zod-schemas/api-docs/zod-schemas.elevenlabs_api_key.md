@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-api_key: z.ZodString
+api_key: z.ZodDefault<z.ZodString>
 ```

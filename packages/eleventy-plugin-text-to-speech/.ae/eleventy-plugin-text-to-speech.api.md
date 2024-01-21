@@ -5,293 +5,368 @@
 ```ts
 
 /// <reference types="11ty__eleventy" />
+/// <reference types="node" />
 
 import type { EleventyConfig } from '@11ty/eleventy';
-import { Storage as Storage_2 } from '@google-cloud/storage';
+import { Readable } from 'stream';
+import { Readable as Readable_2 } from 'node:stream';
 import { z } from 'zod';
 
-// Warning: (ae-missing-release-tag) "cloud_storage_asset_config" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// @public
+export type Config = z.input<typeof config>;
+
+// Warning: (ae-missing-release-tag) "config" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
-export const cloud_storage_asset_config: z.ZodObject<{
-    assetName: z.ZodString;
-    buffer: z.ZodUnion<[z.ZodString, z.ZodType<Uint8Array, z.ZodTypeDef, Uint8Array>]>;
-    bucketName: z.ZodString;
-    storage: z.ZodType<Storage_2, z.ZodTypeDef, Storage_2>;
+// @public
+export const config: z.ZodObject<{
+    collectionName: z.ZodDefault<z.ZodString>;
+    rules: z.ZodArray<z.ZodObject<{
+        audioInnerHTML: z.ZodOptional<z.ZodFunction<z.ZodTuple<[z.ZodArray<z.ZodString, "many">], z.ZodUnknown>, z.ZodString>>;
+        cssSelectors: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+        hosting: z.ZodObject<{
+            config: z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>;
+            write: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodObject<{
+                error: z.ZodType<Error, z.ZodTypeDef, Error>;
+                value: z.ZodOptional<z.ZodUndefined>;
+            }, "strip", z.ZodTypeAny, {
+                error: Error;
+                value?: undefined;
+            }, {
+                error: Error;
+                value?: undefined;
+            }>, z.ZodObject<{
+                error: z.ZodOptional<z.ZodUndefined>;
+                value: z.ZodObject<{
+                    href: z.ZodString;
+                    message: z.ZodString;
+                }, "strip", z.ZodTypeAny, {
+                    message: string;
+                    href: string;
+                }, {
+                    message: string;
+                    href: string;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }, {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>]>>>;
+        }, "strip", z.ZodTypeAny, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        }, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        }>;
+        regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
+        synthesis: z.ZodObject<{
+            config: z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>;
+            extension: z.ZodString;
+            synthesize: z.ZodFunction<z.ZodTuple<[z.ZodString], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodObject<{
+                error: z.ZodType<Error, z.ZodTypeDef, Error>;
+                value: z.ZodOptional<z.ZodUndefined>;
+            }, "strip", z.ZodTypeAny, {
+                error: Error;
+                value?: undefined;
+            }, {
+                error: Error;
+                value?: undefined;
+            }>, z.ZodObject<{
+                error: z.ZodOptional<z.ZodUndefined>;
+                value: z.ZodType<Readable, z.ZodTypeDef, Readable>;
+            }, "strip", z.ZodTypeAny, {
+                value: Readable;
+                error?: undefined;
+            }, {
+                value: Readable;
+                error?: undefined;
+            }>]>>>;
+        }, "strip", z.ZodTypeAny, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        }, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        }>;
+        xPathExpressions: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+    }, "strip", z.ZodTypeAny, {
+        cssSelectors: string[];
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        regex: RegExp;
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        xPathExpressions: string[];
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    }, {
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+        cssSelectors?: string[] | undefined;
+        regex?: RegExp | undefined;
+        xPathExpressions?: string[] | undefined;
+    }>, "many">;
+    transformName: z.ZodDefault<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    bucketName: string;
-    assetName: string;
-    buffer: (string | Uint8Array) & (string | Uint8Array | undefined);
-    storage: Storage_2;
+    rules: {
+        cssSelectors: string[];
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        regex: RegExp;
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        xPathExpressions: string[];
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    }[];
+    collectionName: string;
+    transformName: string;
 }, {
-    bucketName: string;
-    assetName: string;
-    buffer: (string | Uint8Array) & (string | Uint8Array | undefined);
-    storage: Storage_2;
+    rules: {
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                value: Readable;
+                error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
+            }>;
+        };
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+        cssSelectors?: string[] | undefined;
+        regex?: RegExp | undefined;
+        xPathExpressions?: string[] | undefined;
+    }[];
+    collectionName?: string | undefined;
+    transformName?: string | undefined;
 }>;
-
-// Warning: (ae-missing-release-tag) "CloudStorageHost" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type CloudStorageHost = {
-    bucketName: string;
-    keyFilename: string;
-};
-
-// Warning: (ae-missing-release-tag) "collection_name" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export const collection_name: z.ZodString;
 
 // Warning: (ae-missing-release-tag) "DEBUG_PREFIX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const DEBUG_PREFIX = "11ty-plugin:text-to-speech";
+export const DEBUG_PREFIX = "11ty-plugin:TTS";
+
+// Warning: (ae-missing-release-tag) "DEFAULT_COLLECTION_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export const DEFAULT_COLLECTION_NAME = "audio-items";
 
 // Warning: (ae-missing-release-tag) "DEFAULT_TRANSFORM_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
 export const DEFAULT_TRANSFORM_NAME = "inject-audio-tags-into-html";
 
-// Warning: (ae-missing-release-tag) "DEFAULT_VOICE_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export const DEFAULT_VOICE_NAME = "en-US-Standard-J";
-
 // Warning: (ae-missing-release-tag) "defaultAudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
 export const defaultAudioInnerHTML: (hrefs: string[]) => string;
 
-// @public
-export interface LegacyOptions {
-    // Warning: (ae-forgotten-export) The symbol "AudioEncoding" needs to be exported by the entry point index.d.ts
-    audioEncodings?: AudioEncoding[];
-    cacheExpiration?: string;
-    collectionName?: string;
-    keyFilename?: string;
-    // Warning: (ae-forgotten-export) The symbol "Rule" needs to be exported by the entry point index.d.ts
-    rules: Rule[];
-    transformName?: string;
-    voice?: string;
-}
+// Warning: (ae-forgotten-export) The symbol "hosting" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Hosting" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Hosting = z.input<typeof hosting>;
 
+// Warning: (ae-missing-release-tag) "mediaType" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
 // @public
-export type Options = z.input<typeof options>;
+export const mediaType: (ext: string) => {
+    value: string;
+    error?: undefined;
+} | {
+    error: Error;
+    value?: undefined;
+};
 
+// Warning: (ae-forgotten-export) The symbol "rule" needs to be exported by the entry point index.d.ts
+//
 // @public
-export const options: z.ZodObject<{
-    audioEncodings: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodUnion<[z.ZodLiteral<"ALAW">, z.ZodLiteral<"AUDIO_ENCODING_UNSPECIFIED">, z.ZodLiteral<"LINEAR16">, z.ZodLiteral<"MP3">, z.ZodLiteral<"MULAW">, z.ZodLiteral<"OGG_OPUS">]>, "many">, ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[], ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[]>>;
-    audioHost: z.ZodUnion<[z.ZodObject<{
-        origin: z.ZodString;
-        pathname: z.ZodString;
-    }, "strip", z.ZodTypeAny, {
-        origin: string;
-        pathname: string;
-    }, {
-        origin: string;
-        pathname: string;
-    }>, z.ZodObject<{
-        bucketName: z.ZodString;
-        storageClientOptions: z.ZodObject<{
-            credentials: z.ZodOptional<z.ZodObject<{
-                client_email: z.ZodString;
-                private_key: z.ZodString;
-            }, "strip", z.ZodTypeAny, {
-                client_email: string;
-                private_key: string;
-            }, {
-                client_email: string;
-                private_key: string;
-            }>>;
-            keyFilename: z.ZodOptional<z.ZodString>;
-        }, "strip", z.ZodTypeAny, {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        }, {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        }>;
-    }, "strip", z.ZodTypeAny, {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    }, {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    }>]>;
-    audioInnerHTML: z.ZodOptional<z.ZodFunction<z.ZodTuple<[z.ZodArray<z.ZodString, "many">], z.ZodUnknown>, z.ZodString>>;
-    cacheExpiration: z.ZodDefault<z.ZodString>;
-    collectionName: z.ZodDefault<z.ZodString>;
-    rules: z.ZodDefault<z.ZodArray<z.ZodObject<{
-        regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
-        cssSelectors: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
-        xPathExpressions: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
-    }, "strip", z.ZodTypeAny, {
-        regex: RegExp;
-        cssSelectors: string[];
-        xPathExpressions: string[];
-    }, {
-        regex?: RegExp | undefined;
-        cssSelectors?: string[] | undefined;
-        xPathExpressions?: string[] | undefined;
-    }>, "many">>;
-    textToSpeechClientOptions: z.ZodObject<{
-        credentials: z.ZodOptional<z.ZodObject<{
-            client_email: z.ZodString;
-            private_key: z.ZodString;
-        }, "strip", z.ZodTypeAny, {
-            client_email: string;
-            private_key: string;
-        }, {
-            client_email: string;
-            private_key: string;
-        }>>;
-        keyFilename: z.ZodOptional<z.ZodString>;
-    }, "strip", z.ZodTypeAny, {
-        credentials?: {
-            client_email: string;
-            private_key: string;
-        } | undefined;
-        keyFilename?: string | undefined;
-    }, {
-        credentials?: {
-            client_email: string;
-            private_key: string;
-        } | undefined;
-        keyFilename?: string | undefined;
-    }>;
-    transformName: z.ZodDefault<z.ZodString>;
-    voice: z.ZodDefault<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    voice: string;
-    audioEncodings: ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[];
-    cacheExpiration: string;
-    audioHost: ({
-        origin: string;
-        pathname: string;
-    } | {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    }) & ({
-        origin: string;
-        pathname: string;
-    } | {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    } | undefined);
-    collectionName: string;
-    rules: {
-        regex: RegExp;
-        cssSelectors: string[];
-        xPathExpressions: string[];
-    }[];
-    textToSpeechClientOptions: {
-        credentials?: {
-            client_email: string;
-            private_key: string;
-        } | undefined;
-        keyFilename?: string | undefined;
+export type Rule = z.infer<typeof rule>;
+
+// Warning: (ae-forgotten-export) The symbol "synthesis" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Synthesis" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Synthesis = z.input<typeof synthesis>;
+
+// Warning: (ae-forgotten-export) The symbol "synthesize_func" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Synthesize" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Synthesize = z.infer<typeof synthesize_func>;
+
+// Warning: (ae-forgotten-export) The symbol "synthesize_result" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type SynthesizeResult = z.infer<typeof synthesize_result>;
+
+// Warning: (ae-forgotten-export) The symbol "Config_2" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "textToAudioAsset" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const textToAudioAsset: (config: Config_2) => Promise<{
+    error: Error;
+    value?: undefined;
+} | {
+    value: {
+        message: string;
+        href: string;
     };
-    transformName: string;
-    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
-}, {
-    audioHost: ({
-        origin: string;
-        pathname: string;
-    } | {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    }) & ({
-        origin: string;
-        pathname: string;
-    } | {
-        bucketName: string;
-        storageClientOptions: {
-            credentials?: {
-                client_email: string;
-                private_key: string;
-            } | undefined;
-            keyFilename?: string | undefined;
-        };
-    } | undefined);
-    textToSpeechClientOptions: {
-        credentials?: {
-            client_email: string;
-            private_key: string;
-        } | undefined;
-        keyFilename?: string | undefined;
-    };
-    audioEncodings?: ("ALAW" | "AUDIO_ENCODING_UNSPECIFIED" | "LINEAR16" | "MP3" | "MULAW" | "OGG_OPUS")[] | undefined;
-    audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
-    cacheExpiration?: string | undefined;
-    collectionName?: string | undefined;
-    rules?: {
-        regex?: RegExp | undefined;
-        cssSelectors?: string[] | undefined;
-        xPathExpressions?: string[] | undefined;
-    }[] | undefined;
-    transformName?: string | undefined;
-    voice?: string | undefined;
+    error?: undefined;
 }>;
 
-// Warning: (ae-missing-release-tag) "textToSpeechPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// @public
+export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, config: Config) => void;
+
+// Warning: (ae-forgotten-export) The symbol "write_func" needs to be exported by the entry point index.d.ts
 //
 // @public
-export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
-
-// Warning: (ae-forgotten-export) The symbol "writer" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "Writer" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type Writer = z.infer<typeof writer>;
+export type Write = z.infer<typeof write_func>;
 
 // Warning: (ae-forgotten-export) The symbol "write_result" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "WriteResult" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
+// @public
 export type WriteResult = z.infer<typeof write_result>;
-
-// Warning: (ae-forgotten-export) The symbol "write_success" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "WriteSuccess" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export type WriteSuccess = z.infer<typeof write_success>;
 
 // (No @packageDocumentation comment for this package)
 
