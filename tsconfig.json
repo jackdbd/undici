@@ -4,6 +4,9 @@
   // IMPORTANT: do NOT change the order
   "references": [
     {
+      "path": "./packages/zod-schemas/tsconfig.json"
+    },
+    {
       "path": "./packages/eleventy-test-utils/tsconfig.json"
     },
     {
