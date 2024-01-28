@@ -7,6 +7,9 @@
       "path": "./packages/zod-schemas/tsconfig.json"
     },
     {
+      "path": "./packages/text-to-audio-asset/tsconfig.json"
+    },
+    {
       "path": "./packages/eleventy-test-utils/tsconfig.json"
     },
     {
