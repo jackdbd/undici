@@ -95,5 +95,10 @@
   "simple-git-hooks": {
     "pre-commit": "npm run precommit --workspaces --if-present",
     "pre-push": "npx commitlint --config ./config/commitlint.cjs --to HEAD"
+  },
+  "overrides": {
+    "eleventy-plugin-helmet": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    }
   }
 }
