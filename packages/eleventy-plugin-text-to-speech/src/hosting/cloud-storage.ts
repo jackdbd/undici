@@ -2,7 +2,7 @@ import { Readable } from 'node:stream'
 import makeDebug from 'debug'
 import { z } from 'zod'
 import { Storage } from '@google-cloud/storage'
-import { gcp } from '@jackdbd/zod-schemas'
+import { cloud_storage, iam } from '@jackdbd/zod-schemas/gcp'
 import { asset_name } from '../schemas/common.js'
 import { DEBUG_PREFIX } from '../constants.js'
 import type { WriteResult } from './schemas.js'
@@ -14,7 +14,7 @@ export const bucket_config = z.object({
   /**
    * Name of the Google Cloud Storage bucket to upload the audio file to.
    */
-  bucketName: gcp.cloud_storage_bucket_name
+  bucketName: cloud_storage.bucket_name
 })
 
 export type BucketConfig = z.input<typeof bucket_config>
@@ -102,8 +102,8 @@ export const write = (
 }
 
 export const auth_options = z.object({
-  credentials: gcp.client_credentials.optional(),
-  keyFilename: gcp.service_account_json_key_filepath.optional()
+  credentials: iam.client_credentials.optional(),
+  keyFilename: iam.service_account_json_key_filepath.optional()
 })
 
 export type AuthOptions = z.input<typeof auth_options>

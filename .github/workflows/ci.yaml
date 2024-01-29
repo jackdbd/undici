@@ -60,8 +60,8 @@ jobs:
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
 
-      # - name: 🔍 Test @jackdbd/eleventy-plugin-permissions-policy
-      #   run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
+      - name: 🔍 Test @jackdbd/eleventy-plugin-permissions-policy
+        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
 
       - name: 🔍 Test @jackdbd/eleventy-plugin-telegram
         env:
@@ -75,7 +75,6 @@ jobs:
           SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
           SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
         run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
-
 
       # TODO: all my tests use the Node.js test runner, which can print coverage
       # reports to stdout. However, I still need to figure out how to generate

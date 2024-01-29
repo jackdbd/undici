@@ -77,7 +77,6 @@
     "@aws-sdk/lib-storage": ">=3.0.0",
     "@google-cloud/storage": ">=7.0.0",
     "@google-cloud/text-to-speech": ">=5.0.0",
-    "@jackdbd/zod-schemas": "^1.0.1",
     "debug": ">=4.0.0"
   },
   "peerDependenciesMeta": {

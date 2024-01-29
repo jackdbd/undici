@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-text-to-speech#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {
@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.0",
-    "@jackdbd/zod-schemas": "^1.0.1",
+    "@jackdbd/zod-schemas": "^2.0.0",
     "html-to-text": "^9.0.5",
     "zod": "^3.22.4",
     "zod-validation-error": "^3.0.0",

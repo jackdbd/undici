@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { dom, isUnique } from '@jackdbd/zod-schemas'
+import { isUnique } from '@jackdbd/zod-schemas'
+import { css_selector, xpath_expression } from '@jackdbd/zod-schemas/dom'
 import {
   DEFAULT_CSS_SELECTORS,
   DEFAULT_REGEX,
@@ -9,12 +10,12 @@ import { audio_inner_html } from '../dom.js'
 import { hosting } from '../hosting/schemas.js'
 import { synthesis } from '../synthesis/schemas.js'
 
-export const css_selectors = z.array(dom.css_selector).refine(isUnique, {
-  message: 'Must be an array of unique strings'
+export const css_selectors = z.array(css_selector).refine(isUnique, {
+  message: 'Must be an array of unique CSS selectors'
 })
 
-const xpath_expressions = z.array(dom.xpath_expression).refine(isUnique, {
-  message: 'Must be an array of unique strings'
+const xpath_expressions = z.array(xpath_expression).refine(isUnique, {
+  message: 'Must be an array of unique XPath expressions'
 })
 
 /**

@@ -3,6 +3,7 @@ import slugify from 'slugify'
 import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
 import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
+import { permissionsPolicyPlugin } from '@jackdbd/eleventy-plugin-permissions-policy'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { defClient as defCloudflareR2Client } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloudflare-r2'
@@ -42,6 +43,20 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(navigation)
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
+
+  eleventyConfig.addPlugin(permissionsPolicyPlugin, {
+    directives: [
+      { feature: 'autoplay', allowlist: ['*'] },
+      { feature: 'geolocation', allowlist: ['self'] },
+      {
+        feature: 'camera',
+        allowlist: ['self', 'https://trusted-site.example']
+      },
+      { feature: 'fullscreen', allowlist: [] }
+    ],
+    includeFeaturePolicy: true,
+    jsonRecap: true
+  })
 
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
   if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {

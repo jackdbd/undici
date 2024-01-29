@@ -3,16 +3,13 @@ import makeDebug from 'debug'
 import { htmlToText } from 'html-to-text'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
-import { dom as dom_namespace } from '@jackdbd/zod-schemas'
+import { css_selector, xpath_expression } from '@jackdbd/zod-schemas/dom'
 import { DEBUG_PREFIX } from './constants.js'
 import { mediaType } from './media-type.js'
 import { href as href_schema } from './schemas/common.js'
 import { validatedDataOrThrow } from './validation.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:dom`)
-
-const css_selector = dom_namespace.css_selector
-const xpath_expression = dom_namespace.xpath_expression
 
 export const css_selector_config = z
   .object({

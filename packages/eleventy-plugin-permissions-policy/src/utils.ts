@@ -1,10 +1,16 @@
-// import type { Directive } from './schemas.js'
+import fs from 'node:fs'
+import makeDebug from 'debug'
+import { DEBUG_PREFIX } from './constants.js'
+import type { Directive } from './schemas.js'
+
+const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
 
 /**
  * Converts a Feature-Policy directive to a string.
+ *
  * @param {Directive} d
  */
-export const featurePolicyDirectiveMapper = (d) => {
+export const featurePolicyDirectiveMapper = (d: Directive) => {
   const allowlist =
     d.allowlist === undefined || d.allowlist.length === 0
       ? `'none'`
@@ -19,9 +25,10 @@ export const featurePolicyDirectiveMapper = (d) => {
 
 /**
  * Converts a Permissions-Policy directive to a string.
+ *
  * @param {Directive} d
  */
-export const permissionsPolicyDirectiveMapper = (d) => {
+export const permissionsPolicyDirectiveMapper = (d: Directive) => {
   const allowlist =
     d.allowlist === undefined || d.allowlist.length === 0
       ? ''
@@ -36,4 +43,19 @@ export const permissionsPolicyDirectiveMapper = (d) => {
   } else {
     return `${d.feature}=(${allowlist})`
   }
+}
+
+export const appendToHeadersFile = (
+  headerKey: string,
+  headerValue: string,
+  headersFilepath: string,
+  patterns: string[]
+) => {
+  patterns.forEach((pattern) => {
+    debug(`add ${headerKey} header for resources matching ${pattern}`)
+    fs.appendFileSync(
+      headersFilepath,
+      `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
+    )
+  })
 }

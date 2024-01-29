@@ -27,13 +27,21 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-permissions-policy#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./schemas": "./lib/schemas.js",
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
+  },
+  "typesVersions": {
+    ">=4.0": {
+      "*": [
+        "./lib/*.d.ts"
+      ]
+    }
   },
   "files": [
     "CHANGELOG.md",
@@ -42,24 +50,27 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:code' 'build:docs' --print-label",
-    "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
-    "build:docs": "run-s 'docs:doctoc' --print-label",
-    "clean": "rimraf lib/",
-    "dev": "run-s build:code watch:test --print-label",
+    "build": "run-s 'build:ts' 'build:docs' --print-label",
+    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage",
-    "watch:test": "node --test --watch"
+    "test:watch": "node --test --watch"
   },
   "dependencies": {
-    "@hapi/hoek": "^11.0.4",
-    "joi": "^17.12.0"
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
