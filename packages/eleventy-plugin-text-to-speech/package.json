@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.0",
+    "@jackdbd/zod-schemas": "^1.0.1",
     "html-to-text": "^9.0.5",
     "zod": "^3.22.4",
     "zod-validation-error": "^3.0.0",
@@ -124,7 +125,6 @@
     }
   },
   "devDependencies": {
-    "@jackdbd/eleventy-test-utils": "*",
-    "@jackdbd/zod-schemas": "*"
+    "@jackdbd/eleventy-test-utils": "*"
   }
 }
