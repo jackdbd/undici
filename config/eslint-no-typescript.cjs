@@ -12,7 +12,8 @@ const config = {
     node: true
   },
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
   plugins: ['prettier'],
   rules: {

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.36.1",
+    "toolVersion": "7.39.4",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -173,135 +173,49 @@
       "preserveMemberOrder": false,
       "members": [
         {
-          "kind": "Interface",
-          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:interface",
-          "docComment": "",
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:type",
+          "docComment": "/**\n * Plugin options.\n *\n * @interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Options "
+              "text": "export type Options = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "options",
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!~options:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "fileUrlPath": "src/index.ts",
+          "fileUrlPath": "src/schemas.ts",
           "releaseTag": "Public",
           "name": "Options",
-          "preserveMemberOrder": false,
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#chatId:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "chatId: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "number | string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "chatId",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#textAfterBuild:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "textAfterBuild: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "textAfterBuild",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#textBeforeBuild:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "textBeforeBuild: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "textBeforeBuild",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options#token:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "token: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "token",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
         },
         {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-telegram!telegramPlugin:var",
-          "docComment": "",
+          "docComment": "/**\n * Plugin that sends Telegram messages when Eleventy starts/finishes building your site.\n *\n * @remarks\n *\n * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage) allows text messages of 1-4096 characters (after entities parsing).\n *\n * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.\n *\n * @param options - Plugin {@link Options | options}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -314,16 +228,16 @@
             {
               "kind": "Reference",
               "text": "EleventyConfig",
-              "canonicalReference": "@panoply/11ty!EleventyConfig:interface"
+              "canonicalReference": "!\"\\\"@11ty/eleventy\\\"\".EleventyConfig:interface"
             },
             {
               "kind": "Content",
-              "text": ", options: "
+              "text": ", options?: "
             },
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-telegram!Options:type"
             },
             {
               "kind": "Content",

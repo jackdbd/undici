@@ -1,29 +1,37 @@
 import path from 'node:path'
 import makeDebug from 'debug'
 import { htmlToText } from 'html-to-text'
-import type { JSDOM } from 'jsdom'
+import { JSDOM } from 'jsdom'
+import { z } from 'zod'
+import { css_selector, xpath_expression } from '@jackdbd/zod-schemas/dom'
 import { DEBUG_PREFIX } from './constants.js'
-import { mediaType } from './utils.js'
+import { mediaType } from './media-type.js'
+import { href as href_schema } from './schemas/common.js'
+import { validatedDataOrThrow } from './validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}/dom`)
+const debug = makeDebug(`${DEBUG_PREFIX}:dom`)
 
-interface CssSelectorConfig {
-  dom: JSDOM
-  selector: string
-  shouldThrowWhenNoMatches?: boolean
-}
+export const css_selector_config = z
+  .object({
+    dom: z.instanceof(JSDOM),
+    selector: css_selector,
+    shouldThrowWhenNoMatches: z.boolean()
+  })
+  .describe('CSS selector config')
 
-export const cssSelectorMatchesToTexts = ({
-  dom,
-  selector,
-  shouldThrowWhenNoMatches = false
-}: CssSelectorConfig) => {
+export type CssSelectorConfig = z.infer<typeof css_selector_config>
+
+export const cssSelectorMatchesToTexts = (config: CssSelectorConfig) => {
+  const cfg = validatedDataOrThrow(config, css_selector_config)
+
+  const { dom, selector, shouldThrowWhenNoMatches } = cfg
+
   const texts = [] as string[]
 
   const elements = dom.window.document.querySelectorAll(selector)
 
   if (elements.length === 0) {
-    const message = `dit NOT find any HTML that matches CSS selector ${selector}`
+    const message = `did NOT find any HTML that matches CSS selector ${selector}`
     if (shouldThrowWhenNoMatches) {
       throw new Error(message)
     } else {
@@ -32,13 +40,18 @@ export const cssSelectorMatchesToTexts = ({
   }
 
   elements.forEach((el) => {
-    debug(`found HTML that matches CSS selector ${selector}`)
     // el.ariaValueText
     // el.textContent
     // el.outerHTML
     if (el.textContent === el.innerHTML) {
+      debug(
+        `found HTML that matches CSS selector ${selector} (el.textContent === el.innerHTML)`
+      )
       texts.push(el.textContent)
     } else {
+      debug(
+        `found HTML that matches CSS selector ${selector} (el.textContent !== el.innerHTML)`
+      )
       // https://github.com/html-to-text/node-html-to-text#options
       // TODO: maybe allow the user to specify options for html-to-text? Maybe a
       // subset of the available options?
@@ -56,17 +69,23 @@ export const cssSelectorMatchesToTexts = ({
   return texts
 }
 
-interface XPathExpressionConfig {
-  dom: JSDOM
-  expression: string
-  shouldThrowWhenNoMatches?: boolean
-}
+export const xpath_expression_config = z
+  .object({
+    dom: z.instanceof(JSDOM),
+    expression: xpath_expression,
+    shouldThrowWhenNoMatches: z.boolean()
+  })
+  .describe('XPath expression config')
 
-export const xPathExpressionMatchesToTexts = ({
-  dom,
-  expression,
-  shouldThrowWhenNoMatches = false
-}: XPathExpressionConfig) => {
+export type XPathExpressionConfig = z.infer<typeof xpath_expression_config>
+
+export const xPathExpressionMatchesToTexts = (
+  config: XPathExpressionConfig
+) => {
+  const cfg = validatedDataOrThrow(config, xpath_expression_config)
+
+  const { dom, expression, shouldThrowWhenNoMatches } = cfg
+
   const doc = dom.window.document
 
   const texts = [] as string[]
@@ -98,7 +117,7 @@ export const xPathExpressionMatchesToTexts = ({
       texts.push(node.textContent)
     }
   } else {
-    const message = `dit NOT find any HTML that matches XPath expression ${expression} on page ${doc.title}`
+    const message = `did NOT find any HTML that matches XPath expression ${expression} on page ${doc.title}`
     if (shouldThrowWhenNoMatches) {
       throw new Error(message)
     } else {
@@ -108,6 +127,13 @@ export const xPathExpressionMatchesToTexts = ({
 
   return texts
 }
+
+export const audio_inner_html = z
+  .function()
+  .args(z.array(href_schema))
+  .returns(z.string().min(1))
+
+export type AudioInnerHtml = z.infer<typeof audio_inner_html>
 
 export const defaultAudioInnerHTML = (hrefs: string[]) => {
   const aTags: string[] = []
@@ -139,22 +165,24 @@ export const defaultAudioInnerHTML = (hrefs: string[]) => {
   return `${sourceTags.join('')}${fallback}`
 }
 
-interface MatchConfig {
-  dom: JSDOM
-  hrefs: string[][]
-  audioInnerHTML: (hrefs: string[]) => string
-}
+export const css_selector_match_config = z
+  .object({
+    audioInnerHTML: audio_inner_html,
+    cssSelector: css_selector,
+    dom: z.instanceof(JSDOM),
+    hrefs: z.array(href_schema)
+  })
+  .describe('CSS selector match config')
 
-interface CssSelectorMatchConfig extends MatchConfig {
-  cssSelector: string
-}
+export type CssSelectorMatchConfig = z.infer<typeof css_selector_match_config>
 
-export const insertAudioPlayersMatchingCssSelector = ({
-  audioInnerHTML,
-  cssSelector,
-  dom,
-  hrefs
-}: CssSelectorMatchConfig) => {
+export const insertAudioPlayersMatchingCssSelector = (
+  config: CssSelectorMatchConfig
+) => {
+  const cfg = validatedDataOrThrow(config, css_selector_match_config)
+
+  const { audioInnerHTML, cssSelector, dom, hrefs } = cfg
+
   const doc = dom.window.document
   const elements = doc.querySelectorAll(cssSelector)
   if (elements.length === 0) {
@@ -165,28 +193,38 @@ export const insertAudioPlayersMatchingCssSelector = ({
   const position = 'afterend'
 
   elements.forEach((el, i) => {
-    const innerHTML = `<audio controls>${audioInnerHTML(hrefs[i])}</audio>`
-    debug(
-      `insert player ${position} CSS selector ${cssSelector} match index ${i}`
-    )
+    const innerHTML = `<audio controls>${audioInnerHTML(hrefs)}</audio>`
+    debug(`insert audio player ${i + 1}/${elements.length} %O`, {
+      'insertAdjacentHTML() position': position,
+      'CSS selector': cssSelector,
+      innerHTML
+    })
     el.insertAdjacentHTML(position, innerHTML)
   })
 }
 
-interface XPathExpressionMatchConfig extends MatchConfig {
-  expression: string
-}
+export const xpath_expression_match_config = z
+  .object({
+    audioInnerHTML: audio_inner_html,
+    dom: z.instanceof(JSDOM),
+    expression: xpath_expression,
+    hrefs: z.array(z.array(href_schema)) // does this really need to be nested?
+  })
+  .describe('XPath expression match config')
 
-export const insertAudioPlayersMatchingXPathExpression = ({
-  audioInnerHTML,
-  dom,
-  expression,
-  hrefs
-}: XPathExpressionMatchConfig) => {
+export type XPathExpressionMatchConfig = z.infer<
+  typeof xpath_expression_match_config
+>
+
+export const insertAudioPlayersMatchingXPathExpression = (
+  config: XPathExpressionMatchConfig
+) => {
+  const cfg = validatedDataOrThrow(config, xpath_expression_match_config)
+
+  const { audioInnerHTML, dom, expression, hrefs } = cfg
+
   const doc = dom.window.document
-
   const contextNode = doc
-
   const resolver = null
 
   // https://github.com/jsdom/jsdom/blob/04f6c13f4a4d387c7fc979b8f62c6f68d8a0c639/lib/jsdom/level3/xpath.js#L1765

@@ -1,20 +1,23 @@
 #!/usr/bin/env zx
 
-import { fs, path } from 'zx'
-import 'zx/globals'
+import { debuglog } from 'node:util'
+import { micromark } from 'micromark'
+// import { fs, path } from 'zx'
+// import 'zx/globals'
 import { throwIfNotInvokedFromMonorepoRoot } from './utils.mjs'
 
 // Usage (from the monorepo root):
-// ../../scripts/docs-index.mjs
+// ./scripts/docs-index.mjs
 
 throwIfNotInvokedFromMonorepoRoot(process.env.PWD)
+
+const debug = debuglog('script:docs-index')
 
 const PACKAGES_EXCLUDED_FROM_INDEX = ['demo-site']
 
 const script_name = path.basename(__filename)
 
 const monorepo_root = process.env.PWD
-const output = path.join(monorepo_root, 'docs', 'README.md')
 
 const PREFIX = 'https://github.com/jackdbd/undici/tree/main'
 const API_DOCS_DIR = 'api-docs'
@@ -49,4 +52,24 @@ const ul = items.map((item) => `- ${item}`).join('\n')
 
 const md = `${intro}\n${ul}`
 
+const output = path.join(monorepo_root, 'docs', 'README.md')
 await fs.writeFile(output, md, { encoding: 'utf8' })
+debug(`wrote ${output} %O`, md)
+
+// const html = micromark(md)
+
+const html = `
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>Undici docs index</title>
+      <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    </head>
+    <body>${micromark(md)}</body>
+  </html>`
+
+// const output = path.join(monorepo_root, 'docs', 'README.html')
+// await fs.writeFile(output, html, { encoding: 'utf8' })
+// debug(`wrote ${output} %O`, html)

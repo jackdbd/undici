@@ -4,30 +4,308 @@
 
 ```ts
 
-import type { EleventyConfig } from '@panoply/11ty';
+/// <reference types="11ty__eleventy" />
+/// <reference types="node" />
 
-// Warning: (ae-missing-release-tag) "AudioEncoding" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+import type { EleventyConfig } from '@11ty/eleventy';
+import { Readable } from 'stream';
+import { Readable as Readable_2 } from 'node:stream';
+import { z } from 'zod';
+
+// @public
+export type Config = z.input<typeof config>;
+
+// Warning: (ae-missing-release-tag) "config" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const config: z.ZodObject<{
+    collectionName: z.ZodDefault<z.ZodString>;
+    rules: z.ZodArray<z.ZodObject<{
+        audioInnerHTML: z.ZodOptional<z.ZodFunction<z.ZodTuple<[z.ZodArray<z.ZodString, "many">], z.ZodUnknown>, z.ZodString>>;
+        cssSelectors: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+        hosting: z.ZodObject<{
+            config: z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>;
+            write: z.ZodFunction<z.ZodTuple<[], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodObject<{
+                error: z.ZodType<Error, z.ZodTypeDef, Error>;
+                value: z.ZodOptional<z.ZodUndefined>;
+            }, "strip", z.ZodTypeAny, {
+                error: Error;
+                value?: undefined;
+            }, {
+                error: Error;
+                value?: undefined;
+            }>, z.ZodObject<{
+                error: z.ZodOptional<z.ZodUndefined>;
+                value: z.ZodObject<{
+                    href: z.ZodString;
+                    message: z.ZodString;
+                }, "strip", z.ZodTypeAny, {
+                    message: string;
+                    href: string;
+                }, {
+                    message: string;
+                    href: string;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }, {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>]>>>;
+        }, "strip", z.ZodTypeAny, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        }, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        }>;
+        regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
+        synthesis: z.ZodObject<{
+            config: z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>;
+            extension: z.ZodString;
+            synthesize: z.ZodFunction<z.ZodTuple<[z.ZodString], z.ZodUnknown>, z.ZodPromise<z.ZodUnion<[z.ZodObject<{
+                error: z.ZodType<Error, z.ZodTypeDef, Error>;
+                value: z.ZodOptional<z.ZodUndefined>;
+            }, "strip", z.ZodTypeAny, {
+                error: Error;
+                value?: undefined;
+            }, {
+                error: Error;
+                value?: undefined;
+            }>, z.ZodObject<{
+                error: z.ZodOptional<z.ZodUndefined>;
+                value: z.ZodType<Readable, z.ZodTypeDef, Readable>;
+            }, "strip", z.ZodTypeAny, {
+                value: Readable;
+                error?: undefined;
+            }, {
+                value: Readable;
+                error?: undefined;
+            }>]>>>;
+        }, "strip", z.ZodTypeAny, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        }, {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        }>;
+        xPathExpressions: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
+    }, "strip", z.ZodTypeAny, {
+        cssSelectors: string[];
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        };
+        regex: RegExp;
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        };
+        xPathExpressions: string[];
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    }, {
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        };
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        };
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+        cssSelectors?: string[] | undefined;
+        regex?: RegExp | undefined;
+        xPathExpressions?: string[] | undefined;
+    }>, "many">;
+    transformName: z.ZodDefault<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    rules: {
+        cssSelectors: string[];
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        };
+        regex: RegExp;
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        };
+        xPathExpressions: string[];
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+    }[];
+    collectionName: string;
+    transformName: string;
+}, {
+    rules: {
+        hosting: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            write: (...args: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: {
+                    message: string;
+                    href: string;
+                };
+                error?: undefined;
+            }>;
+        };
+        synthesis: {
+            config: {} & {
+                [k: string]: unknown;
+            };
+            extension: string;
+            synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
+                error: Error;
+                value?: undefined;
+            } | {
+                value: Readable;
+                error?: undefined;
+            }>;
+        };
+        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
+        cssSelectors?: string[] | undefined;
+        regex?: RegExp | undefined;
+        xPathExpressions?: string[] | undefined;
+    }[];
+    collectionName?: string | undefined;
+    transformName?: string | undefined;
+}>;
+
+// Warning: (ae-missing-release-tag) "DEBUG_PREFIX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type AudioEncoding = 'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS';
+export const DEBUG_PREFIX = "11ty-plugin:TTS";
 
-// Warning: (ae-missing-release-tag) "audioExtension" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "DEFAULT_COLLECTION_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const audioExtension: (audioEncoding: AudioEncoding) => "alaw" | "l16" | "mp3" | "mulaw" | "opus" | "wav";
+export const DEFAULT_COLLECTION_NAME = "audio-items";
 
-// Warning: (ae-missing-release-tag) "AudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "DEFAULT_TRANSFORM_NAME" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type AudioInnerHTML = (hrefs: string[]) => string;
+export const DEFAULT_TRANSFORM_NAME = "inject-audio-tags-into-html";
 
-// Warning: (ae-missing-release-tag) "CloudStorageHost" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-missing-release-tag) "defaultAudioInnerHTML" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export type CloudStorageHost = {
-    bucketName: string;
-    keyFilename: string;
-};
+export const defaultAudioInnerHTML: (hrefs: string[]) => string;
+
+// Warning: (ae-forgotten-export) The symbol "hosting" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Hosting" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public (undocumented)
+export type Hosting = z.input<typeof hosting>;
 
 // Warning: (ae-missing-release-tag) "mediaType" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -40,40 +318,55 @@ export const mediaType: (ext: string) => {
     value?: undefined;
 };
 
-// Warning: (ae-missing-release-tag) "Options" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-forgotten-export) The symbol "rule" needs to be exported by the entry point index.d.ts
 //
-// @public (undocumented)
-export interface Options {
-    audioEncodings?: AudioEncoding[];
-    audioHost: URL | CloudStorageHost;
-    audioInnerHTML?: AudioInnerHTML;
-    cacheExpiration?: string;
-    collectionName?: string;
-    keyFilename?: string;
-    rules: Rule[];
-    transformName?: string;
-    voice?: string;
-}
+// @public
+export type Rule = z.infer<typeof rule>;
 
-// Warning: (ae-missing-release-tag) "plugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-forgotten-export) The symbol "synthesis" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Synthesis" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export const plugin: {
-    initArguments: {};
-    configFunction: (eleventyConfig: EleventyConfig, options: Options) => void;
-};
+export type Synthesis = z.input<typeof synthesis>;
 
-// Warning: (ae-missing-release-tag) "Rule" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-forgotten-export) The symbol "synthesize_func" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "Synthesize" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-export interface Rule {
-    // (undocumented)
-    cssSelectors: string[];
-    // (undocumented)
-    regex: RegExp;
-    // (undocumented)
-    xPathExpressions: string[];
-}
+export type Synthesize = z.infer<typeof synthesize_func>;
+
+// Warning: (ae-forgotten-export) The symbol "synthesize_result" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type SynthesizeResult = z.infer<typeof synthesize_result>;
+
+// Warning: (ae-forgotten-export) The symbol "Config_2" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "textToAudioAsset" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const textToAudioAsset: (config: Config_2) => Promise<{
+    error: Error;
+    value?: undefined;
+} | {
+    value: {
+        message: string;
+        href: string;
+    };
+    error?: undefined;
+}>;
+
+// @public
+export const textToSpeechPlugin: (eleventyConfig: EleventyConfig, config: Config) => void;
+
+// Warning: (ae-forgotten-export) The symbol "write_func" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type Write = z.infer<typeof write_func>;
+
+// Warning: (ae-forgotten-export) The symbol "write_result" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type WriteResult = z.infer<typeof write_result>;
 
 // (No @packageDocumentation comment for this package)
 

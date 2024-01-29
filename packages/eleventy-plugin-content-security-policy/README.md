@@ -1,7 +1,6 @@
 # @jackdbd/eleventy-plugin-content-security-policy
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-content-security-policy)
 
 Eleventy plugin that writes a Content-Security-Policy to a `_headers` file.
 

@@ -1,0 +1,99 @@
+{
+  "name": "@jackdbd/text-to-audio-asset",
+  "version": "0.1.0",
+  "description": "generate an audio asset from a text",
+  "author": {
+    "name": "Giacomo Debidda",
+    "email": "giacomo@giacomodebidda.com",
+    "url": "https://giacomodebidda.com/"
+  },
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "text-to-speech"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jackdbd/undici"
+  },
+  "homepage": "https://github.com/jackdbd/undici/tree/main/packages/text-to-audio-asset#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./schemas/*": {
+      "types": "./lib/schemas/*.d.ts",
+      "import": "./lib/schemas/*.js"
+    }
+  },
+  "typesVersions": {
+    ">=4.0": {
+      "*": [
+        "./lib/schemas/*.d.ts",
+        "./lib/*.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "lib"
+  ],
+  "scripts": {
+    "build": "run-s 'build:ts' 'build:docs' --print-label",
+    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
+    "format": "../../scripts/format.mjs",
+    "lint": "eslint --config ../../config/eslint.cjs",
+    "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
+    "test": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch"
+  },
+  "dependencies": {
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
+    "@aws-sdk/client-s3": ">=3.0.0",
+    "@aws-sdk/lib-storage": ">=3.0.0",
+    "@google-cloud/storage": ">=7.0.0",
+    "@google-cloud/text-to-speech": ">=5.0.0",
+    "debug": ">=4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@aws-sdk/lib-storage": {
+      "optional": true
+    },
+    "@google-cloud/storage": {
+      "optional": true
+    },
+    "@google-cloud/text-to-speech": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@jackdbd/eleventy-test-utils": "*"
+  }
+}

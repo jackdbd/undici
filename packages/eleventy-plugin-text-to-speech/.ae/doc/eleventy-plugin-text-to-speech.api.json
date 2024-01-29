@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.36.1",
+    "toolVersion": "7.39.4",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -174,118 +174,1372 @@
       "members": [
         {
           "kind": "TypeAlias",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!AudioEncoding:type",
-          "docComment": "",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Config:type",
+          "docComment": "/**\n * Configuration for this Eleventy plugin.\n *\n * @interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export type AudioEncoding = "
+              "text": "export type Config = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.input",
+              "canonicalReference": "zod!input:type"
             },
             {
               "kind": "Content",
-              "text": "'ALAW' | 'AUDIO_ENCODING_UNSPECIFIED' | 'LINEAR16' | 'MP3' | 'MULAW' | 'OGG_OPUS'"
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "config",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!config:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
             },
             {
               "kind": "Content",
               "text": ";"
             }
           ],
-          "fileUrlPath": "src/types.ts",
+          "fileUrlPath": "src/eleventy/plugin.ts",
           "releaseTag": "Public",
-          "name": "AudioEncoding",
+          "name": "Config",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 2
+            "endIndex": 5
           }
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!audioExtension:var",
-          "docComment": "",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!config:var",
+          "docComment": "/**\n * Config of this Eleventy plugin.\n *\n * @hidden\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "audioExtension: "
-            },
-            {
-              "kind": "Content",
-              "text": "(audioEncoding: "
+              "text": "config: "
             },
             {
               "kind": "Reference",
-              "text": "AudioEncoding",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!AudioEncoding:type"
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
             },
             {
               "kind": "Content",
-              "text": ") => \"alaw\" | \"l16\" | \"mp3\" | \"mulaw\" | \"opus\" | \"wav\""
+              "text": "<{\n    collectionName: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    rules: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n        audioInnerHTML: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodFunction",
+              "canonicalReference": "zod!ZodFunction:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTuple",
+              "canonicalReference": "zod!ZodTuple:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"many\">], "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnknown",
+              "canonicalReference": "zod!ZodUnknown:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">>;\n        cssSelectors: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodEffects",
+              "canonicalReference": "zod!ZodEffects:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"many\">, string[], string[]>>;\n        hosting: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n            config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, \"passthrough\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.objectOutputType",
+              "canonicalReference": "zod!objectOutputType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"passthrough\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.objectInputType",
+              "canonicalReference": "zod!objectInputType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"passthrough\">>;\n            write: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodFunction",
+              "canonicalReference": "zod!ZodFunction:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTuple",
+              "canonicalReference": "zod!ZodTuple:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<[], "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnknown",
+              "canonicalReference": "zod!ZodUnknown:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodPromise",
+              "canonicalReference": "zod!ZodPromise:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodType",
+              "canonicalReference": "zod!ZodType:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeDef",
+              "canonicalReference": "zod!ZodTypeDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n                value: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUndefined",
+              "canonicalReference": "zod!ZodUndefined:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n            }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            }, {\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            }>, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUndefined",
+              "canonicalReference": "zod!ZodUndefined:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n                value: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                    href: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                    message: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                    message: string;\n                    href: string;\n                }, {\n                    message: string;\n                    href: string;\n                }>;\n            }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }, {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>]>>>;\n        }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        }>;\n        regex: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodType",
+              "canonicalReference": "zod!ZodType:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeDef",
+              "canonicalReference": "zod!ZodTypeDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">>;\n        synthesis: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n            config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, \"passthrough\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.objectOutputType",
+              "canonicalReference": "zod!objectOutputType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"passthrough\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.objectInputType",
+              "canonicalReference": "zod!objectInputType:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<{}, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"passthrough\">>;\n            extension: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n            synthesize: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodFunction",
+              "canonicalReference": "zod!ZodFunction:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTuple",
+              "canonicalReference": "zod!ZodTuple:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": "], "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnknown",
+              "canonicalReference": "zod!ZodUnknown:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodPromise",
+              "canonicalReference": "zod!ZodPromise:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodType",
+              "canonicalReference": "zod!ZodType:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeDef",
+              "canonicalReference": "zod!ZodTypeDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n                value: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUndefined",
+              "canonicalReference": "zod!ZodUndefined:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n            }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            }, {\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            }>, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUndefined",
+              "canonicalReference": "zod!ZodUndefined:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n                value: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodType",
+              "canonicalReference": "zod!ZodType:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeDef",
+              "canonicalReference": "zod!ZodTypeDef:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n            }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }, {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>]>>>;\n        }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        }>;\n        xPathExpressions: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodEffects",
+              "canonicalReference": "zod!ZodEffects:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ", \"many\">, string[], string[]>>;\n    }, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n        cssSelectors: string[];\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        regex: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }, {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | undefined;\n        xPathExpressions?: string[] | undefined;\n    }>, \"many\">;\n    transformName: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n}, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n    rules: {\n        cssSelectors: string[];\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        regex: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }[];\n    collectionName: string;\n    transformName: string;\n}, {\n    rules: {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "RegExp",
+              "canonicalReference": "!RegExp:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | undefined;\n        xPathExpressions?: string[] | undefined;\n    }[];\n    collectionName?: string | undefined;\n    transformName?: string | undefined;\n}>"
             }
           ],
-          "fileUrlPath": "src/utils.ts",
+          "fileUrlPath": "src/eleventy/plugin.ts",
           "isReadonly": true,
           "releaseTag": "Public",
-          "name": "audioExtension",
+          "name": "config",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 4
+            "endIndex": 259
           }
         },
         {
-          "kind": "TypeAlias",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!AudioInnerHTML:type",
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!DEBUG_PREFIX:var",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export type AudioInnerHTML = "
+              "text": "DEBUG_PREFIX = "
+            },
+            {
+              "kind": "Content",
+              "text": "\"11ty-plugin:TTS\""
+            }
+          ],
+          "fileUrlPath": "src/constants.ts",
+          "initializerTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "DEBUG_PREFIX",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!DEFAULT_COLLECTION_NAME:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "DEFAULT_COLLECTION_NAME = "
+            },
+            {
+              "kind": "Content",
+              "text": "\"audio-items\""
+            }
+          ],
+          "fileUrlPath": "src/constants.ts",
+          "initializerTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "DEFAULT_COLLECTION_NAME",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!DEFAULT_TRANSFORM_NAME:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "DEFAULT_TRANSFORM_NAME = "
+            },
+            {
+              "kind": "Content",
+              "text": "\"inject-audio-tags-into-html\""
+            }
+          ],
+          "fileUrlPath": "src/constants.ts",
+          "initializerTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          },
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "DEFAULT_TRANSFORM_NAME",
+          "variableTypeTokenRange": {
+            "startIndex": 0,
+            "endIndex": 0
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!defaultAudioInnerHTML:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "defaultAudioInnerHTML: "
             },
             {
               "kind": "Content",
               "text": "(hrefs: string[]) => string"
-            },
-            {
-              "kind": "Content",
-              "text": ";"
             }
           ],
-          "fileUrlPath": "src/types.ts",
+          "fileUrlPath": "src/dom.ts",
+          "isReadonly": true,
           "releaseTag": "Public",
-          "name": "AudioInnerHTML",
-          "typeTokenRange": {
+          "name": "defaultAudioInnerHTML",
+          "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 2
           }
         },
         {
           "kind": "TypeAlias",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!CloudStorageHost:type",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Hosting:type",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export type CloudStorageHost = "
+              "text": "export type Hosting = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.input",
+              "canonicalReference": "zod!input:type"
             },
             {
               "kind": "Content",
-              "text": "{\n    bucketName: string;\n    keyFilename: string;\n}"
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "hosting",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~hosting:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
             },
             {
               "kind": "Content",
               "text": ";"
             }
           ],
-          "fileUrlPath": "src/types.ts",
+          "fileUrlPath": "src/hosting/schemas.ts",
           "releaseTag": "Public",
-          "name": "CloudStorageHost",
+          "name": "Hosting",
           "typeTokenRange": {
             "startIndex": 1,
-            "endIndex": 2
+            "endIndex": 5
           }
         },
         {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!mediaType:var",
-          "docComment": "/**\n * The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm\n *\n * Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5_audio\n */\n",
+          "docComment": "/**\n * The `<audio>` tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).\n *\n * @see\n *\n * [wikipedia.org - Supported media types in various browsers](https://en.wikipedia.org/wiki/HTML5_audio)\n *\n * @see\n *\n * [stackoverflow.com - HTML5 audio Browsers unable to decode wav file encoded with IMA ADPCM](https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm)\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -305,7 +1559,7 @@
               "text": ";\n    value?: undefined;\n}"
             }
           ],
-          "fileUrlPath": "src/utils.ts",
+          "fileUrlPath": "src/media-type.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "mediaType",
@@ -315,427 +1569,335 @@
           }
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options:interface",
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule:type",
+          "docComment": "/**\n * Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.\n *\n * @interface\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Rule = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "rule",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~rule:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/schemas/rule.ts",
+          "releaseTag": "Public",
+          "name": "Rule",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Synthesis:type",
           "docComment": "",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Options "
+              "text": "export type Synthesis = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.input",
+              "canonicalReference": "zod!input:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "synthesis",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~synthesis:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "fileUrlPath": "src/index.ts",
+          "fileUrlPath": "src/synthesis/schemas.ts",
           "releaseTag": "Public",
-          "name": "Options",
-          "preserveMemberOrder": false,
-          "members": [
+          "name": "Synthesis",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Synthesize:type",
+          "docComment": "",
+          "excerptTokens": [
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioEncodings:member",
-              "docComment": "/**\n * List of encodings to use when generating audio assets from text matches.\n *\n * See here for the audio encodings supported by the Speech-to-Text API: https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "audioEncodings?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "AudioEncoding",
-                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!AudioEncoding:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "audioEncodings",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
+              "kind": "Content",
+              "text": "export type Synthesize = "
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioHost:member",
-              "docComment": "/**\n * Where to host the audio assets. Each audio host should have a matching writer responsible for writing/uploading the assets to the host.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "audioHost: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "URL",
-                  "canonicalReference": "!URL:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": " | "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "CloudStorageHost",
-                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!CloudStorageHost:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "audioHost",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 4
-              }
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#audioInnerHTML:member",
-              "docComment": "/**\n * Function to use to generate the innerHTML of the `<audio>` tag to inject in the page for each text match.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "audioInnerHTML?: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "AudioInnerHTML",
-                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!AudioInnerHTML:type"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "audioInnerHTML",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Content",
+              "text": "<typeof "
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#cacheExpiration:member",
-              "docComment": "/**\n * Expiration for the 11ty AssetCache. https://www.11ty.dev/docs/plugins/fetch/#options\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "cacheExpiration?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "cacheExpiration",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Reference",
+              "text": "synthesize_func",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~synthesize_func:var"
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#collectionName:member",
-              "docComment": "/**\n * Name of the 11ty collection created by this plugin.\n *\n * Note: if you register this plugin more than once, you will need to use a different name every time (otherwise 11ty would throw an Error).\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "collectionName?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "collectionName",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Content",
+              "text": ">"
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#keyFilename:member",
-              "docComment": "/**\n * Absolute filepath to the service account JSON key used to authenticate the Text-to-Speech client library. These credentials might be different from the ones used to authenticate the Cloud Storage client library. If not provided, this plugin will try initializing client libraries using the GOOGLE_APPLICATION_CREDENTIALS environment variable.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "keyFilename?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "keyFilename",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#rules:member",
-              "docComment": "/**\n * Rules that determine which texts to convert into speech.\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "rules: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "Rule",
-                  "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": "[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "rules",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 3
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#transformName:member",
-              "docComment": "/**\n * Name of the 11ty transform created by this plugin.\n *\n * Note: if you register this plugin more than once, you will need to use a different name every time (11ty would NOT throw an Error, but this plugin will not work as expected).\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "transformName?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "transformName",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options#voice:member",
-              "docComment": "/**\n * Voice to use when generating audio assets from text matches.\n *\n * See here for the voices supported by the Speech-to-Text API: https://cloud.google.com/text-to-speech/docs/voices\n *\n * Note: different voices might have different prices: https://cloud.google.com/text-to-speech/pricing\n */\n",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "voice?: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": true,
-              "releaseTag": "Public",
-              "name": "voice",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "extendsTokenRanges": []
+          "fileUrlPath": "src/synthesis/schemas.ts",
+          "releaseTag": "Public",
+          "name": "Synthesize",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!SynthesizeResult:type",
+          "docComment": "/**\n * Synthesize result.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type SynthesizeResult = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "synthesize_result",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~synthesize_result:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/synthesis/schemas.ts",
+          "releaseTag": "Public",
+          "name": "SynthesizeResult",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
         },
         {
           "kind": "Variable",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!plugin:var",
-          "docComment": "",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!textToAudioAsset:var",
+          "docComment": "/**\n * Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech.\n *\n * @param config - \n *\n * @returns \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "plugin: "
+              "text": "textToAudioAsset: "
             },
             {
               "kind": "Content",
-              "text": "{\n    initArguments: {};\n    configFunction: (eleventyConfig: "
+              "text": "(config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Config",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~Config_2:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: {\n        message: string;\n        href: string;\n    };\n    error?: undefined;\n}>"
+            }
+          ],
+          "fileUrlPath": "src/text-to-audio-asset.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "textToAudioAsset",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 8
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!textToSpeechPlugin:var",
+          "docComment": "/**\n * Adds Text-to-Speech functionality to an Eleventy site.\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "textToSpeechPlugin: "
+            },
+            {
+              "kind": "Content",
+              "text": "(eleventyConfig: "
             },
             {
               "kind": "Reference",
               "text": "EleventyConfig",
-              "canonicalReference": "@panoply/11ty!EleventyConfig:interface"
+              "canonicalReference": "!\"\\\"@11ty/eleventy\\\"\".EleventyConfig:interface"
             },
             {
               "kind": "Content",
-              "text": ", options: "
+              "text": ", config: "
             },
             {
               "kind": "Reference",
-              "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Options:interface"
+              "text": "Config",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Config:type"
             },
             {
               "kind": "Content",
-              "text": ") => void;\n}"
+              "text": ") => void"
             }
           ],
           "fileUrlPath": "src/index.ts",
           "isReadonly": true,
           "releaseTag": "Public",
-          "name": "plugin",
+          "name": "textToSpeechPlugin",
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 6
           }
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule:interface",
-          "docComment": "",
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Write:type",
+          "docComment": "/**\n * Write function.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Rule "
+              "text": "export type Write = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "write_func",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~write_func:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "fileUrlPath": "src/types.ts",
+          "fileUrlPath": "src/hosting/schemas.ts",
           "releaseTag": "Public",
-          "name": "Rule",
-          "preserveMemberOrder": false,
-          "members": [
+          "name": "Write",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!WriteResult:type",
+          "docComment": "/**\n * Write result.\n *\n * @public\n */\n",
+          "excerptTokens": [
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule#cssSelectors:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "cssSelectors: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "cssSelectors",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Content",
+              "text": "export type WriteResult = "
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule#regex:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "regex: "
-                },
-                {
-                  "kind": "Reference",
-                  "text": "RegExp",
-                  "canonicalReference": "!RegExp:interface"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "regex",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
             },
             {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!Rule#xPathExpressions:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "xPathExpressions: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "xPathExpressions",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "write_result",
+              "canonicalReference": "@jackdbd/eleventy-plugin-text-to-speech!~write_result:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
-          "extendsTokenRanges": []
+          "fileUrlPath": "src/hosting/schemas.ts",
+          "releaseTag": "Public",
+          "name": "WriteResult",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
         }
       ]
     }

@@ -1,7 +1,14 @@
+import fs from 'node:fs'
+import makeDebug from 'debug'
+import { DEBUG_PREFIX } from './constants.js'
 import type { Directive } from './schemas.js'
+
+const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
 
 /**
  * Converts a Feature-Policy directive to a string.
+ *
+ * @param {Directive} d
  */
 export const featurePolicyDirectiveMapper = (d: Directive) => {
   const allowlist =
@@ -18,6 +25,8 @@ export const featurePolicyDirectiveMapper = (d: Directive) => {
 
 /**
  * Converts a Permissions-Policy directive to a string.
+ *
+ * @param {Directive} d
  */
 export const permissionsPolicyDirectiveMapper = (d: Directive) => {
   const allowlist =
@@ -34,4 +43,19 @@ export const permissionsPolicyDirectiveMapper = (d: Directive) => {
   } else {
     return `${d.feature}=(${allowlist})`
   }
+}
+
+export const appendToHeadersFile = (
+  headerKey: string,
+  headerValue: string,
+  headersFilepath: string,
+  patterns: string[]
+) => {
+  patterns.forEach((pattern) => {
+    debug(`add ${headerKey} header for resources matching ${pattern}`)
+    fs.appendFileSync(
+      headersFilepath,
+      `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
+    )
+  })
 }

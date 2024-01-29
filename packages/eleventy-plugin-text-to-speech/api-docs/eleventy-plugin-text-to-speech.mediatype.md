@@ -4,9 +4,7 @@
 
 ## mediaType variable
 
-The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm
-
-Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5\_audio
+The `<audio>` tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).
 
 **Signature:**
 

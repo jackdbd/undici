@@ -27,17 +27,17 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-permissions-policy#readme",
   "engines": {
-    "node": ">=14.20.0"
+    "node": ">=18"
   },
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./schemas": "./lib/schemas.js",
-    "./package.json": "./package.json"
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    }
   },
   "typesVersions": {
-    "*": {
+    ">=4.0": {
       "*": [
         "./lib/*.d.ts"
       ]
@@ -53,6 +53,7 @@
     "build": "run-s 'build:ts' 'build:docs' --print-label",
     "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
@@ -61,18 +62,21 @@
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "../../scripts/test.mjs",
-    "test:ci": "../../scripts/test.mjs --ci",
-    "test:watch": "npm run test -- --watch"
+    "test": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch"
   },
   "dependencies": {
-    "joi": "^17.6.0"
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=1.0.0",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@jackdbd/eleventy-test-utils": "*"
+  }
 }

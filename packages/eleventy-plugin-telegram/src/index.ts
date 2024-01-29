@@ -1,59 +1,77 @@
 import makeDebug from 'debug'
-import Joi from 'joi'
-import type { EleventyConfig } from '@panoply/11ty'
-import { DEFAULT, PREFIX } from './constants.js'
-import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
+import { fromZodError } from 'zod-validation-error'
+import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import { options as schema } from './schemas.js'
+import type { Options, SendMessageConfig } from './schemas.js'
 import { sendMessage } from './send-message.js'
-import type { SendMessageConfig } from './send-message.js'
 
-const debug = makeDebug('eleventy-plugin-telegram/index')
+// exports for TypeDoc
+export type { EleventyConfig } from '@11ty/eleventy'
+export type { Options } from './schemas.js'
+// export { telegram_text } from './schemas.js'
 
-const makeEleventyEventHandler = (
-  _eleventyConfig: EleventyConfig,
-  config: SendMessageConfig
-) => {
-  // partial application, to obtain a niladic function
-  return sendMessage.bind(null, config)
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+
+/**
+ * @internal
+ */
+const makeEleventyEventHandler = (config: SendMessageConfig) => {
+  debug(`create Eleventy event handler`)
+  return async (arg: EventArguments) => {
+    debug(`current Eleventy project directories %o`, arg.dir)
+    const { message } = await sendMessage(config)
+    debug(message)
+  }
 }
 
-export interface Options {
-  chatId: number | string
-  token: string
-  textBeforeBuild: string
-  textAfterBuild: string
-}
-
-const options_schema = Joi.object().keys({
-  chatId: telegram_chat_id.required(),
-  token: telegram_token.required(),
-  textBeforeBuild: Joi.alternatives().conditional('textAfterBuild', {
-    is: Joi.exist(),
-    then: telegram_text.optional(),
-    otherwise: telegram_text.optional()
-  }),
-  textAfterBuild: Joi.alternatives().conditional('textBeforeBuild', {
-    is: Joi.exist(),
-    then: telegram_text.optional(),
-    otherwise: telegram_text.default(DEFAULT.TEXT_AFTER_BUILD)
-  })
-})
-
+/**
+ * Plugin that sends Telegram messages when Eleventy starts/finishes building
+ * your site.
+ *
+ * @public
+ * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.
+ * @param options - Plugin {@link Options | options}.
+ *
+ * @remarks
+ * The [Telegram sendMessage API](https://core.telegram.org/bots/api#sendmessage)
+ * allows text messages of 1-4096 characters (after entities parsing).
+ */
 export const telegramPlugin = (
   eleventyConfig: EleventyConfig,
-  options: Options
+  options?: Options
 ) => {
-  const result = options_schema.validate(options)
-  if (result.error) {
-    const message = `${PREFIX} invalid configuration: ${result.error.message}`
-    throw new Error(message)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { token: options_minus_token, ...safe_options } = options || {}
+  debug('plugin options provided by user (token not shown) %O', safe_options)
+
+  const result = schema.safeParse(options)
+
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
 
-  const { chatId, token, textBeforeBuild, textAfterBuild } =
-    result.value as Required<Options>
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { token: config_minus_token, ...safe_config } = result.data
+  debug(
+    'plugin options provided by user + defaults (token not shown) %O',
+    safe_config
+  )
 
-  // https://www.11ty.dev/docs/events/#event-arguments
+  const { textBeforeBuild, textAfterBuild } = result.data
+  const chatId = result.data.chatId || process.env.TELEGRAM_CHAT_ID
+  const token = result.data.token || process.env.TELEGRAM_TOKEN
+
+  if (!chatId) {
+    throw new Error(`${ERR_PREFIX} Telegram Chat ID not set`)
+  }
+  if (!token) {
+    throw new Error(`${ERR_PREFIX} Telegram bot token not set`)
+  }
+
   if (textBeforeBuild) {
-    const onBefore = makeEleventyEventHandler(eleventyConfig, {
+    const onBefore = makeEleventyEventHandler({
       chatId,
       text: textBeforeBuild,
       token
@@ -63,7 +81,7 @@ export const telegramPlugin = (
   }
 
   if (textAfterBuild) {
-    const onAfter = makeEleventyEventHandler(eleventyConfig, {
+    const onAfter = makeEleventyEventHandler({
       chatId,
       text: textAfterBuild,
       token

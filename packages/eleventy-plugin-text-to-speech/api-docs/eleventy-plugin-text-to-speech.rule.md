@@ -2,19 +2,13 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-text-to-speech](./eleventy-plugin-text-to-speech.md) &gt; [Rule](./eleventy-plugin-text-to-speech.rule.md)
 
-## Rule interface
+## Rule type
+
+Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.
+
 
 **Signature:**
 
 ```typescript
-export interface Rule 
+export type Rule = z.infer<typeof rule>;
 ```
-
-## Properties
-
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [cssSelectors](./eleventy-plugin-text-to-speech.rule.cssselectors.md) |  | string\[\] |  |
-|  [regex](./eleventy-plugin-text-to-speech.rule.regex.md) |  | RegExp |  |
-|  [xPathExpressions](./eleventy-plugin-text-to-speech.rule.xpathexpressions.md) |  | string\[\] |  |
-
