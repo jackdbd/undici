@@ -1,7 +1,6 @@
 # @jackdbd/eleventy-plugin-text-to-speech
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-text-to-speech)
 
 Eleventy plugin that synthesizes **any text** you want, on **any page** of your Eleventy site, using the [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech). You can either self-host the audio assets this plugin generates, or host them on [Cloud Storage](https://cloud.google.com/storage).
 

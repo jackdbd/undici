@@ -1,7 +1,6 @@
 # @jackdbd/eleventy-plugin-plausible
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-plausible.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-plausible)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-plausible)
 
 Eleventy plugin that retrieves analytics data from the [Plausible API](https://plausible.io/docs/stats-api), caches it, and makes it available using an [Eleventy global data key](https://www.11ty.dev/docs/data-global-custom/) of your choice.
 

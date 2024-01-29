@@ -1,7 +1,6 @@
 # @jackdbd/eleventy-plugin-ensure-env-vars
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-ensure-env-vars.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-ensure-env-vars)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-ensure-env-vars)
 
 Eleventy plugin that checks environment variables before Eleventy builds your site.
 

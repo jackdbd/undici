@@ -1,7 +1,6 @@
 # @jackdbd/eleventy-plugin-telegram
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-telegram)
-[![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-telegram)](https://security.snyk.io/vuln?search=%40jackdbd%2Feleventy-plugin-telegram)
 
 Eleventy plugin that sends Telegram messages when Eleventy starts/finishes building your site.
 
