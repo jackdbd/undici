@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.39.1",
+    "toolVersion": "7.39.4",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -651,7 +651,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -660,7 +660,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -669,7 +669,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -678,7 +678,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        }>;\n        regex: "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        }>;\n        regex: "
             },
             {
               "kind": "Reference",
@@ -1047,16 +1047,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
-            },
-            {
-              "kind": "Reference",
-              "text": "Readable",
-              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1065,7 +1056,16 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        }, {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -1074,16 +1074,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
-            },
-            {
-              "kind": "Reference",
-              "text": "Readable",
-              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1092,7 +1083,16 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        }>;\n        xPathExpressions: "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
+            },
+            {
+              "kind": "Reference",
+              "text": "Readable",
+              "canonicalReference": "!\"\\\"stream\\\"\".internal.Readable:class"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                error?: undefined;\n            }>;\n        }>;\n        xPathExpressions: "
             },
             {
               "kind": "Reference",
@@ -1146,7 +1146,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1155,7 +1155,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        regex: "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        regex: "
             },
             {
               "kind": "Reference",
@@ -1173,7 +1173,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
             },
             {
               "kind": "Reference",
@@ -1182,16 +1191,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Error",
-              "canonicalReference": "!Error:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }, {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }, {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -1200,7 +1200,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1209,7 +1209,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -1218,7 +1218,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
             },
             {
               "kind": "Reference",
@@ -1227,16 +1236,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Error",
-              "canonicalReference": "!Error:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
             },
             {
               "kind": "Reference",
@@ -1281,7 +1281,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1290,7 +1290,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        regex: "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        regex: "
             },
             {
               "kind": "Reference",
@@ -1308,7 +1308,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
             },
             {
               "kind": "Reference",
@@ -1317,16 +1326,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Error",
-              "canonicalReference": "!Error:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }[];\n    collectionName: string;\n    transformName: string;\n}, {\n    rules: {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        xPathExpressions: string[];\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n    }[];\n    collectionName: string;\n    transformName: string;\n}, {\n    rules: {\n        hosting: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            write: (...args: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -1335,7 +1335,7 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            } | {\n                error: "
+              "text": "<{\n                error: "
             },
             {
               "kind": "Reference",
@@ -1344,7 +1344,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
+              "text": ";\n                value?: undefined;\n            } | {\n                value: {\n                    message: string;\n                    href: string;\n                };\n                error?: undefined;\n            }>;\n        };\n        synthesis: {\n            config: {} & {\n                [k: string]: unknown;\n            };\n            extension: string;\n            synthesize: (args_0: string, ...args_1: unknown[]) => "
             },
             {
               "kind": "Reference",
@@ -1353,7 +1353,16 @@
             },
             {
               "kind": "Content",
-              "text": "<{\n                value: import(\"stream\")."
+              "text": "<{\n                error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n                value?: undefined;\n            } | {\n                value: import(\"stream\")."
             },
             {
               "kind": "Reference",
@@ -1362,16 +1371,7 @@
             },
             {
               "kind": "Content",
-              "text": ";\n                error?: undefined;\n            } | {\n                error: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Error",
-              "canonicalReference": "!Error:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ";\n                value?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
+              "text": ";\n                error?: undefined;\n            }>;\n        };\n        audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;\n        cssSelectors?: string[] | undefined;\n        regex?: "
             },
             {
               "kind": "Reference",

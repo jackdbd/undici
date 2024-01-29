@@ -2,22 +2,13 @@ import { Readable } from 'node:stream'
 import makeDebug from 'debug'
 import { z } from 'zod'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
-import {
-  cloud_text_to_speech_audio_encoding,
-  cloud_text_to_speech_voice_name,
-  cloud_text_to_speech_text,
-  type CloudTextToSpeechAudioEncoding,
-  client_credentials,
-  service_account_json_key_filepath
-} from '@jackdbd/zod-schemas'
+import { gcp } from '@jackdbd/zod-schemas'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedDataOrThrow } from '../validation.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:gcp-text-to-speech`)
 
-export const audioExtension = (
-  audioEncoding: CloudTextToSpeechAudioEncoding
-) => {
+export const audioExtension = (audioEncoding: gcp.AudioEncoding) => {
   switch (audioEncoding) {
     case 'ALAW': {
       return 'alaw'
@@ -45,7 +36,7 @@ export const synthesis_config = z
     /**
      * Encoding for the generated audio file.
      */
-    audioEncoding: cloud_text_to_speech_audio_encoding,
+    audioEncoding: gcp.audio_encoding,
 
     /**
      * Voice to use for text-to-speech synthesis.
@@ -53,7 +44,7 @@ export const synthesis_config = z
      * @see [cloud.google.com - Voices supported by the Speech-to-Text API](https://cloud.google.com/text-to-speech/docs/voices)
      * @see [cloud.google.com - Different voices might have different prices](https://cloud.google.com/text-to-speech/pricing)
      */
-    voiceName: cloud_text_to_speech_voice_name
+    voiceName: gcp.text
   })
   .describe('Google Cloud Text-to-Speech synthesize config')
 
@@ -67,7 +58,7 @@ export const synthesize_config = z
      * @remarks
      * Character limit for the Google Cloud Text-to-Speech API: 5000 characters
      */
-    text: cloud_text_to_speech_text
+    text: gcp.text
   })
   .describe('Google Cloud Text-to-Speech synthesize config')
 
@@ -112,8 +103,8 @@ export const synthesize = async (
 }
 
 export const auth_options = z.object({
-  credentials: client_credentials.optional(),
-  keyFilename: service_account_json_key_filepath.optional()
+  credentials: gcp.client_credentials.optional(),
+  keyFilename: gcp.service_account_json_key_filepath.optional()
 })
 
 export type AuthOptions = z.input<typeof auth_options>

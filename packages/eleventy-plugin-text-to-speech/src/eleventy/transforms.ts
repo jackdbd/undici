@@ -2,7 +2,7 @@ import makeDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { calculate, compare } from 'specificity'
 import { z } from 'zod'
-import { eleventy_transform_name } from '@jackdbd/zod-schemas'
+import { eleventy } from '@jackdbd/zod-schemas'
 
 import {
   DEBUG_PREFIX,
@@ -23,7 +23,7 @@ import { aggregateRules } from './aggregate-rules.js'
 export const config_schema = z
   .object({
     rules: z.array(rule).min(1),
-    transformName: eleventy_transform_name.default(DEFAULT_TRANSFORM_NAME)
+    transformName: eleventy.transform_name.default(DEFAULT_TRANSFORM_NAME)
   })
   .describe(`11ty transform ${DEFAULT_TRANSFORM_NAME} config`)
 

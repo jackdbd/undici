@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto'
 import makeDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
-import { css_selector, xpath_expression } from '@jackdbd/zod-schemas'
+import { dom as dom_namespace } from '@jackdbd/zod-schemas'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedDataOrThrow } from '../validation.js'
 import {
@@ -12,6 +12,9 @@ import {
 import { text_to_synthesize } from '../synthesis/schemas.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:texts-that-match`)
+
+const css_selector = dom_namespace.css_selector
+const xpath_expression = dom_namespace.xpath_expression
 
 const aggregator = z.record(text_to_synthesize)
 

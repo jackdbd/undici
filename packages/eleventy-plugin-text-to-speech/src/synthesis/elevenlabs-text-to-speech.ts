@@ -1,21 +1,14 @@
 import { Readable } from 'node:stream'
 import makeDebug from 'debug'
 import { z } from 'zod'
-import {
-  elevenlabs_text,
-  elevenlabs_model_id,
-  elevenlabs_output_format,
-  type ElevenLabsOutputFormat,
-  elevenlabs_voice_id,
-  elevenlabs_api_key
-} from '@jackdbd/zod-schemas'
+import { elevenlabs } from '@jackdbd/zod-schemas'
 import { DEBUG_PREFIX } from '../constants.js'
 import { mediaType } from '../media-type.js'
 import { validatedDataOrThrow } from '../validation.js'
 
 const debug = makeDebug(`${DEBUG_PREFIX}:elevenlabs-text-to-speech`)
 
-export const audioExtension = (outputFormat: ElevenLabsOutputFormat) => {
+export const audioExtension = (outputFormat: elevenlabs.OutputFormat) => {
   switch (outputFormat) {
     case 'mp3_44100_64':
     case 'mp3_44100_96':
@@ -54,16 +47,16 @@ export const synthesis_config = z
      *
      * @see https://elevenlabs.io/docs/api-reference/get-models
      */
-    modelId: elevenlabs_model_id,
+    modelId: elevenlabs.model_id,
 
-    outputFormat: elevenlabs_output_format,
+    outputFormat: elevenlabs.output_format,
 
     /**
      * Voices supported by the ElevenLabs Text-to-Speech API.
      *
      * @see https://elevenlabs.io/docs/api-reference/get-voices
      */
-    voiceId: elevenlabs_voice_id,
+    voiceId: elevenlabs.voice_id,
 
     voiceSettings: z.any().default(DEFAULT_VOICE_SETTINGS)
   })
@@ -82,7 +75,7 @@ export const synthesize_config = z
      * - 5000 for subscribed users
      * @see [elevenlabs.io - Pricing](https://elevenlabs.io/pricing)
      */
-    text: elevenlabs_text
+    text: elevenlabs.text
   })
   .describe('ElevenLabs synthesize config')
 
@@ -171,7 +164,7 @@ export const synthesize = async (
 }
 
 export const auth_options = z.object({
-  apiKey: elevenlabs_api_key.optional()
+  apiKey: elevenlabs.api_key.optional()
 })
 
 export type AuthOptions = z.input<typeof auth_options>

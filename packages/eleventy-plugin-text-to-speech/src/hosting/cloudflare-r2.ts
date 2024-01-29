@@ -3,13 +3,7 @@ import makeDebug from 'debug'
 import { z } from 'zod'
 import { S3Client } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
-import {
-  cloudflare_access_key_id,
-  cloudflare_account_id,
-  cloudflare_custom_domain,
-  cloudflare_r2_bucket_name,
-  cloudflare_secret_access_key
-} from '@jackdbd/zod-schemas'
+import { cloudflare } from '@jackdbd/zod-schemas'
 import { asset_name } from '../schemas/common.js'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedDataOrThrow, validatedResult } from '../validation.js'
@@ -20,14 +14,14 @@ export const bucket_config = z.object({
   /**
    * Name of the Cloudflare R2 bucket to upload the audio file to.
    */
-  bucketName: cloudflare_r2_bucket_name,
+  bucketName: cloudflare.r2_bucket_name,
 
   /**
    * Domain under your control to make your Cloudflare R2 bucket publicly accessible.
    *
    * @see [developers.cloudflare.com - Create public buckets on R2](https://developers.cloudflare.com/r2/buckets/public-buckets/)
    */
-  customDomain: cloudflare_custom_domain
+  customDomain: cloudflare.custom_domain
 })
 
 export type BucketConfig = z.input<typeof bucket_config>
@@ -102,9 +96,9 @@ export const write = async (
 
 export const auth_config = z
   .object({
-    accessKeyId: cloudflare_access_key_id,
-    accountId: cloudflare_account_id,
-    secretAccessKey: cloudflare_secret_access_key
+    accessKeyId: cloudflare.access_key_id,
+    accountId: cloudflare.account_id,
+    secretAccessKey: cloudflare.secret_access_key
   })
   .describe('Cloudflare R2 auth config')
 

@@ -1,8 +1,5 @@
 import { z } from 'zod'
-import {
-  eleventy_collection_name,
-  eleventy_transform_name
-} from '@jackdbd/zod-schemas'
+import { eleventy } from '@jackdbd/zod-schemas'
 import {
   DEFAULT_TRANSFORM_NAME,
   DEFAULT_COLLECTION_NAME
@@ -22,7 +19,7 @@ export const config = z.object({
    * If you register this plugin more than once, you will need to use a
    * different name every time (otherwise 11ty would throw an Error).
    */
-  collectionName: eleventy_collection_name.default(DEFAULT_COLLECTION_NAME),
+  collectionName: eleventy.collection_name.default(DEFAULT_COLLECTION_NAME),
 
   /**
    * Rules that determine which texts to convert into speech.
@@ -37,7 +34,7 @@ export const config = z.object({
    * different name every time (11ty would NOT throw an Error, but this plugin
    * will not work as expected).
    */
-  transformName: eleventy_transform_name.default(DEFAULT_TRANSFORM_NAME)
+  transformName: eleventy.transform_name.default(DEFAULT_TRANSFORM_NAME)
 })
 
 /**
