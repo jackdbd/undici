@@ -40,40 +40,38 @@ export type SendMessageConfig = z.infer<typeof send_message_config>
  *
  * @public
  */
-export const options = z
-  .object({
-    /**
-     * Telegram chat ID where you want this plugin to send messages to.
-     * @remarks
-     * The Telegram chat ID is negative for a **group** chat, positive for a
-     * **username** chat.
-     */
-    chatId: telegram_chat_id.optional(),
+export const options = z.object({
+  /**
+   * Telegram chat ID where you want this plugin to send messages to.
+   * @remarks
+   * The Telegram chat ID is negative for a **group** chat, positive for a
+   * **username** chat.
+   */
+  chatId: telegram_chat_id.optional(),
 
-    /**
-     * Telegram bot token.
-     *
-     * @remarks
-     * If you forgot the API token of a Telegram bot you created, you can
-     * retrieve it at any time using BotFather. Just go to:
-     *
-     * ```text
-     * BotFather > bot list > API token
-     * ```
-     */
-    token: telegram_bot_token.optional(),
+  /**
+   * Telegram bot token.
+   *
+   * @remarks
+   * If you forgot the API token of a Telegram bot you created, you can
+   * retrieve it at any time using BotFather. Just go to:
+   *
+   * ```text
+   * BotFather > bot list > API token
+   * ```
+   */
+  token: telegram_bot_token.optional(),
 
-    /**
-     * Text message to send when Eleventy starts building your site.
-     */
-    textBeforeBuild: telegram_text.optional(),
+  /**
+   * Text message to send when Eleventy starts building your site.
+   */
+  textBeforeBuild: telegram_text.optional(),
 
-    /**
-     * Text message to send when Eleventy finishes building your site.
-     */
-    textAfterBuild: telegram_text.optional()
-  })
-  .default({})
+  /**
+   * Text message to send when Eleventy finishes building your site.
+   */
+  textAfterBuild: telegram_text.optional()
+})
 
 /**
  * Plugin options.

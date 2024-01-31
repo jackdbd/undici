@@ -73,22 +73,29 @@ export const origin = z.string().url()
 /**
  * @see [w3c.github.io - Allowlists special value](https://w3c.github.io/webappsec-permissions-policy/#the-special-value)
  */
-export const allow_item = z.union([
-  z.literal('*'),
-  z.literal('none'),
-  z.literal('self'),
-  z.literal('src'),
-  origin
-])
+export const allow_item = z
+  .union([
+    z.literal('*'),
+    z.literal('none'),
+    z.literal('self'),
+    z.literal('src'),
+    origin
+  ])
+  .describe('An origin or a special value (`*`, `none`, `self`, `src`)')
 
 export type AllowlistItem = z.infer<typeof allow_item>
 
 /**
  * @see [w3c.github.io - Allowlists](https://w3c.github.io/webappsec-permissions-policy/#allowlists)
  */
-export const allowlist = z.array(allow_item).refine(isUnique, {
-  message: 'Must be an array of unique strings'
-})
+export const allowlist = z
+  .array(allow_item)
+  .refine(isUnique, {
+    message: 'Must be an array of unique strings'
+  })
+  .describe(
+    'A set of origins and/or special values (`*`, `none`, `self`, `src`).'
+  )
 
 export type Allowlist = z.infer<typeof allowlist>
 
@@ -128,31 +135,41 @@ export const DEFAULT_OPTIONS = {
  *
  * @public
  */
-export const options = z
-  .object({
-    /**
-     * Array of unique Permissions-Policy directives.
-     */
-    directives: directives.default(DEFAULT_OPTIONS.directives),
+export const options = z.object({
+  /**
+   * Array of unique Permissions-Policy directives.
+   */
+  directives: directives
+    .default(DEFAULT_OPTIONS.directives)
+    .describe(
+      'Permissions-Policy [directives](https://w3c.github.io/webappsec-permissions-policy/#policy-directives).'
+    ),
 
-    excludePatterns: glob_patterns.default(DEFAULT_OPTIONS.excludePatterns),
+  excludePatterns: glob_patterns
+    .default(DEFAULT_OPTIONS.excludePatterns)
+    .describe(
+      'Files that match these patterns will **not** be served with the Permissions-Policy header (nor with the Feature-Policy header, if generated).'
+    ),
 
-    /**
-     * Whether to include the Feature-Policy header or not.
-     */
-    includeFeaturePolicy: z
-      .boolean()
-      .default(DEFAULT_OPTIONS.includeFeaturePolicy)
-      .describe('Whether to include the Feature-Policy header.'),
+  /**
+   * Whether to include the Feature-Policy header or not.
+   */
+  includeFeaturePolicy: z
+    .boolean()
+    .default(DEFAULT_OPTIONS.includeFeaturePolicy)
+    .describe('Whether to generate also a Feature-Policy header.'),
 
-    includePatterns: glob_patterns.default(DEFAULT_OPTIONS.includePatterns),
+  includePatterns: glob_patterns
+    .default(DEFAULT_OPTIONS.includePatterns)
+    .describe(
+      'Files that match these patterns will be served with the Permissions-Policy header (and also with the Feature-Policy header, if generated).'
+    ),
 
-    /**
-     * Whether to generate a JSON file (useful for troubleshooting).
-     */
-    jsonRecap: z.boolean().default(DEFAULT_OPTIONS.jsonRecap)
-  })
-  .default(DEFAULT_OPTIONS)
+  /**
+   * Whether to generate a JSON file (useful for troubleshooting).
+   */
+  jsonRecap: z.boolean().default(DEFAULT_OPTIONS.jsonRecap)
+})
 
 /**
  * Options for this Eleventy plugin.

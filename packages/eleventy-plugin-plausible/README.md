@@ -28,9 +28,9 @@ npm install --save-dev @jackdbd/eleventy-plugin-plausible
 Configure the plugin with your Plausible API key and site ID, and the options you want.
 
 ```js
-const plausiblePlugin = require('@jackdbd/eleventy-plugin-plausible')
+import { plausiblePlugin } from '@jackdbd/eleventy-plugin-plausible'
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // some eleventy configuration...
 
   eleventyConfig.addPlugin(plausiblePlugin, {

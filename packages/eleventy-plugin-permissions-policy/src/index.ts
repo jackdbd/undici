@@ -5,7 +5,7 @@ import makeDebug from 'debug'
 import type { EleventyConfig } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import { validationError } from './errors.js'
-import { Options, options as schema } from './schemas.js'
+import { DEFAULT_OPTIONS, Options, options as schema } from './schemas.js'
 import {
   appendToHeadersFile,
   featurePolicyDirectiveMapper,
@@ -29,7 +29,7 @@ export const permissionsPolicyPlugin = (
 ) => {
   debug('plugin options (provided by the user) %O', options)
 
-  const result = schema.safeParse(options)
+  const result = schema.default(DEFAULT_OPTIONS).safeParse(options)
 
   if (!result.success) {
     const err = validationError(result.error)

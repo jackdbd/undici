@@ -72,7 +72,6 @@ export const defaultZodValue = (value: any) => {
 
 export const arrFromZodSchema = <S extends z.AnyZodObject>(schema: S) => {
   const arr = Object.entries(schema.shape).map(([key, value]) => {
-    // console.log('🚀 ~ arr ~ key, value:', key, value)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const val = value as any
 
@@ -103,6 +102,27 @@ export const arrFromZodSchema = <S extends z.AnyZodObject>(schema: S) => {
   return arr
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stringify = (x: any) => {
+  if (x === true) {
+    return true
+  }
+  if (x === false) {
+    return false
+  }
+  if (x === null) {
+    return null
+  }
+  if (x === undefined) {
+    return undefined
+  }
+  if (x.length === 0) {
+    return '[]'
+  } else {
+    return JSON.stringify(x)
+  }
+}
+
 /**
  * Creates a markdown table from a Zod schema.
  *
@@ -116,13 +136,7 @@ export const markdownTableFromZodSchema = <S extends z.AnyZodObject>(
   const arr = arrFromZodSchema(schema)
 
   const rows = arr.map((d) => {
-    let defaultVal = ''
-    if (d.default && d.default.length === 0) {
-      defaultVal = '[]'
-    } else {
-      defaultVal = d.default || ''
-    }
-    return `| ${d.key} | ${defaultVal} | ${d.description || ''} |`
+    return `| \`${d.key}\` | \`${stringify(d.default)}\` | ${d.description || ''} |`
   })
 
   return [...header, ...rows].join('\n')

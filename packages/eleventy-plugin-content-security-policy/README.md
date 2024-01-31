@@ -25,20 +25,19 @@ Hosting providers like [Cloudflare Pages](https://developers.cloudflare.com/page
 npm install --save-dev @jackdbd/eleventy-plugin-content-security-policy
 ```
 
-
 ## Usage
 
 ```js
-const cspPlugin = require('@jackdbd/eleventy-plugin-content-security-policy')
+import { contentSecurityPolicyPlugin } from '@jackdbd/eleventy-plugin-content-security-policy'
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // some other eleventy configuration...
 
   // use the default CSP directives (not recommended)...
-  eleventyConfig.addPlugin(cspPlugin)
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin)
 
   // ...or define your CSP directives
-  eleventyConfig.addPlugin(cspPlugin, {
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
     allowDeprecatedDirectives: true,
     
     directives: {

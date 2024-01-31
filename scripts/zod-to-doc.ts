@@ -109,7 +109,7 @@ const main = async () => {
     placeholder_begin,
     '\n',
     tip,
-    '\n',
+    '\n\n',
     title,
     '\n\n',
     table,

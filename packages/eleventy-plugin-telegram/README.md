@@ -45,7 +45,7 @@ export default function (eleventyConfig) {
 
 See Telegram [sendMessage](https://core.telegram.org/bots/api#sendmessage) API method for formatting options.
 
-## Options
+## Configuration
 
 | Option | Default | Explanation |
 | --- | --- | --- |

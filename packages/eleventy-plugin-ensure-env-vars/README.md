@@ -27,9 +27,9 @@ npm install --save-dev @jackdbd/eleventy-plugin-ensure-env-vars
 ## Usage
 
 ```js
-const { ensureEnvVarsPlugin } = require('@jackdbd/eleventy-plugin-ensure-env-vars')
+import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // some eleventy configuration...
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin, {
