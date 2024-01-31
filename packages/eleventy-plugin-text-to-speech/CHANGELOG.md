@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [3.0.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@2.0.2-canary.1...@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.1) (2024-01-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-text-to-speech:** a breaking change was introduced in a previous commit,
+so this fix is "upgraded" to a breaking change in order to trigger a
+major release bump.
+
+### Features
+
+* **eleventy-plugin-text-to-speech:** avoid duplicates in CSS selectors ([4377ecf](https://github.com/jackdbd/undici/commit/4377ecfa73f27c5ba9af65aad237fab5055d8e76))
+
 ## @jackdbd/eleventy-plugin-text-to-speech [2.0.2-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@2.0.1...@jackdbd/eleventy-plugin-text-to-speech@2.0.2-canary.1) (2024-01-29)
 
 
