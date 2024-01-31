@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-telegram [2.0.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.2-canary.1...@jackdbd/eleventy-plugin-telegram@2.0.0-canary.1) (2024-01-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-telegram:** change the environment variable used for the Telegram
+bot token
+
+### Features
+
+* **eleventy-plugin-telegram:** change env var ([ae3fb0c](https://github.com/jackdbd/undici/commit/ae3fb0c723caf041eff915d638a1b625a780bb85))
+
 ## @jackdbd/eleventy-plugin-telegram [1.1.2-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.1...@jackdbd/eleventy-plugin-telegram@1.1.2-canary.1) (2024-01-29)
 
 
