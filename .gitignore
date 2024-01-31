@@ -11,7 +11,8 @@ secrets/*
 .lsp/
 
 # test coverage
-**/coverage/
+**/coverage/*
+!**/coverage/README.md
 
 # Typescript compilation output files for libraries and applications
 packages/**/lib/
