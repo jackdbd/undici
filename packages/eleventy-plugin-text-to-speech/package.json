@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-text-to-speech",
   "version": "2.0.2-canary.1",
-  "description": "Eleventy plugin for the Google Cloud Text-to-Speech API",
+  "description": "Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -76,22 +76,25 @@
   ],
   "scripts": {
     "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:docs": "run-s 'docs:ztd:*' 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p build:ts:watch test:watch",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
     "docs:typedoc": "../../scripts/typedoc.mjs",
+    "docs:ztd:config": "tsm ../../scripts/zod-to-doc.ts --module src/eleventy/plugin.ts --schema config --placeholder 'zod-to-doc config' --title '### Plugin config'",
+    "docs:ztd:rule": "tsm ../../scripts/zod-to-doc.ts --module src/schemas/rule.ts --schema rule --placeholder 'zod-to-doc rule' --title '### Rule config'",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage",
-    "test:watch": "node --test --watch --test-name-pattern audio-assets"
+    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage/lcov.info",
+    "test:watch": "node --test --watch --test-name-pattern aggregateRules"
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.0",

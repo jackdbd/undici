@@ -2,10 +2,21 @@
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech)
 
-Eleventy plugin that synthesizes **any text** you want, on **any page** of your Eleventy site, using the [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech). You can either self-host the audio assets this plugin generates, or host them on [Cloud Storage](https://cloud.google.com/storage).
+Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.
+
+To **synthesize** text into speech you can use:
+
+- [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech)
+- [ElevenLabs Text to speech API](https://elevenlabs.io/docs/api-reference/text-to-speech)
+
+To **host** the generated audio assets you can use:
+
+- [Cloud Storage](https://cloud.google.com/storage)
+- [Cloudflare R2](https://www.cloudflare.com/developer-platform/r2/)
+- Filesystem (self host your audio assets)
 
 > :warning: The Cloud Text-to-Speech API has a [limit of 5000 characters](https://cloud.google.com/text-to-speech/quotas).
-> 
+>
 > See also:
 >
 > - [this issue of the Wavenet for Chrome extension](https://github.com/wavenet-for-chrome/extension/issues/12)
@@ -26,8 +37,8 @@ Eleventy plugin that synthesizes **any text** you want, on **any page** of your 
   - [Hosting the generated audio assets on Cloud Storage](#hosting-the-generated-audio-assets-on-cloud-storage)
   - [Multiple hosts](#multiple-hosts)
 - [Configuration](#configuration)
-  - [Required parameters](#required-parameters)
-  - [Options](#options)
+  - [Plugin config](#plugin-config)
+  - [Rule config](#rule-config)
 - [Debug](#debug)
 - [Credits](#credits)
 
@@ -99,18 +110,17 @@ Let's say that you are hosting your Eleventy website on Cloudflare Pages. Your c
 If you want to self-host the audio assets that this plugin generates and use all default options, you can register the plugin with this code:
 
 ```js
-const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
+import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // some eleventy configuration...
-
-  eleventyConfig.addPlugin(tts, {
-    audioHost: process.env.CF_PAGES_URL
-      ? new URL(`${process.env.CF_PAGES_URL}/assets/audio`)
-      : new URL('http://localhost:8090/assets/audio')
+  
+  eleventyConfig.addPlugin(textToSpeechPlugin, {
+    // TODO: add config with process.env.CF_PAGES_URL here
   })
 
   // some more eleventy configuration...
+
 }
 ```
 
@@ -119,31 +129,17 @@ module.exports = function (eleventyConfig) {
 If you want to host the audio assets on a Cloud Storage bucket and configure the rules for the audio matches, you could register the plugin using something like this:
 
 ```js
-const { plugin: tts } = require('@jackdbd/eleventy-plugin-text-to-speech')
+import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 
-module.exports = function (eleventyConfig) {
+export default function (eleventyConfig) {
   // some eleventy configuration...
-
-  eleventyConfig.addPlugin(tts, {
-    audioHost: {
-      bucketName: 'some-bucket-containing-publicly-readable-files'
-    },
-    rules: [
-      // synthesize the text contained in all <h1> tags, in all posts
-      {
-        regex: new RegExp('posts\\/.*\\.html$'),
-        cssSelectors: ['h1']
-      },
-      // synthesize the text contained in all <p> tags that start with "Once upon a time", in all HTML pages, except the 404.html page
-      {
-        regex: new RegExp('^((?!404).)*\\.html$'),
-        xPathExpressions: ['//p[starts-with(., "Once upon a time")]']
-      }
-    ],
-    voice: 'en-GB-Wavenet-C'
+  
+  eleventyConfig.addPlugin(textToSpeechPlugin, {
+    // TODO: add config with Cloud Storage bucket here
   })
 
   // some more eleventy configuration...
+
 }
 ```
 
@@ -151,35 +147,37 @@ module.exports = function (eleventyConfig) {
 
 If you want to host the generated audio assets on multiple hosts, register this plugin multiple times. Here are a few examples:
 
-- self-host some audio assets, and host on a Cloud Storage bucket some other assets
-- host all audio assets on Cloud Storage, but host some on one bucket, and some others on a different bucket.
+- Self-host some audio assets, and host on a Cloud Storage bucket some other assets.
+- Host all audio assets on Cloud Storage, but host some on one bucket, and some others on a different bucket.
 
 Have a look at the Eleventy configuration of the [demo-site in this monorepo](../demo-site/README.md).
 
 ## Configuration
 
-### Required parameters
+<!-- BEGIN zod-to-doc config -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN zod-to-doc TO UPDATE -->
+### Plugin config
 
-| Parameter | Explanation |
-| --- | --- |
-| `audioHost` | Each audio host should have a matching writer responsible for writing/uploading the assets to the host. |
+| Key | Default | Description |
+|---|---|---|
+| collectionName | audio-items | Name of the 11ty collection defined by this plugin |
+| rules |  | Rules that determine which texts to convert into speech (1 to ∞ elements) |
+| transformName | inject-audio-tags-into-html | Name of the 11ty transform defined by this plugin |
+<!-- END zod-to-doc config -->
 
-### Options
+<!-- BEGIN zod-to-doc rule -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN zod-to-doc TO UPDATE -->
+### Rule config
 
-| Option | Default | Explanation |
-| --- | --- | --- |
-| `audioEncodings` | `['OGG_OPUS', 'MP3']` | List of [audio encodings](https://cloud.google.com/speech-to-text/docs/encoding#audio-encodings) to use when generating audio assets from text matches. |
-| `audioInnerHTML` | see in [src/dom.ts](./src/dom.ts) | Function to use to generate the innerHTML of the `<audio>` tag to inject in the page for each text match. |
-| `cacheExpiration` | `365d` | Expiration for the 11ty AssetCache. See [here](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration). |
-| `collectionName` | `audio-items` | Name of the 11ty collection created by this plugin. |
-| `keyFilename` | `process.env.GOOGLE_APPLICATION_CREDENTIALS` | credentials for the Cloud Text-to-Speech API (and for the Cloud Storage API if you don't set it in `audioHost`). |
-| `rules` | see in [src/constants.ts](./src/constants.ts) | Rules that determine which texts to convert into speech. |
-| `transformName` | `inject-audio-tags-into-html` | Name of the 11ty transform created by this plugin. |
-| `voice` | `en-US-Standard-J` | Voice to use when generating audio assets from text matches. The Speech-to-Text API supports [these voices](https://cloud.google.com/text-to-speech/docs/voices), and might have different [pricing](https://cloud.google.com/text-to-speech/pricing) for diffent voices. |
-
-> :warning: Don't forget to set either `keyFilename` or the `GOOGLE_APPLICATION_CREDENTIALS` environment variable on your build server.
->
-> *Tip*: check what I did in the Eleventy configuration file for the [demo-site](../demo-site/README.md) of this monorepo.
+| Key | Default | Description |
+|---|---|---|
+| audioInnerHTML |  | Function that returns some HTML from the list of hrefs where the generated audio assets are hosted. |
+| cssSelectors | [] | CSS selectors to find matches in a HTML document |
+| hosting |  | Client that provides hosting capabilities |
+| regex | /^((?!404).)*\.html$/ | RegExp to find matches in the output path |
+| synthesis |  | Client that provides Text-to-Speech capabilities |
+| xPathExpressions | [] | XPath expressions to find matches in a HTML document |
+<!-- END zod-to-doc rule -->
 
 ## Debug
 
@@ -187,15 +185,15 @@ This plugin uses the [debug](https://github.com/debug-js/debug) library for logg
 
 ```sh
 # print all logging statements
-export DEBUG=eleventy-plugin-text-to-speech/*
+export DEBUG=11ty-plugin:TTS:*
 
-# print just the logging statements from the dom module and the writers module
-export DEBUG=eleventy-plugin-text-to-speech/dom,eleventy-plugin-text-to-speech/writers
+# print just the logging statements from the dom module
+export DEBUG=11ty-plugin:TTS:dom
 
-# print all logging statements, except the ones from the dom module and the transforms module
-export DEBUG=eleventy-plugin-text-to-speech/*,-eleventy-plugin-text-to-speech/dom,-eleventy-plugin-text-to-speech/transforms
+# print all logging statements, except the ones from the dom module
+export DEBUG=11ty-plugin:TTS:*,-11ty-plugin:TTS:dom
 ```
 
 ## Credits
 
-I had the idea of this plugin while reading the code of the homonym [eleventy-plugin-text-to-speech](https://github.com/larryhudson/eleventy-plugin-text-to-speech) by [Larry Hudson](https://larryhudson.io/). There are a few differences between these plugins, the main one is that this plugin uses the [Google Cloud Text-to-Speech API](https://cloud.google.com/text-to-speech), while Larry's plugin uses the [Microsoft Azure Speech SDK](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk).
+I had the idea of this plugin while reading the code of the homonym [eleventy-plugin-text-to-speech](https://github.com/larryhudson/eleventy-plugin-text-to-speech) by [Larry Hudson](https://larryhudson.io/). Larry's plugin uses the [Microsoft Azure Speech SDK](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk).

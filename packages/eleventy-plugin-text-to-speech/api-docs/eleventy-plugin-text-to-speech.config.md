@@ -56,28 +56,28 @@ config: z.ZodObject<{
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         }, {
             config: {} & {
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         }>;
         regex: z.ZodDefault<z.ZodType<RegExp, z.ZodTypeDef, RegExp>>;
@@ -109,11 +109,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         }, {
             config: {} & {
@@ -121,11 +121,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         }>;
         xPathExpressions: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodString, "many">, string[], string[]>>;
@@ -136,14 +136,14 @@ config: z.ZodObject<{
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         regex: RegExp;
@@ -153,11 +153,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         xPathExpressions: string[];
@@ -168,14 +168,14 @@ config: z.ZodObject<{
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         synthesis: {
@@ -184,11 +184,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;
@@ -205,14 +205,14 @@ config: z.ZodObject<{
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         regex: RegExp;
@@ -222,11 +222,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         xPathExpressions: string[];
@@ -241,14 +241,14 @@ config: z.ZodObject<{
                 [k: string]: unknown;
             };
             write: (...args: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: {
                     message: string;
                     href: string;
                 };
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         synthesis: {
@@ -257,11 +257,11 @@ config: z.ZodObject<{
             };
             extension: string;
             synthesize: (args_0: string, ...args_1: unknown[]) => Promise<{
-                error: Error;
-                value?: undefined;
-            } | {
                 value: import("stream").Readable;
                 error?: undefined;
+            } | {
+                error: Error;
+                value?: undefined;
             }>;
         };
         audioInnerHTML?: ((args_0: string[], ...args_1: unknown[]) => string) | undefined;

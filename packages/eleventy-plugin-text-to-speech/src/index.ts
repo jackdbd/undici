@@ -20,12 +20,12 @@ import type { Config } from './eleventy/plugin.js'
 const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
 // exports for TypeDoc
+export { defaultAudioInnerHTML } from './audio-html.js'
 export {
   DEBUG_PREFIX,
   DEFAULT_COLLECTION_NAME,
   DEFAULT_TRANSFORM_NAME
 } from './constants.js'
-export { defaultAudioInnerHTML } from './dom.js'
 export { config, type Config } from './eleventy/plugin.js'
 export type { Write, WriteResult, Hosting } from './hosting/index.js'
 export { mediaType } from './media-type.js'
@@ -58,12 +58,7 @@ export const textToSpeechPlugin = (
 
   debug('plugin config (provided by user + defaults) %O', result.data)
 
-  const {
-    // cacheExpiration,
-    collectionName,
-    rules,
-    transformName
-  } = result.data
+  const { collectionName, rules, transformName } = result.data
 
   const templatesWithAudio = templatesWithAudioUnbounded.bind(null, {
     rules,

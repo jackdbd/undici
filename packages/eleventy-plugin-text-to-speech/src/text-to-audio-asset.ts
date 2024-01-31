@@ -49,26 +49,6 @@ export const textToAudioAsset = async (config: Config) => {
 
   const assetName = `${contentHash}.${synthesis.extension}`
 
-  // TODO: add caching here?
-  // use AssetCache when self-hosting, and RemoteAssetCache when hosting
-  // on Cloud Storage
-  // https://github.com/11ty/eleventy-fetch/blob/master/src/AssetCache.js
-  // https://github.com/11ty/eleventy-fetch/blob/master/src/RemoteAssetCache.js
-  // https://www.11ty.dev/docs/plugins/fetch/#options
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const AssetCache = (eleventyFetch as any).AssetCache
-
-  // const uniqueKey = `${contentHash}_${extension}_${audioEncoding}`
-  // const cachedAsset = new AssetCache(uniqueKey)
-
-  // if (cachedAsset.isCacheValid(cacheExpiration)) {
-  //   debug(
-  //     `cached asset ${uniqueKey} still not expired. Try retrieving it from the cache`
-  //   )
-  //   const buffer = await cachedAsset.getCachedValue()
-  // even if the asset was retrieved from the 11ty cache (e.g. .cache/), we
-  // still need to write it to the 11ty output directory (e.g. _site/)
-
   const w_res = await hosting.write({ assetName, readable })
   if (w_res.error) {
     if (!readable.closed) {

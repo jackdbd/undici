@@ -11,31 +11,40 @@ import { rule } from '../schemas/rule.js'
  *
  * @hidden
  */
-export const config = z.object({
-  /**
-   * Name of the 11ty collection created by this plugin.
-   *
-   * @remarks
-   * If you register this plugin more than once, you will need to use a
-   * different name every time (otherwise 11ty would throw an Error).
-   */
-  collectionName: collection_name.default(DEFAULT_COLLECTION_NAME),
+export const config = z
+  .object({
+    /**
+     * Name of the 11ty collection created by this plugin.
+     *
+     * @remarks
+     * If you register this plugin more than once, you will need to use a
+     * different name every time (otherwise 11ty would throw an Error).
+     */
+    collectionName: collection_name
+      .default(DEFAULT_COLLECTION_NAME)
+      .describe('Name of the 11ty collection defined by this plugin'),
 
-  /**
-   * Rules that determine which texts to convert into speech.
-   */
-  rules: z.array(rule).min(1),
+    /**
+     * Rules that determine which texts to convert into speech.
+     */
+    rules: z
+      .array(rule)
+      .min(1)
+      .describe('Rules that determine which texts to convert into speech'),
 
-  /**
-   * Name of the 11ty transform created by this plugin.
-   *
-   * @remarks
-   * If you register this plugin more than once, you will need to use a
-   * different name every time (11ty would NOT throw an Error, but this plugin
-   * will not work as expected).
-   */
-  transformName: transform_name.default(DEFAULT_TRANSFORM_NAME)
-})
+    /**
+     * Name of the 11ty transform created by this plugin.
+     *
+     * @remarks
+     * If you register this plugin more than once, you will need to use a
+     * different name every time (11ty would NOT throw an Error, but this plugin
+     * will not work as expected).
+     */
+    transformName: transform_name
+      .default(DEFAULT_TRANSFORM_NAME)
+      .describe('Name of the 11ty transform defined by this plugin')
+  })
+  .describe(`Plugin config`)
 
 /**
  * Configuration for this Eleventy plugin.

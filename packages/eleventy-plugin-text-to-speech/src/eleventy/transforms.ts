@@ -8,17 +8,18 @@ import {
   DEBUG_PREFIX,
   DEFAULT_REGEX,
   DEFAULT_TRANSFORM_NAME,
+  ERR_PREFIX,
   OK_PREFIX
 } from '../constants.js'
 import {
   insertAudioPlayersMatchingCssSelector,
   insertAudioPlayersMatchingXPathExpression
-} from '../dom.js'
+} from '../dom/mutations.js'
 import { logErrors } from '../log.js'
 import { rule } from '../schemas/rule.js'
 import { textToAudioAsset } from '../text-to-audio-asset.js'
 import { validatedDataOrThrow } from '../validation.js'
-import { aggregateRules } from './aggregate-rules.js'
+import { aggregateRules } from '../aggregate-rules.js'
 
 export const config_schema = z
   .object({
@@ -68,7 +69,11 @@ export const injectAudioTagsUnbounded = async (
   // Step 1: find all CSS selector matches and XPath expression matches, across
   // ALL rules, to find ALL texts of this document that should be synthesized
   // into speech.
-  const rec = aggregateRules({ dom, rules: cfg.rules, matches })
+  const res = aggregateRules({ dom, rules: cfg.rules, matches })
+  if (res.error) {
+    throw new Error(`${ERR_PREFIX} ${res.error.message}`)
+  }
+  const rec = res.value
 
   const configs = Object.entries(rec).map(([hash, v]) => {
     return {
@@ -156,6 +161,7 @@ export const injectAudioTagsUnbounded = async (
   // Step 3: for each text, inject ONE audio player for that text, with ALL the
   // hrefs corresponding to the audio sources available for that text.
   const errors: Error[] = []
+  const successes: string[] = []
   maps.forEach((hm) => {
     const audioInnerHTML = hm.audioInnerHTML
     const hrefs = hm.hrefs
@@ -166,27 +172,41 @@ export const injectAudioTagsUnbounded = async (
     // CSS selector is a somewhat arbitrary decision. I might revisit this
     // decision in the future.
     if (hm.xPathExpression) {
-      insertAudioPlayersMatchingXPathExpression({
+      const res = insertAudioPlayersMatchingXPathExpression({
         audioInnerHTML,
         expression: hm.xPathExpression,
         dom,
         hrefs: [hrefs] // TODO: why does this function require a nested array?
       })
+
+      if (res.error) {
+        errors.push(res.error)
+      }
     }
 
     if (!hm.xPathExpression && hm.cssSelector) {
-      insertAudioPlayersMatchingCssSelector({
+      const res = insertAudioPlayersMatchingCssSelector({
         audioInnerHTML,
         cssSelector: hm.cssSelector,
         dom,
         hrefs
       })
+
+      if (res.error) {
+        errors.push(res.error)
+      }
+    }
+
+    if (hm.errors.length === 0) {
+      successes.push(`inserted all audio players in ${outputPath}`)
     }
   })
 
   logErrors(errors, outputPath)
-  debug(`${DEBUG_PREFIX} inserted audio players in ${outputPath}`)
-  console.log(`${OK_PREFIX} inserted audio players in ${outputPath}`)
+
+  if (successes.length > 0) {
+    console.log(`${OK_PREFIX} inserted audio players in ${outputPath}`)
+  }
 
   return dom.serialize()
 }
