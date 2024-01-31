@@ -61,7 +61,7 @@ export const telegramPlugin = (
 
   const { textBeforeBuild, textAfterBuild } = result.data
   const chatId = result.data.chatId || process.env.TELEGRAM_CHAT_ID
-  const token = result.data.token || process.env.TELEGRAM_TOKEN
+  const token = result.data.token || process.env.TELEGRAM_BOT_TOKEN
 
   if (!chatId) {
     throw new Error(`${ERR_PREFIX} Telegram Chat ID not set`)

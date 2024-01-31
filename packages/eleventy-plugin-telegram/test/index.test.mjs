@@ -16,23 +16,23 @@ const setValidChatId = () => {
 }
 
 const setValidToken = () => {
-  process.env.TELEGRAM_TOKEN = credentials().token
+  process.env.TELEGRAM_BOT_TOKEN = credentials().token
 }
 
 const setValidEnvironmentVariables = () => {
   const { chat_id, token } = credentials()
   process.env.TELEGRAM_CHAT_ID = chat_id
-  process.env.TELEGRAM_TOKEN = token
+  process.env.TELEGRAM_BOT_TOKEN = token
 }
 
 const setInvalidEnvironmentVariables = () => {
   process.env.TELEGRAM_CHAT_ID = 'invalid-chat-id'
-  process.env.TELEGRAM_TOKEN = 'invalid-bot-token'
+  process.env.TELEGRAM_BOT_TOKEN = 'invalid-bot-token'
 }
 
 const setEmptyEnvironmentVariables = () => {
   process.env.TELEGRAM_CHAT_ID = ''
-  process.env.TELEGRAM_TOKEN = ''
+  process.env.TELEGRAM_BOT_TOKEN = ''
 }
 
 describe('telegramPlugin', () => {

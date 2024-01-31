@@ -1,6 +1,9 @@
 import { z } from 'zod'
 
-export const telegram_token = z.string().min(1).describe('Telegram bot token')
+export const telegram_bot_token = z
+  .string()
+  .min(1)
+  .describe('Telegram bot token')
 
 /**
  * Telegram text message.
@@ -23,7 +26,7 @@ export const telegram_chat_id = z
 
 export const send_message_config = z.object({
   chatId: telegram_chat_id,
-  token: telegram_token,
+  token: telegram_bot_token,
   text: telegram_text
 })
 
@@ -58,7 +61,7 @@ export const options = z
      * BotFather > bot list > API token
      * ```
      */
-    token: telegram_token.optional(),
+    token: telegram_bot_token.optional(),
 
     /**
      * Text message to send when Eleventy starts building your site.
