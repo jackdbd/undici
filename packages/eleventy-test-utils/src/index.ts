@@ -1,34 +1,7 @@
-import makeDebug from 'debug'
 import { Eleventy } from '@11ty/eleventy'
-import { isOnGithub } from '@jackdbd/checks/environment'
 
-const debug = makeDebug(`11ty-test-utils`)
-
-export {
-  ASSETS_ROOT,
-  CLOUD_STORAGE_BUCKET_AUDIO_FILES_NAME,
-  CLOUDFLARE_ACCOUNT_ID,
-  CLOUDFLARE_R2_BUCKET_AUDIO_FILES_NAME,
-  CLOUDFLARE_R2_BUCKET_AUDIO_FILES_CUSTOM_DOMAIN,
-  ELEVENTY_INITIAL_EVENTS_COUNT,
-  ELEVENLABS_API_KEY,
-  ELEVENLABS_DEFAULT_MODEL_ID,
-  ELEVENLABS_DEFAULT_OUTPUT_FORMAT,
-  ELEVENLABS_DEFAULT_VOICE_ID,
-  REPO_ROOT,
-  ELEVENTY_INPUT,
-  HEADERS_CONTENT,
-  HEADERS_FILEPATH
-} from './constants.js'
-
-export const waitMs = (ms: number) => {
-  let timeout: NodeJS.Timeout
-  return new Promise((resolve) => {
-    timeout = setTimeout(() => {
-      resolve(timeout)
-    }, ms)
-  })
-}
+export * from './constants.js'
+export * from './utils.js'
 
 export interface Options {
   input?: string
@@ -38,6 +11,12 @@ export interface Options {
   dir?: { input: string; output: string }
 }
 
+/**
+ * Creates an Eleventy instance, initializes it, adds the provided plugin.
+ *
+ * @param options
+ * @returns The Eleventy instance.
+ */
 export const makeEleventy = async (options?: Options) => {
   const opt = options || {}
   const input = opt.input
@@ -73,60 +52,9 @@ export const makeEleventy = async (options?: Options) => {
   //   console.log('=== eleventy.inputDir ===', eleventy.inputDir)
   //   console.log('=== eleventy.outputDir ===', eleventy.outputDir)
 
-  // This is a trick to force Eleventy to evaluate all config (i.e. apply the 11ty plugin config)
+  // This is a trick to force Eleventy to evaluate all config (i.e. apply the
+  // 11ty plugin config)
   await eleventy.toJSON()
 
   return eleventy
-}
-
-// TODO: make variations of this function:
-// - one with a valid service account
-// - one with a service account that is not authorized to perform the operation
-
-export interface CredentialsConfig {
-  key: string
-  filepath: string
-}
-
-export const clientCredentials = ({ key, filepath }: CredentialsConfig) => {
-  const val = process.env[key]
-
-  if (isOnGithub(process.env)) {
-    console.log(`=== RUNNING ON GIHUB ACTIONS ===`)
-    debug(`checking environment variable ${key}`)
-    if (!val) {
-      throw new Error(`environment variable ${key} not set`)
-    }
-    const sa = JSON.parse(val)
-    const client_email = sa.client_email as string
-    const private_key = sa.private_key as string
-    return { credentials: { client_email, private_key } }
-  } else if (process.env.CF_PAGES) {
-    console.log(`=== RUNNING ON CLOUDFLARE PAGES ===`)
-    debug(`checking environment variable ${key}`)
-    if (!val) {
-      throw new Error(`environment variable ${key} not set`)
-    }
-    const sa = JSON.parse(val)
-    const client_email = sa.client_email as string
-    const private_key = sa.private_key as string
-    return { credentials: { client_email, private_key } }
-  } else {
-    return { keyFilename: filepath }
-  }
-}
-
-export const cloudStorageUploaderClientOptions = () => {
-  return clientCredentials({
-    key: 'SA_JSON_KEY_STORAGE_UPLOADER',
-    filepath: '/run/secrets/prj-kitchen-sink/sa-storage-uploader'
-  })
-}
-
-export const cloudTextToSpeechClientOptions = () => {
-  return clientCredentials({
-    key: 'SA_JSON_KEY_TEXT_TO_SPEECH',
-    // TODO: create a service account JSON key for Text-To-Speech and use that one.
-    filepath: '/run/secrets/prj-kitchen-sink/sa-storage-uploader'
-  })
 }

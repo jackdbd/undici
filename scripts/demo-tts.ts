@@ -44,8 +44,8 @@ const processOne = async () => {
   })
 
   const hosting = defFilesystemClient({
-    hrefBase: `http://localhost:8090/assets/audio`,
-    assetBasepath: path.join('assets', 'audio')
+    hrefBase: `http://localhost:8090/audio`,
+    assetBasepath: path.join('fixtures', 'html', 'audio')
   })
 
   const result = await textToAudioAsset({
@@ -78,8 +78,8 @@ const pluginDemo = async () => {
   })
 
   const fsClient = defFilesystemClient({
-    hrefBase: `http://localhost:8090/assets/audio`,
-    assetBasepath: path.join('assets', 'audio')
+    hrefBase: `http://localhost:8090/audio`,
+    assetBasepath: path.join('fixtures', 'html', 'audio')
   })
 
   const cloudStorage = defCloudStorageClient({

@@ -45,3 +45,11 @@ Run the formatter on all packages:
 ```sh
 npm run format --workspaces --if-present
 ```
+
+## Generate fixtures for tests
+
+Generate the audio files used in tests:
+
+```sh
+npx tsm scripts/generate-audio-fixtures.ts
+```

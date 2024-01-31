@@ -44,6 +44,7 @@
     "ncu:dev": "ncu --dep 'dev,prod' --deep --interactive --upgrade --loglevel info",
     "nuke": "npm run clean && rm -rf node_modules package-lock.json",
     "release:dry": "multi-semantic-release --no-ci --dry-run --debug --ignore-private --ignore-packages=packages/demo-site",
+    "serve:fixtures": "http-server ./fixtures/html --port 8095",
     "serve:docs": "http-server ./docs/ --port 8090",
     "serve:site": "npm run serve -w packages/demo-site",
     "size": "npm run size --workspaces --if-present",
@@ -68,6 +69,7 @@
     "@types/debug": "^4.1.12",
     "@types/html-to-text": "^9.0.4",
     "@types/jsdom": "^21.1.6",
+    "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "debug": "^4.3.4",
     "doctoc": "^2.2.1",
@@ -90,6 +92,7 @@
     "typedoc": "^0.25.7",
     "typedoc-plugin-zod": "^1.1.2",
     "typescript": "^5.3.3",
+    "yargs": "^17.7.2",
     "zx": "^7.2.3"
   },
   "simple-git-hooks": {

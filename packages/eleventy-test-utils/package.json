@@ -24,10 +24,9 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./constants": "./lib/constants.js",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./*": "./lib/*.js"
   },
-  "typings": "lib/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -35,6 +34,7 @@
       ]
     }
   },
+  "typings": "lib/index.d.ts",
   "files": [
     "CHANGELOG.md",
     "LICENSE",
