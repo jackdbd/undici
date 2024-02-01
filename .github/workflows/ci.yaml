@@ -79,12 +79,14 @@ jobs:
       # TODO: all my tests use the Node.js test runner, which can print coverage
       # reports to stdout. However, I still need to figure out how to generate
       # the coverage files (which I will then upload to CodeCov with this action).
-      # - name: ⬆️ Upload test coverage to Codecov
-      #   # https://github.com/marketplace/actions/codecov
-      #   uses: codecov/codecov-action@v3
-      #   env:
-      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      #   with:
-      #     # fail_ci_if_error: false
-      #     fail_ci_if_error: true
-      #     verbose: true
+      - name: ⬆️ Upload test coverage to Codecov
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          # fail_ci_if_error: false
+          fail_ci_if_error: true
+          files: ./packages/eleventy-plugin-text-to-speech/coverage/lcov.info
+          flags: plugin,eleventy-plugin-text-to-speech
+          verbose: true
