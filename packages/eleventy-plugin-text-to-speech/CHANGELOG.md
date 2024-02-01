@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [3.0.0-canary.2](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.1...@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.2) (2024-02-01)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-text-to-speech:** avoid duplicated audio elements ([b7a3d8b](https://github.com/jackdbd/undici/commit/b7a3d8bd9d4435095b218fce598b5f289a138e1b))
+
 ## @jackdbd/eleventy-plugin-text-to-speech [3.0.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@2.0.2-canary.1...@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.1) (2024-01-31)
 
 
