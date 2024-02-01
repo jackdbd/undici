@@ -11,10 +11,7 @@ import {
   ERR_PREFIX,
   OK_PREFIX
 } from '../constants.js'
-import {
-  insertAudioPlayersMatchingCssSelector,
-  insertAudioPlayersMatchingXPathExpression
-} from '../dom/mutations.js'
+import { insertAudioPlayerMatchingXPathExpression } from '../dom/mutations.js'
 import { logErrors } from '../log.js'
 import { rule } from '../schemas/rule.js'
 import { textToAudioAsset } from '../text-to-audio-asset.js'
@@ -113,8 +110,6 @@ export const injectAudioTagsUnbounded = async (
 
     const results = await Promise.all(assetsPromises)
 
-    // const cssSelector = cssSelectors.length > 0 ? cssSelectors[0] : undefined
-
     let cssSelector: string | undefined = undefined
     if (cssSelectors.length === 1) {
       cssSelector = cssSelectors[0]
@@ -157,6 +152,9 @@ export const injectAudioTagsUnbounded = async (
   })
 
   const maps = await Promise.all(promises)
+  const counter = {} as Record<string, number>
+
+  const doc = dom.window.document
 
   // Step 3: for each text, inject ONE audio player for that text, with ALL the
   // hrefs corresponding to the audio sources available for that text.
@@ -164,6 +162,7 @@ export const injectAudioTagsUnbounded = async (
   const successes: string[] = []
   maps.forEach((hm) => {
     const audioInnerHTML = hm.audioInnerHTML
+    const expression = hm.xPathExpression
     const hrefs = hm.hrefs
 
     hm.errors.forEach((err) => errors.push(err))
@@ -171,13 +170,22 @@ export const injectAudioTagsUnbounded = async (
     // Picking the first matching XPath expression even when there is a matching
     // CSS selector is a somewhat arbitrary decision. I might revisit this
     // decision in the future.
-    if (hm.xPathExpression) {
-      const res = insertAudioPlayersMatchingXPathExpression({
+    if (expression) {
+      const idx = counter[expression] || 0
+
+      const res = insertAudioPlayerMatchingXPathExpression({
         audioInnerHTML,
-        expression: hm.xPathExpression,
+        expression,
         dom,
-        hrefs: [hrefs] // TODO: why does this function require a nested array?
+        hrefs,
+        idx
       })
+
+      if (idx) {
+        counter[expression]++
+      } else {
+        counter[expression] = 1
+      }
 
       if (res.error) {
         errors.push(res.error)
@@ -185,16 +193,29 @@ export const injectAudioTagsUnbounded = async (
     }
 
     if (!hm.xPathExpression && hm.cssSelector) {
-      const res = insertAudioPlayersMatchingCssSelector({
-        audioInnerHTML,
-        cssSelector: hm.cssSelector,
-        dom,
-        hrefs
-      })
+      const elements = doc.querySelectorAll(hm.cssSelector)
 
-      if (res.error) {
-        errors.push(res.error)
+      if (elements.length === 0) {
+        return {
+          error: new Error(
+            `no elements found matching CSS selector ${hm.cssSelector}`
+          )
+        }
       }
+
+      const idx = counter[hm.cssSelector]
+      let elem: Element
+      if (idx) {
+        elem = elements[idx]
+        counter[hm.cssSelector]++
+      } else {
+        elem = elements[0]
+        counter[hm.cssSelector] = 1
+      }
+
+      const position = 'afterend'
+      const innerHTML = `<audio controls>${audioInnerHTML(hrefs)}</audio>`
+      elem.insertAdjacentHTML(position, innerHTML)
     }
 
     if (hm.errors.length === 0) {

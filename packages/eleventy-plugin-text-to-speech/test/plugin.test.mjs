@@ -22,7 +22,6 @@ import { defClient as defCloudflareR2Client } from '../lib/hosting/cloudflare-r2
 const rmP = util.promisify(fs.rm)
 
 const __filename = fileURLToPath(import.meta.url)
-
 const PACKAGE_ROOT = path.join(__filename, '..', '..')
 const OUTPUT_DIR = path.join(PACKAGE_ROOT, '_site')
 

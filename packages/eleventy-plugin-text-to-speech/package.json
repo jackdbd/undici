@@ -94,7 +94,7 @@
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage/lcov.info",
-    "test:watch": "node --test --watch --test-name-pattern aggregateRules"
+    "test:watch": "node --test --watch --test-name-pattern injectAudioTagsUnbounded"
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^4.0.0",
