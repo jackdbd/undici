@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-text-to-speech",
   "version": "3.0.0-canary.2",
-  "description": "Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML",
+  "description": "Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -76,17 +76,15 @@
   ],
   "scripts": {
     "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:ztd:*' 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "dev": "run-p build:ts:watch test:watch",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
-    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-text-to-speech",
     "docs:typedoc": "../../scripts/typedoc.mjs",
-    "docs:ztd:config": "tsm ../../scripts/zod-to-doc.ts --module src/eleventy/plugin.ts --schema config --placeholder 'zod-to-doc config' --title '### Plugin config'",
-    "docs:ztd:rule": "tsm ../../scripts/zod-to-doc.ts --module src/schemas/rule.ts --schema rule --placeholder 'zod-to-doc rule' --title '### Rule config'",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
@@ -97,7 +95,6 @@
     "test:watch": "node --test --watch --test-name-pattern injectAudioTagsUnbounded"
   },
   "dependencies": {
-    "@11ty/eleventy-fetch": "^4.0.0",
     "@jackdbd/zod-schemas": "^2.0.0",
     "html-to-text": "^9.0.5",
     "zod": "^3.22.4",

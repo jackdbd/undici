@@ -1,6 +1,5 @@
 import { isOnGithub } from '@jackdbd/checks/environment'
 import makeDebug from 'debug'
-import { z } from 'zod'
 
 const debug = makeDebug(`11ty-test-utils`)
 
@@ -59,85 +58,4 @@ export const cloudTextToSpeechClientOptions = () => {
     // TODO: create a service account JSON key for Text-To-Speech and use that one.
     filepath: '/run/secrets/prj-kitchen-sink/sa-storage-uploader'
   })
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const defaultZodValue = (value: any) => {
-  if (value instanceof z.ZodDefault) {
-    return value._def.defaultValue()
-  } else {
-    return undefined
-  }
-}
-
-export const arrFromZodSchema = <S extends z.AnyZodObject>(schema: S) => {
-  const arr = Object.entries(schema.shape).map(([key, value]) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const val = value as any
-
-    let description: string = ''
-    if (val instanceof z.ZodArray) {
-      //   console.log('=== ZodArray ===', val)
-      const minLength = val._def.minLength ? `${val._def.minLength.value}` : 0
-      const maxLength = val._def.maxLength ? `${val._def.maxLength.value}` : '∞'
-      if (val._def.type instanceof z.ZodObject) {
-        // console.log('=== ZodObject ===', val._def.type)
-        if (val.description) {
-          description = `${val.description} (${minLength} to ${maxLength} elements)`
-        } else {
-          const desc = val._def.type.description
-            ? `Array of ${minLength} to ${maxLength} elements of: ${val._def.type.description}`
-            : `Array of ${minLength} to ${maxLength} elements`
-          description = desc
-        }
-      } else {
-        description = val.description || ''
-      }
-    } else {
-      description = val.description || ''
-    }
-    return { key, default: defaultZodValue(value), description }
-  })
-
-  return arr
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const stringify = (x: any) => {
-  if (x === true) {
-    return true
-  }
-  if (x === false) {
-    return false
-  }
-  if (x === null) {
-    return null
-  }
-  if (x === undefined) {
-    return undefined
-  }
-  if (x.length === 0) {
-    return '[]'
-  } else {
-    return JSON.stringify(x)
-  }
-}
-
-/**
- * Creates a markdown table from a Zod schema.
- *
- * @see [github.com - Retrieve default values from schema](https://github.com/colinhacks/zod/discussions/1953)
- */
-export const markdownTableFromZodSchema = <S extends z.AnyZodObject>(
-  schema: S
-) => {
-  const header = [`| Key | Default | Description |`, `|---|---|---|`]
-
-  const arr = arrFromZodSchema(schema)
-
-  const rows = arr.map((d) => {
-    return `| \`${d.key}\` | \`${stringify(d.default)}\` | ${d.description || ''} |`
-  })
-
-  return [...header, ...rows].join('\n')
 }

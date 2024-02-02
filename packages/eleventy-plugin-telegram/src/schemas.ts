@@ -42,12 +42,13 @@ export type SendMessageConfig = z.infer<typeof send_message_config>
  */
 export const options = z.object({
   /**
-   * Telegram chat ID where you want this plugin to send messages to.
+   * Telegram chat ID.
+   *
    * @remarks
    * The Telegram chat ID is negative for a **group** chat, positive for a
    * **username** chat.
    */
-  chatId: telegram_chat_id.optional(),
+  chatId: telegram_chat_id.optional().describe('Telegram chat ID'),
 
   /**
    * Telegram bot token.
@@ -60,17 +61,21 @@ export const options = z.object({
    * BotFather > bot list > API token
    * ```
    */
-  token: telegram_bot_token.optional(),
+  token: telegram_bot_token.optional().describe('Telegram bot token'),
 
   /**
    * Text message to send when Eleventy starts building your site.
    */
-  textBeforeBuild: telegram_text.optional(),
+  textBeforeBuild: telegram_text
+    .optional()
+    .describe('Text message to send when Eleventy starts building your site'),
 
   /**
    * Text message to send when Eleventy finishes building your site.
    */
-  textAfterBuild: telegram_text.optional()
+  textAfterBuild: telegram_text
+    .optional()
+    .describe('Text message to send when Eleventy finishes building your site')
 })
 
 /**

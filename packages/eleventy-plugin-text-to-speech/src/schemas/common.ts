@@ -8,4 +8,5 @@ export const href = z.string().min(1).url()
 
 export const output_path = z.string().min(1)
 
+// eslint-disable-next-line no-undef
 export const string_or_uint8 = z.union([z.string(), z.instanceof(Uint8Array)])

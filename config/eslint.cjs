@@ -11,6 +11,7 @@ const config = {
     'plugin:prettier/recommended'
   ],
   env: {
+    es6: true,
     node: true
   },
   parser: '@typescript-eslint/parser',

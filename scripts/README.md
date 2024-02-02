@@ -4,7 +4,7 @@ Scripts for building, testing, deploying the packages of this monorepo, or for g
 
 ## Docs
 
-Build the docs ([doctoc](https://github.com/thlorenz/doctoc) + [API extractor](https://api-extractor.com/) + [API documenter](https://www.npmjs.com/package/@microsoft/api-documenter) + [TypeDoc](https://typedoc.org/)) of each package:
+Build the docs for each package:
 
 ```sh
 npm run build:docs --workspaces --if-present
