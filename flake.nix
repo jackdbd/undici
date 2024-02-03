@@ -45,7 +45,6 @@
         # environment variables
         # DEBUG = "Eleventy:UserConfig";
         DEBUG = "eleventy-plugin-text-to-speech/*,-eleventy-plugin-text-to-speech/transforms";
-        ELEVENTY_ENV = "development";
         GOOGLE_APPLICATION_CREDENTIALS = "/run/secrets/prj-kitchen-sink/sa-storage-uploader";
         # NODE_DEBUG = "*";
         NODE_ENV = "production";

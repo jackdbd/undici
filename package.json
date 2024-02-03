@@ -102,9 +102,6 @@
     "pre-push": "npx commitlint --config ./config/commitlint.cjs --to HEAD"
   },
   "overrides": {
-    "@jackdbd/eleventy-plugin-ensure-env-vars": {
-      "@11ty/eleventy": "3.0.0-alpha.4"
-    },
     "eleventy-plugin-helmet": {
       "@11ty/eleventy": "3.0.0-alpha.4"
     }

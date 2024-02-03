@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/demo-site",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "11ty site test and showcase the usage of several 11ty plugins",
   "author": {
     "name": "Giacomo Debidda",
@@ -16,7 +16,7 @@
     "url": "https://github.com/jackdbd/undici"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18"
   },
   "type": "module",
   "scripts": {
@@ -39,5 +39,22 @@
     "@jackdbd/eleventy-plugin-text-to-speech": "*",
     "@jackdbd/eleventy-test-utils": "*",
     "eleventy-plugin-helmet": "^0.2.2"
+  },
+  "overrides": {
+    "@jackdbd/eleventy-plugin-ensure-env-vars": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "@jackdbd/eleventy-plugin-plausible": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "@jackdbd/eleventy-plugin-telegram": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "@jackdbd/eleventy-plugin-text-to-speech": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "eleventy-plugin-helmet": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    }
   }
 }
