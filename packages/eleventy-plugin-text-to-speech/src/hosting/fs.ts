@@ -107,6 +107,11 @@ export const defClient = (config: ClientConfig) => {
   debug(
     `audio assets will be written to ${assetBasepath} and hosted at ${hrefBase}`
   )
+  if (!fs.existsSync(assetBasepath)) {
+    debug(`${assetBasepath} does not exist, creating it`)
+    fs.mkdirSync(assetBasepath, { recursive: true })
+    debug(`${assetBasepath} created`)
+  }
 
   const writeWithHostingConfig = write.bind(null, { assetBasepath, hrefBase })
 
