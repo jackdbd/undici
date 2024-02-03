@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-ensure-env-vars",
   "version": "1.0.1-canary.1",
-  "description": "Eleventy plugin to check environment variables before the eleventy build",
+  "description": "Eleventy plugin that checks environment variables before Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -46,14 +46,14 @@
   ],
   "scripts": {
     "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' docs:readme --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "dev": "run-p build:ts:watch test:watch",
-    "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
-    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-ensure-env-vars",
     "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",

@@ -6,15 +6,17 @@
 
 <!-- toc -->
 
+{{pkg.installation}}
+
 ## About
 
 Eleventy plugin for the [Permissions-Policy](https://w3c.github.io/webappsec-permissions-policy/) and [Feature-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy) headers.
 
-{{pkg.installation}}
-
 {{pkg.docs}}
 
 ## Usage
+
+In your Eleventy config file:
 
 ```js
 import { permissionsPolicyPlugin } from '@jackdbd/eleventy-plugin-permissions-policy'

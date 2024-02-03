@@ -6,11 +6,18 @@
 
 Eleventy plugin that sends Telegram messages when Eleventy starts/finishes building your site.
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Troubleshooting](#troubleshooting)
 - [Dependencies](#dependencies)
 - [License](#license)
+
+## Installation
+
+```sh
+npm install @jackdbd/eleventy-plugin-telegram
+```
 
 ## Usage
 
@@ -72,4 +79,4 @@ export DEBUG=11ty-plugin:*
 
 ## License
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+&copy; 2022 - 2024 [Giacomo Debidda](https://www.giacomodebidda.com/) // [MIT License](https://spdx.org/licenses/MIT.html)

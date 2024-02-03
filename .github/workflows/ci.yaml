@@ -8,8 +8,8 @@ on:
       - main
 
 jobs:
-  build-audit-test:
-    name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
+  audit-build-test:
+    name: Audit, build, test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -50,7 +50,7 @@ jobs:
 
       - name: 📦 Build all libraries
         run: npm run build:libs
-
+      
       - name: 🔍 Test @jackdbd/eleventy-plugin-content-security-policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
 
@@ -76,10 +76,9 @@ jobs:
           SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
         run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
 
-      # TODO: all my tests use the Node.js test runner, which can print coverage
-      # reports to stdout. However, I still need to figure out how to generate
-      # the coverage files (which I will then upload to CodeCov with this action).
       - name: ⬆️ Upload test coverage to Codecov
+        if: runner.os == 'Linux'
+        # if: matrix.os == 'ubuntu-latest'
         # https://github.com/marketplace/actions/codecov
         uses: codecov/codecov-action@v4
         env:

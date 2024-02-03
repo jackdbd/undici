@@ -1,26 +1,12 @@
-# @jackdbd/eleventy-plugin-plausible
+# {{pkg.name}}
 
-[![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-plausible.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-plausible)
-[![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-plausible)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-plausible)
-[![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-plausible)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-plausible)
+{{badges}}
 
-Eleventy plugin that retrieves analytics from Plausible when building your site.
+{{pkg.description}}
 
-- [Installation](#installation)
-- [About](#about)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [Required parameters](#required-parameters)
-  - [Options](#options)
-- [Troubleshooting](#troubleshooting)
-- [Dependencies](#dependencies)
-- [License](#license)
+<!-- toc -->
 
-## Installation
-
-```sh
-npm install @jackdbd/eleventy-plugin-plausible
-```
+{{pkg.installation}}
 
 ## About
 
@@ -76,7 +62,7 @@ eleventyConfig.on('eleventy.after', async () => {
 </ul>
 ```
 
-## Configuration
+{{configuration}}
 
 ### Required parameters
 
@@ -97,25 +83,8 @@ eleventyConfig.on('eleventy.after', async () => {
 | `statsBreakdownMetrics` | `visitors` | Comma-separated list of [metrics](https://plausible.io/docs/stats-api#metrics) to return from the Plausible `/stats` API endpoint. See [here](https://plausible.io/docs/metrics-definitions) for all plausible.io metrics and their definitions. |
 | `statsBreakdownPeriod` | `30d` | todo. See [Time periods](https://plausible.io/docs/stats-api#time-periods) on the Plausible API docs for details. |
 
-## Troubleshooting
+{{troubleshooting}}
 
-This plugin uses the [debug](https://github.com/debug-js/debug) library for logging.
-You can control what's logged using the `DEBUG` environment variable.
+{{pkg.deps}}
 
-For example, if you set your environment variables in a `.envrc` file, you can do:
-
-```sh
-# print all logging statements
-export DEBUG=11ty-plugin:*
-```
-
-## Dependencies
-
-| Package | Version |
-|---|---|
-| [@jackdbd/plausible-client](https://www.npmjs.com/package/@jackdbd/plausible-client) | `^1.0.2` |
-| [joi](https://www.npmjs.com/package/joi) | `^17.12.0` |
-
-## License
-
-&copy; 2022 - 2024 [Giacomo Debidda](https://www.giacomodebidda.com/) // [MIT License](https://spdx.org/licenses/MIT.html)
+{{pkg.license}}

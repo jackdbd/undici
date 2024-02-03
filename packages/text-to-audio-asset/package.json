@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/text-to-audio-asset",
   "version": "1.0.0-canary.1",
-  "description": "generate an audio asset from a text",
+  "description": "Generate an audio asset from a text.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -50,13 +50,13 @@
   ],
   "scripts": {
     "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build:docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
-    "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:ad": "../../scripts/api-documenter.mjs",
-    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:readme": "tsm ../../scripts/readme.ts text-to-audio-asset",
     "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",

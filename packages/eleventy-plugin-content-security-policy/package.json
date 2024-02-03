@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-content-security-policy",
   "version": "2.0.0",
-  "description": "Eleventy plugin that writes a Content-Security-Policy to a _headers file",
+  "description": "Eleventy plugin that writes a Content-Security-Policy to a `_headers` file.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -44,10 +44,10 @@
   "scripts": {
     "build": "run-s 'build:code' 'build:docs' --print-label",
     "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
-    "build:docs": "run-s 'docs:doctoc' --print-label",
+    "build:docs": "run-s 'docs:readme' --print-label",
     "clean": "rimraf lib/",
     "dev": "run-s build:code watch:test --print-label",
-    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint-no-typescript.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",

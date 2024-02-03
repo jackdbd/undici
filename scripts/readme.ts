@@ -1,8 +1,17 @@
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { toc, compactEmptyLines, transcludeFile } from '@thi.ng/transclude'
+import {
+  image,
+  licenseLink,
+  link,
+  list,
+  toc,
+  compactEmptyLines,
+  transcludeFile
+} from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
 import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc/lib'
+import { config as eev_config } from '../packages/eleventy-plugin-ensure-env-vars/lib/schemas.js'
 import {
   directive as pp_directive,
   options as pp_options
@@ -12,14 +21,6 @@ import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech
 // import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech/src/eleventy/plugin.js'
 // import { config as tts_config } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { rule as tts_rule } from '../packages/eleventy-plugin-text-to-speech/lib/schemas/rule.js'
-
-const PACKAGES_ROOT = join(REPO_ROOT, 'packages')
-
-// TODO: this script is a work in progress. See these links:
-// https://github.com/thi-ng/umbrella/blob/develop/tools/src/readme.ts
-// https://github.com/thi-ng/umbrella/blob/develop/tools/bin/readme.mjs
-// https://github.com/thi-ng/umbrella/blob/develop/tools/src/readme-examples.ts
-// https://github.com/thi-ng/umbrella/tree/develop/tools/src
 
 interface CalloutConfig {
   // https://github.com/ikatyang/emoji-cheat-sheet
@@ -36,27 +37,98 @@ const callout = (cfg: CalloutConfig) => {
   return lines.join('')
 }
 
-interface Config {
+interface ReadmeConfig {
   configuration: string
+  current_year: number
   pkg_root: string
+  project_started_in_year: number
 }
 
-const readme = ({ configuration, pkg_root }: Config) => {
+const readme = ({
+  configuration,
+  current_year,
+  pkg_root,
+  project_started_in_year
+}: ReadmeConfig) => {
   const pkg = JSON.parse(readFileSync(join(pkg_root, 'package.json'), 'utf-8'))
   console.log(`generating README.md for ${pkg.name}`)
 
   const [npm_scope, unscoped_pkg_name] = pkg.name.split('/')
-  const github_username = npm_scope as string
+  const github_username = npm_scope.replace('@', '') as string
 
   return transcludeFile(join(pkg_root, 'tpl.readme.md'), {
     user: pkg.author,
     templates: {
       badges: () => {
-        const npm_package = `[![npm version](https://badge.fury.io/js/${npm_scope}%2F${unscoped_pkg_name}.svg)](https://badge.fury.io/js/${npm_scope}%2F${unscoped_pkg_name})`
-        const install_size = `[![install size](https://packagephobia.com/badge?p=${npm_scope}/${unscoped_pkg_name})](https://packagephobia.com/result?p=${npm_scope}/${unscoped_pkg_name})`
-        const socket = `[![Socket Badge](https://socket.dev/api/badge/npm/package/${npm_scope}/${unscoped_pkg_name})](https://socket.dev/npm/package/${npm_scope}/${unscoped_pkg_name})`
+        // https://shields.io/badges/npm-downloads
+        // https://shields.io/badges/npm-downloads-by-package-author
 
-        return [npm_package, install_size, socket].join('\n')
+        const npm_package = link(
+          image(
+            `https://badge.fury.io/js/${npm_scope}%2F${unscoped_pkg_name}.svg`,
+            'npm version'
+          ),
+          `https://badge.fury.io/js/${npm_scope}%2F${unscoped_pkg_name}`
+          // `https://www.npmjs.com/package/${npm_scope}/${unscoped_pkg_name}`
+        )
+
+        const install_size = link(
+          image(
+            `https://packagephobia.com/badge?p=${npm_scope}/${unscoped_pkg_name}`,
+            'install size'
+          ),
+          `https://packagephobia.com/result?p=${npm_scope}/${unscoped_pkg_name}`
+        )
+
+        const socket = link(
+          image(
+            `https://socket.dev/api/badge/npm/package/${npm_scope}/${unscoped_pkg_name}`,
+            'Socket Badge'
+          ),
+          `https://socket.dev/npm/package/${npm_scope}/${unscoped_pkg_name}`
+        )
+
+        // const ci_workflow = link(
+        //   image(
+        //     `https://github.com/${github_username}/${unscoped_pkg_name}/actions/workflows/ci.yaml/badge.svg`,
+        //     'CI'
+        //   ),
+        //   `https://github.com/${github_username}/${unscoped_pkg_name}/actions/workflows/ci.yaml`
+        // )
+
+        // const release_workflow = link(
+        //   image(
+        //     `https://github.com/${github_username}/${unscoped_pkg_name}/actions/workflows/release-to-npmjs.yaml/badge.svg`,
+        //     'Release to npmjs.com'
+        //   ),
+        //   `https://github.com/${github_username}/${unscoped_pkg_name}/actions/workflows/release-to-npmjs.yaml`
+        // )
+
+        // const codecov = link(
+        //   image(
+        //     `https://codecov.io/gh/${github_username}/${unscoped_pkg_name}/graph/badge.svg?token=9jddzo5Dt3`,
+        //     'CodeCov badge'
+        //   ),
+        //   `https://codecov.io/gh/${github_username}/${unscoped_pkg_name}`
+        // )
+
+        // const conventional_commits = link(
+        //   image(
+        //     `https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white`,
+        //     'Conventional Commits'
+        //   ),
+        //   'https://conventionalcommits.org'
+        // )
+
+        return [
+          npm_package,
+          install_size,
+          // codecov,
+          // ci_workflow,
+          // release_workflow,
+          socket
+          // conventional_commits
+        ].join('\n')
       },
 
       configuration,
@@ -64,14 +136,9 @@ const readme = ({ configuration, pkg_root }: Config) => {
       'pkg.deps': () => {
         const entries = Object.entries(pkg.dependencies)
 
-        const links = entries.map(
-          ([name]) => `[${name}](https://www.npmjs.com/package/${name})`
-        )
-        const list = links.map((link) => `- ${link}`).join('\n')
-
         const rows = entries.map(
           ([name, version]) =>
-            `| [${name}](https://www.npmjs.com/package/${name}) | \`${version}\` |`
+            `| ${link(name, `https://www.npmjs.com/package/${name}`)} | \`${version}\` |`
         )
         const table = [
           `| Package | Version |`,
@@ -113,19 +180,16 @@ const readme = ({ configuration, pkg_root }: Config) => {
       },
 
       'pkg.license': ({ user }) => {
-        // https://gist.github.com/lukas-h/2a5d00690736b4c3a7ba
-        const lines = [`## License`, '\n\n']
-        if (pkg.license === 'MIT') {
-          lines.push(
-            `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`
-          )
-        } else {
-          throw new Error(`This license is not yet implemented`)
-        }
+        const copyright =
+          current_year > project_started_in_year
+            ? `&copy; ${project_started_in_year} - ${current_year}`
+            : `&copy; ${current_year}`
 
-        // lines.push(`\n\n`)
-        // lines.push(`[${user.name}](${user.url})`)
-
+        const lines = [
+          `## License`,
+          '\n\n',
+          `${copyright} ${link(user.name, 'https://www.giacomodebidda.com/')} // ${licenseLink(pkg.license)}`
+        ]
         return lines.join('')
       },
 
@@ -152,28 +216,65 @@ const readme = ({ configuration, pkg_root }: Config) => {
   })
 }
 
-const main = async () => {
-  const unscoped_pkg_name = process.argv[2]
-  const pkg_root = join(PACKAGES_ROOT, unscoped_pkg_name)
+interface Config {
+  current_year: number
+  pkg_root: string
+  project_started_in_year: number
+}
 
+const main = async ({
+  current_year,
+  pkg_root,
+  project_started_in_year
+}: Config) => {
   const errors: Error[] = []
   const configurations: string[] = [`## Configuration`, '\n\n']
 
-  if (unscoped_pkg_name === 'eleventy-plugin-permissions-policy') {
+  if (unscoped_pkg_name === 'eleventy-plugin-content-security-policy') {
+    configurations.push('\n\n')
+    configurations.push(
+      `Refer also to the library ${link('@jackdbd/content-security-policy', 'https://www.npmjs.com/package/@jackdbd/content-security-policy')} for the configuration.`
+    )
+  } else if (unscoped_pkg_name === 'eleventy-plugin-ensure-env-vars') {
+    const res = markdownTableFromZodSchema(eev_config)
+    if (res.error) {
+      errors.push(res.error)
+    } else {
+      configurations.push('\n\n')
+      configurations.push(`### Plugin options`)
+      configurations.push('\n\n')
+      configurations.push(res.value)
+    }
+  } else if (unscoped_pkg_name === 'eleventy-plugin-permissions-policy') {
     configurations.push(
       `Read these resources to understand how to configure the \`Permissions-Policy\` and the \`Feature-Policy\` HTTP response headers.`
     )
 
     const links = [
-      `[A new security header: Feature Policy](https://scotthelme.co.uk/a-new-security-header-feature-policy/)`,
-      `[Goodbye Feature Policy and hello Permissions Policy!](https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/)`,
-      `[Permissions Policy Explainer](https://github.com/w3c/webappsec-permissions-policy/blob/main/permissions-policy-explainer.md)`,
-      `[Policy Controlled Features](https://github.com/w3c/webappsec-permissions-policy/blob/main/features.md)`,
-      `[Controlling browser features with Permissions Policy](https://developer.chrome.com/en/docs/privacy-sandbox/permissions-policy/)`
+      link(
+        'A new security header: Feature Policy',
+        'https://scotthelme.co.uk/a-new-security-header-feature-policy/'
+      ),
+      link(
+        'Goodbye Feature Policy and hello Permissions Policy!',
+        'https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/'
+      ),
+      link(
+        'Permissions Policy Explainer',
+        'https://github.com/w3c/webappsec-permissions-policy/blob/main/permissions-policy-explainer.md'
+      ),
+      link(
+        'Policy Controlled Features',
+        'https://github.com/w3c/webappsec-permissions-policy/blob/main/features.md'
+      ),
+      link(
+        'Controlling browser features with Permissions Policy',
+        'https://developer.chrome.com/en/docs/privacy-sandbox/permissions-policy/'
+      )
     ]
 
     configurations.push('\n\n')
-    configurations.push(links.map((link) => `- ${link}`).join('\n'))
+    configurations.push(list(links))
     const res_a = markdownTableFromZodSchema(pp_options as any)
     if (res_a.error) {
       errors.push(res_a.error)
@@ -192,6 +293,7 @@ const main = async () => {
       configurations.push('\n\n')
       configurations.push(res_b.value)
     }
+  } else if (unscoped_pkg_name === 'eleventy-plugin-plausible') {
   } else if (unscoped_pkg_name === 'eleventy-plugin-telegram') {
     // This table shows `undefined` for the Telegram chat ID and bot token,
     // which is technically correct, given there isn't a default in this Zod
@@ -224,6 +326,8 @@ const main = async () => {
       configurations.push('\n\n')
       configurations.push(res_b.value)
     }
+  } else if (unscoped_pkg_name === 'text-to-audio-asset') {
+    configurations.push(`TODO`)
   } else {
     const messages = [
       `Automatic README generation not implemented for package ${unscoped_pkg_name}.`,
@@ -240,7 +344,9 @@ const main = async () => {
 
   const transcluded = readme({
     configuration: configurations.join(''),
-    pkg_root
+    current_year,
+    pkg_root,
+    project_started_in_year
   })
 
   const outdoc = 'README.md'
@@ -250,4 +356,13 @@ const main = async () => {
   writeFileSync(join(pkg_root, outdoc), transcluded.src)
 }
 
-await main()
+// const PACKAGES_ROOT = join(REPO_ROOT, 'packages')
+const unscoped_pkg_name = process.argv[2]
+const now = new Date()
+const current_year = now.getFullYear()
+
+await main({
+  current_year,
+  pkg_root: join(REPO_ROOT, 'packages', unscoped_pkg_name),
+  project_started_in_year: 2022
+})

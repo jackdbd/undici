@@ -1,5 +1,9 @@
 name: 'Release to npmjs.com'
 
+# https://github.com/semantic-release/semantic-release/issues/2481#issuecomment-1409780688
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -7,8 +11,8 @@ on:
       - main
 
 jobs:
-  build-audit-release:
-    name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
+  audit-build-test-release:
+    name: Audit, build, test, release all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,6 +42,9 @@ jobs:
 
       - name: 📦 Build all libraries
         run: npm run build:libs
+
+      - name: 🔍 Test
+        run: npm run test:ci
 
       - name: 🚀 Release to npmjs
         env:

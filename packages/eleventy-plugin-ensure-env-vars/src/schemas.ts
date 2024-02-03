@@ -21,24 +21,24 @@ export const env_vars = z
     return REQUIRED_ENV_VARS.every((required) => arr.includes(required))
   })
   .describe(
-    'The environment variables you want to ensure are set when building your Eleventy site'
+    'Environment variables you want to be set when building your Eleventy site'
   )
+
+export const config = z.object({
+  /**
+   * Environment variables you want to ensure are set when building your Eleventy site.
+   */
+  envVars: env_vars.default(DEFAULT_ENV_VARS)
+})
 
 /**
  * Options for this Eleventy plugin.
  *
  * @public
  */
-export const options = z
-  .object({
-    /**
-     * Environment variables you want to ensure are set when building your Eleventy site.
-     */
-    envVars: env_vars.default(DEFAULT_ENV_VARS)
-  })
-  .default({
-    envVars: DEFAULT_ENV_VARS
-  })
+export const options = config.default({
+  envVars: DEFAULT_ENV_VARS
+})
 
 /**
  * Plugin options.

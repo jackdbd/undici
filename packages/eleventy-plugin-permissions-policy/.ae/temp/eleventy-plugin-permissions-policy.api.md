@@ -49,7 +49,7 @@ export const feature: z.ZodUnion<[z.ZodLiteral<"accelerometer">, z.ZodLiteral<"a
 export type Options = z.input<typeof options>;
 
 // @public
-export const options: z.ZodDefault<z.ZodObject<{
+export const options: z.ZodObject<{
     directives: z.ZodDefault<z.ZodEffects<z.ZodArray<z.ZodObject<{
         allowlist: z.ZodOptional<z.ZodEffects<z.ZodArray<z.ZodUnion<[z.ZodLiteral<"*">, z.ZodLiteral<"none">, z.ZodLiteral<"self">, z.ZodLiteral<"src">, z.ZodString]>, "many">, string[], string[]>>;
         feature: z.ZodUnion<[z.ZodLiteral<"accelerometer">, z.ZodLiteral<"ambient-light-sensor">, z.ZodLiteral<"autoplay">, z.ZodLiteral<"battery">, z.ZodLiteral<"browsing-topics">, z.ZodLiteral<"camera">, z.ZodLiteral<"clipboard-read">, z.ZodLiteral<"clipboard-write">, z.ZodLiteral<"conversion-measurement">, z.ZodLiteral<"cross-origin-isolated">, z.ZodLiteral<"display-capture">, z.ZodLiteral<"document-domain">, z.ZodLiteral<"encrypted-media">, z.ZodLiteral<"execution-while-not-rendered">, z.ZodLiteral<"execution-while-out-of-viewport">, z.ZodLiteral<"focus-without-user-activation">, z.ZodLiteral<"fullscreen">, z.ZodLiteral<"gamepad">, z.ZodLiteral<"geolocation">, z.ZodLiteral<"gyroscope">, z.ZodLiteral<"hid">, z.ZodLiteral<"idle-detection">, z.ZodLiteral<"layout-animations">, z.ZodLiteral<"legacy-image-formats">, z.ZodLiteral<"magnetometer">, z.ZodLiteral<"microphone">, z.ZodLiteral<"midi">, z.ZodLiteral<"navigation-override">, z.ZodLiteral<"oversized-images">, z.ZodLiteral<"payment">, z.ZodLiteral<"picture-in-picture">, z.ZodLiteral<"publickey-credentials-get">, z.ZodLiteral<"screen-wake-lock">, z.ZodLiteral<"serial">, z.ZodLiteral<"speaker-selection">, z.ZodLiteral<"sync-script">, z.ZodLiteral<"sync-xhr">, z.ZodLiteral<"trust-token-redemption">, z.ZodLiteral<"unload">, z.ZodLiteral<"unoptimized-images">, z.ZodLiteral<"unsized-media">, z.ZodLiteral<"usb">, z.ZodLiteral<"vertical-scroll">, z.ZodLiteral<"web-share">, z.ZodLiteral<"window-placement">, z.ZodLiteral<"xr-spatial-tracking">]>;
@@ -88,7 +88,7 @@ export const options: z.ZodDefault<z.ZodObject<{
     includeFeaturePolicy?: boolean | undefined;
     includePatterns?: string[] | undefined;
     jsonRecap?: boolean | undefined;
-}>>;
+}>;
 
 // Warning: (ae-missing-release-tag) "permissionsPolicyPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

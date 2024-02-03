@@ -6,6 +6,8 @@
 
 <!-- toc -->
 
+{{pkg.installation}}
+
 ## About
 
 Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.
@@ -28,8 +30,6 @@ To **host** the generated audio assets you can use:
 > - [this issue of the Wavenet for Chrome extension](https://github.com/wavenet-for-chrome/extension/issues/12)
 >
 > - [this discussion on Google Groups](https://groups.google.com/g/google-translate-api/c/2JsRdq0tEdA)
-
-{{pkg.installation}}
 
 {{pkg.docs}}
 
@@ -138,10 +138,10 @@ Have a look at the Eleventy configuration of the [demo-site in this monorepo](..
 
 {{troubleshooting}}
 
+{{pkg.deps}}
+
 ## Credits
 
 I had the idea of this plugin while reading the code of the homonym [eleventy-plugin-text-to-speech](https://github.com/larryhudson/eleventy-plugin-text-to-speech) by [Larry Hudson](https://larryhudson.io/). Larry's plugin uses the [Microsoft Azure Speech SDK](https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk).
-
-{{pkg.deps}}
 
 {{pkg.license}}

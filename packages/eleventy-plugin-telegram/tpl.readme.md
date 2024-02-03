@@ -6,6 +6,8 @@
 
 <!-- toc -->
 
+{{pkg.installation}}
+
 ## Usage
 
 In your Eleventy config file:
