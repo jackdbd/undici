@@ -18,7 +18,7 @@ import {
   cloudStorageUploaderClientOptions,
   cloudTextToSpeechClientOptions,
   REPO_ROOT
-} from '@jackdbd/eleventy-test-utils'
+} from '../../eleventy-test-utils/lib/index.js'
 import { copyright } from '../src/shortcodes/index.js'
 
 export default function (eleventyConfig) {
@@ -77,21 +77,26 @@ export default function (eleventyConfig) {
   })
 
   // https://developers.cloudflare.com/pages/platform/build-configuration/#environment-variables
-  // console.log('=== ENVIRONMENT ===', {
-  //   CF_PAGES: process.env.CF_PAGES,
-  //   CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
-  //   CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
-  //   CF_PAGES_URL: process.env.CF_PAGES_URL,
-  //   // environment variables supplied by Eleventy
-  //   // https://www.11ty.dev/docs/environment-vars/#eleventy-supplied
-  //   ELEVENTY_ROOT: process.env.ELEVENTY_ROOT,
-  //   ELEVENTY_SOURCE: process.env.ELEVENTY_SOURCE,
-  //   ELEVENTY_RUN_MODE: process.env.ELEVENTY_RUN_MODE,
-  //   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-  //   SA_JSON_KEY_STORAGE_UPLOADER: process.env.SA_JSON_KEY_STORAGE_UPLOADER,
-  //   SA_JSON_KEY_TEXT_TO_SPEECH: process.env.SA_JSON_KEY_TEXT_TO_SPEECH,
-  //   NODE_ENV: process.env.NODE_ENV
-  // })
+  console.log('=== ENVIRONMENT ===', {
+    // environment variables set by Cloudflare Pages
+    CF_PAGES: process.env.CF_PAGES,
+    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+    CF_PAGES_COMMIT_SHA: process.env.CF_PAGES_COMMIT_SHA,
+    CF_PAGES_URL: process.env.CF_PAGES_URL,
+
+    // environment variables set by Eleventy
+    // https://www.11ty.dev/docs/environment-vars/#eleventy-supplied
+    ELEVENTY_ROOT: process.env.ELEVENTY_ROOT,
+    ELEVENTY_SOURCE: process.env.ELEVENTY_SOURCE,
+    ELEVENTY_RUN_MODE: process.env.ELEVENTY_RUN_MODE,
+
+    // Google Cloud Platform service accounts
+    GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    SA_JSON_KEY_STORAGE_UPLOADER: process.env.SA_JSON_KEY_STORAGE_UPLOADER,
+    SA_JSON_KEY_TEXT_TO_SPEECH: process.env.SA_JSON_KEY_TEXT_TO_SPEECH,
+
+    NODE_ENV: process.env.NODE_ENV
+  })
 
   const ttsOpusEnUS = defGoogleCloudTextToSpeechClient({
     ...cloudTextToSpeechClientOptions(),

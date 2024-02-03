@@ -37,7 +37,6 @@
     "@jackdbd/eleventy-plugin-plausible": "*",
     "@jackdbd/eleventy-plugin-telegram": "*",
     "@jackdbd/eleventy-plugin-text-to-speech": "*",
-    "@jackdbd/eleventy-test-utils": "*",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "overrides": {
