@@ -23,6 +23,9 @@ packages/**/tsconfig.tsbuildinfo
 # this directory is copied to the demo site to make it available on Cloudflare Pages
 packages/demo-site/eleventy-test-utils/
 
+# wrangler CLI temp files
+packages/demo-site/.wrangler
+
 # default cache directory of @11ty/eleventy-fetch
 packages/**/.cache/
 

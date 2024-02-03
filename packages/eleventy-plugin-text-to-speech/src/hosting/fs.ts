@@ -24,10 +24,7 @@ export const client_config = z.object({
    * be publicly accessible.
    *
    * @example
-   * Local development: http://localhost:8090/assets/audio
-   *
-   * @example
-   * Subpath: https://www.example.com/assets/audio
+   * Subpath: /assets/audio
    *
    * @example
    * Subdomain: https://audio.example.com

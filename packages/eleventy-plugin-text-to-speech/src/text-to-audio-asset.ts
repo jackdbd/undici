@@ -1,8 +1,12 @@
 import { createHash } from 'node:crypto'
 import { z } from 'zod'
+import makeDebug from 'debug'
+import { DEBUG_PREFIX } from './constants.js'
 import { validatedResult } from './validation.js'
 import { hosting } from './hosting/schemas.js'
 import { synthesis, text_to_synthesize } from './synthesis/schemas.js'
+
+const debug = makeDebug(`${DEBUG_PREFIX}:text-to-audio-asset`)
 
 export const text_to_audio_asset_config = z
   .object({
@@ -48,6 +52,7 @@ export const textToAudioAsset = async (config: Config) => {
   const contentHash = md5.update(contents.join('_')).digest('hex')
 
   const assetName = `${contentHash}.${synthesis.extension}`
+  debug(`write audio asset ${assetName}`)
 
   const w_res = await hosting.write({ assetName, readable })
   if (w_res.error) {
@@ -63,5 +68,6 @@ export const textToAudioAsset = async (config: Config) => {
     readable.destroy()
   }
 
+  debug(`wrote audio asset ${assetName}`)
   return { value: w_res.value }
 }

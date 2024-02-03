@@ -4,7 +4,15 @@ export const asset_name = z.string().min(1).describe('Name of the audio file')
 
 export const file_extension = z.string().min(1).describe('File extension')
 
-export const href = z.string().min(1).url()
+/**
+ * URL or subpath (if the asset is self hosted) where the audio asset will be
+ * hosted.
+ *
+ * @remarks
+ * Do NOT add `.url()` in the Zod schema: self-hosted audio assets will be
+ * something like /assets/foo.opus and NOT a URL.
+ */
+export const href = z.string().min(1)
 
 export const output_path = z.string().min(1)
 
