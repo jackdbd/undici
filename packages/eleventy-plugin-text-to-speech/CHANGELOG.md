@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [3.0.0-canary.3](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.2...@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.3) (2024-02-03)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-text-to-speech:** create assets dir, if necessary ([90e5281](https://github.com/jackdbd/undici/commit/90e5281b6aad5ff0e78c7d7d291d8abe6047589f))
+
 ## @jackdbd/eleventy-plugin-text-to-speech [3.0.0-canary.2](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.1...@jackdbd/eleventy-plugin-text-to-speech@3.0.0-canary.2) (2024-02-01)
 
 
