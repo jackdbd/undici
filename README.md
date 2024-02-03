@@ -28,7 +28,6 @@ Monorepo for my [Eleventy](https://www.11ty.dev/) plugins.
 - [Installation](#installation)
   - [Git hooks](#git-hooks)
 - [Development](#development)
-  - [Packages](#packages)
 - [Demo site](#demo-site)
 - [Monorepo management](#monorepo-management)
   - [Environment variables and secrets](#environment-variables-and-secrets)
@@ -63,6 +62,14 @@ git clone git@github.com:jackdbd/undici.git
 cd undici
 ```
 
+> :warning: **Overrides**
+>
+> This project defines 1 override for this package:
+>
+> - eleventy-plugin-helmet
+>
+> Refer to the [npm documentation](https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides) to know more about overrides.
+
 This project is tested on Node.js >=18.0.0.
 
 You can use a Node.js version manager like [nvm](https://github.com/nvm-sh/nvm), [asdf](https://github.com/asdf-vm/asdf) or [volta](https://github.com/volta-cli/volta) to manage your Node.js versions.
@@ -93,8 +100,6 @@ npx simple-git-hooks
 This monorepo uses [Typescript project references](https://www.typescriptlang.org/docs/handbook/project-references.html) to build all of its libraries.
 
 This project has **43 dev dependencies**: @11ty/eleventy, @11ty/eleventy-fetch, @aws-sdk/client-s3, @aws-sdk/lib-storage, @commitlint/cli, @commitlint/config-conventional, @google-cloud/storage, @google-cloud/text-to-speech, @jackdbd/checks, @jackdbd/zod-to-doc, @microsoft/api-documenter, @microsoft/api-extractor, @qiwi/multi-semantic-release, @semantic-release/changelog, @semantic-release/git, @thi.ng/transclude, @types/debug, @types/html-to-text, @types/jsdom, @types/yargs, @typescript-eslint/eslint-plugin, debug, eslint, eslint-config-prettier, eslint-plugin-prettier, http-server, lint-staged, micromark, npm-check-updates, npm-run-all, pkg-size, prettier, pretty-error, rimraf, semantic-release, simple-git-hooks, specificity, tsm, typedoc, typedoc-plugin-zod, typescript, yargs, zx.
-
-### Packages
 
 Build all libraries (i.e. 11ty plugins) in watch mode:
 

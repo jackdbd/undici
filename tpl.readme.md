@@ -49,6 +49,8 @@ git clone git@github.com:jackdbd/undici.git
 cd undici
 ```
 
+{{pkg.overrides}}
+
 {{engines.node}}
 
 Install all dependencies from npm.js:
@@ -66,8 +68,6 @@ npm install --include dev
 This monorepo uses [Typescript project references](https://www.typescriptlang.org/docs/handbook/project-references.html) to build all of its libraries.
 
 {{pkg.devDependencies}}
-
-### Packages
 
 Build all libraries (i.e. 11ty plugins) in watch mode:
 
@@ -98,5 +98,3 @@ For local development I rely on some environment variables and secrets. They are
 ### Scripts
 
 See [scripts](./scripts/README.md).
-
-{{pkg.overrides}}

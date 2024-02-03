@@ -10,7 +10,7 @@ import {
   transcludeFile
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
-import { callout } from './ui-components.js'
+import { overridesCallout } from './ui-components.js'
 import makeDebug from 'debug'
 
 const debug = makeDebug(`script:monorepo-readme`)
@@ -92,15 +92,7 @@ const readme = ({
 
       'pkg.overrides': () => {
         if (pkg.overrides) {
-          const keys = Object.keys(pkg.overrides)
-          const over = keys.length === 1 ? `override` : `overrides`
-          const pkgs = keys.length === 1 ? `this package` : `these packages`
-          // https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides
-          return callout({
-            emoji: ':warning:',
-            title: `npm overrides`,
-            message: `This project defines ${keys.length} ${over} for ${pkgs}:\n\n${list(keys)}\n\nRefer to the ${link('npm documentation', 'https://docs.npmjs.com/cli/v10/configuring-npm/package-json#overrides')} to know more about overrides.`
-          })
+          return overridesCallout(pkg.overrides)
         } else {
           return ''
         }

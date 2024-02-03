@@ -29,7 +29,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "run-s 'build:libs' 'build:site' 'docs:libs' 'docs:index' 'docs:monorepo-readme' --print-label",
+    "build": "run-s 'build:libs' 'build:site' 'docs:libs' 'docs:index' 'docs:readme:root' --print-label",
     "build:libs": "tsc --build --verbose",
     "build:libs:show-config": "tsc --showConfig -p packages/eleventy-plugin-text-to-speech",
     "build:site": "npm run build -w packages/demo-site",
@@ -41,10 +41,11 @@
     "docs:index": "./scripts/docs-index.mjs",
     "docs:libs": "npm run docs --workspaces --if-present",
     "docs:readme": "npm run docs:readme --workspaces --if-present",
-    "docs:monorepo-readme": "tsm ./scripts/monorepo-readme.ts",
+    "docs:readme:root": "tsm ./scripts/monorepo-readme.ts",
     "lint": "npm run lint --workspaces --if-present",
     "ncu:dev": "ncu --dep 'dev,prod' --deep --interactive --upgrade --loglevel info",
     "nuke": "npm run clean && rm -rf node_modules package-lock.json",
+    "readme": "tsm ./scripts/monorepo-readme.ts",
     "release:dry": "multi-semantic-release --no-ci --dry-run --debug --ignore-private --ignore-packages=packages/demo-site",
     "serve:fixtures": "http-server ./fixtures/html --port 8095",
     "serve:docs": "http-server ./docs/ --port 8090",
@@ -103,5 +104,10 @@
   "simple-git-hooks": {
     "pre-commit": "npm run precommit --workspaces --if-present",
     "pre-push": "npx commitlint --config ./config/commitlint.cjs --to HEAD"
+  },
+  "overrides": {
+    "eleventy-plugin-helmet": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    }
   }
 }
