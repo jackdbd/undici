@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-text-to-speech [3.0.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@3.0.0...@jackdbd/eleventy-plugin-text-to-speech@3.0.1) (2024-02-03)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-text-to-speech:** self-hosted assets are not URLs ([3f2371d](https://github.com/jackdbd/undici/commit/3f2371d23a06b27a811193552b1d1fe5a9732fb9))
+
 ## @jackdbd/eleventy-plugin-text-to-speech [3.0.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-text-to-speech@2.0.1...@jackdbd/eleventy-plugin-text-to-speech@3.0.0) (2024-02-03)
 
 
