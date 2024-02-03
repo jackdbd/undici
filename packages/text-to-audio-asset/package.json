@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/text-to-audio-asset",
-  "version": "1.0.0-canary.1",
+  "version": "1.0.0",
   "description": "Generate an audio asset from a text.",
   "author": {
     "name": "Giacomo Debidda",
