@@ -12,10 +12,9 @@ import { throwIfNotInvokedFromMonorepoRoot } from './utils.mjs'
 
 throwIfNotInvokedFromMonorepoRoot(process.env.PWD)
 
-const debug = makeDebug(`script:docs-index`)
-
 const REPO_ROOT = process.env.PWD
 const SCRIPT_NAME = path.basename(__filename)
+const debug = makeDebug(`script:${SCRIPT_NAME}`)
 
 // TODO: add a Jekyll theme?
 // https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll

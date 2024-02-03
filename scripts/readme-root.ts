@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
+import { basename, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import {
   image,
   // licenseLink,
@@ -13,7 +14,9 @@ import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
 import { overridesCallout } from './ui-components.js'
 import makeDebug from 'debug'
 
-const debug = makeDebug(`script:monorepo-readme`)
+export const __filename = fileURLToPath(import.meta.url)
+const SCRIPT_NAME = basename(__filename)
+const debug = makeDebug(`script:${SCRIPT_NAME}`)
 
 // parsed package.json
 type PackageJson = any
@@ -129,16 +132,18 @@ const main = async ({
   year_started
 }: Config) => {
   // badges and other links
+  const repo_name = 'undici'
   const items = package_names
     .filter((s) => !excluded.includes(s))
     .map((unscoped_pkg_name) => {
-      const pkg_href = `https://github.com/${github_username}/undici/tree/main/packages/${unscoped_pkg_name}`
+      const pkg_href = `https://github.com/${github_username}/${repo_name}/tree/main/packages/${unscoped_pkg_name}`
       const scoped_pkg_name = `${npm_scope}/${unscoped_pkg_name}`
       const home = link(scoped_pkg_name, pkg_href)
 
-      // The docs/ directory is published to GitHub pages. Each package of this
-      // monorepo is under a subdirectory of the docs/ directory.
-      const typedoc = link('Docs', `./${unscoped_pkg_name}/index.html`)
+      const typedoc = link(
+        'Docs',
+        `https://${github_username}.github.io/${repo_name}/${unscoped_pkg_name}/index.html`
+      )
 
       const npm_version = link(
         image(

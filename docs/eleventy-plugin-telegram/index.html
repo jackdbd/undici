@@ -12,6 +12,26 @@
 </ul>
 <a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@jackdbd/eleventy-plugin-telegram</span>
 </code><button>Copy</button></pre>
+<blockquote>
+<p>:warning: <strong>Peer Dependencies</strong></p>
+<p>This package defines 2 peer dependencies.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Peer</th>
+<th>Version range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@11ty/eleventy</code></td>
+<td><code>&gt;=2.0.0 or 3.0.0-alpha.4</code></td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td><code>&gt;=4.0.0</code></td>
+</tr>
+</tbody></table>
 <a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p>In your Eleventy config file:</p>
 <pre><code class="language-js"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">telegramPlugin</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@jackdbd/eleventy-plugin-telegram&#39;</span><br/><br/><span class="hl-3">export</span><span class="hl-1"> </span><span class="hl-3">default</span><span class="hl-1"> </span><span class="hl-5">function</span><span class="hl-1"> (</span><span class="hl-4">eleventyConfig</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-6">// some eleventy configuration...</span><br/><br/><span class="hl-1">  </span><span class="hl-4">eleventyConfig</span><span class="hl-1">.</span><span class="hl-0">addPlugin</span><span class="hl-1">(</span><span class="hl-4">telegramPlugin</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-4">chatId:</span><span class="hl-1"> </span><span class="hl-2">&#39;YOUR_TELEGRAM_CHAT_ID&#39;</span><span class="hl-1">, </span><span class="hl-6">// or set process.env.TELEGRAM_CHAT_ID and leave this undefined</span><br/><span class="hl-1">    </span><span class="hl-4">token:</span><span class="hl-1"> </span><span class="hl-2">&#39;YOUR_TELEGRAM_BOT_TOKEN&#39;</span><span class="hl-1">, </span><span class="hl-6">// or set process.env.TELEGRAM_BOT_TOKEN and leave this undefined</span><br/><span class="hl-1">    </span><span class="hl-4">textBeforeBuild:</span><span class="hl-1"> </span><span class="hl-2">&#39;⏱️ 11ty &lt;b&gt;started&lt;/b&gt; building my website&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-4">textAfterBuild:</span><span class="hl-1"> </span><span class="hl-2">&#39;🏁 11ty &lt;b&gt;finished&lt;/b&gt; building my website&#39;</span><br/><span class="hl-1">  })</span><br/><br/><span class="hl-1">  </span><span class="hl-6">// some more eleventy configuration...</span><br/><span class="hl-1">}</span>
 </code><button>Copy</button></pre>
