@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-plausible [1.0.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-plausible@1.0.0...@jackdbd/eleventy-plugin-plausible@1.0.1) (2024-02-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-text-to-speech:** removed a lot of options and move some of them in each
+rule.
+
+* **eleventy-plugin-text-to-speech:** big changes ([1191784](https://github.com/jackdbd/undici/commit/1191784bf8742f83d0cec6c289fe62df1fbcff9f))
+
 ## @jackdbd/eleventy-plugin-plausible [1.0.1-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-plausible@1.0.0...@jackdbd/eleventy-plugin-plausible@1.0.1-canary.1) (2024-01-29)
 
 
