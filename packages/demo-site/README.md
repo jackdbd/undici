@@ -4,9 +4,11 @@
 
 The site is deployed on [Cloudflare Pages](https://pages.cloudflare.com/) at https://undici.pages.dev/
 
-> :warning: **Environment variables on Cloudflare Pages**
+> :warning: **IMPORTANT information about the deployment on Cloudflare Pages**
 >
-> Don't forget to set these [environment variables on Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/build-configuration/#environment-variables):
+> Use the [V2 build system](https://developers.cloudflare.com/pages/configuration/language-support-and-tools/).
+>
+> Set these [environment variables](https://developers.cloudflare.com/pages/configuration/build-configuration/#environment-variables):
 >
 > - `DEBUG` (always include `Eleventy:EleventyErrorHandler` to log build errors)
 > - `NODE_ENV` (always use `production`, [as Matteo Collina suggests in this video](https://youtu.be/HMM7GJC5E2o?si=ofyi78QbZjtArAju))
@@ -27,6 +29,22 @@ Watch eleventy-plugin-text-to-speech and the demo site, and serve the demo site:
 ```sh
 npm run dev:site:tts
 ```
+
+Copy the build of [eleventy-test-utils](../eleventy-test-utils/README.md) to `demo site/eleventy-test-utils`, so they are available on Cloudflare Pages:
+
+```sh
+npm run site:copy-utils
+```
+
+## Troubleshooting
+
+Eleventy prints this very unintuitive error message [when it cannot find its configuration file](https://github.com/11ty/eleventy/issues/1211#issuecomment-1488904452):
+
+```sh
+TemplateLayoutPathResolver directory does not exist...
+```
+
+Double check that Eleventy is using the configuration file you'd expect, and always use the `--config` flag to specify it.
 
 ## Credits
 

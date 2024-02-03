@@ -29,10 +29,8 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "run-s 'build:libs' 'docs:packages' 'docs:index' 'build:site' --print-label",
-    "build:libs": "run-s 'build:libs:ts' 'build:libs:js' --print-label",
-    "build:libs:ts": "tsc --build --verbose",
-    "build:libs:js": "npm run build -w packages/eleventy-plugin-content-security-policy && npm run build -w packages/eleventy-plugin-plausible",
+    "build": "run-s 'build:libs' 'build:site' 'docs:libs' 'docs:index' --print-label",
+    "build:libs": "tsc --build --verbose",
     "build:libs:show-config": "tsc --showConfig -p packages/eleventy-plugin-text-to-speech",
     "build:site": "npm run build -w packages/demo-site",
     "clean": "npm run clean --workspaces --if-present",
@@ -41,7 +39,7 @@
     "dev:site": "npm run dev -w packages/demo-site",
     "dev:site:tts": "run-p 'dev:site' 'watch:tts' --print-label",
     "docs:index": "./scripts/docs-index.mjs",
-    "docs:packages": "npm run docs --workspaces --if-present",
+    "docs:libs": "npm run docs --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "ncu:dev": "ncu --dep 'dev,prod' --deep --interactive --upgrade --loglevel info",
     "nuke": "npm run clean && rm -rf node_modules package-lock.json",
@@ -50,6 +48,7 @@
     "serve:docs": "http-server ./docs/ --port 8090",
     "serve:site": "http-server ./packages/demo-site/_site/ --port 8080 ",
     "size": "npm run size --workspaces --if-present",
+    "site:copy-utils": "npm run build -w packages/eleventy-test-utils/ && cp -r packages/eleventy-test-utils/lib/ packages/demo-site/eleventy-test-utils",
     "test": "npm run test --workspaces --if-present",
     "test:ci": "npm run test:ci --workspaces --if-present",
     "watch:tts": "npm run build:ts:watch -w packages/eleventy-plugin-text-to-speech"

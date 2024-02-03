@@ -20,9 +20,9 @@
   },
   "type": "module",
   "scripts": {
-    "build": "eleventy --config ./config/eleventy.mjs",
+    "build": "eleventy --config eleventy.mjs",
     "clean": "rimraf _site/ .cache/",
-    "dev": "eleventy --config ./config/eleventy.mjs --serve --port 8090",
+    "dev": "eleventy --config eleventy.mjs --serve --port 8090",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
@@ -32,17 +32,13 @@
   "dependencies": {
     "@11ty/eleventy": "3.0.0-alpha.4",
     "@11ty/eleventy-navigation": "^0.3.5",
-    "@jackdbd/eleventy-plugin-ensure-env-vars": "*",
-    "@jackdbd/eleventy-plugin-plausible": "*",
-    "@jackdbd/eleventy-plugin-telegram": "*",
-    "@jackdbd/eleventy-plugin-text-to-speech": "*",
+    "@jackdbd/eleventy-plugin-ensure-env-vars": "1.0.1-canary.1",
+    "@jackdbd/eleventy-plugin-telegram": "2.0.0-canary.1",
+    "@jackdbd/eleventy-plugin-text-to-speech": "3.0.0-canary.3",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "overrides": {
     "@jackdbd/eleventy-plugin-ensure-env-vars": {
-      "@11ty/eleventy": "3.0.0-alpha.4"
-    },
-    "@jackdbd/eleventy-plugin-plausible": {
       "@11ty/eleventy": "3.0.0-alpha.4"
     },
     "@jackdbd/eleventy-plugin-telegram": {

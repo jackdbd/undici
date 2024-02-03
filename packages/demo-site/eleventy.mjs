@@ -18,8 +18,8 @@ import {
   cloudStorageUploaderClientOptions,
   cloudTextToSpeechClientOptions,
   REPO_ROOT
-} from '../../eleventy-test-utils/lib/index.js'
-import { copyright } from '../src/shortcodes/index.js'
+} from './eleventy-test-utils/index.js'
+import { copyright } from './src/shortcodes/index.js'
 
 export default function (eleventyConfig) {
   // 11ty shortcodes

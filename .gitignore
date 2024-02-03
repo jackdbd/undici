@@ -20,6 +20,9 @@ packages/**/dist/
 packages/**/_site/
 packages/**/tsconfig.tsbuildinfo
 
+# this directory is copied to the demo site to make it available on Cloudflare Pages
+packages/demo-site/eleventy-test-utils/
+
 # default cache directory of @11ty/eleventy-fetch
 packages/**/.cache/
 
