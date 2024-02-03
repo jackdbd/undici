@@ -43,7 +43,15 @@ jobs:
       - name: 📦 Build all libraries
         run: npm run build:libs
 
-      - name: 🔍 Test
+      - name: 🔍 Test all libraries
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2: ${{ secrets.CLOUDFLARE_R2 }}
+          DEBUG: Eleventy:EleventyErrorHandler
+          NODE_ENV: test
+          SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
+          SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
+          TELEGRAM: ${{ secrets.TELEGRAM }}
         run: npm run test:ci
 
       - name: 🚀 Release to npmjs
