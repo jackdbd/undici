@@ -23,6 +23,7 @@
     "build": "eleventy --config eleventy.mjs",
     "clean": "rimraf _site/ .cache/",
     "dev": "eleventy --config eleventy.mjs --serve --port 8090",
+    "deploy": "npx wrangler pages deploy _site --project-name undici",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",

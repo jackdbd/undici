@@ -7,7 +7,7 @@ import { href } from '../schemas/common.js'
 export const write_result_success = z.object({
   error: z.undefined().optional(),
   value: z.object({
-    href: href,
+    href,
     message: z.string().min(1)
   })
 })

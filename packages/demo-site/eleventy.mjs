@@ -126,7 +126,11 @@ export default function (eleventyConfig) {
     'audio'
   )
 
-  const hrefBase = `http://localhost:8090/assets/audio`
+  // https://1a7644b7.undici.pages.dev/assets/audio/69c692a30cf426b8ec5e7aa40e478445.opus
+  // https://undici.pages.dev/assets/audio/69c692a30cf426b8ec5e7aa40e478445.opus
+  // const hrefBase = `http://localhost:8090/assets/audio`
+  // const hrefBase = `/assets/audio` // this fails because of a Zod schema
+  const hrefBase = `https://undici.pages.dev/assets/audio`
 
   const fsClient = defFilesystemClient({ assetBasepath, hrefBase })
 

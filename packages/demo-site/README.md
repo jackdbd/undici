@@ -30,10 +30,13 @@ Watch eleventy-plugin-text-to-speech and the demo site, and serve the demo site:
 npm run dev:site:tts
 ```
 
-Copy the build of [eleventy-test-utils](../eleventy-test-utils/README.md) to `demo site/eleventy-test-utils`, so they are available on Cloudflare Pages:
+## Deploy
+
+Build the demo site and deploy it to Cloudflare Pages using the [wrangler CLI](https://developers.cloudflare.com/workers/wrangler/commands/#pages):
 
 ```sh
-npm run site:copy-utils
+npm run build:site
+npm run deploy:site
 ```
 
 ## Troubleshooting
