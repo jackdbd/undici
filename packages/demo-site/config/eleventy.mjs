@@ -95,7 +95,8 @@ export default function (eleventyConfig) {
     SA_JSON_KEY_STORAGE_UPLOADER: process.env.SA_JSON_KEY_STORAGE_UPLOADER,
     SA_JSON_KEY_TEXT_TO_SPEECH: process.env.SA_JSON_KEY_TEXT_TO_SPEECH,
 
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+    NODE_VERSION: process.env.NODE_VERSION
   })
 
   const ttsOpusEnUS = defGoogleCloudTextToSpeechClient({

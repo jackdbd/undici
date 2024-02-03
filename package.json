@@ -39,6 +39,7 @@
     "dev": "run-p 'dev:libs' 'dev:site' --print-label",
     "dev:libs": "tsc --build --watch",
     "dev:site": "npm run dev -w packages/demo-site",
+    "dev:site:tts": "run-p 'dev:site' 'watch:tts' --print-label",
     "docs:index": "./scripts/docs-index.mjs",
     "docs:packages": "npm run docs --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
@@ -47,10 +48,11 @@
     "release:dry": "multi-semantic-release --no-ci --dry-run --debug --ignore-private --ignore-packages=packages/demo-site",
     "serve:fixtures": "http-server ./fixtures/html --port 8095",
     "serve:docs": "http-server ./docs/ --port 8090",
-    "serve:site": "npm run serve -w packages/demo-site",
+    "serve:site": "http-server ./packages/demo-site/_site/ --port 8080 ",
     "size": "npm run size --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
-    "test:ci": "npm run test:ci --workspaces --if-present"
+    "test:ci": "npm run test:ci --workspaces --if-present",
+    "watch:tts": "npm run build:ts:watch -w packages/eleventy-plugin-text-to-speech"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.0.0-alpha.4",
