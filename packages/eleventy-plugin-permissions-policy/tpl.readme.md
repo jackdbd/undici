@@ -8,6 +8,8 @@
 
 {{pkg.installation}}
 
+{{pkg.peerDependencies}}
+
 ## About
 
 Hosting providers like [Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/headers/) and [Netlify](https://docs.netlify.com/routing/headers/) allow to define custom response headers in a plain text file called `_headers`. This file must be placed in the publish directory of your site (e.g. usually `_site` for a Eleventy site).

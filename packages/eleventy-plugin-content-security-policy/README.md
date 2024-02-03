@@ -20,6 +20,15 @@ Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-
 npm install @jackdbd/eleventy-plugin-content-security-policy
 ```
 
+> :warning: **Peer Dependencies**
+>
+> This package defines 2 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `debug` | `>=4.0.0` |
+
 ## About
 
 Hosting providers like [Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/headers/) and [Netlify](https://docs.netlify.com/routing/headers/) allow to define custom response headers in a plain text file called `_headers`. This file must be placed in the publish directory of your site (e.g. usually `_site` for a Eleventy site).

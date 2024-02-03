@@ -23,23 +23,9 @@ import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech
 // import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech/src/eleventy/plugin.js'
 // import { config as tts_config } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { rule as tts_rule } from '../packages/eleventy-plugin-text-to-speech/lib/schemas/rule.js'
+import { callout } from './ui-components.js'
 
 const debug = makeDebug(`script:readme`)
-
-interface CalloutConfig {
-  // https://github.com/ikatyang/emoji-cheat-sheet
-  emoji: string
-  title: string
-  message: string
-}
-
-const callout = (cfg: CalloutConfig) => {
-  const paragraphs = cfg.message.split('\n\n')
-  const body = paragraphs.map((p) => `> ${p}`).join('\n>\n')
-
-  const lines = [`> ${cfg.emoji} **${cfg.title}**`, '\n', `>`, '\n', body]
-  return lines.join('')
-}
 
 interface ReadmeConfig {
   configuration: string
@@ -137,6 +123,15 @@ const readme = ({
 
       configuration,
 
+      'engines.node': () => {
+        const lines = [
+          `This project is tested on Node.js ${pkg.engines.node}.`,
+          '\n\n',
+          `You can use a Node.js version manager like ${link('nvm', 'https://github.com/nvm-sh/nvm')}, ${link('asdf', 'https://github.com/asdf-vm/asdf')} or ${link('volta', 'https://github.com/volta-cli/volta')} to manage your Node.js versions.`
+        ]
+        return lines.join('')
+      },
+
       'pkg.deps': () => {
         const entries = Object.entries(pkg.dependencies)
 
@@ -198,6 +193,38 @@ const readme = ({
       },
 
       'pkg.name': pkg.name,
+
+      'pkg.peerDependencies': () => {
+        if (pkg.peerDependencies) {
+          const entries = Object.entries(pkg.peerDependencies)
+          const what =
+            entries.length === 1 ? `peer dependency` : `peer dependencies`
+
+          const rows = entries.map(([name, version]) => {
+            const s = (version as any).replaceAll('||', 'or')
+            return `| \`${name}\` | \`${s}\` |`
+          })
+
+          const table = [
+            `| Peer | Version range |`,
+            '|---|---|',
+            rows.join('\n')
+          ].join('\n')
+
+          const strings = [
+            callout({
+              emoji: ':warning:',
+              title: `Peer Dependencies`,
+              message: `This package defines ${entries.length} ${what}.`
+            }),
+            '\n\n',
+            table
+          ]
+          return strings.join('')
+        } else {
+          return ''
+        }
+      },
 
       troubleshooting: ({ user }) => {
         const lines = [
@@ -372,9 +399,6 @@ const main = async ({
   // console.log(`=== ${outdoc} END ===`)
   writeFileSync(join(pkg_root, outdoc), transcluded.src)
 }
-
-// const PACKAGES_ROOT = join(REPO_ROOT, 'packages')
-// const unscoped_pkg_name = process.argv[2]
 
 await main({
   current_year: new Date().getFullYear(),

@@ -8,6 +8,8 @@
 
 {{pkg.installation}}
 
+{{pkg.peerDependencies}}
+
 ## About
 
 Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.

@@ -18,6 +18,19 @@ Generate an audio asset from a text.
 npm install @jackdbd/text-to-audio-asset
 ```
 
+> :warning: **Peer Dependencies**
+>
+> This package defines 6 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `@aws-sdk/client-s3` | `>=3.0.0` |
+| `@aws-sdk/lib-storage` | `>=3.0.0` |
+| `@google-cloud/storage` | `>=7.0.0` |
+| `@google-cloud/text-to-speech` | `>=5.0.0` |
+| `debug` | `>=4.0.0` |
+
 ## Usage
 
 TODO

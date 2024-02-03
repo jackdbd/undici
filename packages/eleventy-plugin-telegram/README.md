@@ -19,6 +19,15 @@ Eleventy plugin that sends Telegram messages when Eleventy starts/finishes build
 npm install @jackdbd/eleventy-plugin-telegram
 ```
 
+> :warning: **Peer Dependencies**
+>
+> This package defines 2 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `debug` | `>=4.0.0` |
+
 ## Usage
 
 In your Eleventy config file:

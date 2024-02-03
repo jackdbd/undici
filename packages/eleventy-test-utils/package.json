@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-test-utils#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {

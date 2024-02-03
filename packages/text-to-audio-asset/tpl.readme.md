@@ -8,6 +8,8 @@
 
 {{pkg.installation}}
 
+{{pkg.peerDependencies}}
+
 ## Usage
 
 TODO

@@ -8,6 +8,8 @@
 
 {{pkg.installation}}
 
+{{pkg.peerDependencies}}
+
 ## About
 
 This plugin retrieves analytics data from the [Plausible API](https://plausible.io/docs/stats-api), caches it, then makes it available using an [Eleventy global data key](https://www.11ty.dev/docs/data-global-custom/) of your choice.

@@ -21,6 +21,15 @@ Eleventy plugin that retrieves analytics from Plausible when building your site.
 npm install @jackdbd/eleventy-plugin-plausible
 ```
 
+> :warning: **Peer Dependencies**
+>
+> This package defines 2 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `debug` | `>=4.0.0` |
+
 ## About
 
 This plugin retrieves analytics data from the [Plausible API](https://plausible.io/docs/stats-api), caches it, then makes it available using an [Eleventy global data key](https://www.11ty.dev/docs/data-global-custom/) of your choice.

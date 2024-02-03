@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-telegram#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {
