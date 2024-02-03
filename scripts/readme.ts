@@ -11,16 +11,20 @@ import {
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
 import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc/lib'
+import makeDebug from 'debug'
 import { config as eev_config } from '../packages/eleventy-plugin-ensure-env-vars/lib/schemas.js'
 import {
   directive as pp_directive,
   options as pp_options
 } from '../packages/eleventy-plugin-permissions-policy/lib/schemas.js'
+import { options as plausible_options } from '../packages/eleventy-plugin-plausible/lib/schemas.js'
 import { options as telegram_options } from '../packages/eleventy-plugin-telegram/lib/schemas.js'
 import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech/lib/eleventy/plugin.js'
 // import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech/src/eleventy/plugin.js'
 // import { config as tts_config } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { rule as tts_rule } from '../packages/eleventy-plugin-text-to-speech/lib/schemas/rule.js'
+
+const debug = makeDebug(`script:readme`)
 
 interface CalloutConfig {
   // https://github.com/ikatyang/emoji-cheat-sheet
@@ -51,7 +55,7 @@ const readme = ({
   project_started_in_year
 }: ReadmeConfig) => {
   const pkg = JSON.parse(readFileSync(join(pkg_root, 'package.json'), 'utf-8'))
-  console.log(`generating README.md for ${pkg.name}`)
+  debug(`generating README.md for ${pkg.name}`)
 
   const [npm_scope, unscoped_pkg_name] = pkg.name.split('/')
   const github_username = npm_scope.replace('@', '') as string
@@ -218,15 +222,19 @@ const readme = ({
 
 interface Config {
   current_year: number
-  pkg_root: string
+  packages_root: string
   project_started_in_year: number
+  unscoped_pkg_name: string
 }
 
 const main = async ({
   current_year,
-  pkg_root,
-  project_started_in_year
+  packages_root,
+  project_started_in_year,
+  unscoped_pkg_name
 }: Config) => {
+  const pkg_root = join(packages_root, unscoped_pkg_name)
+
   const errors: Error[] = []
   const configurations: string[] = [`## Configuration`, '\n\n']
 
@@ -275,7 +283,7 @@ const main = async ({
 
     configurations.push('\n\n')
     configurations.push(list(links))
-    const res_a = markdownTableFromZodSchema(pp_options as any)
+    const res_a = markdownTableFromZodSchema(pp_options)
     if (res_a.error) {
       errors.push(res_a.error)
     } else {
@@ -294,6 +302,15 @@ const main = async ({
       configurations.push(res_b.value)
     }
   } else if (unscoped_pkg_name === 'eleventy-plugin-plausible') {
+    const res = markdownTableFromZodSchema(plausible_options)
+    if (res.error) {
+      errors.push(res.error)
+    } else {
+      configurations.push('\n\n')
+      configurations.push(`### Plugin options`)
+      configurations.push('\n\n')
+      configurations.push(res.value)
+    }
   } else if (unscoped_pkg_name === 'eleventy-plugin-telegram') {
     // This table shows `undefined` for the Telegram chat ID and bot token,
     // which is technically correct, given there isn't a default in this Zod
@@ -357,12 +374,11 @@ const main = async ({
 }
 
 // const PACKAGES_ROOT = join(REPO_ROOT, 'packages')
-const unscoped_pkg_name = process.argv[2]
-const now = new Date()
-const current_year = now.getFullYear()
+// const unscoped_pkg_name = process.argv[2]
 
 await main({
-  current_year,
-  pkg_root: join(REPO_ROOT, 'packages', unscoped_pkg_name),
+  current_year: new Date().getFullYear(),
+  packages_root: join(REPO_ROOT, 'packages'),
+  unscoped_pkg_name: process.argv[2],
   project_started_in_year: 2022
 })

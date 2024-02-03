@@ -1,7 +1,7 @@
 import assert from 'node:assert'
 import { describe, it, before } from 'node:test'
 import { makeEleventy, ELEVENTY_INPUT } from '@jackdbd/eleventy-test-utils'
-import { defaultOptions, options as options_schema } from '../lib/schemas.js'
+import { DEFAULT_OPTIONS } from '../lib/schemas.js'
 import { plausiblePlugin } from '../lib/index.js'
 
 describe('plugin', () => {
@@ -15,8 +15,8 @@ describe('plugin', () => {
     siteId = parsed.site_id
   })
 
-  // TODO: re-enable this test if I have a valid Plausible Analytics account.
-  // I am no longer using Plausible, so I don't have a valid API key
+  // I am no longer using Plausible, so I don't have a valid API key.
+  // Re-enable this test if I have a valid Plausible Analytics account.
   it.skip(
     'adds the expected `eleventy.globalData` as an async function',
     async () => {
@@ -34,7 +34,7 @@ describe('plugin', () => {
         statsBreakdownGlobalDataKey,
         statsBreakdownLimit,
         statsBreakdownMetrics
-      } = defaultOptions
+      } = DEFAULT_OPTIONS
 
       assert.notEqual(
         eleventyConfig.globalData[statsBreakdownGlobalDataKey],

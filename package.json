@@ -29,9 +29,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "run-s 'build:libs' 'build:docs:packages' 'build:docs:index' 'build:site' --print-label",
-    "build:docs:packages": "npm run build:docs --workspaces --if-present",
-    "build:docs:index": "./scripts/docs-index.mjs",
+    "build": "run-s 'build:libs' 'docs:packages' 'docs:index' 'build:site' --print-label",
     "build:libs": "run-s 'build:libs:ts' 'build:libs:js' --print-label",
     "build:libs:ts": "tsc --build --verbose",
     "build:libs:js": "npm run build -w packages/eleventy-plugin-content-security-policy && npm run build -w packages/eleventy-plugin-plausible",
@@ -41,6 +39,8 @@
     "dev": "run-p 'dev:libs' 'dev:site' --print-label",
     "dev:libs": "tsc --build --watch",
     "dev:site": "npm run dev -w packages/demo-site",
+    "docs:index": "./scripts/docs-index.mjs",
+    "docs:packages": "npm run docs --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "ncu:dev": "ncu --dep 'dev,prod' --deep --interactive --upgrade --loglevel info",
     "nuke": "npm run clean && rm -rf node_modules package-lock.json",
@@ -102,6 +102,9 @@
     "pre-push": "npx commitlint --config ./config/commitlint.cjs --to HEAD"
   },
   "overrides": {
+    "@jackdbd/eleventy-plugin-ensure-env-vars": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
     "eleventy-plugin-helmet": {
       "@11ty/eleventy": "3.0.0-alpha.4"
     }

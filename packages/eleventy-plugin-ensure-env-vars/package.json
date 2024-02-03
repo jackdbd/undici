@@ -45,12 +45,12 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' docs:readme --print-label",
+    "build": "run-s 'build:ts' 'docs' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
     "dev": "run-p build:ts:watch test:watch",
+    "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' docs:readme --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-ensure-env-vars",

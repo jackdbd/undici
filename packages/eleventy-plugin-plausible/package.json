@@ -24,13 +24,23 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-plausible#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
     "./schemas": "./lib/schemas.js",
     "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    ">=4.0": {
+      "*": [
+        "./lib/*.d.ts"
+      ]
+    }
   },
   "files": [
     "CHANGELOG.md",
@@ -39,16 +49,20 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:code' 'build:docs' --print-label",
-    "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
-    "build:docs": "run-s 'docs:readme' --print-label",
-    "clean": "rimraf lib/",
-    "dev": "run-p 'build:watch' 'test:watch' --print-label",
+    "build": "run-s 'build:ts' 'docs' --print-label",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p build:ts:watch test:watch",
+    "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-plausible",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
-    "lint": "eslint --config ../../config/eslint-no-typescript.cjs",
+    "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage",
@@ -56,7 +70,8 @@
   },
   "dependencies": {
     "@jackdbd/plausible-client": "^1.0.2",
-    "joi": "^17.12.0"
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",

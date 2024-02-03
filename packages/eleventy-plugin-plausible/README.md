@@ -10,8 +10,7 @@ Eleventy plugin that retrieves analytics from Plausible when building your site.
 - [About](#about)
 - [Usage](#usage)
 - [Configuration](#configuration)
-  - [Required parameters](#required-parameters)
-  - [Options](#options)
+  - [Plugin options](#plugin-options)
 - [Troubleshooting](#troubleshooting)
 - [Dependencies](#dependencies)
 - [License](#license)
@@ -24,11 +23,11 @@ npm install @jackdbd/eleventy-plugin-plausible
 
 ## About
 
-Eleventy plugin that retrieves analytics data from the [Plausible API](https://plausible.io/docs/stats-api), caches it, and makes it available using an [Eleventy global data key](https://www.11ty.dev/docs/data-global-custom/) of your choice.
+This plugin retrieves analytics data from the [Plausible API](https://plausible.io/docs/stats-api), caches it, then makes it available using an [Eleventy global data key](https://www.11ty.dev/docs/data-global-custom/) of your choice.
 
 ## Usage
 
-Configure the plugin with your Plausible API key and site ID, and the options you want.
+Configure this plugin with your Plausible API key and site ID, and then the options for analytics and caching.
 
 ```js
 import { plausiblePlugin } from '@jackdbd/eleventy-plugin-plausible'
@@ -78,24 +77,19 @@ eleventyConfig.on('eleventy.after', async () => {
 
 ## Configuration
 
-### Required parameters
+### Plugin options
 
-| Parameter | Explanation |
-| --- | --- |
-| `apiKey` | Your Plausible account API key. |
-| `siteId` | The domain of your site as configured in Plausible. |
-
-### Options
-
-| Option | Default | Explanation |
-| --- | --- | --- |
-| `cacheDirectory` | `.cache-plausible-json-responses` | Directory where to store JSON responses coming from the Plausible API. |
-| `cacheDuration` | `1d` | How long to cache JSON responses for. See details on the [eleventy-fetch documentation](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration). |
+| Key | Default | Description |
+|---|---|---|
+| `apiKey` | `undefined` | Your Plausible account API key. |
+| `cacheDirectory` | `".cache-plausible-json-responses"` | Directory where to store JSON responses coming from the Plausible API. |
+| `cacheDuration` | `"1d"` | How long to cache JSON responses for. See details on the [eleventy-fetch documentation](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration). |
 | `cacheVerbose` | `false` | Whether to log requested remote URLs to the console. |
-| `statsBreakdownGlobalDataKey` | `plausibleStatsBreakdown` | Key that this plugin should add to the `eleventyConfig.globalData` object. |
+| `statsBreakdownGlobalDataKey` | `"plausibleStatsBreakdown"` | Key that this plugin should add to the `eleventyConfig.globalData` object. |
 | `statsBreakdownLimit` | `10` | Number of results to return from the Plausible `/stats` API endpoint. |
-| `statsBreakdownMetrics` | `visitors` | Comma-separated list of [metrics](https://plausible.io/docs/stats-api#metrics) to return from the Plausible `/stats` API endpoint. See [here](https://plausible.io/docs/metrics-definitions) for all plausible.io metrics and their definitions. |
-| `statsBreakdownPeriod` | `30d` | todo. See [Time periods](https://plausible.io/docs/stats-api#time-periods) on the Plausible API docs for details. |
+| `statsBreakdownMetrics` | `"visitors"` | Comma-separated list of [metrics](https://plausible.io/docs/stats-api#metrics) to return from the Plausible /stats API endpoint. See [here](https://plausible.io/docs/metrics-definitions) for all plausible.io metrics and their definitions. |
+| `statsBreakdownPeriod` | `"30d"` | See [Time periods](https://plausible.io/docs/stats-api#time-periods) on the Plausible API docs for details. |
+| `siteId` | `undefined` | The domain of your site as configured in Plausible. |
 
 ## Troubleshooting
 
@@ -114,7 +108,8 @@ export DEBUG=11ty-plugin:*
 | Package | Version |
 |---|---|
 | [@jackdbd/plausible-client](https://www.npmjs.com/package/@jackdbd/plausible-client) | `^1.0.2` |
-| [joi](https://www.npmjs.com/package/joi) | `^17.12.0` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
 
 ## License
 

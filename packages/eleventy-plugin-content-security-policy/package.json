@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-content-security-policy",
   "version": "2.0.0",
-  "description": "Eleventy plugin that writes a Content-Security-Policy to a `_headers` file.",
+  "description": "Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-Report-Only headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -27,13 +27,26 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-content-security-policy#readme",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./schemas": "./lib/schemas.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
+    "./schemas": {
+      "types": "./lib/schemas.d.ts",
+      "import": "./lib/schemas.js"
+    },
     "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    ">=4.0": {
+      "*": [
+        "./lib/*.d.ts"
+      ]
+    }
   },
   "files": [
     "CHANGELOG.md",
@@ -42,20 +55,23 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:code' 'build:docs' --print-label",
-    "build:code": "rm -rf lib/ && mkdir lib && cp -r src/* lib",
-    "build:docs": "run-s 'docs:readme' --print-label",
-    "clean": "rimraf lib/",
-    "dev": "run-s build:code watch:test --print-label",
+    "build": "run-s 'build:ts' 'docs' --print-label",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
+    "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
+    "docs:ad": "../../scripts/api-documenter.mjs",
+    "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
+    "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
-    "lint": "eslint --config ../../config/eslint-no-typescript.cjs",
+    "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage",
-    "watch:test": "node --test --watch"
+    "test:watch": "node --test --watch"
   },
   "dependencies": {
     "@hapi/hoek": "^11.0.4",

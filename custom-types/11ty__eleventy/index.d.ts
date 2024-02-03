@@ -41,6 +41,8 @@ declare module '@11ty/eleventy' {
 
   type CollectionFn = (collectionApi: CollectionApi) => void
 
+  type DataFn = () => void | Promise<void>
+
   type TransformFn = (
     content: string,
     outputPath: string
@@ -49,10 +51,11 @@ declare module '@11ty/eleventy' {
   export interface EleventyConfig {
     userConfig: any
     verbose: boolean
-    addCollection(collectionName: string, fn: CollectionFn): Promise<void>
-    addPlugin(pluginFn: () => void, pluginOptions: Object): Promise<void>
-    addTransform(transformName: string, fn: TransformFn): Promise<void>
-    on(eventName: EventName, fn: EventHandler): Promise<void>
+    addCollection(collectionName: string, fn: CollectionFn): void
+    addGlobalData(dataKey: string, fn: DataFn): void
+    addPlugin(pluginFn: () => void, pluginOptions: Object): void
+    addTransform(transformName: string, fn: TransformFn): void
+    on(eventName: EventName, fn: EventHandler): void | Promise<void>
   }
 
   interface Options {

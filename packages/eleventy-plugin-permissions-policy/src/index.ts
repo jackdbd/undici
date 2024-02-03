@@ -56,7 +56,7 @@ export const permissionsPolicyPlugin = (
   eleventyConfig.on('eleventy.after', async () => {
     // We have to access the output directory only now, in the `eleventy.after`
     // handler. Otherwise it would be the default `_site` directory from the
-    // Eleventy TemplateConfig instance..
+    // Eleventy TemplateConfig instance.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const outdir = (eleventyConfig as any).dir.output
     const headersFilepath = path.join(outdir, '_headers')

@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-permissions-policy",
   "version": "1.0.1-canary.1",
-  "description": "Eleventy plugin for Permissions-Policy and Feature-Policy headers",
+  "description": "Eleventy plugin that writes Permissions-Policy and Feature-Policy headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -34,7 +34,9 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js"
-    }
+    },
+    "./schemas": "./lib/schemas.js",
+    "./package.json": "./package.json"
   },
   "typesVersions": {
     ">=4.0": {
@@ -50,11 +52,11 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
+    "build": "run-s 'build:ts' 'docs' --print-label",
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:ae": "../../scripts/api-extractor.mjs",
     "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-permissions-policy",

@@ -10,10 +10,16 @@
       "path": "./packages/eleventy-test-utils/tsconfig.json"
     },
     {
+      "path": "./packages/eleventy-plugin-content-security-policy/tsconfig.json"
+    },
+    {
       "path": "./packages/eleventy-plugin-ensure-env-vars/tsconfig.json"
     },
     {
       "path": "./packages/eleventy-plugin-permissions-policy/tsconfig.json"
+    },
+    {
+      "path": "./packages/eleventy-plugin-plausible/tsconfig.json"
     },
     {
       "path": "./packages/eleventy-plugin-telegram/tsconfig.json"

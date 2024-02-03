@@ -2,15 +2,20 @@ import fs from 'node:fs'
 import path from 'node:path'
 import util from 'node:util'
 import makeDebug from 'debug'
+import type { EleventyConfig } from '@11ty/eleventy'
 import { applyToDefaults } from '@hapi/hoek'
 import {
   cspDirectives,
   validationErrorOrWarnings
 } from '@jackdbd/content-security-policy'
-import { DEBUG_PREFIX, ERROR_MESSAGE_PREFIX } from './constants.js'
-import { defaultOptions, makePluginOptions } from './schemas.js'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import { DEFAULT_OPTIONS, makePluginOptions, type Options } from './schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}`)
+// exports for TypeDoc
+export { DEFAULT_OPTIONS } from './schemas.js'
+export type { Options } from './schemas.js'
+
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
 const writeFileAsync = util.promisify(fs.writeFile)
 
@@ -29,8 +34,8 @@ const writeFileAsync = util.promisify(fs.writeFile)
  * https://docs.netlify.com/routing/headers/
  */
 export const contentSecurityPolicyPlugin = (
-  eleventyConfig,
-  providedOptions
+  eleventyConfig: EleventyConfig,
+  providedOptions: Options
 ) => {
   //
   eleventyConfig.on('eleventy.after', async () => {
@@ -41,9 +46,13 @@ export const contentSecurityPolicyPlugin = (
       stripUnknown: true
     })
 
-    const pluginConfig = applyToDefaults(defaultOptions, providedOptions)
+    const pluginConfig = applyToDefaults(
+      DEFAULT_OPTIONS,
+      providedOptions
+    ) as Required<Options>
 
-    const outdir = eleventyConfig.dir.output
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const outdir = (eleventyConfig as any).dir.output
     const headersFilepath = path.join(outdir, '_headers')
 
     const patterns = [
@@ -62,9 +71,7 @@ export const contentSecurityPolicyPlugin = (
         error: result.error
       })
       if (error) {
-        throw new Error(
-          `${ERROR_MESSAGE_PREFIX.invalidConfiguration}: ${error.message}`
-        )
+        throw new Error(`${ERR_PREFIX}: ${error.message}`)
       } else {
         warnings.forEach(console.warn)
       }

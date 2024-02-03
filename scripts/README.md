@@ -7,7 +7,7 @@ Scripts for building, testing, deploying the packages of this monorepo, or for g
 Build the docs for each package:
 
 ```sh
-npm run build:docs --workspaces --if-present
+npm run docs --workspaces --if-present
 ```
 
 Build the index page for the docs:

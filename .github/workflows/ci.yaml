@@ -62,6 +62,11 @@ jobs:
 
       - name: 🔍 Test 11ty-plugin Permissions-Policy
         run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
+      
+      - name: 🔍 Test 11ty-plugin Plausible
+        env:
+          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
+        run: npm run test:ci -w packages/eleventy-plugin-plausible
 
       - name: 🔍 Test 11ty-plugin Telegram
         env:
