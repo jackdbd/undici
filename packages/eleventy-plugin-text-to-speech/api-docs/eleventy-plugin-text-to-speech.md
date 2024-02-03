@@ -4,26 +4,29 @@
 
 ## eleventy-plugin-text-to-speech package
 
-## Interfaces
-
-|  Interface | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-text-to-speech.options.md) |  |
-|  [Rule](./eleventy-plugin-text-to-speech.rule.md) |  |
-
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [audioExtension](./eleventy-plugin-text-to-speech.audioextension.md) |  |
-|  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | <p>The <audio> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). https://stackoverflow.com/questions/36866611/html5-audio-browsers-unable-to-decode-wav-file-encoded-with-ima-adpcm</p><p>Supported media types in various browsers: https://en.wikipedia.org/wiki/HTML5\_audio</p> |
-|  [plugin](./eleventy-plugin-text-to-speech.plugin.md) |  |
+|  [config](./eleventy-plugin-text-to-speech.config.md) | <p>Config of this Eleventy plugin.</p> |
+|  [DEBUG\_PREFIX](./eleventy-plugin-text-to-speech.debug_prefix.md) |  |
+|  [DEFAULT\_COLLECTION\_NAME](./eleventy-plugin-text-to-speech.default_collection_name.md) |  |
+|  [DEFAULT\_TRANSFORM\_NAME](./eleventy-plugin-text-to-speech.default_transform_name.md) |  |
+|  [defaultAudioInnerHTML](./eleventy-plugin-text-to-speech.defaultaudioinnerhtml.md) |  |
+|  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | The <code>&lt;audio&gt;</code> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). |
+|  [textToAudioAsset](./eleventy-plugin-text-to-speech.texttoaudioasset.md) | Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech. |
+|  [textToSpeechPlugin](./eleventy-plugin-text-to-speech.texttospeechplugin.md) | Adds Text-to-Speech functionality to an Eleventy site. |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [AudioEncoding](./eleventy-plugin-text-to-speech.audioencoding.md) |  |
-|  [AudioInnerHTML](./eleventy-plugin-text-to-speech.audioinnerhtml.md) |  |
-|  [CloudStorageHost](./eleventy-plugin-text-to-speech.cloudstoragehost.md) |  |
+|  [Config](./eleventy-plugin-text-to-speech.config.md) | <p>Configuration for this Eleventy plugin.</p> |
+|  [Hosting](./eleventy-plugin-text-to-speech.hosting.md) |  |
+|  [Rule](./eleventy-plugin-text-to-speech.rule.md) | <p>Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.</p> |
+|  [Synthesis](./eleventy-plugin-text-to-speech.synthesis.md) |  |
+|  [Synthesize](./eleventy-plugin-text-to-speech.synthesize.md) |  |
+|  [SynthesizeResult](./eleventy-plugin-text-to-speech.synthesizeresult.md) | Synthesize result. |
+|  [Write](./eleventy-plugin-text-to-speech.write.md) | Write function. |
+|  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) | Write result. |
 

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.36.1",
+    "toolVersion": "7.39.4",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -175,7 +175,7 @@
         {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!ensureEnvVarsPlugin:var",
-          "docComment": "/**\n * @public\n */\n",
+          "docComment": "/**\n * Plugin that checks whether the environment variables you specified are set when Eleventy builds your site.\n *\n * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.\n *\n * @param options - Plugin {@link Options | options}.\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
@@ -188,7 +188,7 @@
             {
               "kind": "Reference",
               "text": "EleventyConfig",
-              "canonicalReference": "@panoply/11ty!EleventyConfig:interface"
+              "canonicalReference": "!\"\\\"@11ty/eleventy\\\"\".EleventyConfig:interface"
             },
             {
               "kind": "Content",
@@ -197,7 +197,7 @@
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!~Options:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!Options:type"
             },
             {
               "kind": "Content",
@@ -211,6 +211,70 @@
           "variableTypeTokenRange": {
             "startIndex": 1,
             "endIndex": 6
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!env_var:var",
+          "docComment": "/**\n * Schema for an environment variable name.\n *\n * @remarks\n *\n * What is the maximum length of an environment variable NAME?\n *\n * @see\n *\n * [What is the maximum length of an environment variable?](https://devblogs.microsoft.com/oldnewthing/20100203-00/?p=15083)\n *\n * @see\n *\n * [What is the maximum size of a Linux environment variable value?](https://stackoverflow.com/questions/1078031/what-is-the-maximum-size-of-a-linux-environment-variable-value)\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "env_var: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            }
+          ],
+          "fileUrlPath": "src/schemas.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "env_var",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 2
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!Options:type",
+          "docComment": "/**\n * Plugin options.\n *\n * @interface\n *\n * @public\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Options = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "options",
+              "canonicalReference": "@jackdbd/eleventy-plugin-ensure-env-vars!~options:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/schemas.ts",
+          "releaseTag": "Public",
+          "name": "Options",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
           }
         }
       ]

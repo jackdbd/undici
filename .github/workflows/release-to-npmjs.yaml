@@ -1,5 +1,9 @@
 name: 'Release to npmjs.com'
 
+# https://github.com/semantic-release/semantic-release/issues/2481#issuecomment-1409780688
+permissions:
+  contents: write
+
 on:
   push:
     branches:
@@ -7,22 +11,21 @@ on:
       - main
 
 jobs:
-  build-audit-release:
-    name: Build & Test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
+  audit-build-test-release:
+    name: Audit, build, test, release all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         # Use the Active LTS for this workflow
-        # https://nodejs.org/en/
-        # https://nodejs.org/en/about/releases/
-        node: ['16.17.0']
+        # https://nodejs.org/en/about/previous-releases
+        node: ['lts/Iron']
     steps:
       - name: 🛎️ Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⚙️ Set up Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
 
@@ -39,6 +42,36 @@ jobs:
 
       - name: 📦 Build all libraries
         run: npm run build:libs
+
+      - name: 🔍 Test 11ty-plugin Content-Security-Policy
+        run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
+
+      - name: 🔍 Test 11ty-plugin Ensure-Env-Vars
+        env:
+          DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
+          NODE_ENV: test
+        run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
+
+      - name: 🔍 Test 11ty-plugin Permissions-Policy
+        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
+      
+      - name: 🔍 Test 11ty-plugin Plausible
+        env:
+          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
+        run: npm run test:ci -w packages/eleventy-plugin-plausible
+
+      - name: 🔍 Test 11ty-plugin Telegram
+        env:
+          TELEGRAM: ${{ secrets.TELEGRAM }}
+        run: npm run test:ci -w packages/eleventy-plugin-telegram
+
+      - name: 🔍 Test 11ty-plugin Text-to-Speech
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2: ${{ secrets.CLOUDFLARE_R2 }}
+          SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
+          SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
+        run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
 
       - name: 🚀 Release to npmjs
         env:

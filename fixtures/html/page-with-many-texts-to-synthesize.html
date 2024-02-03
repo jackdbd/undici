@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="HTML page containing many texts to synthesize (used as a test fixture)">
+    <!-- this is just to have some nice styling -->
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <title>Page with many texts to synthesize</title>  
+  </head>
+  <body>
+    <main>
+      <h1>Page with many texts to synthesize</h1>
+      <p>This page is a test fixture for <a href="https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-text-to-speech" target="_blank">eleventy-plugin-text-to-speech</a>.</p>
+
+      <ul>
+        <li><a href="#english-article">Go to the English article</a></li>
+        <li><a href="#italian-article">Vai all'articolo in Italiano</a></li>
+      </ul>
+
+      <p class="tts">This is some text that <strong>should</strong> be synthesized into speech.</p>
+      <p class="no-tts">This is some text that <strong>should not</strong> be synthesized into speech.</p>
+
+      <h2>Lorem ipsum</h2>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec lobortis quam. Nunc interdum pulvinar odio, quis iaculis nunc aliquam nec. Nulla eleifend consectetur interdum. Phasellus et lacus ipsum. Nam tempor semper enim vitae vehicula. Sed lacinia vestibulum massa. Aliquam porta ultricies arcu convallis elementum. In in aliquet ipsum. Morbi ligula neque, pellentesque in hendrerit consequat, ultricies eu orci. Sed sagittis, libero et semper pellentesque, sapien est finibus purus, non ullamcorper neque nisl vel libero. Nunc commodo molestie congue. Fusce ut tincidunt nisl. Donec auctor felis quis lectus dictum ornare non a nibh. Mauris non nulla vel nisl vestibulum facilisis. Vestibulum vestibulum est sit amet nulla ultricies ultricies. Donec eu enim eu erat tempus gravida quis non velit.
+      </p>
+      
+      <p>
+        Maecenas ut suscipit arcu. Aliquam neque lectus, accumsan non ante quis, mollis pellentesque eros. Duis ligula ex, vulputate sed lacus in, varius venenatis elit. Sed eu pharetra purus. Maecenas nisi erat, volutpat vitae est eget, vulputate pretium nisl. Nam in tellus bibendum, lobortis odio non, pulvinar velit. Vivamus eget lacinia mi, non hendrerit ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+      </p>
+
+      <p>
+        Praesent vestibulum eleifend odio accumsan tristique. Aenean eget tortor nec ipsum finibus tempor non vel odio. Aenean elementum neque vitae luctus posuere. Donec bibendum ut turpis id mollis. In hac habitasse platea dictumst. Nulla tincidunt varius orci et iaculis. Fusce convallis nulla nisl, eget congue massa imperdiet eget. Suspendisse ligula lorem, finibus vel orci sed, fringilla condimentum turpis.
+      </p>
+
+      <p>
+        Pellentesque efficitur sed nisi vitae fermentum. Sed sapien arcu, sollicitudin non consequat in, porttitor at magna. Etiam sed pulvinar quam, et dictum dui. Fusce ac orci ac dui pulvinar pulvinar et eu mi. Proin interdum ante vel elit congue dignissim. Pellentesque in diam metus. Phasellus massa ligula, egestas ac quam nec, porttitor ornare arcu. In eros quam, tempor convallis metus a, egestas congue diam. Suspendisse finibus augue ac orci aliquam elementum. Fusce at diam in erat porta rhoncus. Integer ac orci eu metus vestibulum fringilla sed ultrices mauris.
+      </p>
+
+      <p>
+        Sed nisl eros, porta vel condimentum a, facilisis posuere odio. In hac habitasse platea dictumst. Phasellus suscipit eu ex non aliquam. Integer et dolor a velit pulvinar viverra et vitae mauris. Donec auctor cursus turpis. Etiam lectus erat, mollis vel orci eget, vestibulum feugiat lacus. Duis mollis dapibus maximus. Integer vitae libero elementum, facilisis erat non, efficitur tortor. Donec rutrum tortor vel augue volutpat finibus. Nunc euismod, massa ut egestas condimentum, dolor justo suscipit lorem, nec consequat lacus magna ullamcorper mauris. Donec tristique pellentesque quam vulputate lacinia. Aenean vulputate congue mi quis sagittis. Suspendisse a nisi maximus, lacinia ligula sit amet, gravida justo. Sed eros augue, porta vitae erat a, semper vehicula lectus. Vivamus orci sapien, luctus consectetur bibendum non, lobortis sed sem. Maecenas non accumsan purus.
+      </p>
+      
+      <article id="english-article">
+        <h2>Some article in English</h2>
+
+        <ol>
+          <li><p>This is some text spoken in british english.</p></li>
+          <li><p>This is some text spoken in indian english.</p></li>
+        </ol>
+
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec lobortis quam. Nunc interdum pulvinar odio, quis iaculis nunc aliquam nec. Nulla eleifend consectetur interdum. Phasellus et lacus ipsum. Nam tempor semper enim vitae vehicula. Sed lacinia vestibulum massa. Aliquam porta ultricies arcu convallis elementum. In in aliquet ipsum. Morbi ligula neque, pellentesque in hendrerit consequat, ultricies eu orci. Sed sagittis, libero et semper pellentesque, sapien est finibus purus, non ullamcorper neque nisl vel libero. Nunc commodo molestie congue. Fusce ut tincidunt nisl. Donec auctor felis quis lectus dictum ornare non a nibh. Mauris non nulla vel nisl vestibulum facilisis. Vestibulum vestibulum est sit amet nulla ultricies ultricies. Donec eu enim eu erat tempus gravida quis non velit.
+        </p>
+        
+        <p>
+          Maecenas ut suscipit arcu. Aliquam neque lectus, accumsan non ante quis, mollis pellentesque eros. Duis ligula ex, vulputate sed lacus in, varius venenatis elit. Sed eu pharetra purus. Maecenas nisi erat, volutpat vitae est eget, vulputate pretium nisl. Nam in tellus bibendum, lobortis odio non, pulvinar velit. Vivamus eget lacinia mi, non hendrerit ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+        </p>
+
+        <p>
+          Praesent vestibulum eleifend odio accumsan tristique. Aenean eget tortor nec ipsum finibus tempor non vel odio. Aenean elementum neque vitae luctus posuere. Donec bibendum ut turpis id mollis. In hac habitasse platea dictumst. Nulla tincidunt varius orci et iaculis. Fusce convallis nulla nisl, eget congue massa imperdiet eget. Suspendisse ligula lorem, finibus vel orci sed, fringilla condimentum turpis.
+        </p>
+
+        <p>
+          Pellentesque efficitur sed nisi vitae fermentum. Sed sapien arcu, sollicitudin non consequat in, porttitor at magna. Etiam sed pulvinar quam, et dictum dui. Fusce ac orci ac dui pulvinar pulvinar et eu mi. Proin interdum ante vel elit congue dignissim. Pellentesque in diam metus. Phasellus massa ligula, egestas ac quam nec, porttitor ornare arcu. In eros quam, tempor convallis metus a, egestas congue diam. Suspendisse finibus augue ac orci aliquam elementum. Fusce at diam in erat porta rhoncus. Integer ac orci eu metus vestibulum fringilla sed ultrices mauris.
+        </p>
+
+        <p>
+          Sed nisl eros, porta vel condimentum a, facilisis posuere odio. In hac habitasse platea dictumst. Phasellus suscipit eu ex non aliquam. Integer et dolor a velit pulvinar viverra et vitae mauris. Donec auctor cursus turpis. Etiam lectus erat, mollis vel orci eget, vestibulum feugiat lacus. Duis mollis dapibus maximus. Integer vitae libero elementum, facilisis erat non, efficitur tortor. Donec rutrum tortor vel augue volutpat finibus. Nunc euismod, massa ut egestas condimentum, dolor justo suscipit lorem, nec consequat lacus magna ullamcorper mauris. Donec tristique pellentesque quam vulputate lacinia. Aenean vulputate congue mi quis sagittis. Suspendisse a nisi maximus, lacinia ligula sit amet, gravida justo. Sed eros augue, porta vitae erat a, semper vehicula lectus. Vivamus orci sapien, luctus consectetur bibendum non, lobortis sed sem. Maecenas non accumsan purus.
+        </p>
+      </article>
+
+      <article id="italian-article">
+        <h2 data-language="it">Articolo scritto in Italiano</h2>
+        <p data-language="it">Questo è del testo parlato in italiano.</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec lobortis quam. Nunc interdum pulvinar odio, quis iaculis nunc aliquam nec. Nulla eleifend consectetur interdum. Phasellus et lacus ipsum. Nam tempor semper enim vitae vehicula. Sed lacinia vestibulum massa. Aliquam porta ultricies arcu convallis elementum. In in aliquet ipsum. Morbi ligula neque, pellentesque in hendrerit consequat, ultricies eu orci. Sed sagittis, libero et semper pellentesque, sapien est finibus purus, non ullamcorper neque nisl vel libero. Nunc commodo molestie congue. Fusce ut tincidunt nisl. Donec auctor felis quis lectus dictum ornare non a nibh. Mauris non nulla vel nisl vestibulum facilisis. Vestibulum vestibulum est sit amet nulla ultricies ultricies. Donec eu enim eu erat tempus gravida quis non velit.</p>
+        
+        <p>
+          Maecenas ut suscipit arcu. Aliquam neque lectus, accumsan non ante quis, mollis pellentesque eros. Duis ligula ex, vulputate sed lacus in, varius venenatis elit. Sed eu pharetra purus. Maecenas nisi erat, volutpat vitae est eget, vulputate pretium nisl. Nam in tellus bibendum, lobortis odio non, pulvinar velit. Vivamus eget lacinia mi, non hendrerit ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+        </p>
+      </article>
+    </main>
+  </body>
+</html>

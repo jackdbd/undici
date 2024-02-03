@@ -1,76 +1,94 @@
-import Joi from 'joi'
-import phin from 'phin'
 import makeDebug from 'debug'
-import { PREFIX } from './constants.js'
-import { telegram_chat_id, telegram_token, telegram_text } from './schemas.js'
-import type {
-  SendMessageResponseBody,
-  TelegramAPISendMessageSuccess,
-  TelegramAPISendMessageError
-} from './types.js'
+import { fromZodError } from 'zod-validation-error'
+import {
+  DEBUG_PREFIX,
+  ERROR_MESSAGE_PREFIX,
+  OK_PREFIX,
+  ERR_PREFIX
+} from './constants.js'
+import { send_message_config as schema } from './schemas.js'
+import type { SendMessageConfig } from './schemas.js'
+import type { TelegramAPISendMessageResponseBody } from './types.js'
 
-const debug = makeDebug('eleventy-plugin-telegram/send-message')
+const debug = makeDebug(`${DEBUG_PREFIX}:send-message`)
 
-export interface SendMessageConfig {
-  chatId: number | string
-  token: string
-  text: string
-}
-
-const config_schema = Joi.object().keys({
-  chatId: telegram_chat_id.required(),
-  token: telegram_token.required(),
-  text: telegram_text.required()
-})
-
+/**
+ * @internal
+ */
 export const sendMessage = async (config: SendMessageConfig) => {
-  const result = config_schema.validate(config)
-  if (result.error) {
-    throw new Error(`${result.error.message}`)
+  debug('validating sendMessage config')
+  const result = schema.safeParse(config)
+
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
 
-  const { chatId: chat_id, token, text } = config
+  debug('validated sendMessage config')
 
+  const { chatId: chat_id, token, text } = result.data
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let res: any // how to import the Response type/interface?
   try {
-    const response = await phin<SendMessageResponseBody>({
-      data: {
+    if (process.env.SIMULATE_API_CALL_FAILURE) {
+      throw new Error('SIMULATE_API_CALL_FAILURE')
+    }
+    res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         chat_id,
         disable_notification: true,
         disable_web_page_preview: false,
         parse_mode: 'HTML',
         text
-      },
-      headers: { 'Content-Type': 'application/json' },
-      method: 'POST',
-      parse: 'json',
-      // https://core.telegram.org/bots/api#sendmessage
-      url: `https://api.telegram.org/bot${token}/sendMessage`
+      })
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    const message = `${ERROR_MESSAGE_PREFIX.failedToFetchAPI}: ${err.message}`
+    debug(message)
+    return { delivered: false, message }
+  }
 
-    if (!response.body.ok) {
-      const b = response.body as TelegramAPISendMessageError
+  let body: TelegramAPISendMessageResponseBody
+
+  try {
+    if (process.env.SIMULATE_API_RESPONSE_PARSING_FAILURE) {
+      throw new Error('SIMULATE_API_RESPONSE_PARSING_FAILURE')
+    }
+    body = await res.json()
+
+    if (!body.ok) {
       debug(
         `Telegram message was NOT sent to chat id ${chat_id}. Original Telegram API response: %O`,
-        b
+        body
       )
       return {
         delivered: false,
-        message: `${PREFIX} ${b.description} (error code ${b.error_code})`
+        message: `${ERROR_MESSAGE_PREFIX.telegramAPIDidNotRespondOk}: ${body.description} (error code ${body.error_code})`
       }
     } else {
-      const b = response.body as TelegramAPISendMessageSuccess
       debug(
         `Telegram message delivered to chat id ${chat_id}. Original Telegram API response: %O`,
-        b
+        body
       )
-      const r = b.result
+      const r = body.result
       return {
+        // We assume our message was delivered, but we can't be 100% sure about it.
+        // We called the Telegram API and got an HTTP 200 back. This means that
+        // Telegram sent the message to our chat. But we don't actually know if
+        // Telegram managed to deliver the message.
         delivered: true,
         deliveredAt: new Date(r.date * 1000).toISOString(),
-        message: `${PREFIX} message id ${r.message_id} delivered to chat id ${r.chat.id} (username ${r.chat.username}) by bot ${r.from.first_name}`
+        message: `${OK_PREFIX} message id ${r.message_id} delivered to chat id ${r.chat.id} (username ${r.chat.username}) by bot ${r.from.first_name}`
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (err: any) {
-    debug(`${PREFIX}❌ ${err.message}`)
+    const message = `${ERROR_MESSAGE_PREFIX.failedToParseAPIResponse}: ${err.message}`
+    debug(message)
+    return { delivered: false, message }
   }
 }

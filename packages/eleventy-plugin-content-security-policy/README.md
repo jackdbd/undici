@@ -1,45 +1,46 @@
 # @jackdbd/eleventy-plugin-content-security-policy
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy)
-![Snyk Vulnerabilities for npm package](https://img.shields.io/snyk/vulnerabilities/npm/@jackdbd%2Feleventy-plugin-content-security-policy)
+[![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-content-security-policy)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-content-security-policy)
+[![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-content-security-policy)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-content-security-policy)
 
-Eleventy plugin that writes a Content-Security-Policy to a `_headers` file.
-
-Hosting providers like [Cloudflare Pages](https://developers.cloudflare.com/pages/platform/headers/) and [Netlify](https://docs.netlify.com/routing/headers/) allow to define custom response headers in a plain text file called `_headers`. This file must be placed in the publish directory of your site (e.g. usually _site for a Eleventy site).
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<details><summary>Table of Contents</summary>
+Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-Report-Only headers to a `_headers` file when Eleventy builds your site.
 
 - [Installation](#installation)
+- [About](#about)
 - [Usage](#usage)
 - [Configuration](#configuration)
-  - [Required parameters](#required-parameters)
-  - [Options](#options)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-</details>
+- [Troubleshooting](#troubleshooting)
+- [Dependencies](#dependencies)
+- [License](#license)
 
 ## Installation
 
 ```sh
-npm install --save-dev @jackdbd/eleventy-plugin-content-security-policy
+npm install @jackdbd/eleventy-plugin-content-security-policy
 ```
 
+## About
+
+Hosting providers like [Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/headers/) and [Netlify](https://docs.netlify.com/routing/headers/) allow to define custom response headers in a plain text file called `_headers`. This file must be placed in the publish directory of your site (e.g. usually `_site` for a Eleventy site).
+
+This plugin allows you to define a Content-Security-Policy (CSP) or a Content-Security-Policy-Report-Only header in your Eleventy configuration file, and then it automatically writes those headers into your `_headers` file when you build your site.
 
 ## Usage
 
-```js
-const cspPlugin = require('@jackdbd/eleventy-plugin-content-security-policy')
+In your Eleventy config file:
 
-module.exports = function (eleventyConfig) {
+```js
+import { contentSecurityPolicyPlugin } from '@jackdbd/eleventy-plugin-content-security-policy'
+
+export default function (eleventyConfig) {
   // some other eleventy configuration...
 
   // use the default CSP directives (not recommended)...
-  eleventyConfig.addPlugin(cspPlugin)
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin)
 
   // ...or define your CSP directives
-  eleventyConfig.addPlugin(cspPlugin, {
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
     allowDeprecatedDirectives: true,
     
     directives: {
@@ -78,12 +79,6 @@ module.exports = function (eleventyConfig) {
 
 Refer also to the library [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) for the configuration.
 
-### Required parameters
-
-None.
-
-### Options
-
 | Option | Default | Explanation |
 | --- | --- | --- |
 | `allowDeprecatedDirectives` | `false` | whether [deprecated directives](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy#deprecated_directives) should be allowed or not. |
@@ -94,3 +89,27 @@ None.
 | `includePatterns` | `['/**/**.html']` | Files that match these patterns will be served with the Content-Security-Policy (or Content-Security-Policy-Report-Only) header. |
 | `jsonRecap` | `false` | whether to write a JSON containing the configuration of this plugin. This can useful for troubleshooting the CSP and/or to consume the CSP with some other tool (e.g. send a Telegram message containing the current CSP directives). |
 | `reportOnly` | `false` | whether the policy should be applied to the Content-Security-Policy header, or to the Content-Security-Policy-Report-Only header. |
+
+## Troubleshooting
+
+This plugin uses the [debug](https://github.com/debug-js/debug) library for logging.
+You can control what's logged using the `DEBUG` environment variable.
+
+For example, if you set your environment variables in a `.envrc` file, you can do:
+
+```sh
+# print all logging statements
+export DEBUG=11ty-plugin:*
+```
+
+## Dependencies
+
+| Package | Version |
+|---|---|
+| [@hapi/hoek](https://www.npmjs.com/package/@hapi/hoek) | `^11.0.4` |
+| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `^2.0.0` |
+| [joi](https://www.npmjs.com/package/joi) | `^17.12.0` |
+
+## License
+
+&copy; 2022 - 2024 [Giacomo Debidda](https://www.giacomodebidda.com/) // [MIT License](https://spdx.org/licenses/MIT.html)

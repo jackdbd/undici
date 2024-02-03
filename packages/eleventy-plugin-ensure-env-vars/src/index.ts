@@ -4,41 +4,54 @@
  * @packageDocumentation
  */
 import makeDebug from 'debug'
-import { ensureEnvVars as fn } from './lib.js'
-import { pluginOptions as optionsSchema } from './schemas.js'
+import { fromZodError } from 'zod-validation-error'
+import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
+import { ERROR_MESSAGE_PREFIX, ERR_PREFIX } from './constants.js'
+import { options as schema } from './schemas.js'
 import type { Options } from './schemas.js'
-import type { EleventyConfig } from '@panoply/11ty'
 
-const NAMESPACE = `eleventy-plugin-ensure-env-vars`
+// exports for TypeDoc
+export type { EleventyConfig } from '@11ty/eleventy'
+export { env_var } from './schemas.js'
+export type { Options } from './schemas.js'
 
-const debug = makeDebug(NAMESPACE)
+const debug = makeDebug(`11ty-plugin:ensure-env-vars`)
 
 /**
+ * Plugin that checks whether the environment variables you specified are set
+ * when Eleventy builds your site.
+ *
  * @public
+ * @param eleventyConfig - {@link EleventyConfig | Eleventy configuration}.
+ * @param options - Plugin {@link Options | options}.
  */
 export const ensureEnvVarsPlugin = (
   eleventyConfig: EleventyConfig,
   options?: Options
 ) => {
-  debug(`options %O`, options)
+  debug('plugin options (provided by user) %O', options)
 
-  const { error, value } = optionsSchema.validate(options, {
-    allowUnknown: true,
-    stripUnknown: true
-  })
+  const result = schema.safeParse(options)
 
-  if (error) {
-    throw new Error(`[${NAMESPACE}] ${error.message}`)
+  if (!result.success) {
+    const err = fromZodError(result.error)
+    throw new Error(`${ERR_PREFIX} ${err.toString()}`)
   }
 
-  const config = {} as Required<Options>
-  Object.assign(config, value)
+  debug('plugin config (provided by user + defaults) %O', result.data)
 
-  eleventyConfig.on('eleventy.before', () => {
-    const errors = fn(config.envVars)
-    if (errors.length > 0) {
-      throw new Error(`[${NAMESPACE}] ${errors.join('; ')}`)
-    }
-  })
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const throwIfAnyEnvVarIsMissing = (_args: EventArguments) => {
+    result.data.envVars.forEach((k) => {
+      if (process.env[k] === undefined) {
+        throw new Error(
+          `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: environment variable ${k} not set`
+        )
+      }
+    })
+    debug(`validated execution environment`)
+  }
+
+  eleventyConfig.on('eleventy.before', throwIfAnyEnvVarIsMissing)
   debug('attached `eleventy.before` event handler')
 }

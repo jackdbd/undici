@@ -1,5 +1,7 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-permissions-policy [1.0.1-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-permissions-policy@1.0.0...@jackdbd/eleventy-plugin-permissions-policy@1.0.1-canary.1) (2024-01-29)
+
 ## @jackdbd/eleventy-plugin-permissions-policy 1.0.0 (2023-07-11)
 
 

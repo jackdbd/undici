@@ -1,7 +1,7 @@
 {
   "name": "@jackdbd/eleventy-plugin-permissions-policy",
-  "version": "1.0.0",
-  "description": "Eleventy plugin for Permissions-Policy and Feature-Policy headers",
+  "version": "1.0.1-canary.1",
+  "description": "Eleventy plugin that writes Permissions-Policy and Feature-Policy headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
     "email": "giacomo@giacomodebidda.com",
@@ -27,17 +27,19 @@
   },
   "homepage": "https://github.com/jackdbd/undici/tree/main/packages/eleventy-plugin-permissions-policy#readme",
   "engines": {
-    "node": ">=14.20.0"
+    "node": ">=18"
   },
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "type": "module",
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
     "./schemas": "./lib/schemas.js",
     "./package.json": "./package.json"
   },
   "typesVersions": {
-    "*": {
+    ">=4.0": {
       "*": [
         "./lib/*.d.ts"
       ]
@@ -50,29 +52,33 @@
     "lib"
   ],
   "scripts": {
-    "build": "run-s 'build:ts' 'build:docs' --print-label",
-    "build:docs": "run-s 'docs:doctoc' 'docs:ae' 'docs:ad' 'docs:typedoc' --print-label",
+    "build": "run-s 'build:ts' 'docs' --print-label",
     "build:ts": "tsc -p tsconfig.json",
+    "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
-    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'docs:readme' --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
-    "docs:doctoc": "doctoc --github README.md --title '<details><summary>Table of Contents</summary>'",
+    "docs:ae": "../../scripts/api-extractor.mjs",
+    "docs:readme": "tsm ../../scripts/readme.ts eleventy-plugin-permissions-policy",
     "docs:typedoc": "../../scripts/typedoc.mjs",
     "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "../../scripts/test.mjs",
-    "test:ci": "../../scripts/test.mjs --ci",
-    "test:watch": "npm run test -- --watch"
+    "test": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage",
+    "test:watch": "node --test --watch"
   },
   "dependencies": {
-    "joi": "^17.6.0"
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=1.0.0",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
     "debug": ">=4.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@jackdbd/eleventy-test-utils": "*"
+  }
 }

@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-telegram [2.0.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.2-canary.1...@jackdbd/eleventy-plugin-telegram@2.0.0-canary.1) (2024-01-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-telegram:** change the environment variable used for the Telegram
+bot token
+
+### Features
+
+* **eleventy-plugin-telegram:** change env var ([ae3fb0c](https://github.com/jackdbd/undici/commit/ae3fb0c723caf041eff915d638a1b625a780bb85))
+
+## @jackdbd/eleventy-plugin-telegram [1.1.2-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.1...@jackdbd/eleventy-plugin-telegram@1.1.2-canary.1) (2024-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* **eleventy-plugin-text-to-speech:** removed a lot of options and move some of them in each
+rule.
+
+* **eleventy-plugin-text-to-speech:** big changes ([1191784](https://github.com/jackdbd/undici/commit/1191784bf8742f83d0cec6c289fe62df1fbcff9f))
+
+
+### Bug Fixes
+
+* **eleventy-plugin-telegram:** replace joi with zod ([b68ba32](https://github.com/jackdbd/undici/commit/b68ba329891a459705b1fbcbf8a979483a7d0ab1))
+
 ## @jackdbd/eleventy-plugin-telegram [1.1.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-telegram@1.1.0...@jackdbd/eleventy-plugin-telegram@1.1.1) (2022-09-14)
 
 

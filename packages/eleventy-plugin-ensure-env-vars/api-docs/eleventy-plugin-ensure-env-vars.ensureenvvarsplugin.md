@@ -4,6 +4,7 @@
 
 ## ensureEnvVarsPlugin variable
 
+Plugin that checks whether the environment variables you specified are set when Eleventy builds your site.
 
 **Signature:**
 

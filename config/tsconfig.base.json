@@ -28,16 +28,15 @@
     "isolatedModules": true,
 
     // https://www.typescriptlang.org/tsconfig#lib
-    // Check Node.js ES2020 Support and Node.js ES2021 Support here:
+    // Check Node.js support here:
     // https://node.green/
-    "lib": ["ES2020"],
+    "lib": ["ESNext"],
 
-    // All of the libraries of this monorepo are compiled for CJS (no ESM).
     // https://www.typescriptlang.org/tsconfig#module
-    "module": "CommonJS",
+    "module": "NodeNext",
 
     // https://www.typescriptlang.org/docs/handbook/module-resolution.html
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
 
     // https://www.typescriptlang.org/tsconfig#noImplicitAny
     "noImplicitAny": true,
@@ -49,8 +48,7 @@
     "noUnusedParameters": true,
 
     // paths are resolved relative to baseUrl
-    // I am not sure if I really need these path mappings. I do need the path
-    // mapping in my Jest config, but these ones?
+    // I am not sure if I really need these path mappings.
     // https://www.typescriptlang.org/tsconfig/#paths
     "paths": {
       "@jackdbd/*": [
@@ -88,7 +86,7 @@
     // just set target for convenience.
     // https://www.typescriptlang.org/tsconfig#target
     // https://node.green/
-    "target": "es2020",
+    "target": "ES2020",
 
     // https://www.typescriptlang.org/tsconfig#typeRoots
     "typeRoots": ["../node_modules/@types", "../custom-types"]

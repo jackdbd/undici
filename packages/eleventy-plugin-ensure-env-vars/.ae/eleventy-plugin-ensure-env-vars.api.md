@@ -4,12 +4,25 @@
 
 ```ts
 
-import type { EleventyConfig } from '@panoply/11ty';
+/// <reference types="11ty__eleventy" />
 
-// Warning: (ae-forgotten-export) The symbol "Options" needs to be exported by the entry point index.d.ts
+import { EleventyConfig } from '@11ty/eleventy';
+import { z } from 'zod';
+
+export { EleventyConfig }
+
+// Warning: (ae-unresolved-link) The @link reference could not be resolved: This type of declaration is not supported yet by the resolver
 //
-// @public (undocumented)
+// @public
 export const ensureEnvVarsPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
+
+// @public
+export const env_var: z.ZodString;
+
+// Warning: (ae-forgotten-export) The symbol "options" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type Options = z.infer<typeof options>;
 
 // (No @packageDocumentation comment for this package)
 

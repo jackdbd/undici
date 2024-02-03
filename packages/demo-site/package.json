@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/demo-site",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "11ty site test and showcase the usage of several 11ty plugins",
   "author": {
     "name": "Giacomo Debidda",
@@ -16,27 +16,39 @@
     "url": "https://github.com/jackdbd/undici"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18"
   },
+  "type": "module",
   "scripts": {
-    "build": "eleventy --config config/eleventy.cjs",
-    "build:watch": "npm run build -- --watch",
+    "build": "eleventy --config eleventy.mjs",
     "clean": "rimraf _site/ .cache/",
+    "dev": "eleventy --config eleventy.mjs --serve --port 8090",
+    "format": "../../scripts/format.mjs",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
-    "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
-    "serve": "http-server ./_site/ --port 8090",
+    "precommit": "lint-staged --config ../../config/lint-staged.cjs",
     "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
   },
   "dependencies": {
-    "@11ty/eleventy": "^1.0.1",
-    "@11ty/eleventy-navigation": "^0.3.3",
-    "@jackdbd/eleventy-plugin-ensure-env-vars": "^1.0.0",
-    "@jackdbd/eleventy-plugin-plausible": "^1.0.0",
-    "@jackdbd/eleventy-plugin-telegram": "^1.0.0",
-    "@jackdbd/eleventy-plugin-text-to-speech": "^2.0.1",
+    "@11ty/eleventy": "3.0.0-alpha.4",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@jackdbd/eleventy-plugin-ensure-env-vars": "1.0.1-canary.1",
+    "@jackdbd/eleventy-plugin-telegram": "2.0.0-canary.1",
+    "@jackdbd/eleventy-plugin-text-to-speech": "3.0.0-canary.3",
     "eleventy-plugin-helmet": "^0.2.2"
   },
-  "peerDependencies": {},
-  "devDependencies": {}
+  "overrides": {
+    "@jackdbd/eleventy-plugin-ensure-env-vars": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "@jackdbd/eleventy-plugin-telegram": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "@jackdbd/eleventy-plugin-text-to-speech": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    },
+    "eleventy-plugin-helmet": {
+      "@11ty/eleventy": "3.0.0-alpha.4"
+    }
+  }
 }

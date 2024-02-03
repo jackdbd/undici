@@ -2,20 +2,13 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-telegram](./eleventy-plugin-telegram.md) &gt; [Options](./eleventy-plugin-telegram.options.md)
 
-## Options interface
+## Options type
+
+Plugin options.
+
 
 **Signature:**
 
 ```typescript
-export interface Options 
+export type Options = z.infer<typeof options>;
 ```
-
-## Properties
-
-|  Property | Modifiers | Type | Description |
-|  --- | --- | --- | --- |
-|  [chatId](./eleventy-plugin-telegram.options.chatid.md) |  | number \| string |  |
-|  [textAfterBuild](./eleventy-plugin-telegram.options.textafterbuild.md) |  | string |  |
-|  [textBeforeBuild](./eleventy-plugin-telegram.options.textbeforebuild.md) |  | string |  |
-|  [token](./eleventy-plugin-telegram.options.token.md) |  | string |  |
-

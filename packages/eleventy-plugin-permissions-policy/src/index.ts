@@ -1,82 +1,75 @@
-/**
- * Entry point for the documentation of eleventy-plugin-permissions-policy.
- *
- * @packageDocumentation
- */
 import fs from 'node:fs'
 import path from 'node:path'
 import util from 'node:util'
 import makeDebug from 'debug'
-import { options as optionsSchema } from './schemas.js'
-import type { Options } from './schemas.js'
-export type { Directive, Options } from './schemas.js'
-import type { EleventyConfig } from '@panoply/11ty'
+import type { EleventyConfig } from '@11ty/eleventy'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import { validationError } from './errors.js'
+import { DEFAULT_OPTIONS, Options, options as schema } from './schemas.js'
 import {
+  appendToHeadersFile,
   featurePolicyDirectiveMapper,
   permissionsPolicyDirectiveMapper
 } from './utils.js'
 
-const NAMESPACE = `eleventy-plugin-permissions-policy`
+// exports for TypeDoc
+export { DEFAULT_OPTIONS, directive, feature, options } from './schemas.js'
+export type { Directive, Options } from './schemas.js'
 
-const debug = makeDebug(NAMESPACE)
+const debug = makeDebug(`${DEBUG_PREFIX}:index`)
 
 const writeFileAsync = util.promisify(fs.writeFile)
 
-export const appendToHeadersFile = (
-  headerKey: string,
-  headerValue: string,
-  headersFilepath: string,
-  patterns: string[]
-) => {
-  patterns.forEach((pattern) => {
-    debug(`add ${headerKey} header for resources matching ${pattern}`)
-    fs.appendFileSync(
-      headersFilepath,
-      `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
-    )
-  })
-}
-
 /**
  * Plugin configuration function.
- *
- * @public
  */
 export const permissionsPolicyPlugin = (
   eleventyConfig: EleventyConfig,
-  options?: Options
+  options: Options
 ) => {
-  debug(`options %O`, options)
+  debug('plugin options (provided by the user) %O', options)
 
-  const { error, value: pluginConfig } = optionsSchema.validate(options, {
-    allowUnknown: true,
-    stripUnknown: true
-  })
+  const result = schema.default(DEFAULT_OPTIONS).safeParse(options)
 
-  if (error) {
-    throw new Error(`[${NAMESPACE}] ${error.message}`)
+  if (!result.success) {
+    const err = validationError(result.error)
+    console.error(`${ERR_PREFIX} ${err.message}`)
+    throw err
   }
 
-  const outdir = (eleventyConfig as any).dir.output as string
-  const headersFilepath = path.join(outdir, '_headers')
+  const config = result.data
+  debug('plugin config (provided by the user + defaults) %O', config)
+
+  const {
+    directives,
+    excludePatterns,
+    includeFeaturePolicy,
+    includePatterns,
+    jsonRecap
+  } = config
 
   const patterns = [
-    ...pluginConfig.includePatterns,
-    ...pluginConfig.excludePatterns.map((pattern) => `!${pattern}`)
+    ...includePatterns,
+    ...excludePatterns.map((pattern) => `!${pattern}`)
   ]
 
-  const directives = (pluginConfig as Required<Options>).directives
-
   eleventyConfig.on('eleventy.after', async () => {
+    // We have to access the output directory only now, in the `eleventy.after`
+    // handler. Otherwise it would be the default `_site` directory from the
+    // Eleventy TemplateConfig instance.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const outdir = (eleventyConfig as any).dir.output
+    const headersFilepath = path.join(outdir, '_headers')
+
     if (!fs.existsSync(headersFilepath)) {
       await writeFileAsync(headersFilepath, '', { encoding: 'utf8' })
       debug(`${headersFilepath} did not exist, so it was created`)
     }
 
-    if (pluginConfig.jsonRecap) {
+    if (jsonRecap) {
       await writeFileAsync(
-        path.join(outdir, `${NAMESPACE}-config.json`),
-        JSON.stringify(pluginConfig, null, 2)
+        path.join(outdir, `eleventy-plugin-permissions-policy-config.json`),
+        JSON.stringify(config, null, 2)
       )
     }
 
@@ -92,7 +85,7 @@ export const permissionsPolicyPlugin = (
         patterns
       )
 
-      if (pluginConfig.includeFeaturePolicy) {
+      if (includeFeaturePolicy) {
         const headerValue = directives
           .map(featurePolicyDirectiveMapper)
           .join('; ')

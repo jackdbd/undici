@@ -4,17 +4,20 @@
 
 ## eleventy-plugin-permissions-policy package
 
-## Interfaces
-
-|  Interface | Description |
-|  --- | --- |
-|  [Directive](./eleventy-plugin-permissions-policy.directive.md) |  |
-|  [Options](./eleventy-plugin-permissions-policy.options.md) |  |
-
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
-|  [appendToHeadersFile](./eleventy-plugin-permissions-policy.appendtoheadersfile.md) |  |
+|  [DEFAULT\_OPTIONS](./eleventy-plugin-permissions-policy.default_options.md) | Default options for the plugin. |
+|  [directive](./eleventy-plugin-permissions-policy.directive.md) |  |
+|  [feature](./eleventy-plugin-permissions-policy.feature.md) | Directive available in the Permissions-Policy header. |
+|  [options](./eleventy-plugin-permissions-policy.options.md) | Zod schema for the options of this Eleventy plugin. |
 |  [permissionsPolicyPlugin](./eleventy-plugin-permissions-policy.permissionspolicyplugin.md) | Plugin configuration function. |
+
+## Type Aliases
+
+|  Type Alias | Description |
+|  --- | --- |
+|  [Directive](./eleventy-plugin-permissions-policy.directive.md) |  |
+|  [Options](./eleventy-plugin-permissions-policy.options.md) | Options for this Eleventy plugin. |
 

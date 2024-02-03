@@ -5,8 +5,14 @@
 secrets/*
 !secrets/README.md
 
+#Clojure formatter (it's the Calva VS Code extension that creates it)
+.clj-kondo/
+# language server protocol
+.lsp/
+
 # test coverage
-**/coverage/
+**/coverage/*
+!**/coverage/README.md
 
 # Typescript compilation output files for libraries and applications
 packages/**/lib/
@@ -14,9 +20,17 @@ packages/**/dist/
 packages/**/_site/
 packages/**/tsconfig.tsbuildinfo
 
+# this directory is copied to the demo site to make it available on Cloudflare Pages
+packages/demo-site/eleventy-test-utils/
+
 # default cache directory of @11ty/eleventy-fetch
 packages/**/.cache/
 
 # default cache directory of @jackdbd/eleventy-plugin-plausible
 packages/eleventy-plugin-plausible/.cache-plausible-json-responses/
 packages/demo-site/.cache-plausible-json-responses/
+
+# Clojure formatter
+.clj-kondo/
+# Language Server Protocol
+.lsp/

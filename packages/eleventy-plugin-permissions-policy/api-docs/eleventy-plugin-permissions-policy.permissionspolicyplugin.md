@@ -9,5 +9,5 @@ Plugin configuration function.
 **Signature:**
 
 ```typescript
-permissionsPolicyPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
+permissionsPolicyPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
 ```

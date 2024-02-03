@@ -9,10 +9,12 @@ const config = {
     'plugin:prettier/recommended'
   ],
   env: {
+    es6: true,
     node: true
   },
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: 'latest',
+    sourceType: 'module'
   },
   plugins: ['prettier'],
   rules: {
@@ -20,6 +22,6 @@ const config = {
   }
 }
 
-// console.log('=== ESLint config ===', config)
+// console.log('=== ESLint no-typescript config ===', config)
 
 module.exports = config
