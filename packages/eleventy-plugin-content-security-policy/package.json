@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-content-security-policy",
-  "version": "2.1.0-canary.1",
+  "version": "2.1.0",
   "description": "Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-Report-Only headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
