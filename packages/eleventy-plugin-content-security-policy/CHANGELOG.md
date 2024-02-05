@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [2.1.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@2.0.0...@jackdbd/eleventy-plugin-content-security-policy@2.1.0-canary.1) (2024-02-05)
+
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** migrate to zod ([70dce01](https://github.com/jackdbd/undici/commit/70dce01715f36a4070d491444f50e3ccdb70fad1))
+
 ## @jackdbd/eleventy-plugin-content-security-policy [2.0.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@1.0.0...@jackdbd/eleventy-plugin-content-security-policy@2.0.0) (2023-07-11)
 
 
