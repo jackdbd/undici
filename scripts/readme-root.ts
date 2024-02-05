@@ -12,11 +12,11 @@ import {
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
 import { overridesCallout } from './ui-components.js'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 
 export const __filename = fileURLToPath(import.meta.url)
 const SCRIPT_NAME = basename(__filename)
-const debug = makeDebug(`script:${SCRIPT_NAME}`)
+const debug = defDebug(`script:${SCRIPT_NAME}`)
 
 // parsed package.json
 type PackageJson = any

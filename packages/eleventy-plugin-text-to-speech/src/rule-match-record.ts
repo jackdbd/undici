@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
 import { css_selector, xpath_expression } from '@jackdbd/zod-schemas/dom'
@@ -11,7 +11,7 @@ import {
 import { text_to_synthesize } from './synthesis/schemas.js'
 import { validatedResult } from './validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:rule-match-record`)
+const debug = defDebug(`${DEBUG_PREFIX}:rule-match-record`)
 
 export const match_object = z.object({
   /**

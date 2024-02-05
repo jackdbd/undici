@@ -59,6 +59,7 @@
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p build:ts:watch test:watch",
     "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'readme' --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:ae": "../../scripts/api-extractor.mjs",
@@ -70,13 +71,13 @@
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
     "test:watch": "node --test --watch"
   },
   "dependencies": {
-    "@hapi/hoek": "^11.0.4",
-    "@jackdbd/content-security-policy": "^2.0.0",
-    "joi": "^17.12.0"
+    "@jackdbd/content-security-policy": "2.1.1",
+    "zod": "^3.22.4",
+    "zod-validation-error": "^3.0.0"
   },
   "peerDependencies": {
     "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",

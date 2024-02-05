@@ -61,7 +61,7 @@
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-ensure-env-vars",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
     "test:watch": "node --test --watch"
   },
   "dependencies": {

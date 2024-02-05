@@ -115,9 +115,9 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [@hapi/hoek](https://www.npmjs.com/package/@hapi/hoek) | `^11.0.4` |
-| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `^2.0.0` |
-| [joi](https://www.npmjs.com/package/joi) | `^17.12.0` |
+| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `2.1.1` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
 
 ## License
 

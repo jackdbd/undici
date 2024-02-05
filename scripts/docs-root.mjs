@@ -1,6 +1,6 @@
 #!/usr/bin/env zx
 
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { image, link } from '@thi.ng/transclude'
 // import fs from 'node:fs'
 // import { fs, path } from 'zx'
@@ -14,7 +14,7 @@ throwIfNotInvokedFromMonorepoRoot(process.env.PWD)
 
 const REPO_ROOT = process.env.PWD
 const SCRIPT_NAME = path.basename(__filename)
-const debug = makeDebug(`script:${SCRIPT_NAME}`)
+const debug = defDebug(`script:${SCRIPT_NAME}`)
 
 // TODO: add a Jekyll theme?
 // https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/adding-a-theme-to-your-github-pages-site-using-jekyll

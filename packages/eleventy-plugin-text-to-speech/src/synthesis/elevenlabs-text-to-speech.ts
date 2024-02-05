@@ -1,12 +1,12 @@
 import { Readable } from 'node:stream'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { elevenlabs } from '@jackdbd/zod-schemas'
 import { DEBUG_PREFIX } from '../constants.js'
 import { mediaType } from '../media-type.js'
 import { validatedDataOrThrow } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:elevenlabs-text-to-speech`)
+const debug = defDebug(`${DEBUG_PREFIX}:elevenlabs-text-to-speech`)
 
 export const audioExtension = (outputFormat: elevenlabs.OutputFormat) => {
   switch (outputFormat) {

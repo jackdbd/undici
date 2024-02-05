@@ -8,20 +8,19 @@ on:
       - main
 
 jobs:
-  audit-build-test:
+  linux-audit-build-test:
     name: Audit, build, test all packages on ${{ matrix.os }}, Node ${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest]
         # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-        # os: [ubuntu-latest, macos-latest, windows-latest]
         # Test all packages with:
         # 1. Maintenance LTS
         # 2. Active LTS
         # 3. Current (i.e. the latest Node.js version available)
         # https://nodejs.org/en/about/previous-releases
-        node: [ lts/Iron]
+        node: [lts/Iron]
         # node: [lts/Hydrogen, lts/Iron, current]
         # https://www.npmjs.com/package/@11ty/eleventy?activeTab=versions
         eleventy: ['3.0.0-alpha.4']
@@ -54,6 +53,19 @@ jobs:
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
 
+      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-content-security-policy)
+        if: runner.os == 'Linux'
+        # if: matrix.os == 'ubuntu-latest'
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          fail_ci_if_error: false
+          files: ./packages/eleventy-plugin-content-security-policy/lcov.info
+          flags: eleventy-plugin-content-security-policy
+          # verbose: true
+
       - name: 🔍 Test 11ty-plugin Ensure-Env-Vars
         env:
           DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
@@ -62,6 +74,15 @@ jobs:
 
       - name: 🔍 Test 11ty-plugin Permissions-Policy
         run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
+      
+      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-permissions-policy)
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          fail_ci_if_error: false
+          files: ./packages/eleventy-plugin-permissions-policy/lcov.info
+          flags: eleventy-plugin-permissions-policy
       
       - name: 🔍 Test 11ty-plugin Plausible
         env:
@@ -73,6 +94,15 @@ jobs:
           TELEGRAM: ${{ secrets.TELEGRAM }}
         run: npm run test:ci -w packages/eleventy-plugin-telegram
 
+      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-telegram)
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          fail_ci_if_error: false
+          files: ./packages/eleventy-plugin-telegram/lcov.info
+          flags: eleventy-plugin-telegram
+
       - name: 🔍 Test 11ty-plugin Text-to-Speech
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -81,16 +111,93 @@ jobs:
           SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
         run: npm run test:ci -w packages/eleventy-plugin-text-to-speech
 
-      - name: ⬆️ Upload test coverage to Codecov
-        if: runner.os == 'Linux'
-        # if: matrix.os == 'ubuntu-latest'
-        # https://github.com/marketplace/actions/codecov
+      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-text-to-speech)
         uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-          # fail_ci_if_error: false
-          fail_ci_if_error: true
-          files: ./packages/eleventy-plugin-text-to-speech/coverage/lcov.info
-          flags: plugin,eleventy-plugin-text-to-speech
-          verbose: true
+          fail_ci_if_error: false
+          files: ./packages/eleventy-plugin-text-to-speech/lcov.info
+          flags: eleventy-plugin-text-to-speech
+
+  macos-build-test:
+    name: Build & test on ${{ matrix.os }}, Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        os: [macos-latest]
+        node: [lts/Iron]
+        eleventy: ['3.0.0-alpha.4']
+    steps:
+      - name: 🛎️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Set up Node.js ${{ matrix.node }}
+        # https://github.com/marketplace/actions/setup-node-js-environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: ⬇️ Install dependencies
+        run: npm ci
+      
+      - name: ⬇️ Install Eleventy ${{ matrix.eleventy }}
+        run: npm install @11ty/eleventy@${{ matrix.eleventy }}
+      
+      - name: 📦 Build npm packages
+        run: npm run build:libs
+      
+      - name: 🔍 Test
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2: ${{ secrets.CLOUDFLARE_R2 }}
+          DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
+          NODE_ENV: test
+          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
+          SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
+          SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
+          TELEGRAM: ${{ secrets.TELEGRAM }}
+        run: npm run test
+        
+  windows-build-test:
+    name: Build & test on ${{ matrix.os }}, Node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        os: [windows-latest]
+        node: [lts/Iron]
+        eleventy: ['3.0.0-alpha.4']
+    steps:
+      - name: 🛎️ Checkout repo
+        uses: actions/checkout@v4
+      
+      - name: ⚙️ Set up Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      
+      - name: ⬇️ Install dependencies
+        run: npm ci
+      
+      - name: ⬇️ Install Eleventy ${{ matrix.eleventy }}
+        run: npm install @11ty/eleventy@${{ matrix.eleventy }}
+      
+      - name: 📦 Build npm packages
+        run: npm run build:libs
+      
+      - name: 🔍 Test
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_R2: ${{ secrets.CLOUDFLARE_R2 }}
+          DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
+          NODE_ENV: test
+          PLAUSIBLE: ${{ secrets.PLAUSIBLE }}
+          SA_JSON_KEY_STORAGE_UPLOADER: ${{ secrets.SA_JSON_KEY_STORAGE_UPLOADER }}
+          SA_JSON_KEY_TEXT_TO_SPEECH: ${{ secrets.SA_JSON_KEY_TEXT_TO_SPEECH }}
+          TELEGRAM: ${{ secrets.TELEGRAM }}
+        run: npm run test
+        

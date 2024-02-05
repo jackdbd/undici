@@ -9,5 +9,14 @@ Default options for the plugin.
 **Signature:**
 
 ```typescript
-DEFAULT_OPTIONS: Options
+DEFAULT_OPTIONS: {
+    allowDeprecatedDirectives: boolean;
+    directives: any;
+    globPatterns: string[];
+    globPatternsDetach: never[];
+    excludePatterns: never[];
+    includePatterns: string[];
+    jsonRecap: boolean;
+    reportOnly: boolean;
+}
 ```

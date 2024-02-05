@@ -3,7 +3,7 @@
  *
  * @packageDocumentation
  */
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { fromZodError } from 'zod-validation-error'
 import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
 import { ERROR_MESSAGE_PREFIX, ERR_PREFIX } from './constants.js'
@@ -15,7 +15,7 @@ export type { EleventyConfig } from '@11ty/eleventy'
 export { env_var } from './schemas.js'
 export type { Options } from './schemas.js'
 
-const debug = makeDebug(`11ty-plugin:ensure-env-vars`)
+const debug = defDebug(`11ty-plugin:ensure-env-vars`)
 
 /**
  * Plugin that checks whether the environment variables you specified are set

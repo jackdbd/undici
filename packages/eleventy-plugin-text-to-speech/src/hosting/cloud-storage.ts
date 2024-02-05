@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { Storage } from '@google-cloud/storage'
 import { cloud_storage, iam } from '@jackdbd/zod-schemas/gcp'
@@ -8,7 +8,7 @@ import { DEBUG_PREFIX } from '../constants.js'
 import type { WriteResult } from './schemas.js'
 import { validatedDataOrThrow, validatedResult } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:cloud-storage`)
+const debug = defDebug(`${DEBUG_PREFIX}:cloud-storage`)
 
 export const bucket_config = z.object({
   /**

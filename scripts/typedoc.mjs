@@ -1,13 +1,13 @@
 #!/usr/bin/env zx
 
-import { debuglog } from 'node:util'
+import defDebug from 'debug'
 // import 'zx/globals'
 import {
   throwIfInvokedFromMonorepoRoot,
   unscopedPackageName
 } from './utils.mjs'
 
-const debug = debuglog('script:typedoc')
+const debug = defDebug('script:typedoc')
 
 // Usage (from a package root):
 // ../../scripts/typedoc.mjs

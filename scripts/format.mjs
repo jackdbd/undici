@@ -1,9 +1,9 @@
 #!/usr/bin/env zx
 
-import { debuglog } from 'node:util'
+import defDebug from 'debug'
 import { throwIfInvokedFromMonorepoRoot } from './utils.mjs'
 
-const debug = debuglog('script:format')
+const debug = defDebug('script:format')
 
 // Usage (from a package root):
 // ../../scripts/format.mjs

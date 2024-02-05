@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { fromZodError } from 'zod-validation-error'
 import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
@@ -11,7 +11,7 @@ export type { EleventyConfig } from '@11ty/eleventy'
 export type { Options } from './schemas.js'
 // export { telegram_text } from './schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+const debug = defDebug(`${DEBUG_PREFIX}:index`)
 
 /**
  * @internal

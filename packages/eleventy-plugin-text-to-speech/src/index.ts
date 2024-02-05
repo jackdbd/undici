@@ -8,7 +8,7 @@
  *
  * @packageDocumentation
  */
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import type { EleventyConfig } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import { validationError } from './errors.js'
@@ -17,7 +17,7 @@ import { injectAudioTagsUnbounded } from './eleventy/transforms.js'
 import { config as schema } from './eleventy/plugin.js'
 import type { Config } from './eleventy/plugin.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+const debug = defDebug(`${DEBUG_PREFIX}:index`)
 
 // exports for TypeDoc
 export { defaultAudioInnerHTML } from './audio-html.js'

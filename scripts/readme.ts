@@ -11,7 +11,7 @@ import {
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
 import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc/lib'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { config as eev_config } from '../packages/eleventy-plugin-ensure-env-vars/lib/schemas.js'
 import {
   directive as pp_directive,
@@ -25,7 +25,7 @@ import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech
 import { rule as tts_rule } from '../packages/eleventy-plugin-text-to-speech/lib/schemas/rule.js'
 import { callout } from './ui-components.js'
 
-const debug = makeDebug(`script:readme`)
+const debug = defDebug(`script:readme`)
 
 interface ReadmeConfig {
   configuration: string

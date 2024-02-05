@@ -192,12 +192,12 @@
             },
             {
               "kind": "Content",
-              "text": ", providedOptions: "
+              "text": ", options: "
             },
             {
               "kind": "Reference",
               "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options:interface"
+              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options:type"
             },
             {
               "kind": "Content",
@@ -223,12 +223,11 @@
               "text": "DEFAULT_OPTIONS: "
             },
             {
-              "kind": "Reference",
-              "text": "Options",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options:interface"
+              "kind": "Content",
+              "text": "{\n    allowDeprecatedDirectives: boolean;\n    directives: any;\n    globPatterns: string[];\n    globPatternsDetach: never[];\n    excludePatterns: never[];\n    includePatterns: string[];\n    jsonRecap: boolean;\n    reportOnly: boolean;\n}"
             }
           ],
-          "fileUrlPath": "src/schemas.ts",
+          "fileUrlPath": "src/constants.ts",
           "isReadonly": true,
           "releaseTag": "Public",
           "name": "DEFAULT_OPTIONS",
@@ -238,238 +237,44 @@
           }
         },
         {
-          "kind": "Interface",
-          "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options:interface",
-          "docComment": "",
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options:type",
+          "docComment": "/**\n * Plugin options.\n *\n * @interface\n *\n * @public\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "export interface Options "
+              "text": "export type Options = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "options",
+              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!~options:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
             }
           ],
           "fileUrlPath": "src/schemas.ts",
           "releaseTag": "Public",
           "name": "Options",
-          "preserveMemberOrder": false,
-          "members": [
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#allowDeprecatedDirectives:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "allowDeprecatedDirectives: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "allowDeprecatedDirectives",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#directives:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "directives: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "any"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "directives",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#excludePatterns:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "excludePatterns: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "excludePatterns",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#globPatterns:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "globPatterns: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "globPatterns",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#globPatternsDetach:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "globPatternsDetach: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "globPatternsDetach",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#includePatterns:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "includePatterns: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "string[]"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "includePatterns",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#jsonRecap:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "jsonRecap: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "jsonRecap",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            },
-            {
-              "kind": "PropertySignature",
-              "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!Options#reportOnly:member",
-              "docComment": "",
-              "excerptTokens": [
-                {
-                  "kind": "Content",
-                  "text": "reportOnly: "
-                },
-                {
-                  "kind": "Content",
-                  "text": "boolean"
-                },
-                {
-                  "kind": "Content",
-                  "text": ";"
-                }
-              ],
-              "isReadonly": false,
-              "isOptional": false,
-              "releaseTag": "Public",
-              "name": "reportOnly",
-              "propertyTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              }
-            }
-          ],
-          "extendsTokenRanges": []
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
         }
       ]
     }

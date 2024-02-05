@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { fromZodError } from 'zod-validation-error'
 import {
   DEBUG_PREFIX,
@@ -10,7 +10,7 @@ import { send_message_config as schema } from './schemas.js'
 import type { SendMessageConfig } from './schemas.js'
 import type { TelegramAPISendMessageResponseBody } from './types.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:send-message`)
+const debug = defDebug(`${DEBUG_PREFIX}:send-message`)
 
 /**
  * @internal

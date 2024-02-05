@@ -1,9 +1,9 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import type { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:errors`)
+const debug = defDebug(`${DEBUG_PREFIX}:errors`)
 
 export const importError = (err: Error) => {
   const ERR_SUFFIX = `The requested package was imported dynamically because this plugin declares it as a peer dependency. Don't forget to declare the requested package as a direct dependency of your project.`

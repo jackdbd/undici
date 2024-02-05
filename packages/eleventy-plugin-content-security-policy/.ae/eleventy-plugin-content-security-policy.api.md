@@ -7,36 +7,29 @@
 /// <reference types="11ty__eleventy" />
 
 import type { EleventyConfig } from '@11ty/eleventy';
+import { z } from 'zod';
 
 // Warning: (ae-missing-release-tag) "contentSecurityPolicyPlugin" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public
-export const contentSecurityPolicyPlugin: (eleventyConfig: EleventyConfig, providedOptions: Options) => void;
+export const contentSecurityPolicyPlugin: (eleventyConfig: EleventyConfig, options: Options) => void;
 
 // @public
-export const DEFAULT_OPTIONS: Options;
-
-// Warning: (ae-missing-release-tag) "Options" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public (undocumented)
-export interface Options {
-    // (undocumented)
+export const DEFAULT_OPTIONS: {
     allowDeprecatedDirectives: boolean;
-    // (undocumented)
     directives: any;
-    // (undocumented)
-    excludePatterns: string[];
-    // (undocumented)
     globPatterns: string[];
-    // (undocumented)
-    globPatternsDetach: string[];
-    // (undocumented)
+    globPatternsDetach: never[];
+    excludePatterns: never[];
     includePatterns: string[];
-    // (undocumented)
     jsonRecap: boolean;
-    // (undocumented)
     reportOnly: boolean;
-}
+};
+
+// Warning: (ae-forgotten-export) The symbol "options" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type Options = z.infer<typeof options>;
 
 // (No @packageDocumentation comment for this package)
 

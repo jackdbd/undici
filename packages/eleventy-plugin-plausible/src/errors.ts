@@ -1,9 +1,9 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import type { ZodError } from 'zod'
 import { fromZodError } from 'zod-validation-error'
 import { DEBUG_PREFIX } from './constants.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:errors`)
+const debug = defDebug(`${DEBUG_PREFIX}:errors`)
 
 export const validationError = (err: ZodError) => {
   // err.addIssue({
