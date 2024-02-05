@@ -38,6 +38,9 @@ const readme = ({
 }: ReadmeConfig) => {
   debug(`generating README.md for ${pkg.name}`)
 
+  const [npm_scope, unscoped_pkg_name] = pkg.name.split('/')
+  const github_username = npm_scope.replace('@', '') as string
+
   return transcludeFile(join(root_repo, 'tpl.readme.md'), {
     user: pkg.author,
 
@@ -162,23 +165,35 @@ const main = async ({
         `https://packagephobia.com/result?p=${npm_scope}/${unscoped_pkg_name}`
       )
 
+      const codecov = link(
+        'Coverage',
+        `https://app.codecov.io/gh/${github_username}/${repo_name}?flags%5B0%5D=${unscoped_pkg_name}`
+      )
+
       return {
+        coverage: codecov,
         docs: typedoc,
         home,
         install_size,
-        version: npm_version
+        npm_version
       }
     })
 
   debug(`create table with ${items.length} rows`)
   const rows = items.map((d) => {
-    const row = [d.home, d.version, d.install_size, d.docs].join(' | ')
+    const row = [
+      d.home,
+      d.npm_version,
+      d.install_size,
+      d.coverage,
+      d.docs
+    ].join(' | ')
     return `| ${row} |`
   })
 
   const table = [
-    `| Package | Version | Install size | Docs |`,
-    '|---|---|---|---|',
+    `| Package | Version | Install size | Coverage | Docs |`,
+    '|---|---|---|---|---|',
     rows.join('\n')
   ].join('\n')
 

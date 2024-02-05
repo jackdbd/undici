@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-ensure-env-vars.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-ensure-env-vars)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-ensure-env-vars)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-ensure-env-vars)
+[![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=eleventy-plugin-ensure-env-vars)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-ensure-env-vars)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-ensure-env-vars)
 
 Eleventy plugin that checks environment variables before Eleventy builds your site.

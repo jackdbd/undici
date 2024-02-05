@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-permissions-policy.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-permissions-policy)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-permissions-policy)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-permissions-policy)
+[![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=eleventy-plugin-permissions-policy)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-permissions-policy)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-permissions-policy)
 
 Eleventy plugin that writes Permissions-Policy and Feature-Policy headers to a `_headers` file when Eleventy builds your site.

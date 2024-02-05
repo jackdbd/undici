@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-text-to-speech)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-text-to-speech)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-text-to-speech)
+[![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=eleventy-plugin-text-to-speech)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-text-to-speech)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-text-to-speech)
 
 Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.
