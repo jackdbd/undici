@@ -1,12 +1,12 @@
 import { Readable } from 'node:stream'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { cloud_text_to_speech, iam } from '@jackdbd/zod-schemas/gcp'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedDataOrThrow } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:gcp-text-to-speech`)
+const debug = defDebug(`${DEBUG_PREFIX}:gcp-text-to-speech`)
 
 export const audioExtension = (
   audioEncoding: cloud_text_to_speech.AudioEncoding

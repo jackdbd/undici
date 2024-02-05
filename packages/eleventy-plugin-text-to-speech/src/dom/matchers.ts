@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { htmlToText } from 'html-to-text'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
@@ -6,7 +6,7 @@ import { css_selector, xpath_expression } from '@jackdbd/zod-schemas/dom'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedResult } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:dom:matchers`)
+const debug = defDebug(`${DEBUG_PREFIX}:dom:matchers`)
 
 export const css_selector_config = z
   .object({

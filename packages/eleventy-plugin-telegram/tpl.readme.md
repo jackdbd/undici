@@ -49,6 +49,8 @@ If you forgot the API token of a Telegram bot you created, you can retrieve it a
 > - Telegram messages can be 1-4096 characters long, after entities parsing. See [formatting options here](https://core.telegram.org/bots/api#formatting-options).
 > - Depending on the environment your building your 11ty website in, this plugin might not be able to send you the text message defined in `textAfterBuild`. For example, when building on Cloudflare Pages, I always receive the `textBeforeBuild` text, but not always the `textAfterBuild` text. My guess is that Cloudflare kills the Node.js process before all event handlers registered with `eleventy.after` are resolved.
 
+{{pkg.docs}}
+
 {{troubleshooting}}
 
 {{pkg.deps}}

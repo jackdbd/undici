@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
 import { xpath_expression } from '@jackdbd/zod-schemas/dom'
@@ -7,7 +7,7 @@ import { href as href_schema } from '../schemas/common.js'
 import { validatedResult } from '../validation.js'
 import { audio_inner_html } from '../audio-html.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:dom:mutations`)
+const debug = defDebug(`${DEBUG_PREFIX}:dom:mutations`)
 
 export const schema = z
   .object({

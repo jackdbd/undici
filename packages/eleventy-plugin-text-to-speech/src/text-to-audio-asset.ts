@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto'
 import { z } from 'zod'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { DEBUG_PREFIX } from './constants.js'
 import { validatedResult } from './validation.js'
 import { hosting } from './hosting/schemas.js'
 import { synthesis, text_to_synthesize } from './synthesis/schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:text-to-audio-asset`)
+const debug = defDebug(`${DEBUG_PREFIX}:text-to-audio-asset`)
 
 export const text_to_audio_asset_config = z
   .object({

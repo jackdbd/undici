@@ -1,14 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { Readable } from 'node:stream'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { DEBUG_PREFIX } from '../constants.js'
 import type { WriteResult } from './schemas.js'
 import { asset_name } from '../schemas/common.js'
 import { validatedDataOrThrow, validatedResult } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:fs`)
+const debug = defDebug(`${DEBUG_PREFIX}:fs`)
 
 export const client_config = z.object({
   /**

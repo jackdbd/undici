@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { calculate, compare } from 'specificity'
 import { z } from 'zod'
@@ -35,7 +35,7 @@ export const injectAudioTagsUnbounded = async (
   const cfg = validatedDataOrThrow(config, config_schema)
 
   const transformName = cfg.transformName || DEFAULT_TRANSFORM_NAME
-  const debug = makeDebug(`${DEBUG_PREFIX}:${transformName}`)
+  const debug = defDebug(`${DEBUG_PREFIX}:${transformName}`)
 
   debug(`11ty transform ${transformName} invoked on ${outputPath}`)
 

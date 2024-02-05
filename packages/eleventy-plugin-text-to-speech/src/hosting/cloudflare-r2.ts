@@ -1,5 +1,5 @@
 import { Readable } from 'node:stream'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { S3Client } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
@@ -8,7 +8,7 @@ import { asset_name } from '../schemas/common.js'
 import { DEBUG_PREFIX } from '../constants.js'
 import { validatedDataOrThrow, validatedResult } from '../validation.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:cloudflare-r2`)
+const debug = defDebug(`${DEBUG_PREFIX}:cloudflare-r2`)
 
 export const bucket_config = z.object({
   /**

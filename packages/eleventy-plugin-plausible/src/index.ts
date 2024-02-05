@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import type { EleventyConfig } from '@11ty/eleventy'
 import { makeClient } from '@jackdbd/plausible-client'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
@@ -9,7 +9,7 @@ import { DEFAULT_OPTIONS, options as schema, type Options } from './schemas.js'
 export { DEFAULT_OPTIONS, options } from './schemas.js'
 export type { Options } from './schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+const debug = defDebug(`${DEBUG_PREFIX}:index`)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type StatsOptions = any

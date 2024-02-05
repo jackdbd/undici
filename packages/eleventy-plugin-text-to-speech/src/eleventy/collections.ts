@@ -1,5 +1,5 @@
 import type { CollectionApi } from '@11ty/eleventy'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { collection_name } from '@jackdbd/zod-schemas/eleventy'
 import { DEBUG_PREFIX, DEFAULT_COLLECTION_NAME } from '../constants.js'
@@ -21,7 +21,7 @@ export const templatesWithAudioUnbounded = (
 
   const { rules } = cfg
   const collectionName = cfg.collectionName || DEFAULT_COLLECTION_NAME
-  const debug = makeDebug(`${DEBUG_PREFIX}:${collectionName}`)
+  const debug = defDebug(`${DEBUG_PREFIX}:${collectionName}`)
 
   const templates = collectionApi.getAll().filter((item) => {
     const idx = rules.findIndex(

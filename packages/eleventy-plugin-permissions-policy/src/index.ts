@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import util from 'node:util'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import type { EleventyConfig } from '@11ty/eleventy'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import { validationError } from './errors.js'
@@ -16,7 +16,7 @@ import {
 export { DEFAULT_OPTIONS, directive, feature, options } from './schemas.js'
 export type { Directive, Options } from './schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:index`)
+const debug = defDebug(`${DEBUG_PREFIX}:index`)
 
 const writeFileAsync = util.promisify(fs.writeFile)
 

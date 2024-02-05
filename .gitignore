@@ -13,6 +13,7 @@ secrets/*
 # test coverage
 **/coverage/*
 !**/coverage/README.md
+packages/**/lcov.info
 
 # Typescript compilation output files for libraries and applications
 packages/**/lib/

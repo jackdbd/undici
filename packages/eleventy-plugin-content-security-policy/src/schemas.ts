@@ -1,44 +1,19 @@
-import Joi from 'joi'
+import { z } from 'zod'
 import { directives as directives_schema } from '@jackdbd/content-security-policy/schemas'
+import { DEFAULT_OPTIONS } from './constants.js'
 
-const glob_pattern = Joi.string().min(1)
+const glob_pattern = z.string().min(1)
 
-const glob_patterns = Joi.array().items(glob_pattern)
+const glob_patterns = z.array(glob_pattern)
 
-export interface Options {
-  allowDeprecatedDirectives: boolean
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  directives: any
-  globPatterns: string[]
-  globPatternsDetach: string[]
-  excludePatterns: string[]
-  includePatterns: string[]
-  jsonRecap: boolean
-  reportOnly: boolean
-}
-
-/**
- * Default options for the plugin.
- *
- * @public
- */
-export const DEFAULT_OPTIONS: Options = {
-  allowDeprecatedDirectives: false,
-  directives: {},
-  globPatterns: ['/', '/*/'],
-  globPatternsDetach: [],
-  excludePatterns: [],
-  includePatterns: ['/**/**.html'],
-  jsonRecap: false,
-  reportOnly: false
-}
-
-// TODO: why is this async? I can't remember
-export const makePluginOptions = async () => {
-  const pluginOptions = Joi.object().keys({
-    allowDeprecatedDirectives: Joi.boolean().default(
-      DEFAULT_OPTIONS.allowDeprecatedDirectives
-    ),
+export const config = z
+  .object({
+    allowDeprecatedDirectives: z
+      .boolean()
+      .default(DEFAULT_OPTIONS.allowDeprecatedDirectives)
+      .describe(
+        'Whether to allow deprecated directives in your Content-Security-Policy (or Content-Security-Policy-Report-Only) header.'
+      ),
 
     directives: directives_schema.default(DEFAULT_OPTIONS.directives),
 
@@ -55,10 +30,23 @@ export const makePluginOptions = async () => {
       .min(1)
       .default(DEFAULT_OPTIONS.includePatterns),
 
-    jsonRecap: Joi.boolean().default(DEFAULT_OPTIONS.jsonRecap),
+    jsonRecap: z.boolean().default(DEFAULT_OPTIONS.jsonRecap),
 
-    reportOnly: Joi.boolean().default(DEFAULT_OPTIONS.reportOnly)
+    reportOnly: z.boolean().default(DEFAULT_OPTIONS.reportOnly)
   })
+  .describe('Options for eleventy-plugin-content-security-policy')
 
-  return pluginOptions
-}
+/**
+ * Options for this Eleventy plugin.
+ *
+ * @public
+ */
+export const options = config.default(DEFAULT_OPTIONS)
+
+/**
+ * Plugin options.
+ *
+ * @public
+ * @interface
+ */
+export type Options = z.infer<typeof options>

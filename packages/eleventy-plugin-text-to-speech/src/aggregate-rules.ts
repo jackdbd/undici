@@ -1,4 +1,4 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { JSDOM } from 'jsdom'
 import { z } from 'zod'
 import {
@@ -14,7 +14,7 @@ import { rule } from './schemas/rule.js'
 import { validatedResult } from './validation.js'
 import { match_object, ruleMatchRecord } from './rule-match-record.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:aggregate-rules`)
+const debug = defDebug(`${DEBUG_PREFIX}:aggregate-rules`)
 
 export const match = z.object({
   idx: z.number().min(0),

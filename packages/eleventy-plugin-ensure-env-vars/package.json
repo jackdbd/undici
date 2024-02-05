@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-ensure-env-vars",
-  "version": "1.0.1",
+  "version": "1.1.0-canary.1",
   "description": "Eleventy plugin that checks environment variables before Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
@@ -61,7 +61,7 @@
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-ensure-env-vars",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
     "test:watch": "node --test --watch"
   },
   "dependencies": {

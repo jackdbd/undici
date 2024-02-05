@@ -15,5 +15,5 @@ https://developers.cloudflare.com/pages/platform/headers/ https://docs.netlify.c
 **Signature:**
 
 ```typescript
-contentSecurityPolicyPlugin: (eleventyConfig: EleventyConfig, providedOptions: Options) => void
+contentSecurityPolicyPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
 ```

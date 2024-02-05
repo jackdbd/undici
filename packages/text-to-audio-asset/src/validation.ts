@@ -1,9 +1,9 @@
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { z } from 'zod'
 import { validationError } from './errors.js'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:validation`)
+const debug = defDebug(`${DEBUG_PREFIX}:validation`)
 
 export const validatedResult = <T>(data: T, schema: z.ZodType<T>) => {
   if (process.env.SKIP_VALIDATION) {

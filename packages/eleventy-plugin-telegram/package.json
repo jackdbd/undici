@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-telegram",
-  "version": "2.0.0",
+  "version": "2.1.0-canary.1",
   "description": "Eleventy plugin that sends Telegram messages when Eleventy starts/finishes building your site.",
   "author": {
     "name": "Giacomo Debidda",
@@ -62,7 +62,7 @@
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-telegram",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage",
+    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
     "test:watch": "node --test --watch"
   },
   "dependencies": {

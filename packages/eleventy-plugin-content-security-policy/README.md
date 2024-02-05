@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy.svg)](https://badge.fury.io/js/@jackdbd%2Feleventy-plugin-content-security-policy)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/eleventy-plugin-content-security-policy)](https://packagephobia.com/result?p=@jackdbd/eleventy-plugin-content-security-policy)
+[![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=eleventy-plugin-content-security-policy)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/eleventy-plugin-content-security-policy)](https://socket.dev/npm/package/@jackdbd/eleventy-plugin-content-security-policy)
 
 Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-Report-Only headers to a `_headers` file when Eleventy builds your site.
@@ -115,9 +116,9 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [@hapi/hoek](https://www.npmjs.com/package/@hapi/hoek) | `^11.0.4` |
-| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `^2.0.0` |
-| [joi](https://www.npmjs.com/package/joi) | `^17.12.0` |
+| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `2.1.1` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
 
 ## License
 

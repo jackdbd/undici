@@ -1,9 +1,9 @@
 import fs from 'node:fs'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 import { DEBUG_PREFIX } from './constants.js'
 import type { Directive } from './schemas.js'
 
-const debug = makeDebug(`${DEBUG_PREFIX}:utils`)
+const debug = defDebug(`${DEBUG_PREFIX}:utils`)
 
 /**
  * Converts a Feature-Policy directive to a string.

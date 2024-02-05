@@ -2,6 +2,7 @@
 
 <!-- [![npm version](https://badge.fury.io/js/@jackdbd%2Ftext-to-audio-asset.svg)](https://badge.fury.io/js/@jackdbd%2Ftext-to-audio-asset)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/text-to-audio-asset)](https://packagephobia.com/result?p=@jackdbd/text-to-audio-asset)
+[![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=text-to-audio-asset)
 [![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/text-to-audio-asset)](https://socket.dev/npm/package/@jackdbd/text-to-audio-asset) -->
 
 Generate an audio asset from a text.

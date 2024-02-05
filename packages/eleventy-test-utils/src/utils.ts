@@ -1,7 +1,7 @@
 import { isOnGithub } from '@jackdbd/checks/environment'
-import makeDebug from 'debug'
+import defDebug from 'debug'
 
-const debug = makeDebug(`11ty-test-utils`)
+const debug = defDebug(`11ty-test-utils`)
 
 export const waitMs = (ms: number) => {
   let timeout: NodeJS.Timeout
