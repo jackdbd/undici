@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [2.1.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@2.1.0...@jackdbd/eleventy-plugin-content-security-policy@2.1.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-content-security-policy:** upgrade dependencies ([75e74b1](https://github.com/jackdbd/undici/commit/75e74b1c7ab8185b17d8d52fc7c92d18dc6c12ee))
+
 ## @jackdbd/eleventy-plugin-content-security-policy [2.1.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@2.0.0...@jackdbd/eleventy-plugin-content-security-policy@2.1.0) (2024-02-05)
 
 
