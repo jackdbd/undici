@@ -116,7 +116,7 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `^2.1.2` |
+| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `2.1.3` |
 | [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
 | [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
 
