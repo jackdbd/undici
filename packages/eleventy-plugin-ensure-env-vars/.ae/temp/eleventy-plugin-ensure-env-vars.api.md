@@ -14,7 +14,7 @@ export { EleventyConfig }
 // Warning: (ae-unresolved-link) The @link reference could not be resolved: This type of declaration is not supported yet by the resolver
 //
 // @public
-export const ensureEnvVarsPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void;
+export const ensureEnvVarsPlugin: (_eleventyConfig: EleventyConfig, options?: Options) => void;
 
 // @public
 export const env_var: z.ZodString;

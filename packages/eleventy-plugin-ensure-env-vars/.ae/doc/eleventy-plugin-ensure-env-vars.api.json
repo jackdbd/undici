@@ -183,7 +183,7 @@
             },
             {
               "kind": "Content",
-              "text": "(eleventyConfig: "
+              "text": "(_eleventyConfig: "
             },
             {
               "kind": "Reference",

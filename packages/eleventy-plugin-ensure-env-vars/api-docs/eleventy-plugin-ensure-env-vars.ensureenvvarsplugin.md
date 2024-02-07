@@ -9,5 +9,5 @@ Plugin that checks whether the environment variables you specified are set when 
 **Signature:**
 
 ```typescript
-ensureEnvVarsPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
+ensureEnvVarsPlugin: (_eleventyConfig: EleventyConfig, options?: Options) => void
 ```
