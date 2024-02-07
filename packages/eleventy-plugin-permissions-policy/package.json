@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-permissions-policy",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Eleventy plugin that writes Permissions-Policy and Feature-Policy headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
