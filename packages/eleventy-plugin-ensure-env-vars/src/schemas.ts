@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { DEFAULT_ENV_VARS, REQUIRED_ENV_VARS } from './constants.js'
+import { DEFAULT_ENV_VARS } from './constants.js'
 
 /**
  * Schema for an environment variable name.
@@ -17,9 +17,10 @@ export const env_var = z.string().min(1)
 export const env_vars = z
   .array(env_var)
   .min(1)
-  .refine((arr) => {
-    return REQUIRED_ENV_VARS.every((required) => arr.includes(required))
-  })
+  .default(DEFAULT_ENV_VARS)
+  // .refine((arr) => {
+  //   return REQUIRED_ENV_VARS.every((required) => arr.includes(required))
+  // })
   .describe(
     'Environment variables you want to be set when building your Eleventy site'
   )

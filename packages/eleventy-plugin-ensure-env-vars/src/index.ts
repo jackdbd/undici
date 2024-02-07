@@ -4,18 +4,18 @@
  * @packageDocumentation
  */
 import defDebug from 'debug'
+import { z } from 'zod'
 import { fromZodError } from 'zod-validation-error'
-import type { EleventyConfig, EventArguments } from '@11ty/eleventy'
-import { ERROR_MESSAGE_PREFIX, ERR_PREFIX } from './constants.js'
-import { options as schema } from './schemas.js'
-import type { Options } from './schemas.js'
+import type { EleventyConfig } from '@11ty/eleventy'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import { options as schema, type Options, env_var } from './schemas.js'
 
 // exports for TypeDoc
 export type { EleventyConfig } from '@11ty/eleventy'
 export { env_var } from './schemas.js'
 export type { Options } from './schemas.js'
 
-const debug = defDebug(`11ty-plugin:ensure-env-vars`)
+const debug = defDebug(`${DEBUG_PREFIX}:index`)
 
 /**
  * Plugin that checks whether the environment variables you specified are set
@@ -26,7 +26,7 @@ const debug = defDebug(`11ty-plugin:ensure-env-vars`)
  * @param options - Plugin {@link Options | options}.
  */
 export const ensureEnvVarsPlugin = (
-  eleventyConfig: EleventyConfig,
+  _eleventyConfig: EleventyConfig,
   options?: Options
 ) => {
   debug('plugin options (provided by user) %O', options)
@@ -40,18 +40,33 @@ export const ensureEnvVarsPlugin = (
 
   debug('plugin config (provided by user + defaults) %O', result.data)
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const throwIfAnyEnvVarIsMissing = (_args: EventArguments) => {
-    result.data.envVars.forEach((k) => {
-      if (process.env[k] === undefined) {
-        throw new Error(
-          `${ERROR_MESSAGE_PREFIX.invalidEnvironment}: environment variable ${k} not set`
-        )
-      }
-    })
-    debug(`validated execution environment`)
+  const obj = result.data.envVars.reduce((acc, cv) => {
+    return { ...acc, [cv]: env_var }
+  }, {})
+
+  // inspired by: https://www.jacobparis.com/content/type-safe-env
+  const zodEnv = z.object(obj)
+
+  // safeParse() reports ALL issue, while parse() throws at the first issue
+  const res = zodEnv.safeParse(process.env)
+
+  let missing_env_vars: string[] = []
+  if (!res.success) {
+    missing_env_vars = res.error.issues.map((issue) => `${issue.path[0]}`)
   }
 
-  eleventyConfig.on('eleventy.before', throwIfAnyEnvVarIsMissing)
+  result.data.envVars.forEach((k) => {
+    // If a user sets export FOO=undefined in an .envrc file, process.env.FOO
+    // will be 'undefined' (a string).
+    if (process.env[k] === undefined || process.env[k] === 'undefined') {
+      missing_env_vars.push(k)
+    }
+  })
+
+  if (missing_env_vars.length > 0) {
+    const message = `${ERR_PREFIX}: the following required environment variables are set in this environment: ${missing_env_vars.join(', ')}`
+    throw new Error(message)
+  }
+
   debug('attached `eleventy.before` event handler')
 }

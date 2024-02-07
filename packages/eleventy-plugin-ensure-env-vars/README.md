@@ -54,7 +54,11 @@ export default function (eleventyConfig) {
 
 | Key | Default | Description |
 |---|---|---|
-| `envVars` | `["DEBUG","ELEVENTY_ROOT","ELEVENTY_SOURCE","ELEVENTY_RUN_MODE","NODE_ENV"]` | Environment variables you want to be set when building your Eleventy site |
+| `envVars` | `[
+  "ELEVENTY_ROOT",
+  "ELEVENTY_SOURCE",
+  "ELEVENTY_RUN_MODE"
+]` | Environment variables you want to be set when building your Eleventy site |
 
 ## Troubleshooting
 

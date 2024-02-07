@@ -90,7 +90,10 @@ Read these resources to understand how to configure the `Permissions-Policy` and
 | `directives` | `[]` | Permissions-Policy [directives](https://w3c.github.io/webappsec-permissions-policy/#policy-directives). |
 | `excludePatterns` | `[]` | Files that match these patterns will **not** be served with the Permissions-Policy header (nor with the Feature-Policy header, if generated). |
 | `includeFeaturePolicy` | `true` | Whether to generate also a Feature-Policy header. |
-| `includePatterns` | `["/","/*/"]` | Files that match these patterns will be served with the Permissions-Policy header (and also with the Feature-Policy header, if generated). |
+| `includePatterns` | `[
+  "/",
+  "/*/"
+]` | Files that match these patterns will be served with the Permissions-Policy header (and also with the Feature-Policy header, if generated). |
 | `jsonRecap` | `false` |  |
 
 ### Permissions-Policy directive
