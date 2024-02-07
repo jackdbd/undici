@@ -77,9 +77,10 @@ const readme = ({
       'pkg.description': pkg.description,
 
       'pkg.devDependencies': () => {
-        const keys = Object.keys(pkg.devDependencies)
-        return `This project has **${keys.length} dev dependencies**: ${keys.join(', ')}.`
-        // return `This project has **${keys.length} dev dependencies**.`
+        const links = Object.keys(pkg.devDependencies).map((k) => {
+          return link(k, `https://www.npmjs.com/package/${k}`)
+        })
+        return `This project has **${links.length} dev dependencies**: ${links.join(', ')}.`
       },
 
       // 'pkg.license': ({ user }) => {
