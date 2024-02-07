@@ -10,9 +10,11 @@
 const {
   changelog,
   commit_analyzer,
+  exec,
   github,
   npm,
-  release_notes_generator
+  release_notes_generator,
+  telegram
 } = require('./semantic-release-plugins.cjs')
 
 const config = {
@@ -25,7 +27,15 @@ const config = {
   // The git plugin must be called AFTER the npm plugin. See here:
   // https://github.com/semantic-release/git#examples
   // https://semantic-release.gitbook.io/semantic-release/support/faq#why-is-the-package.jsons-version-not-updated-in-my-repository
-  plugins: [commit_analyzer, release_notes_generator, changelog, npm, github]
+  plugins: [
+    commit_analyzer,
+    release_notes_generator,
+    telegram,
+    exec,
+    changelog,
+    npm,
+    github
+  ]
 
   // It seems to me that multi-semantic-release does NOT honor the tagFormat
   // specified here, so if you need to configure it, better to do it in the

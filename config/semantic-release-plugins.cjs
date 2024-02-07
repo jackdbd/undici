@@ -64,10 +64,10 @@ const preset = 'conventionalcommits'
 const presetConfig = {
   types: [
     { type: 'chore', hidden: true },
-    { type: 'feat', section: 'Features' },
     { type: 'docs', hidden: true },
+    { type: 'feat', section: 'Features' },
     { type: 'fix', section: 'Bug Fixes' },
-    { type: 'perf', hidden: true, section: 'Performance Improvements' },
+    { type: 'perf', hidden: true },
     { type: 'refactor', hidden: true },
     { type: 'style', hidden: true },
     { type: 'test', hidden: true }
@@ -89,8 +89,16 @@ const commit_analyzer = [
       // certainly should.
       { type: 'docs', scope: 'eleventy-plugin-*', release: 'patch' },
       // Maybe a refactor should trigger a release. I am not 100% convinced though.
-      { type: 'refactor', release: 'patch' }
+      { type: 'refactor', release: 'patch' },
+      { scope: 'no-release', release: false }
     ]
+  }
+]
+
+const exec = [
+  '@semantic-release/exec',
+  {
+    verifyConditionsCmd: 'npx publint run .'
   }
 ]
 
@@ -111,10 +119,20 @@ const release_notes_generator = [
   }
 ]
 
+// https://github.com/pustovitDmytro/semantic-release-telegram
+const telegram = [
+  'semantic-release-telegram',
+  {
+    chats: [process.env.TELEGRAM_CHAT_ID]
+  }
+]
+
 module.exports = {
   changelog,
   commit_analyzer,
+  exec,
   github,
   npm,
-  release_notes_generator
+  release_notes_generator,
+  telegram
 }

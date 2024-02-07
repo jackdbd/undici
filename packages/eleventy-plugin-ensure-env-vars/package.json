@@ -27,10 +27,12 @@
   },
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js"
+    },
     "./package.json": "./package.json"
   },
-  "typings": "lib/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -58,6 +60,7 @@
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "npx lint-staged --config ../../config/lint-staged.cjs",
+    "publint": "publint run .",
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-ensure-env-vars",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "node --test --experimental-test-coverage",

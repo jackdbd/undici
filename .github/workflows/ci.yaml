@@ -49,6 +49,8 @@ jobs:
 
       - name: 📦 Build all libraries
         run: npm run build:libs
+
+      - run: npm run publint --workspaces --if-present
       
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
