@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-ensure-env-vars [1.1.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-ensure-env-vars@1.1.0...@jackdbd/eleventy-plugin-ensure-env-vars@1.1.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **eleventy-plugin-ensure-env-vars:** avoid required env vars ([f59b98b](https://github.com/jackdbd/undici/commit/f59b98b3053ce7883feeca3007e0676f8dc74827))
+
 ## @jackdbd/eleventy-plugin-ensure-env-vars [1.1.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-ensure-env-vars@1.0.1...@jackdbd/eleventy-plugin-ensure-env-vars@1.1.0) (2024-02-05)
 
 
