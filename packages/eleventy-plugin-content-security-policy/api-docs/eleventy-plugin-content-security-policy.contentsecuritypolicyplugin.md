@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-content-security-policy](./eleventy-plugin-content-security-policy.md) &gt; [contentSecurityPolicyPlugin](./eleventy-plugin-content-security-policy.contentsecuritypolicyplugin.md)
 
-## contentSecurityPolicyPlugin variable
+## contentSecurityPolicyPlugin() function
 
 Plugin configuration function.
 
@@ -17,3 +17,55 @@ https://developers.cloudflare.com/pages/platform/headers/ https://docs.netlify.c
 ```typescript
 contentSecurityPolicyPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+eleventyConfig
+
+
+</td><td>
+
+EleventyConfig
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+options
+
+
+</td><td>
+
+[Options](./eleventy-plugin-content-security-policy.options.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+void
+

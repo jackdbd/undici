@@ -13,10 +13,17 @@ export const DEFAULT_OPTIONS = {
   allowDeprecatedDirectives: false,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   directives: {} as any,
+  excludePatterns: [],
   globPatterns: ['/', '/*/'],
   globPatternsDetach: [],
-  excludePatterns: [],
+  hosting: undefined as string | undefined,
   includePatterns: ['/**/**.html'],
   jsonRecap: false,
   reportOnly: false
 }
+
+export const SUPPORTED_HOSTING_PROVIDERS = new Set([
+  'cloudflare-pages',
+  'netlify',
+  'vercel'
+])

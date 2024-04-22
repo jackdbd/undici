@@ -4,6 +4,7 @@ import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
 import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
 import { permissionsPolicyPlugin } from '@jackdbd/eleventy-plugin-permissions-policy'
+import { contentSecurityPolicyPlugin } from '@jackdbd/eleventy-plugin-content-security-policy'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { defClient as defCloudflareR2Client } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloudflare-r2'
@@ -41,6 +42,16 @@ export default function (eleventyConfig) {
   eleventyConfig.addPlugin(helmet)
 
   eleventyConfig.addPlugin(navigation)
+
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
+    directives: {
+      'base-uri': ['self'],
+      'default-src': ['self']
+    },
+    globPatterns: ['/*'],
+    globPatternsDetach: ['/*.png'],
+    hosting: 'cloudflare-pages'
+  })
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
 

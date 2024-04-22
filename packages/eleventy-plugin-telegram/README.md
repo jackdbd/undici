@@ -27,7 +27,7 @@ npm install @jackdbd/eleventy-plugin-telegram
 
 | Peer | Version range |
 |---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
 | `debug` | `>=4.0.0` |
 
 ## Usage
@@ -95,8 +95,8 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
-| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
 
 ## License
 

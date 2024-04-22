@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.39.4",
+    "toolVersion": "7.43.1",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -1033,17 +1033,13 @@
           }
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@jackdbd/text-to-audio-asset!textToAudioAsset:var",
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/text-to-audio-asset!textToAudioAsset:function(1)",
           "docComment": "/**\n * Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech.\n *\n * @param config - \n *\n * @returns \n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "textToAudioAsset: "
-            },
-            {
-              "kind": "Content",
-              "text": "(config: "
+              "text": "textToAudioAsset: (config: "
             },
             {
               "kind": "Reference",
@@ -1074,13 +1070,23 @@
             }
           ],
           "fileUrlPath": "src/index.ts",
-          "isReadonly": true,
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
           "releaseTag": "Public",
-          "name": "textToAudioAsset",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 8
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "textToAudioAsset"
         }
       ]
     }

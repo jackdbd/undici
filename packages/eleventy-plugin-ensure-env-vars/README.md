@@ -27,7 +27,7 @@ npm install @jackdbd/eleventy-plugin-ensure-env-vars
 
 | Peer | Version range |
 |---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
 | `debug` | `>=4.0.0` |
 
 ## Usage
@@ -54,11 +54,7 @@ export default function (eleventyConfig) {
 
 | Key | Default | Description |
 |---|---|---|
-| `envVars` | `[
-  "ELEVENTY_ROOT",
-  "ELEVENTY_SOURCE",
-  "ELEVENTY_RUN_MODE"
-]` | Environment variables you want to be set when building your Eleventy site |
+| `envVars` | `undefined` | Environment variables you want to be set when building your Eleventy site |
 
 ## Troubleshooting
 
@@ -76,8 +72,8 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
-| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
 
 ## License
 

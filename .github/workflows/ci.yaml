@@ -23,7 +23,7 @@ jobs:
         node: [lts/Iron]
         # node: [lts/Hydrogen, lts/Iron, current]
         # https://www.npmjs.com/package/@11ty/eleventy?activeTab=versions
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4
@@ -131,7 +131,7 @@ jobs:
       matrix:
         os: [macos-latest]
         node: [lts/Iron]
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4
@@ -172,7 +172,7 @@ jobs:
       matrix:
         os: [windows-latest]
         node: [lts/Iron]
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4

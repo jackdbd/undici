@@ -11,10 +11,13 @@ import {
   DEBUG_PREFIX,
   DEFAULT_OPTIONS,
   ERR_PREFIX,
+  SUPPORTED_HOSTING_PROVIDERS,
   WARN_PREFIX
 } from './constants.js'
 import { validationError } from './errors.js'
 import { options as schema, type Options } from './schemas.js'
+import { createOrUpdateVercelJSON } from './vercel.js'
+import { createOrUpdateHeaders } from './cloudflare-pages.js'
 
 // exports for TypeDoc
 export { DEFAULT_OPTIONS } from './constants.js'
@@ -42,7 +45,6 @@ export const contentSecurityPolicyPlugin = (
   eleventyConfig: EleventyConfig,
   options: Options
 ) => {
-  //
   eleventyConfig.on('eleventy.after', async () => {
     debug('plugin options (provided by the user) %O', options)
 
@@ -76,14 +78,25 @@ export const contentSecurityPolicyPlugin = (
       excludePatterns,
       globPatterns,
       globPatternsDetach,
+      hosting,
       includePatterns,
       jsonRecap,
       reportOnly
     } = config
 
+    if (!hosting) {
+      throw new Error(`${ERR_PREFIX}: hosting not set in plugin options`)
+    }
+
+    const allowed_hosting = SUPPORTED_HOSTING_PROVIDERS.has(hosting)
+    if (!allowed_hosting) {
+      throw new Error(
+        `${ERR_PREFIX}: ${hosting} is not a supported hosting provider. This plugin supports the following hosting providers: ${[...SUPPORTED_HOSTING_PROVIDERS].join(', ')}`
+      )
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const outdir = (eleventyConfig as any).dir.output
-    const headersFilepath = path.join(outdir, '_headers')
 
     const patterns = [
       ...includePatterns.map((pattern) => `${outdir}${pattern}`),
@@ -95,6 +108,45 @@ export const contentSecurityPolicyPlugin = (
       patterns
     )
 
+    const directives = await cspDirectives({
+      directives: config.directives,
+      patterns
+    })
+
+    const headerKey = reportOnly
+      ? 'Content-Security-Policy-Report-Only'
+      : 'Content-Security-Policy'
+
+    const headerValue = directives.join('; ')
+
+    if (hosting === 'vercel') {
+      // I'm not sure the patterns to use in the vercel.json are the same as
+      // the globPatterns used in the _headers file.
+      // https://vercel.com/docs/projects/project-configuration#headers
+      const sources = globPatterns
+      // const sources = ['/(.*)', '/service-worker.js']
+      await createOrUpdateVercelJSON({
+        headerKey,
+        headerValue,
+        outdir,
+        sources
+      })
+    } else if (hosting === 'cloudflare-pages' || hosting === 'netlify') {
+      // TODO: Cloudflare Pages and Netlify both use a _headers file, but I'm not
+      // 100% sure these two files have the exact same syntax.
+      await createOrUpdateHeaders({
+        globPatterns,
+        globPatternsDetach,
+        headerKey,
+        headerValue,
+        outdir
+      })
+    } else {
+      throw new Error(
+        `${ERR_PREFIX}: ${hosting} is not a supported hosting provider. This plugin supports the following hosting providers: ${[...SUPPORTED_HOSTING_PROVIDERS].join(', ')}`
+      )
+    }
+
     if (jsonRecap) {
       await writeFileAsync(
         path.join(
@@ -104,35 +156,5 @@ export const contentSecurityPolicyPlugin = (
         JSON.stringify(config, null, 2)
       )
     }
-
-    const directives = await cspDirectives({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      directives: config.directives as any,
-      patterns
-    })
-
-    if (!fs.existsSync(headersFilepath)) {
-      fs.writeFileSync(headersFilepath, '', { encoding: 'utf8' })
-      debug(`${headersFilepath} did not exist, so it was created`)
-    }
-
-    const headerKey = reportOnly
-      ? 'Content-Security-Policy-Report-Only'
-      : 'Content-Security-Policy'
-
-    const headerValue = directives.join('; ')
-
-    globPatterns.forEach((pattern) => {
-      debug(`add ${headerKey} header for resources matching ${pattern}`)
-      fs.appendFileSync(
-        headersFilepath,
-        `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
-      )
-    })
-
-    globPatternsDetach.forEach((pattern) => {
-      debug(`remove ${headerKey} header for resources matching ${pattern}`)
-      fs.appendFileSync(headersFilepath, `\n${pattern}\n  ! ${headerKey}\n`)
-    })
   })
 }

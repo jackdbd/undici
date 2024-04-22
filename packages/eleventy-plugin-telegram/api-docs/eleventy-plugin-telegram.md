@@ -4,15 +4,55 @@
 
 ## eleventy-plugin-telegram package
 
-## Variables
+## Functions
 
-|  Variable | Description |
-|  --- | --- |
-|  [telegramPlugin](./eleventy-plugin-telegram.telegramplugin.md) | Plugin that sends Telegram messages when Eleventy starts/finishes building your site. |
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[telegramPlugin(eleventyConfig, options)](./eleventy-plugin-telegram.telegramplugin.md)
+
+
+</td><td>
+
+Plugin that sends Telegram messages when Eleventy starts/finishes building your site.
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-telegram.options.md) | <p>Plugin options.</p> |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Options](./eleventy-plugin-telegram.options.md)
+
+
+</td><td>
+
+Plugin options.
+
+
+
+</td></tr>
+</tbody></table>

@@ -26,6 +26,8 @@ export const config = z
       DEFAULT_OPTIONS.globPatternsDetach
     ),
 
+    hosting: z.string().optional(),
+
     includePatterns: glob_patterns
       .min(1)
       .default(DEFAULT_OPTIONS.includePatterns),
@@ -50,3 +52,17 @@ export const options = config.default(DEFAULT_OPTIONS)
  * @interface
  */
 export type Options = z.infer<typeof options>
+
+export type VercelJSONHeadersEntry = { key: string; value: string }
+
+// https://vercel.com/docs/projects/project-configuration#header-object-definition
+export type VercelJSONHeaderObject = {
+  source: string
+  headers: VercelJSONHeadersEntry[]
+  has?: any[]
+  missing?: any[]
+}
+
+export type VercelJSON = {
+  headers: VercelJSONHeaderObject[]
+}

@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-text-to-speech](./eleventy-plugin-text-to-speech.md) &gt; [mediaType](./eleventy-plugin-text-to-speech.mediatype.md)
 
-## mediaType variable
+## mediaType() function
 
 The `<audio>` tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).
 
@@ -17,3 +17,41 @@ mediaType: (ext: string) => {
     value?: undefined;
 }
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+ext
+
+
+</td><td>
+
+string
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+{ value: string; error?: undefined; } \| { error: Error; value?: undefined; }
+

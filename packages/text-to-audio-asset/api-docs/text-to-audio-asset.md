@@ -4,16 +4,76 @@
 
 ## text-to-audio-asset package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[textToAudioAsset(config)](./text-to-audio-asset.texttoaudioasset.md)
+
+
+</td><td>
+
+Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [text\_to\_audio\_asset\_config](./text-to-audio-asset.text_to_audio_asset_config.md) |  |
-|  [textToAudioAsset](./text-to-audio-asset.texttoaudioasset.md) | Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[text\_to\_audio\_asset\_config](./text-to-audio-asset.text_to_audio_asset_config.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Config](./text-to-audio-asset.config.md) |  |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Config](./text-to-audio-asset.config.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

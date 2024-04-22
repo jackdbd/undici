@@ -12,9 +12,10 @@ Default options for the plugin.
 DEFAULT_OPTIONS: {
     allowDeprecatedDirectives: boolean;
     directives: any;
+    excludePatterns: never[];
     globPatterns: string[];
     globPatternsDetach: never[];
-    excludePatterns: never[];
+    hosting: string | undefined;
     includePatterns: string[];
     jsonRecap: boolean;
     reportOnly: boolean;

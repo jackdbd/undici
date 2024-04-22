@@ -42,8 +42,8 @@
         '';
 
         CLOUDFLARE_ACCOUNT_ID = "43f9884041661b778e95a26992850715";
-        DEBUG = "script:*,Eleventy:EleventyErrorHandler";
-        # DEBUG = "script:*,Eleventy:EleventyErrorHandler,11ty-plugin:*";
+        # DEBUG = "script:*,Eleventy:EleventyErrorHandler,11ty-plugin:csp:*";
+        DEBUG = "Eleventy:EleventyErrorHandler,11ty-plugin:csp:*,csp:*,11ty-plugin:permissions-policy:*";
         NODE_ENV = "development";
         SKIP_TELEGRAM_MESSAGES = 1;
         # SKIP_VALIDATION = 1;

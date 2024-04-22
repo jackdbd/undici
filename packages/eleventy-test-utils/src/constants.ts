@@ -30,4 +30,6 @@ export const ASSETS_ROOT = path.join(REPO_ROOT, 'assets')
 export const ELEVENTY_INPUT = path.join(REPO_ROOT, 'assets', 'html-pages')
 export const FIXTURES_ROOT = path.join(REPO_ROOT, 'fixtures')
 export const HEADERS_FILEPATH = path.join(ELEVENTY_INPUT, '_headers')
-export const HEADERS_CONTENT = '# Here are my custom HTTP response headers'
+export const HEADERS = ['X-Foo: bar', 'X-Bar: baz']
+export const HEADERS_CONTENT = `/*\n  ${HEADERS.join('\n  ')}\n`
+export const VERCEL_JSON_FILEPATH = path.join(ELEVENTY_INPUT, 'vercel.json')

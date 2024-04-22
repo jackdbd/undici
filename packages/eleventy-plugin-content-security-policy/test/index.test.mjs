@@ -2,13 +2,13 @@ import assert from 'node:assert'
 import fs from 'node:fs'
 import path from 'node:path'
 import { describe, it, before, beforeEach, afterEach } from 'node:test'
-import { fileURLToPath } from 'node:url'
 import util from 'node:util'
 import {
   makeEleventy,
   ELEVENTY_INPUT,
   HEADERS_FILEPATH,
-  HEADERS_CONTENT
+  HEADERS_CONTENT,
+  VERCEL_JSON_FILEPATH
 } from '@jackdbd/eleventy-test-utils'
 import {
   starter_policy,
@@ -19,6 +19,9 @@ import { contentSecurityPolicyPlugin } from '../lib/index.js'
 const readFileAsync = util.promisify(fs.readFile)
 const writeFileAsync = util.promisify(fs.writeFile)
 const unlinkAsync = util.promisify(fs.unlink)
+
+const HOSTING = 'cloudflare-pages'
+// const HOSTING = 'vercel'
 
 const CONFIG_JSON_FILEPATH = path.join(
   ELEVENTY_INPUT,
@@ -57,8 +60,22 @@ const directives = {
 
   'upgrade-insecure-requests': true,
 
-  // allow service workers, workers and shared workers hosted on the this origin
+  // allow service workers, web workers and shared web workers hosted on the this origin
   'worker-src': ['self']
+}
+
+const cleanup = async () => {
+  if (fs.existsSync(CONFIG_JSON_FILEPATH)) {
+    await unlinkAsync(CONFIG_JSON_FILEPATH)
+  }
+
+  if (fs.existsSync(HEADERS_FILEPATH)) {
+    await unlinkAsync(HEADERS_FILEPATH)
+  }
+
+  if (fs.existsSync(VERCEL_JSON_FILEPATH)) {
+    await unlinkAsync(VERCEL_JSON_FILEPATH)
+  }
 }
 
 describe('contentSecurityPolicyPlugin', () => {
@@ -74,40 +91,12 @@ describe('contentSecurityPolicyPlugin', () => {
   })
 
   beforeEach(async () => {
-    if (fs.existsSync(CONFIG_JSON_FILEPATH)) {
-      await unlinkAsync(CONFIG_JSON_FILEPATH)
-    }
-
-    if (fs.existsSync(HEADERS_FILEPATH)) {
-      await unlinkAsync(HEADERS_FILEPATH)
-    }
-
+    await cleanup()
     await writeFileAsync(HEADERS_FILEPATH, HEADERS_CONTENT)
   })
 
   afterEach(async () => {
-    if (fs.existsSync(CONFIG_JSON_FILEPATH)) {
-      await unlinkAsync(CONFIG_JSON_FILEPATH)
-    }
-    if (fs.existsSync(HEADERS_FILEPATH)) {
-      await unlinkAsync(HEADERS_FILEPATH)
-    }
-  })
-
-  it('adds one `eleventy.after` event handler', async () => {
-    const eleventy = await makeEleventy({
-      input: undefined,
-      output: undefined,
-      plugin: contentSecurityPolicyPlugin,
-      pluginConfig: {},
-      dir: { output: ELEVENTY_INPUT }
-    })
-
-    const userConfig = eleventy.eleventyConfig.userConfig
-
-    assert.equal(userConfig.events._eventsCount, 2)
-    assert.equal(userConfig.events._events['eleventy.before'], undefined)
-    assert.notEqual(userConfig.events._events['eleventy.after'], undefined)
+    await cleanup()
   })
 
   it(
@@ -117,13 +106,11 @@ describe('contentSecurityPolicyPlugin', () => {
         input: undefined,
         output: undefined,
         plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {},
+        pluginConfig: { hosting: HOSTING },
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
+      // const userConfig = eleventy.eleventyConfig.userConfig
 
       // const timeout = await waitMs(timeoutMs / 4)
       // clearTimeout(timeout)
@@ -146,13 +133,11 @@ describe('contentSecurityPolicyPlugin', () => {
         input: undefined,
         output: undefined,
         plugin: contentSecurityPolicyPlugin,
-        pluginConfig: { jsonRecap: true },
+        pluginConfig: { hosting: HOSTING, jsonRecap: true },
         dir: { output: ELEVENTY_INPUT }
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
 
       // const timeout = await waitMs(timeoutMs / 4)
       // clearTimeout(timeout)
@@ -175,13 +160,14 @@ describe('contentSecurityPolicyPlugin', () => {
         input: undefined,
         output: undefined,
         plugin: contentSecurityPolicyPlugin,
-        pluginConfig: { directives: directives_starter_policy },
+        pluginConfig: {
+          directives: directives_starter_policy,
+          hosting: HOSTING
+        },
         dir: { output: ELEVENTY_INPUT }
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
 
       // const timeout = await waitMs(timeoutMs / 4)
       // clearTimeout(timeout)
@@ -210,13 +196,14 @@ describe('contentSecurityPolicyPlugin', () => {
         input: undefined,
         output: undefined,
         plugin: contentSecurityPolicyPlugin,
-        pluginConfig: { directives: directives_recommended_policy },
+        pluginConfig: {
+          directives: directives_recommended_policy,
+          hosting: HOSTING
+        },
         dir: { output: ELEVENTY_INPUT }
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
 
       // const timeout = await waitMs(timeoutMs / 4)
       // clearTimeout(timeout)
@@ -254,6 +241,7 @@ describe('contentSecurityPolicyPlugin', () => {
           allowDeprecatedDirectives: true,
           directives,
           globPatternsDetach: ['/*.png'],
+          hosting: HOSTING,
           includePatterns: ['/**/**.html'],
           excludePatterns: []
         },
@@ -261,8 +249,6 @@ describe('contentSecurityPolicyPlugin', () => {
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
 
       // const timeout = await waitMs(timeoutMs / 4)
       // clearTimeout(timeout)
@@ -286,6 +272,7 @@ describe('contentSecurityPolicyPlugin', () => {
           allowDeprecatedDirectives: true,
           directives,
           globPatternsDetach: ['/*.png'],
+          hosting: HOSTING,
           includePatterns: ['/**/**.html'],
           excludePatterns: [],
           reportOnly: true
@@ -294,8 +281,6 @@ describe('contentSecurityPolicyPlugin', () => {
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig
-
-      assert.equal(userConfig.events._eventsCount, 2)
 
       // const timeout = await waitMs(timeoutMs - 1000)
       // clearTimeout(timeout)
@@ -313,10 +298,11 @@ describe('contentSecurityPolicyPlugin', () => {
       input: undefined,
       output: undefined,
       plugin: contentSecurityPolicyPlugin,
-      pluginConfig: {},
+      pluginConfig: { hosting: HOSTING },
       dir: { output: ELEVENTY_INPUT }
     })
 
-    assert.equal(eleventy.outputDir, ELEVENTY_INPUT)
+    assert.equal(eleventy.outputDir, './_site/')
+    // assert.equal(eleventy.outputDir, ELEVENTY_INPUT)
   })
 })

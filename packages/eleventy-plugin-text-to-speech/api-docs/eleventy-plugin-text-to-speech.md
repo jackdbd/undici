@@ -4,29 +4,212 @@
 
 ## eleventy-plugin-text-to-speech package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[defaultAudioInnerHTML(hrefs)](./eleventy-plugin-text-to-speech.defaultaudioinnerhtml.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[mediaType(ext)](./eleventy-plugin-text-to-speech.mediatype.md)
+
+
+</td><td>
+
+The `<audio>` tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg).
+
+
+</td></tr>
+<tr><td>
+
+[textToAudioAsset(config)](./eleventy-plugin-text-to-speech.texttoaudioasset.md)
+
+
+</td><td>
+
+Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech.
+
+
+</td></tr>
+<tr><td>
+
+[textToSpeechPlugin(eleventyConfig, config)](./eleventy-plugin-text-to-speech.texttospeechplugin.md)
+
+
+</td><td>
+
+Adds Text-to-Speech functionality to an Eleventy site.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [config](./eleventy-plugin-text-to-speech.config.md) | <p>Config of this Eleventy plugin.</p> |
-|  [DEBUG\_PREFIX](./eleventy-plugin-text-to-speech.debug_prefix.md) |  |
-|  [DEFAULT\_COLLECTION\_NAME](./eleventy-plugin-text-to-speech.default_collection_name.md) |  |
-|  [DEFAULT\_TRANSFORM\_NAME](./eleventy-plugin-text-to-speech.default_transform_name.md) |  |
-|  [defaultAudioInnerHTML](./eleventy-plugin-text-to-speech.defaultaudioinnerhtml.md) |  |
-|  [mediaType](./eleventy-plugin-text-to-speech.mediatype.md) | The <code>&lt;audio&gt;</code> tag supports 3 audio formats: MP3 (audio/mpeg), WAV (audio/wav), and OGG (audio/ogg). |
-|  [textToAudioAsset](./eleventy-plugin-text-to-speech.texttoaudioasset.md) | Synthesizes some text into a readable stream representing the speech. Then it generates an audio asset from that speech. |
-|  [textToSpeechPlugin](./eleventy-plugin-text-to-speech.texttospeechplugin.md) | Adds Text-to-Speech functionality to an Eleventy site. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[config](./eleventy-plugin-text-to-speech.config.md)
+
+
+</td><td>
+
+Config of this Eleventy plugin.
+
+
+
+</td></tr>
+<tr><td>
+
+[DEBUG\_PREFIX](./eleventy-plugin-text-to-speech.debug_prefix.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[DEFAULT\_COLLECTION\_NAME](./eleventy-plugin-text-to-speech.default_collection_name.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[DEFAULT\_TRANSFORM\_NAME](./eleventy-plugin-text-to-speech.default_transform_name.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Config](./eleventy-plugin-text-to-speech.config.md) | <p>Configuration for this Eleventy plugin.</p> |
-|  [Hosting](./eleventy-plugin-text-to-speech.hosting.md) |  |
-|  [Rule](./eleventy-plugin-text-to-speech.rule.md) | <p>Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.</p> |
-|  [Synthesis](./eleventy-plugin-text-to-speech.synthesis.md) |  |
-|  [Synthesize](./eleventy-plugin-text-to-speech.synthesize.md) |  |
-|  [SynthesizeResult](./eleventy-plugin-text-to-speech.synthesizeresult.md) | Synthesize result. |
-|  [Write](./eleventy-plugin-text-to-speech.write.md) | Write function. |
-|  [WriteResult](./eleventy-plugin-text-to-speech.writeresult.md) | Write result. |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Config](./eleventy-plugin-text-to-speech.config.md)
+
+
+</td><td>
+
+Configuration for this Eleventy plugin.
+
+
+
+</td></tr>
+<tr><td>
+
+[Hosting](./eleventy-plugin-text-to-speech.hosting.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[Rule](./eleventy-plugin-text-to-speech.rule.md)
+
+
+</td><td>
+
+Rule defining how text should be synthesized by a text-to-speech client, and where the generated audio asset/s should be hosted.
+
+
+
+</td></tr>
+<tr><td>
+
+[Synthesis](./eleventy-plugin-text-to-speech.synthesis.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[Synthesize](./eleventy-plugin-text-to-speech.synthesize.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[SynthesizeResult](./eleventy-plugin-text-to-speech.synthesizeresult.md)
+
+
+</td><td>
+
+Synthesize result.
+
+
+</td></tr>
+<tr><td>
+
+[Write](./eleventy-plugin-text-to-speech.write.md)
+
+
+</td><td>
+
+Write function.
+
+
+</td></tr>
+<tr><td>
+
+[WriteResult](./eleventy-plugin-text-to-speech.writeresult.md)
+
+
+</td><td>
+
+Write result.
+
+
+</td></tr>
+</tbody></table>

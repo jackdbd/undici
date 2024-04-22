@@ -6,7 +6,24 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [@jackdbd/eleventy-plugin-ensure-env-vars](./eleventy-plugin-ensure-env-vars.md) |  |
+<table><thead><tr><th>
 
+Package
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[@jackdbd/eleventy-plugin-ensure-env-vars](./eleventy-plugin-ensure-env-vars.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

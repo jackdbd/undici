@@ -4,16 +4,81 @@
 
 ## eleventy-plugin-ensure-env-vars package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[ensureEnvVarsPlugin(\_eleventyConfig, options)](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md)
+
+
+</td><td>
+
+Plugin that checks whether the environment variables you specified are set when Eleventy builds your site.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [ensureEnvVarsPlugin](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md) | Plugin that checks whether the environment variables you specified are set when Eleventy builds your site. |
-|  [env\_var](./eleventy-plugin-ensure-env-vars.env_var.md) | Schema for an environment variable name. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[env\_var](./eleventy-plugin-ensure-env-vars.env_var.md)
+
+
+</td><td>
+
+Schema for an environment variable name.
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-ensure-env-vars.options.md) | <p>Plugin options.</p> |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Options](./eleventy-plugin-ensure-env-vars.options.md)
+
+
+</td><td>
+
+Plugin options.
+
+
+
+</td></tr>
+</tbody></table>

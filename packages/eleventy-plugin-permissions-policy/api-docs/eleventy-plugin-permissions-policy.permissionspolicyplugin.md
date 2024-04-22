@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-permissions-policy](./eleventy-plugin-permissions-policy.md) &gt; [permissionsPolicyPlugin](./eleventy-plugin-permissions-policy.permissionspolicyplugin.md)
 
-## permissionsPolicyPlugin variable
+## permissionsPolicyPlugin() function
 
 Plugin configuration function.
 
@@ -11,3 +11,55 @@ Plugin configuration function.
 ```typescript
 permissionsPolicyPlugin: (eleventyConfig: EleventyConfig, options: Options) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+eleventyConfig
+
+
+</td><td>
+
+EleventyConfig
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+options
+
+
+</td><td>
+
+[Options](./eleventy-plugin-permissions-policy.options.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+void
+

@@ -71,17 +71,18 @@
     "publint": "publint run .",
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "node --test --experimental-test-coverage",
+    "test": "DEBUG='' node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
-    "test:watch": "node --test --watch"
+    "test:watch": "DEBUG='' node --test --watch"
   },
   "dependencies": {
-    "@jackdbd/content-security-policy": "2.1.3",
-    "zod": "^3.22.4",
-    "zod-validation-error": "^3.0.0"
+    "@jackdbd/content-security-policy": "3.0.0-canary.1",
+    "netlify-headers-parser": "^7.1.4",
+    "zod": "^3.23.0",
+    "zod-validation-error": "^3.1.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.6",
     "debug": ">=4.0.0"
   },
   "devDependencies": {

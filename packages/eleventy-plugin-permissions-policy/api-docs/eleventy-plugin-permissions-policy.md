@@ -4,20 +4,120 @@
 
 ## eleventy-plugin-permissions-policy package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[permissionsPolicyPlugin(eleventyConfig, options)](./eleventy-plugin-permissions-policy.permissionspolicyplugin.md)
+
+
+</td><td>
+
+Plugin configuration function.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [DEFAULT\_OPTIONS](./eleventy-plugin-permissions-policy.default_options.md) | Default options for the plugin. |
-|  [directive](./eleventy-plugin-permissions-policy.directive.md) |  |
-|  [feature](./eleventy-plugin-permissions-policy.feature.md) | Directive available in the Permissions-Policy header. |
-|  [options](./eleventy-plugin-permissions-policy.options.md) | Zod schema for the options of this Eleventy plugin. |
-|  [permissionsPolicyPlugin](./eleventy-plugin-permissions-policy.permissionspolicyplugin.md) | Plugin configuration function. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[DEFAULT\_OPTIONS](./eleventy-plugin-permissions-policy.default_options.md)
+
+
+</td><td>
+
+Default options for the plugin.
+
+
+</td></tr>
+<tr><td>
+
+[directive](./eleventy-plugin-permissions-policy.directive.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[feature](./eleventy-plugin-permissions-policy.feature.md)
+
+
+</td><td>
+
+Directive available in the Permissions-Policy header.
+
+
+</td></tr>
+<tr><td>
+
+[options](./eleventy-plugin-permissions-policy.options.md)
+
+
+</td><td>
+
+Zod schema for the options of this Eleventy plugin.
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Directive](./eleventy-plugin-permissions-policy.directive.md) |  |
-|  [Options](./eleventy-plugin-permissions-policy.options.md) | Options for this Eleventy plugin. |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Directive](./eleventy-plugin-permissions-policy.directive.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[Options](./eleventy-plugin-permissions-policy.options.md)
+
+
+</td><td>
+
+Options for this Eleventy plugin.
+
+
+</td></tr>
+</tbody></table>

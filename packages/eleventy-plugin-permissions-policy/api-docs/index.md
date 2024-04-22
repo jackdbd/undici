@@ -6,7 +6,24 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [@jackdbd/eleventy-plugin-permissions-policy](./eleventy-plugin-permissions-policy.md) |  |
+<table><thead><tr><th>
 
+Package
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[@jackdbd/eleventy-plugin-permissions-policy](./eleventy-plugin-permissions-policy.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
