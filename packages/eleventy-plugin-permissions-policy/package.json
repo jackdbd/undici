@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-permissions-policy",
-  "version": "1.1.1",
+  "version": "1.2.0-canary.1",
   "description": "Eleventy plugin that writes Permissions-Policy and Feature-Policy headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
@@ -76,7 +76,7 @@
     "test:watch": "DEBUG='' node --test --watch"
   },
   "dependencies": {
-    "@jackdbd/hosting-utils": "*",
+    "@jackdbd/hosting-utils": "1.0.0-canary.1",
     "zod": "^3.23.0",
     "zod-validation-error": "^3.1.0"
   },
