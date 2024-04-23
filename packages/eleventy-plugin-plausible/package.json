@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-plausible",
-  "version": "1.1.0",
+  "version": "1.2.0-canary.1",
   "description": "Eleventy plugin that retrieves analytics from Plausible when building your site.",
   "author": {
     "name": "Giacomo Debidda",
