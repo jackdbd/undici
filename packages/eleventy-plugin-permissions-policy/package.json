@@ -59,6 +59,7 @@
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p build:ts:watch test:watch",
     "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'readme' --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:ae": "../../scripts/api-extractor.mjs",
@@ -70,11 +71,12 @@
     "publint": "publint run .",
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-permissions-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "node --test --experimental-test-coverage",
+    "test": "DEBUG='' node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
-    "test:watch": "node --test --watch"
+    "test:watch": "DEBUG='' node --test --watch"
   },
   "dependencies": {
+    "@jackdbd/hosting-utils": "*",
     "zod": "^3.23.0",
     "zod-validation-error": "^3.1.0"
   },

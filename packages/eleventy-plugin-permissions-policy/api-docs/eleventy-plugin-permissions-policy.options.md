@@ -27,6 +27,7 @@ options: z.ZodObject<{
         allowlist?: string[] | undefined;
     }[]>>;
     excludePatterns: z.ZodDefault<z.ZodArray<z.ZodString, "many">>;
+    hosting: z.ZodOptional<z.ZodString>;
     includeFeaturePolicy: z.ZodDefault<z.ZodBoolean>;
     includePatterns: z.ZodDefault<z.ZodArray<z.ZodString, "many">>;
     jsonRecap: z.ZodDefault<z.ZodBoolean>;
@@ -39,12 +40,14 @@ options: z.ZodObject<{
     includeFeaturePolicy: boolean;
     includePatterns: string[];
     jsonRecap: boolean;
+    hosting?: string | undefined;
 }, {
     directives?: {
         feature: "accelerometer" | "ambient-light-sensor" | "autoplay" | "battery" | "browsing-topics" | "camera" | "clipboard-read" | "clipboard-write" | "conversion-measurement" | "cross-origin-isolated" | "display-capture" | "document-domain" | "encrypted-media" | "execution-while-not-rendered" | "execution-while-out-of-viewport" | "focus-without-user-activation" | "fullscreen" | "gamepad" | "geolocation" | "gyroscope" | "hid" | "idle-detection" | "layout-animations" | "legacy-image-formats" | "magnetometer" | "microphone" | "midi" | "navigation-override" | "oversized-images" | "payment" | "picture-in-picture" | "publickey-credentials-get" | "screen-wake-lock" | "serial" | "speaker-selection" | "sync-script" | "sync-xhr" | "trust-token-redemption" | "unload" | "unoptimized-images" | "unsized-media" | "usb" | "vertical-scroll" | "web-share" | "window-placement" | "xr-spatial-tracking";
         allowlist?: string[] | undefined;
     }[] | undefined;
     excludePatterns?: string[] | undefined;
+    hosting?: string | undefined;
     includeFeaturePolicy?: boolean | undefined;
     includePatterns?: string[] | undefined;
     jsonRecap?: boolean | undefined;

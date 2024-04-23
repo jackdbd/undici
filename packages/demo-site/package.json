@@ -20,7 +20,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "eleventy --config eleventy.mjs",
+    "build": "DEBUG='hosting-utils:*,11ty-plugin:csp:*,11ty-plugin:permissions-policy:*' eleventy --config eleventy.mjs",
     "clean": "rimraf _site/ .cache/",
     "dev": "eleventy --config eleventy.mjs --serve --port 8090",
     "deploy": "npx wrangler pages deploy _site --project-name undici",

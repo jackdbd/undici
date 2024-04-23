@@ -4,9 +4,13 @@ import path from 'node:path'
 import { describe, it, before, beforeEach, afterEach } from 'node:test'
 import util from 'node:util'
 import {
-  defEleventy,
+  _HEADERS_OUTPUT,
   ELEVENTY_INPUT,
-  FIXTURES_ROOT
+  FIXTURES_ROOT,
+  VERCEL_JSON_OUTPUT,
+  defEleventy,
+  headersContent,
+  vercelJsonObj
 } from '@jackdbd/eleventy-test-utils'
 import {
   starter_policy,
@@ -19,9 +23,7 @@ const copyFileAsync = util.promisify(fs.copyFile)
 const unlinkAsync = util.promisify(fs.unlink)
 
 const _HEADERS_INPUT = path.join(FIXTURES_ROOT, 'plain-text', '_headers')
-const _HEADERS_OUTPUT = path.join(ELEVENTY_INPUT, '_headers')
 const VERCEL_JSON_INPUT = path.join(FIXTURES_ROOT, 'json', 'vercel.json')
-const VERCEL_JSON_OUTPUT = path.join(ELEVENTY_INPUT, 'vercel.json')
 
 const HOSTING = 'cloudflare-pages'
 
@@ -132,8 +134,7 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const buffer = await readFileAsync(_HEADERS_OUTPUT)
-      const str = buffer.toString()
+      const str = await headersContent()
 
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
@@ -160,8 +161,7 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const buffer = await readFileAsync(_HEADERS_OUTPUT)
-      const str = buffer.toString()
+      const str = await headersContent()
 
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
@@ -197,8 +197,7 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const buffer = await readFileAsync(_HEADERS_OUTPUT)
-      const str = buffer.toString()
+      const str = await headersContent()
 
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
@@ -226,8 +225,7 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const buffer = await readFileAsync(_HEADERS_OUTPUT)
-      const str = buffer.toString()
+      const str = await headersContent()
 
       assert.doesNotMatch(str, /Content-Security-Policy:/)
       assert.match(str, /Content-Security-Policy-Report-Only:/)
@@ -255,7 +253,7 @@ describe('contentSecurityPolicyPlugin', () => {
       dir: { output: ELEVENTY_INPUT }
     })
 
-    const str_after = (await readFileAsync(_HEADERS_OUTPUT)).toString()
+    const str_after = await headersContent()
 
     assert.match(str_after, /Content-Security-Policy:/)
     assert.doesNotMatch(str_after, /Content-Security-Policy-Report-Only:/)
@@ -282,8 +280,7 @@ describe('contentSecurityPolicyPlugin', () => {
       dir: { output: ELEVENTY_INPUT }
     })
 
-    const str_after = (await readFileAsync(VERCEL_JSON_OUTPUT)).toString()
-    const obj_after = JSON.parse(str_after)
+    const obj_after = await vercelJsonObj()
     const arr_after = obj_after.headers.filter((h) => h.source === '/*')
     assert.equal(arr_after.length, 1)
     assert.equal(arr_after[0].headers.length, 1)
@@ -299,7 +296,6 @@ describe('contentSecurityPolicyPlugin', () => {
 
     const eleventy = await defEleventy({
       plugin: contentSecurityPolicyPlugin,
-      // pluginConfig: {},
       dir: { output: ELEVENTY_INPUT }
     })
 
@@ -311,22 +307,32 @@ describe('contentSecurityPolicyPlugin', () => {
 
     const eleventy = await defEleventy({
       plugin: contentSecurityPolicyPlugin,
-      // pluginConfig: {},
       dir: { output: ELEVENTY_INPUT }
     })
 
     assert.equal(eleventy.outputDir, './_site/')
   })
 
-  it('throws an error when no hosting provider config file is available in the output directory (e.g. _headers, vercel.json) and no hosting is specified in the plugin options', async () => {
-    try {
-      await defEleventy({
+  it('throws an error when no hosting provider config file is available in the output directory (e.g. _headers, vercel.json) and no hosting is specified in the plugin options', () => {
+    assert.rejects(() => {
+      // return Promise.reject(new Error('some failure'))
+      // return Promise.resolve('some success')
+      return defEleventy({
         plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {},
         dir: { output: ELEVENTY_INPUT }
       })
-    } catch (err) {
-      assert.match(err.message, /hosting not set in plugin options/)
-    }
+    })
   })
+
+  // tests that throw can also be written like this
+  // it('throws an error when no hosting provider config file is available in the output directory (e.g. _headers, vercel.json) and no hosting is specified in the plugin options', async () => {
+  //   try {
+  //     await defEleventy({
+  //       plugin: contentSecurityPolicyPlugin,
+  //       dir: { output: ELEVENTY_INPUT }
+  //     })
+  //   } catch (err) {
+  //     assert.match(err.message, /hosting not set in plugin options/)
+  //   }
+  // })
 })

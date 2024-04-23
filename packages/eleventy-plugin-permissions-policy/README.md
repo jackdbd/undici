@@ -89,6 +89,7 @@ Read these resources to understand how to configure the `Permissions-Policy` and
 |---|---|---|
 | `directives` | `undefined` | Permissions-Policy [directives](https://w3c.github.io/webappsec-permissions-policy/#policy-directives). |
 | `excludePatterns` | `undefined` | Files that match these patterns will **not** be served with the Permissions-Policy header (nor with the Feature-Policy header, if generated). |
+| `hosting` | `undefined` |  |
 | `includeFeaturePolicy` | `undefined` | Whether to generate also a Feature-Policy header. |
 | `includePatterns` | `undefined` | Files that match these patterns will be served with the Permissions-Policy header (and also with the Feature-Policy header, if generated). |
 | `jsonRecap` | `undefined` |  |
@@ -116,6 +117,7 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
+| [@jackdbd/hosting-utils](https://www.npmjs.com/package/@jackdbd/hosting-utils) | `*` |
 | [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
 | [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
 

@@ -8,5 +8,7 @@ export {
   clientCredentials,
   cloudStorageUploaderClientOptions,
   cloudTextToSpeechClientOptions,
-  waitMs
+  headersContent,
+  waitMs,
+  vercelJsonObj
 } from './utils.js'

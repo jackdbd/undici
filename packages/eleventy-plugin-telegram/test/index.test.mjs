@@ -1,10 +1,29 @@
 import assert from 'node:assert'
+import path from 'node:path'
 import { describe, it } from 'node:test'
+import { fileURLToPath } from 'node:url'
 import {
-  makeEleventy,
+  defEleventy,
   ELEVENTY_INITIAL_EVENTS_COUNT
 } from '@jackdbd/eleventy-test-utils'
 import { telegramPlugin } from '../lib/index.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const FILE_NAME = path.basename(__filename)
+const PACKAGE_ROOT = path.join(__filename, '..', '..')
+const PACKAGE_NAME = path.basename(PACKAGE_ROOT)
+
+const TEXT_BEFORE_BUILD = [
+  `🧪 <b>Test message</b>`,
+  `This is a test message for <code>textBeforeBuild</code> defined in <code>${FILE_NAME}</code>.`,
+  `Sent by <code>${PACKAGE_NAME}</code>`
+].join('\n\n')
+
+const TEXT_AFTER_BUILD = [
+  `🧪 <b>Test message</b>`,
+  `This is a test message for <code>textAfterBuild</code> defined in <code>${FILE_NAME}</code>.`,
+  `Sent by <code>${PACKAGE_NAME}</code>`
+].join('\n\n')
 
 const credentials = () => {
   const parsed = JSON.parse(process.env.TELEGRAM)
@@ -38,7 +57,7 @@ const setEmptyEnvironmentVariables = () => {
 describe('telegramPlugin', () => {
   it('allows empty user config that registers no event handlers (valid env vars for Telegram chat_id/token)', async () => {
     setValidEnvironmentVariables()
-    const eleventy = await makeEleventy({
+    const eleventy = await defEleventy({
       plugin: telegramPlugin
     })
     const userConfig = eleventy.eleventyConfig.userConfig
@@ -51,7 +70,7 @@ describe('telegramPlugin', () => {
     // to the Telegram chat, but this plugin will not throw any error (use DEBUG
     // to see the error messages returned by the Telegram API)
     setInvalidEnvironmentVariables()
-    const eleventy = await makeEleventy({
+    const eleventy = await defEleventy({
       plugin: telegramPlugin
     })
     const userConfig = eleventy.eleventyConfig.userConfig
@@ -64,7 +83,7 @@ describe('telegramPlugin', () => {
     setValidChatId()
     await assert.rejects(
       () => {
-        return makeEleventy({
+        return defEleventy({
           plugin: telegramPlugin,
           pluginConfig: { token: undefined }
         })
@@ -85,7 +104,7 @@ describe('telegramPlugin', () => {
     setValidToken()
     await assert.rejects(
       () => {
-        return makeEleventy({
+        return defEleventy({
           plugin: telegramPlugin,
           pluginConfig: { chat_id: undefined }
         })
@@ -103,12 +122,12 @@ describe('telegramPlugin', () => {
 
   it('adds only an `eleventy.before` event handler if only `textBeforeBuild` is set', async () => {
     const { chat_id, token } = credentials()
-    const eleventy = await makeEleventy({
+    const eleventy = await defEleventy({
       plugin: telegramPlugin,
       pluginConfig: {
         chatId: chat_id,
         token,
-        textBeforeBuild: '<b>TEST</b> only <code>textBeforeBuild</code>'
+        textBeforeBuild: TEXT_BEFORE_BUILD
       }
     })
     const userConfig = eleventy.eleventyConfig.userConfig
@@ -120,12 +139,12 @@ describe('telegramPlugin', () => {
 
   it('adds only an `eleventy.after` event handler if only `textAfterBuild` is set', async () => {
     const { chat_id, token } = credentials()
-    const eleventy = await makeEleventy({
+    const eleventy = await defEleventy({
       plugin: telegramPlugin,
       pluginConfig: {
         chatId: chat_id,
         token,
-        textAfterBuild: '<b>TEST</b> only <code>textAfterBuild</code>'
+        textAfterBuild: TEXT_AFTER_BUILD
       }
     })
     const userConfig = eleventy.eleventyConfig.userConfig

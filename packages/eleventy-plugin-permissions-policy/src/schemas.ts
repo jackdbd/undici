@@ -125,8 +125,9 @@ export const directives = z.array(directive).refine(isUnique, {
 export const DEFAULT_OPTIONS = {
   directives: [] as Directive[],
   excludePatterns: [] as string[],
+  hosting: undefined as string | undefined,
   includeFeaturePolicy: true,
-  includePatterns: ['/', '/*/'],
+  includePatterns: ['/*'],
   jsonRecap: false
 }
 
@@ -150,6 +151,8 @@ export const options = z.object({
     .describe(
       'Files that match these patterns will **not** be served with the Permissions-Policy header (nor with the Feature-Policy header, if generated).'
     ),
+
+  hosting: z.string().optional(),
 
   /**
    * Whether to include the Feature-Policy header or not.
@@ -177,3 +180,17 @@ export const options = z.object({
  * @public
  */
 export type Options = z.input<typeof options>
+
+export type VercelJSONHeadersEntry = { key: string; value: string }
+
+// https://vercel.com/docs/projects/project-configuration#header-object-definition
+export type VercelJSONHeaderObject = {
+  source: string
+  headers: VercelJSONHeadersEntry[]
+  has?: any[]
+  missing?: any[]
+}
+
+export type VercelJSON = {
+  headers: VercelJSONHeaderObject[]
+}

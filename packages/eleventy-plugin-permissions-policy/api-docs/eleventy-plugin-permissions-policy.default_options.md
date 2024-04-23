@@ -15,6 +15,7 @@ DEFAULT_OPTIONS: {
         allowlist?: string[] | undefined;
     }[];
     excludePatterns: string[];
+    hosting: string | undefined;
     includeFeaturePolicy: boolean;
     includePatterns: string[];
     jsonRecap: boolean;

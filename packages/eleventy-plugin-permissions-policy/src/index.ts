@@ -3,11 +3,18 @@ import path from 'node:path'
 import util from 'node:util'
 import defDebug from 'debug'
 import type { EleventyConfig } from '@11ty/eleventy'
-import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
+import {
+  createOrUpdateHeaders,
+  createOrUpdateVercelJSON
+} from '@jackdbd/hosting-utils'
+import {
+  DEBUG_PREFIX,
+  ERR_PREFIX,
+  SUPPORTED_HOSTING_PROVIDERS
+} from './constants.js'
 import { validationError } from './errors.js'
 import { DEFAULT_OPTIONS, Options, options as schema } from './schemas.js'
 import {
-  appendToHeadersFile,
   featurePolicyDirectiveMapper,
   permissionsPolicyDirectiveMapper
 } from './utils.js'
@@ -59,11 +66,86 @@ export const permissionsPolicyPlugin = (
     // Eleventy TemplateConfig instance.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const outdir = (eleventyConfig as any).dir.output
-    const headersFilepath = path.join(outdir, '_headers')
 
-    if (!fs.existsSync(headersFilepath)) {
-      await writeFileAsync(headersFilepath, '', { encoding: 'utf8' })
-      debug(`${headersFilepath} did not exist, so it was created`)
+    // TODO: decide what to do when multiple config files are available (e.g. a
+    // vercel.json and a _headers file). Maybe the best approach is to throw an
+    // error and ask the user to decide which hosting provider to use (i.e. the
+    // user should manually cleanup his deploy directory).
+
+    let hosting_provider_config_files: string[] = []
+    if (fs.existsSync(path.join(outdir, '_headers'))) {
+      debug(`found _headers file (Cloudflare Pages)`)
+      hosting_provider_config_files.push('cloudflare-pages') // or netlify
+    }
+    if (fs.existsSync(path.join(outdir, 'vercel.json'))) {
+      debug(`found vercel.json (Vercel)`)
+      hosting_provider_config_files.push('vercel')
+    }
+
+    let hosting: string | undefined
+    if (hosting_provider_config_files.length > 0) {
+      hosting = hosting_provider_config_files[0]
+    }
+
+    if (config.hosting) {
+      hosting = config.hosting
+      debug(`hosting: ${hosting}`)
+    }
+
+    if (!hosting) {
+      throw new Error(`${ERR_PREFIX}: hosting not set in plugin options`)
+    }
+
+    if (hosting === 'vercel') {
+      if (directives.length > 0 && patterns.length > 0) {
+        await createOrUpdateVercelJSON({
+          headerKey: 'Permissions-Policy',
+          headerValue: directives
+            .map(permissionsPolicyDirectiveMapper)
+            .join(', '),
+          outdir,
+          sources: patterns
+        })
+
+        if (includeFeaturePolicy) {
+          await createOrUpdateVercelJSON({
+            headerKey: 'Feature-Policy',
+            headerValue: directives
+              .map(featurePolicyDirectiveMapper)
+              .join('; '),
+            outdir,
+            sources: patterns
+          })
+        }
+      }
+    } else if (hosting === 'cloudflare-pages' || hosting === 'netlify') {
+      if (directives.length > 0 && patterns.length > 0) {
+        await createOrUpdateHeaders({
+          globPatterns: patterns,
+          globPatternsDetach: [],
+          headerKey: 'Permissions-Policy',
+          headerValue: directives
+            .map(permissionsPolicyDirectiveMapper)
+            .join(', '),
+          outdir
+        })
+
+        if (includeFeaturePolicy) {
+          await createOrUpdateHeaders({
+            globPatterns: patterns,
+            globPatternsDetach: [],
+            headerKey: 'Feature-Policy',
+            headerValue: directives
+              .map(featurePolicyDirectiveMapper)
+              .join('; '),
+            outdir
+          })
+        }
+      }
+    } else {
+      throw new Error(
+        `${ERR_PREFIX}: ${hosting} is not a supported hosting provider. This plugin supports the following hosting providers: ${[...SUPPORTED_HOSTING_PROVIDERS].join(', ')}`
+      )
     }
 
     if (jsonRecap) {
@@ -71,32 +153,6 @@ export const permissionsPolicyPlugin = (
         path.join(outdir, `eleventy-plugin-permissions-policy-config.json`),
         JSON.stringify(config, null, 2)
       )
-    }
-
-    if (directives.length > 0 && patterns.length > 0) {
-      const headerValue = directives
-        .map(permissionsPolicyDirectiveMapper)
-        .join(', ')
-
-      appendToHeadersFile(
-        'Permissions-Policy',
-        headerValue,
-        headersFilepath,
-        patterns
-      )
-
-      if (includeFeaturePolicy) {
-        const headerValue = directives
-          .map(featurePolicyDirectiveMapper)
-          .join('; ')
-
-        appendToHeadersFile(
-          'Feature-Policy',
-          headerValue,
-          headersFilepath,
-          patterns
-        )
-      }
     }
   })
 }

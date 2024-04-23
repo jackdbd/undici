@@ -244,7 +244,7 @@ const main = async ({
       `Refer also to the library ${link('@jackdbd/content-security-policy', 'https://www.npmjs.com/package/@jackdbd/content-security-policy')} for the configuration.`
     )
   } else if (unscoped_pkg_name === 'eleventy-plugin-ensure-env-vars') {
-    const res = markdownTableFromZodSchema(eev_config)
+    const res = markdownTableFromZodSchema(eev_config as any)
     if (res.error) {
       errors.push(res.error)
     } else {
@@ -283,7 +283,7 @@ const main = async ({
 
     configurations.push('\n\n')
     configurations.push(list(links))
-    const res_a = markdownTableFromZodSchema(pp_options)
+    const res_a = markdownTableFromZodSchema(pp_options as any)
     if (res_a.error) {
       errors.push(res_a.error)
     } else {
@@ -292,7 +292,7 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res_a.value)
     }
-    const res_b = markdownTableFromZodSchema(pp_directive)
+    const res_b = markdownTableFromZodSchema(pp_directive as any)
     if (res_b.error) {
       errors.push(res_b.error)
     } else {
@@ -302,7 +302,7 @@ const main = async ({
       configurations.push(res_b.value)
     }
   } else if (unscoped_pkg_name === 'eleventy-plugin-plausible') {
-    const res = markdownTableFromZodSchema(plausible_options)
+    const res = markdownTableFromZodSchema(plausible_options as any)
     if (res.error) {
       errors.push(res.error)
     } else {
@@ -325,7 +325,7 @@ const main = async ({
     //   configurations.push(res.value)
     // }
   } else if (unscoped_pkg_name === 'eleventy-plugin-text-to-speech') {
-    const res_a = markdownTableFromZodSchema(tts_config)
+    const res_a = markdownTableFromZodSchema(tts_config as any)
     if (res_a.error) {
       errors.push(res_a.error)
     } else {
@@ -334,7 +334,7 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res_a.value)
     }
-    const res_b = markdownTableFromZodSchema(tts_rule)
+    const res_b = markdownTableFromZodSchema(tts_rule as any)
     if (res_b.error) {
       errors.push(res_b.error)
     } else {
@@ -343,6 +343,8 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res_b.value)
     }
+  } else if (unscoped_pkg_name === 'hosting-utils') {
+    configurations.push(`TODO`)
   } else if (unscoped_pkg_name === 'text-to-audio-asset') {
     configurations.push(`TODO`)
   } else {

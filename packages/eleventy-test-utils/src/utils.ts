@@ -1,5 +1,10 @@
+import fs from 'node:fs'
+import util from 'node:util'
 import { isOnGithub } from '@jackdbd/checks/environment'
 import defDebug from 'debug'
+import { _HEADERS_OUTPUT, VERCEL_JSON_OUTPUT } from './constants.js'
+
+const readFileAsync = util.promisify(fs.readFile)
 
 const debug = defDebug(`11ty-test-utils`)
 
@@ -58,4 +63,20 @@ export const cloudTextToSpeechClientOptions = () => {
     // TODO: create a service account JSON key for Text-To-Speech and use that one.
     filepath: '/run/secrets/prj-kitchen-sink/sa-storage-uploader'
   })
+}
+
+export const headersContent = async () => {
+  // we need to wait a few ms before reading the _headers file because
+  // hosting-utils locks it (locking is done to avoid race conditions)
+  await waitMs(100)
+  const buffer = await readFileAsync(_HEADERS_OUTPUT)
+  return buffer.toString()
+}
+
+export const vercelJsonObj = async () => {
+  // we need to wait a few ms before reading the vercel.json file because
+  // hosting-utils locks it (locking is done to avoid race conditions)
+  await waitMs(500)
+  const buffer = await readFileAsync(VERCEL_JSON_OUTPUT)
+  return JSON.parse(buffer.toString())
 }

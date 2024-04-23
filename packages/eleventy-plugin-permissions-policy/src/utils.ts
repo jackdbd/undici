@@ -1,9 +1,4 @@
-import fs from 'node:fs'
-import defDebug from 'debug'
-import { DEBUG_PREFIX } from './constants.js'
 import type { Directive } from './schemas.js'
-
-const debug = defDebug(`${DEBUG_PREFIX}:utils`)
 
 /**
  * Converts a Feature-Policy directive to a string.
@@ -43,19 +38,4 @@ export const permissionsPolicyDirectiveMapper = (d: Directive) => {
   } else {
     return `${d.feature}=(${allowlist})`
   }
-}
-
-export const appendToHeadersFile = (
-  headerKey: string,
-  headerValue: string,
-  headersFilepath: string,
-  patterns: string[]
-) => {
-  patterns.forEach((pattern) => {
-    debug(`add ${headerKey} header for resources matching ${pattern}`)
-    fs.appendFileSync(
-      headersFilepath,
-      `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
-    )
-  })
 }

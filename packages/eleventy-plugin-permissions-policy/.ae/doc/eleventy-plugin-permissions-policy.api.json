@@ -183,7 +183,7 @@
             },
             {
               "kind": "Content",
-              "text": "{\n    directives: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[];\n    excludePatterns: string[];\n    includeFeaturePolicy: boolean;\n    includePatterns: string[];\n    jsonRecap: boolean;\n}"
+              "text": "{\n    directives: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[];\n    excludePatterns: string[];\n    hosting: string | undefined;\n    includeFeaturePolicy: boolean;\n    includePatterns: string[];\n    jsonRecap: boolean;\n}"
             }
           ],
           "fileUrlPath": "src/schemas.ts",
@@ -1850,7 +1850,25 @@
             },
             {
               "kind": "Content",
-              "text": ", \"many\">>;\n    includeFeaturePolicy: "
+              "text": ", \"many\">>;\n    hosting: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n    includeFeaturePolicy: "
             },
             {
               "kind": "Reference",
@@ -1922,7 +1940,7 @@
             },
             {
               "kind": "Content",
-              "text": ", {\n    directives: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[];\n    excludePatterns: string[];\n    includeFeaturePolicy: boolean;\n    includePatterns: string[];\n    jsonRecap: boolean;\n}, {\n    directives?: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[] | undefined;\n    excludePatterns?: string[] | undefined;\n    includeFeaturePolicy?: boolean | undefined;\n    includePatterns?: string[] | undefined;\n    jsonRecap?: boolean | undefined;\n}>"
+              "text": ", {\n    directives: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[];\n    excludePatterns: string[];\n    includeFeaturePolicy: boolean;\n    includePatterns: string[];\n    jsonRecap: boolean;\n    hosting?: string | undefined;\n}, {\n    directives?: {\n        feature: \"accelerometer\" | \"ambient-light-sensor\" | \"autoplay\" | \"battery\" | \"browsing-topics\" | \"camera\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\";\n        allowlist?: string[] | undefined;\n    }[] | undefined;\n    excludePatterns?: string[] | undefined;\n    hosting?: string | undefined;\n    includeFeaturePolicy?: boolean | undefined;\n    includePatterns?: string[] | undefined;\n    jsonRecap?: boolean | undefined;\n}>"
             }
           ],
           "fileUrlPath": "src/schemas.ts",
@@ -1931,7 +1949,7 @@
           "name": "options",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 147
+            "endIndex": 151
           }
         },
         {

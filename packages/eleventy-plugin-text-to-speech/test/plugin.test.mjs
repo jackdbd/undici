@@ -6,9 +6,9 @@ import util from 'node:util'
 import { describe, it, before, after } from 'node:test'
 import { fileURLToPath } from 'node:url'
 import {
-  makeEleventy,
   cloudStorageUploaderClientOptions,
   cloudTextToSpeechClientOptions,
+  defEleventy,
   CLOUD_STORAGE_BUCKET_AUDIO_FILES_NAME,
   CLOUDFLARE_R2_BUCKET_AUDIO_FILES_CUSTOM_DOMAIN,
   CLOUDFLARE_R2_BUCKET_AUDIO_FILES_NAME,
@@ -70,9 +70,7 @@ describe('textToSpeechPlugin', () => {
 
   it('rejects with a validation error mentioning rules, when no options are passed', async () => {
     try {
-      await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: textToSpeechPlugin
       })
     } catch (err) {
@@ -87,9 +85,7 @@ describe('textToSpeechPlugin', () => {
 
   it('rejects with a validation error mentioning rules, when `rules` is an empty array', async () => {
     try {
-      await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: textToSpeechPlugin,
         pluginConfig: { rules: [] }
       })
@@ -104,9 +100,7 @@ describe('textToSpeechPlugin', () => {
   })
 
   it('allows one rule', async () => {
-    const eleventy = await makeEleventy({
-      input: undefined,
-      output: undefined,
+    const eleventy = await defEleventy({
       plugin: textToSpeechPlugin,
       pluginConfig: {
         rules: [
@@ -128,9 +122,7 @@ describe('textToSpeechPlugin', () => {
   })
 
   it('allows two rules with different synthesis/hosting clients', async () => {
-    const eleventy = await makeEleventy({
-      input: undefined,
-      output: undefined,
+    const eleventy = await defEleventy({
       plugin: textToSpeechPlugin,
       pluginConfig: {
         rules: [

@@ -1,4 +1,5 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import slugify from 'slugify'
 import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
@@ -22,7 +23,13 @@ import {
 } from './eleventy-test-utils/index.js'
 import { copyright } from './src/shortcodes/index.js'
 
-export default function (eleventyConfig) {
+const __filename = fileURLToPath(import.meta.url)
+const FILE_NAME = path.basename(__filename)
+
+const hosting = 'cloudflare-pages'
+// const hosting = 'vercel'
+
+export default async function (eleventyConfig) {
   // 11ty shortcodes
   // https://www.11ty.dev/docs/shortcodes/
   eleventyConfig.addShortcode('copyright', copyright)
@@ -43,17 +50,31 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPlugin(navigation)
 
+  eleventyConfig.addPlugin(ensureEnvVarsPlugin)
+
+  // Here I register contentSecurityPolicyPlugin twice to show that it generates
+  // different Content-Security-Policy headers for different URL patterns.
+
   eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
     directives: {
       'base-uri': ['self'],
-      'default-src': ['self']
+      'default-src': ['none'],
+      'img-src': ['self'],
+      'script-src': ['self'],
+      'style-src': ['self']
     },
     globPatterns: ['/*'],
     globPatternsDetach: ['/*.png'],
-    hosting: 'cloudflare-pages'
+    hosting
   })
 
-  eleventyConfig.addPlugin(ensureEnvVarsPlugin)
+  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
+    directives: {
+      'default-src': ['self']
+    },
+    globPatterns: ['/nested/*'],
+    hosting
+  })
 
   eleventyConfig.addPlugin(permissionsPolicyPlugin, {
     directives: [
@@ -65,19 +86,18 @@ export default function (eleventyConfig) {
       },
       { feature: 'fullscreen', allowlist: [] }
     ],
+    hosting,
     includeFeaturePolicy: true,
     jsonRecap: true
   })
 
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
-  if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {
-    eleventyConfig.addPlugin(telegramPlugin, {
-      chatId,
-      token,
-      textBeforeBuild: `<i>demo-site</i> build <b>START</b>`,
-      textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
-    })
-  }
+  eleventyConfig.addPlugin(telegramPlugin, {
+    chatId,
+    token,
+    textBeforeBuild: `🕚 <b>Undici demo-site</b>\n\nBuild start.\n\nSent by <code>${FILE_NAME}</code>`,
+    textAfterBuild: `🕚 <b>Undici demo-site</b>\n\nBuild finished.\n\nSent by <code>${FILE_NAME}</code>`
+  })
 
   // Static assets
   eleventyConfig.addPassthroughCopy({

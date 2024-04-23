@@ -8,6 +8,10 @@ import {
   validationErrorOrWarnings
 } from '@jackdbd/content-security-policy'
 import {
+  createOrUpdateHeaders,
+  createOrUpdateVercelJSON
+} from '@jackdbd/hosting-utils'
+import {
   DEBUG_PREFIX,
   DEFAULT_OPTIONS,
   ERR_PREFIX,
@@ -16,8 +20,6 @@ import {
 } from './constants.js'
 import { validationError } from './errors.js'
 import { options as schema, type Options } from './schemas.js'
-import { createOrUpdateVercelJSON } from './vercel.js'
-import { createOrUpdateHeaders } from './cloudflare-pages.js'
 
 // exports for TypeDoc
 export { DEFAULT_OPTIONS } from './constants.js'

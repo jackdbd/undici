@@ -4,6 +4,9 @@
   // IMPORTANT: do NOT change the order
   "references": [
     {
+      "path": "./packages/hosting-utils/tsconfig.json"
+    },
+    {
       "path": "./packages/text-to-audio-asset/tsconfig.json"
     },
     {
@@ -26,6 +29,7 @@
     },
     {
       "path": "./packages/eleventy-plugin-text-to-speech/tsconfig.json"
-    }
+    },
+    
   ]
 }
