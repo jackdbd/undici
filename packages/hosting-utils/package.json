@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/hosting-utils",
-  "version": "0.1.0",
+  "version": "1.0.0-canary.1",
   "description": "Utilities for working with the configuration files of various hosting providers",
   "author": {
     "name": "Giacomo Debidda",
