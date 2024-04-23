@@ -4,11 +4,9 @@ import path from 'node:path'
 import { describe, it, before, beforeEach, afterEach } from 'node:test'
 import util from 'node:util'
 import {
-  makeEleventy,
+  defEleventy,
   ELEVENTY_INPUT,
-  HEADERS_FILEPATH,
-  HEADERS_CONTENT,
-  VERCEL_JSON_FILEPATH
+  FIXTURES_ROOT
 } from '@jackdbd/eleventy-test-utils'
 import {
   starter_policy,
@@ -17,11 +15,15 @@ import {
 import { contentSecurityPolicyPlugin } from '../lib/index.js'
 
 const readFileAsync = util.promisify(fs.readFile)
-const writeFileAsync = util.promisify(fs.writeFile)
+const copyFileAsync = util.promisify(fs.copyFile)
 const unlinkAsync = util.promisify(fs.unlink)
 
+const _HEADERS_INPUT = path.join(FIXTURES_ROOT, 'plain-text', '_headers')
+const _HEADERS_OUTPUT = path.join(ELEVENTY_INPUT, '_headers')
+const VERCEL_JSON_INPUT = path.join(FIXTURES_ROOT, 'json', 'vercel.json')
+const VERCEL_JSON_OUTPUT = path.join(ELEVENTY_INPUT, 'vercel.json')
+
 const HOSTING = 'cloudflare-pages'
-// const HOSTING = 'vercel'
 
 const CONFIG_JSON_FILEPATH = path.join(
   ELEVENTY_INPUT,
@@ -65,16 +67,16 @@ const directives = {
 }
 
 const cleanup = async () => {
+  if (fs.existsSync(_HEADERS_OUTPUT)) {
+    await unlinkAsync(_HEADERS_OUTPUT)
+  }
+
+  if (fs.existsSync(VERCEL_JSON_OUTPUT)) {
+    await unlinkAsync(VERCEL_JSON_OUTPUT)
+  }
+
   if (fs.existsSync(CONFIG_JSON_FILEPATH)) {
     await unlinkAsync(CONFIG_JSON_FILEPATH)
-  }
-
-  if (fs.existsSync(HEADERS_FILEPATH)) {
-    await unlinkAsync(HEADERS_FILEPATH)
-  }
-
-  if (fs.existsSync(VERCEL_JSON_FILEPATH)) {
-    await unlinkAsync(VERCEL_JSON_FILEPATH)
   }
 }
 
@@ -92,73 +94,36 @@ describe('contentSecurityPolicyPlugin', () => {
 
   beforeEach(async () => {
     await cleanup()
-    await writeFileAsync(HEADERS_FILEPATH, HEADERS_CONTENT)
   })
 
   afterEach(async () => {
     await cleanup()
   })
 
-  it(
-    'default config',
-    async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: { hosting: HOSTING },
-        dir: { output: ELEVENTY_INPUT }
-      })
+  it('does not create a _headers file when no Content-Security-Policy directives are specified', async () => {
+    await defEleventy({
+      plugin: contentSecurityPolicyPlugin,
+      pluginConfig: { directives: {}, hosting: 'cloudflare-pages' },
+      dir: { output: ELEVENTY_INPUT }
+    })
 
-      // const userConfig = eleventy.eleventyConfig.userConfig
+    assert.equal(fs.existsSync(_HEADERS_OUTPUT), false)
+  })
 
-      // const timeout = await waitMs(timeoutMs / 4)
-      // clearTimeout(timeout)
+  it('does not create a vercel.json file when no Content-Security-Policy directives are specified', async () => {
+    await defEleventy({
+      plugin: contentSecurityPolicyPlugin,
+      pluginConfig: { directives: {}, hosting: 'vercel' },
+      dir: { output: ELEVENTY_INPUT }
+    })
 
-      assert.equal(fs.existsSync(CONFIG_JSON_FILEPATH), false)
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
-      const str = buffer.toString()
-      assert.match(str, new RegExp(HEADERS_CONTENT))
-      assert.match(str, /Content-Security-Policy:/)
-      assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
-    },
-    timeoutMs
-  )
+    assert.equal(fs.existsSync(VERCEL_JSON_OUTPUT), false)
+  })
 
   it(
-    'default config with plugin config recap as JSON',
+    'creates a _headers file containing a "starter" Content-Security-Policy',
     async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: { hosting: HOSTING, jsonRecap: true },
-        dir: { output: ELEVENTY_INPUT }
-      })
-
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      // const timeout = await waitMs(timeoutMs / 4)
-      // clearTimeout(timeout)
-
-      assert(fs.existsSync(CONFIG_JSON_FILEPATH))
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
-      const str = buffer.toString()
-      assert.match(str, new RegExp(HEADERS_CONTENT))
-      assert.match(str, /Content-Security-Policy:/)
-      assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
-    },
-    timeoutMs
-  )
-
-  it(
-    'config with starter Content-Security-Policy',
-    async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: contentSecurityPolicyPlugin,
         pluginConfig: {
           directives: directives_starter_policy,
@@ -167,15 +132,9 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      // const timeout = await waitMs(timeoutMs / 4)
-      // clearTimeout(timeout)
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
+      const buffer = await readFileAsync(_HEADERS_OUTPUT)
       const str = buffer.toString()
 
-      assert.match(str, new RegExp(HEADERS_CONTENT))
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
       assert.match(str, /base-uri 'self'/)
@@ -190,11 +149,9 @@ describe('contentSecurityPolicyPlugin', () => {
   )
 
   it(
-    'config with recommended Content-Security-Policy',
+    'creates a _headers file containing a "recommended" Content-Security-Policy',
     async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: contentSecurityPolicyPlugin,
         pluginConfig: {
           directives: directives_recommended_policy,
@@ -203,15 +160,9 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      // const timeout = await waitMs(timeoutMs / 4)
-      // clearTimeout(timeout)
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
+      const buffer = await readFileAsync(_HEADERS_OUTPUT)
       const str = buffer.toString()
 
-      assert.match(str, new RegExp(HEADERS_CONTENT))
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
       assert.match(str, /base-uri 'self'/)
@@ -231,11 +182,9 @@ describe('contentSecurityPolicyPlugin', () => {
   )
 
   it(
-    'config for Content-Security-Policy',
+    'creates a _headers file containing the expected Content-Security-Policy',
     async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: contentSecurityPolicyPlugin,
         pluginConfig: {
           allowDeprecatedDirectives: true,
@@ -248,25 +197,22 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      // const timeout = await waitMs(timeoutMs / 4)
-      // clearTimeout(timeout)
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
+      const buffer = await readFileAsync(_HEADERS_OUTPUT)
       const str = buffer.toString()
+
       assert.match(str, /Content-Security-Policy:/)
       assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
+      // see directives above
+      assert.match(str, /base-uri 'self'/)
+      assert.match(str, /default-src 'none'/)
     },
     timeoutMs
   )
 
   it(
-    'config for Content-Security-Policy-Report-Only',
+    'creates a _headers file containing the expected Content-Security-Policy-Report-Only',
     async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
+      await defEleventy({
         plugin: contentSecurityPolicyPlugin,
         pluginConfig: {
           allowDeprecatedDirectives: true,
@@ -280,29 +226,107 @@ describe('contentSecurityPolicyPlugin', () => {
         dir: { output: ELEVENTY_INPUT }
       })
 
-      const userConfig = eleventy.eleventyConfig.userConfig
-
-      // const timeout = await waitMs(timeoutMs - 1000)
-      // clearTimeout(timeout)
-
-      const buffer = await readFileAsync(HEADERS_FILEPATH)
+      const buffer = await readFileAsync(_HEADERS_OUTPUT)
       const str = buffer.toString()
+
       assert.doesNotMatch(str, /Content-Security-Policy:/)
       assert.match(str, /Content-Security-Policy-Report-Only:/)
+      // see directives above
+      assert.match(str, /base-uri 'self'/)
+      assert.match(str, /default-src 'none'/)
     },
     timeoutMs
   )
 
-  it('allows an empty user config (i.e. options not set by the user)', async () => {
-    const eleventy = await makeEleventy({
-      input: undefined,
-      output: undefined,
+  it(`add Content-Security-Policy to an existing _headers file`, async () => {
+    await copyFileAsync(_HEADERS_INPUT, _HEADERS_OUTPUT)
+    const str_before = (await readFileAsync(_HEADERS_OUTPUT)).toString()
+    assert.doesNotMatch(str_before, /Content-Security-Policy:/)
+    assert.doesNotMatch(str_before, /Content-Security-Policy-Report-Only:/)
+
+    await defEleventy({
       plugin: contentSecurityPolicyPlugin,
-      pluginConfig: { hosting: HOSTING },
+      pluginConfig: {
+        directives,
+        hosting: HOSTING,
+        globPatterns: ['/*'],
+        includePatterns: ['/**/**.html']
+      },
+      dir: { output: ELEVENTY_INPUT }
+    })
+
+    const str_after = (await readFileAsync(_HEADERS_OUTPUT)).toString()
+
+    assert.match(str_after, /Content-Security-Policy:/)
+    assert.doesNotMatch(str_after, /Content-Security-Policy-Report-Only:/)
+    // see directives above
+    assert.match(str_after, /base-uri 'self'/)
+    assert.match(str_after, /default-src 'none'/)
+  })
+
+  it(`add Content-Security-Policy to an existing vercel.json file`, async () => {
+    await copyFileAsync(VERCEL_JSON_INPUT, VERCEL_JSON_OUTPUT)
+    const str_before = (await readFileAsync(VERCEL_JSON_OUTPUT)).toString()
+    const obj_before = JSON.parse(str_before)
+    const arr_before = obj_before.headers.filter((h) => h.source === '/*')
+    assert.equal(arr_before.length, 0)
+
+    await defEleventy({
+      plugin: contentSecurityPolicyPlugin,
+      pluginConfig: {
+        directives,
+        hosting: 'vercel',
+        globPatterns: ['/*'],
+        includePatterns: ['/**/**.html']
+      },
+      dir: { output: ELEVENTY_INPUT }
+    })
+
+    const str_after = (await readFileAsync(VERCEL_JSON_OUTPUT)).toString()
+    const obj_after = JSON.parse(str_after)
+    const arr_after = obj_after.headers.filter((h) => h.source === '/*')
+    assert.equal(arr_after.length, 1)
+    assert.equal(arr_after[0].headers.length, 1)
+    assert.equal(arr_after[0].headers[0].key, 'Content-Security-Policy')
+    const csp = arr_after[0].headers[0].value
+    // see directives above
+    assert.match(csp, /base-uri 'self'/)
+    assert.match(csp, /default-src 'none'/)
+  })
+
+  it('allows an empty user config when a _headers file is available in the output directory', async () => {
+    await copyFileAsync(_HEADERS_INPUT, _HEADERS_OUTPUT)
+
+    const eleventy = await defEleventy({
+      plugin: contentSecurityPolicyPlugin,
+      // pluginConfig: {},
       dir: { output: ELEVENTY_INPUT }
     })
 
     assert.equal(eleventy.outputDir, './_site/')
-    // assert.equal(eleventy.outputDir, ELEVENTY_INPUT)
+  })
+
+  it('allows an empty user config when vercel.json is available in the output directory', async () => {
+    await copyFileAsync(VERCEL_JSON_INPUT, VERCEL_JSON_OUTPUT)
+
+    const eleventy = await defEleventy({
+      plugin: contentSecurityPolicyPlugin,
+      // pluginConfig: {},
+      dir: { output: ELEVENTY_INPUT }
+    })
+
+    assert.equal(eleventy.outputDir, './_site/')
+  })
+
+  it('throws an error when no hosting provider config file is available in the output directory (e.g. _headers, vercel.json) and no hosting is specified in the plugin options', async () => {
+    try {
+      await defEleventy({
+        plugin: contentSecurityPolicyPlugin,
+        pluginConfig: {},
+        dir: { output: ELEVENTY_INPUT }
+      })
+    } catch (err) {
+      assert.match(err.message, /hosting not set in plugin options/)
+    }
   })
 })

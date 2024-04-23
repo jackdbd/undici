@@ -78,25 +78,45 @@ export const contentSecurityPolicyPlugin = (
       excludePatterns,
       globPatterns,
       globPatternsDetach,
-      hosting,
       includePatterns,
       jsonRecap,
       reportOnly
     } = config
 
+    // We have to access the output directory only now, in the `eleventy.after`
+    // handler. Otherwise it would be the default `_site` directory from the
+    // Eleventy TemplateConfig instance.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const outdir = (eleventyConfig as any).dir.output
+
+    // TODO: decide what to do when multiple config files are available (e.g. a
+    // vercel.json and a _headers file). Maybe the best approach is to throw an
+    // error and ask the user to decide which hosting provider to use (i.e. the
+    // user should manually cleanup his deploy directory).
+
+    let hosting_provider_config_files: string[] = []
+    if (fs.existsSync(path.join(outdir, '_headers'))) {
+      debug(`found _headers file (Cloudflare Pages)`)
+      hosting_provider_config_files.push('cloudflare-pages') // or netlify
+    }
+    if (fs.existsSync(path.join(outdir, 'vercel.json'))) {
+      debug(`found vercel.json (Vercel)`)
+      hosting_provider_config_files.push('vercel')
+    }
+
+    let hosting: string | undefined
+    if (hosting_provider_config_files.length > 0) {
+      hosting = hosting_provider_config_files[0]
+    }
+
+    if (config.hosting) {
+      hosting = config.hosting
+      debug(`hosting: ${hosting}`)
+    }
+
     if (!hosting) {
       throw new Error(`${ERR_PREFIX}: hosting not set in plugin options`)
     }
-
-    const allowed_hosting = SUPPORTED_HOSTING_PROVIDERS.has(hosting)
-    if (!allowed_hosting) {
-      throw new Error(
-        `${ERR_PREFIX}: ${hosting} is not a supported hosting provider. This plugin supports the following hosting providers: ${[...SUPPORTED_HOSTING_PROVIDERS].join(', ')}`
-      )
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const outdir = (eleventyConfig as any).dir.output
 
     const patterns = [
       ...includePatterns.map((pattern) => `${outdir}${pattern}`),

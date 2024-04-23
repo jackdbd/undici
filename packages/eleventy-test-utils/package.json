@@ -48,7 +48,9 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
+    "dev": "run-p build:watch test:watch",
     "format": "prettier --config ../../config/prettier.cjs --write lib/**/*.js",
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",

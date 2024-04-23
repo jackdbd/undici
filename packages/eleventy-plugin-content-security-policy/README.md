@@ -118,6 +118,7 @@ export DEBUG=11ty-plugin:*
 |---|---|
 | [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `3.0.0-canary.1` |
 | [netlify-headers-parser](https://www.npmjs.com/package/netlify-headers-parser) | `^7.1.4` |
+| [write-file-atomic](https://www.npmjs.com/package/write-file-atomic) | `^5.0.1` |
 | [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
 | [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
 

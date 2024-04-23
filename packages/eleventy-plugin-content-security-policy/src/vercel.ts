@@ -1,13 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import util from 'node:util'
+import writeFileAtomic from 'write-file-atomic'
 import defDebug from 'debug'
-import { DEBUG_PREFIX } from './constants.js'
+import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 import type { VercelJSON } from './schemas.js'
 
 const debug = defDebug(`${DEBUG_PREFIX}:vercel`)
-
-const writeFileAsync = util.promisify(fs.writeFile)
 
 interface Config {
   headerKey: string
@@ -24,15 +22,19 @@ interface Config {
 export const createOrUpdateVercelJSON = async (config: Config) => {
   const { outdir, headerKey, headerValue, sources } = config
 
-  const vercelJsonFilepath = path.join(outdir, 'vercel.json')
-  //   const vercelJsonOut = path.join(outdir, 'vercel.new.json')
-  const vercelJsonOut = path.join(outdir, 'vercel.json')
+  if (!headerValue) {
+    debug(`${headerKey} is empty, so this plugin has nothing to do`)
+    return
+  }
+
+  const vercelJsonFilepathIn = path.join(outdir, 'vercel.json')
+  const vercelJsonFilepathOut = path.join(outdir, 'vercel.json')
 
   const sourcesToProcess = new Set(sources)
 
   let newObj = { headers: [] } as VercelJSON
-  if (fs.existsSync(vercelJsonFilepath)) {
-    const str = fs.readFileSync(vercelJsonFilepath, { encoding: 'utf8' })
+  if (fs.existsSync(vercelJsonFilepathIn)) {
+    const str = fs.readFileSync(vercelJsonFilepathIn, { encoding: 'utf8' })
     const oldObj = JSON.parse(str) as VercelJSON
     newObj = { ...oldObj, headers: [] } as VercelJSON
 
@@ -41,7 +43,7 @@ export const createOrUpdateVercelJSON = async (config: Config) => {
         const i_source = sources.findIndex((source) => source === ho.source)
         if (i_source === -1) {
           debug(
-            `copy headers from source ${ho.source} without adding new ones, nor updating existing ones`
+            `copy headers for source ${ho.source} without adding new ones, nor updating existing ones`
           )
           newObj.headers.push({ ...ho })
         } else {
@@ -69,9 +71,18 @@ export const createOrUpdateVercelJSON = async (config: Config) => {
       })
     }
 
-    await writeFileAsync(vercelJsonOut, JSON.stringify(newObj, null, 2), {
-      encoding: 'utf8'
-    })
+    writeFileAtomic(
+      vercelJsonFilepathOut,
+      JSON.stringify(newObj, null, 2),
+      {
+        encoding: 'utf8'
+      },
+      (err) => {
+        if (err) {
+          throw new Error(`${ERR_PREFIX}: ${err.message}`)
+        }
+      }
+    )
   } else {
     sources.forEach((source) => {
       debug(`add header ${headerKey} for source ${source}`)
@@ -81,8 +92,17 @@ export const createOrUpdateVercelJSON = async (config: Config) => {
       })
     })
 
-    await writeFileAsync(vercelJsonOut, JSON.stringify(newObj, null, 2), {
-      encoding: 'utf8'
-    })
+    writeFileAtomic(
+      vercelJsonFilepathOut,
+      JSON.stringify(newObj, null, 2),
+      {
+        encoding: 'utf8'
+      },
+      (err) => {
+        if (err) {
+          throw new Error(`${ERR_PREFIX}: ${err.message}`)
+        }
+      }
+    )
   }
 }

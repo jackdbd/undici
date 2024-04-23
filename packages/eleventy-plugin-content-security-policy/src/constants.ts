@@ -11,10 +11,11 @@ export const OK_PREFIX = '[📝 11ty-plugin-content-security-policy]'
  */
 export const DEFAULT_OPTIONS = {
   allowDeprecatedDirectives: false,
+  // TODO: allowExperimentalDirectives: true,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   directives: {} as any,
   excludePatterns: [],
-  globPatterns: ['/', '/*/'],
+  globPatterns: ['/*'],
   globPatternsDetach: [],
   hosting: undefined as string | undefined,
   includePatterns: ['/**/**.html'],

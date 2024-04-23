@@ -30,7 +30,7 @@ describe('schemas', () => {
       assert.equal(allowDeprecatedDirectives, false)
       assert.deepStrictEqual(directives, {})
       assert.deepStrictEqual(excludePatterns, [])
-      assert.deepStrictEqual(globPatterns, ['/', '/*/'])
+      assert.deepStrictEqual(globPatterns, ['/*'])
       assert.deepStrictEqual(globPatternsDetach, [])
       assert.deepStrictEqual(includePatterns, ['/**/**.html'])
       assert.equal(jsonRecap, false)

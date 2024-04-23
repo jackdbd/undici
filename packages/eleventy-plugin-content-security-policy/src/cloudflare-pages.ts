@@ -1,13 +1,11 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import util from 'node:util'
 import defDebug from 'debug'
+import writeFileAtomic from 'write-file-atomic'
 import { parseAllHeaders } from 'netlify-headers-parser'
 import { DEBUG_PREFIX, ERR_PREFIX } from './constants.js'
 
 const debug = defDebug(`${DEBUG_PREFIX}:cloudflare-pages`)
-
-const writeFileAsync = util.promisify(fs.writeFile)
 
 interface Config {
   headerKey: string
@@ -15,6 +13,10 @@ interface Config {
   globPatterns: string[]
   globPatternsDetach: string[]
   outdir: string
+}
+
+interface RuleMap {
+  [url_pattern: string]: string[]
 }
 
 /**
@@ -26,17 +28,22 @@ export const createOrUpdateHeaders = async (config: Config) => {
   const { outdir, globPatterns, globPatternsDetach, headerKey, headerValue } =
     config
 
-  const headersFilepath = path.join(outdir, '_headers')
-  //   const headersOut = path.join(outdir, '_headers.new')
-  const headersOut = path.join(outdir, '_headers')
+  if (!headerValue) {
+    debug(`${headerKey} is empty, so this plugin has nothing to do`)
+    return
+  }
 
-  const rules: string[] = []
+  const headersFilepathIn = path.join(outdir, '_headers')
+  const headersFilepathOut = path.join(outdir, '_headers')
+
+  const rule_map: RuleMap = {}
   const patternsToProcess = new Set(globPatterns)
 
-  if (fs.existsSync(headersFilepath)) {
-    debug(`parse existing file ${headersFilepath}`)
+  if (fs.existsSync(headersFilepathIn)) {
+    debug(`_headers file found at ${headersFilepathIn}. Parsing it now`)
+    // https://github.com/netlify/build/tree/main/packages/headers-parser
     const { headers: headerObjects, errors } = await parseAllHeaders({
-      headersFiles: [headersFilepath]
+      headersFiles: [headersFilepathIn]
     } as any)
 
     if (errors.length > 0) {
@@ -45,39 +52,69 @@ export const createOrUpdateHeaders = async (config: Config) => {
     }
 
     headerObjects.forEach((ho) => {
+      const headers: string[] = []
       const i_pattern = globPatterns.findIndex((pattern) => pattern === ho.for)
-      let headers: string[] = []
       if (i_pattern === -1) {
         debug(
-          `copy headers from pattern ${ho.for} without adding new ones, nor updating existing ones`
+          `copy headers for pattern ${ho.for} without adding new ones, nor updating existing ones`
         )
-        headers = Object.entries(ho.values).map(([k, v]) => `${k}: ${v}`)
+        Object.entries(ho.values).forEach(([k, v]) => {
+          headers.push(`${k}: ${v}`)
+        })
       } else {
         debug(`update headers for pattern ${ho.for}`)
-        patternsToProcess.delete(ho.for)
         Object.entries(ho.values).forEach(([k, v]) => {
           if (k === headerKey) {
             debug(`update header ${k} in pattern ${ho.for}`)
             headers.push(`${k}: ${headerValue}`)
+            patternsToProcess.delete(ho.for)
           } else {
             debug(`copy header ${k} in pattern ${ho.for}`)
             headers.push(`${k}: ${v}`)
           }
         })
       }
-      rules.push(`${ho.for}\n  ${headers.join('\n  ')}`)
+      rule_map[ho.for] = headers
     })
+  } else {
+    debug(`_headers file not found. Creating it now at ${headersFilepathOut}`)
   }
 
   for (const pattern of patternsToProcess) {
-    debug(`add header for pattern ${pattern}`)
-    rules.push(`${pattern}\n  ${headerKey}: ${headerValue}`)
+    debug(`add header ${headerKey} for pattern ${pattern}`)
+    if (rule_map[pattern]) {
+      rule_map[pattern].push(`${headerKey}: ${headerValue}`)
+    } else {
+      rule_map[pattern] = [`${headerKey}: ${headerValue}`]
+    }
   }
 
   for (const pattern of globPatternsDetach) {
-    debug(`detach header for pattern ${pattern}`)
-    rules.push(`${pattern}\n  ! ${headerKey}`)
+    debug(`detach header ${headerKey} for pattern ${pattern}`)
+    if (rule_map[pattern]) {
+      rule_map[pattern].push(`! ${headerKey}`)
+    } else {
+      rule_map[pattern] = [`! ${headerKey}`]
+    }
   }
 
-  await writeFileAsync(headersOut, rules.join('\n\n'), { encoding: 'utf8' })
+  const rules: string[] = []
+  Object.entries(rule_map).forEach(([pattern, headers]) => {
+    rules.push(`${pattern}\n  ${headers.join('\n  ')}`)
+  })
+
+  debug(`header rules %O`, rule_map)
+
+  writeFileAtomic(
+    headersFilepathOut,
+    rules.join('\n\n'),
+    {
+      encoding: 'utf8'
+    },
+    (err) => {
+      if (err) {
+        throw new Error(`${ERR_PREFIX}: ${err.message}`)
+      }
+    }
+  )
 }

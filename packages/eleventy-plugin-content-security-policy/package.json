@@ -71,13 +71,14 @@
     "publint": "publint run .",
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "DEBUG='' node --test --experimental-test-coverage",
+    "test": "DEBUG='11ty-plugin:csp:*' node --test --experimental-test-coverage",
     "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
     "test:watch": "DEBUG='' node --test --watch"
   },
   "dependencies": {
     "@jackdbd/content-security-policy": "3.0.0-canary.1",
     "netlify-headers-parser": "^7.1.4",
+    "write-file-atomic": "^5.0.1",
     "zod": "^3.23.0",
     "zod-validation-error": "^3.1.0"
   },
@@ -86,6 +87,7 @@
     "debug": ">=4.0.0"
   },
   "devDependencies": {
-    "@jackdbd/eleventy-test-utils": "*"
+    "@jackdbd/eleventy-test-utils": "*",
+    "@types/write-file-atomic": "^4.0.3"
   }
 }
