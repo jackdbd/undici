@@ -51,6 +51,22 @@ jobs:
         run: npm run build:libs
 
       - run: npm run publint --workspaces --if-present
+
+      - name: 🔍 Test permissions-policy
+        run: npm run test:ci -w packages/permissions-policy
+
+      - name: ⬆️ Upload test coverage to Codecov (permissions-policy)
+        if: runner.os == 'Linux'
+        # if: matrix.os == 'ubuntu-latest'
+        # https://github.com/marketplace/actions/codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          fail_ci_if_error: false
+          files: ./packages/permissions-policy/lcov.info
+          flags: permissions-policy
+          # verbose: true
       
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
@@ -73,18 +89,6 @@ jobs:
           DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
-
-      - name: 🔍 Test 11ty-plugin Permissions-Policy
-        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
-      
-      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-permissions-policy)
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          fail_ci_if_error: false
-          files: ./packages/eleventy-plugin-permissions-policy/lcov.info
-          flags: eleventy-plugin-permissions-policy
       
       - name: 🔍 Test 11ty-plugin Plausible
         env:

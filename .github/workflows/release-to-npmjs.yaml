@@ -42,6 +42,9 @@ jobs:
 
       - name: 📦 Build all libraries
         run: npm run build:libs
+      
+      - name: 🔍 Test permissions-policy
+        run: npm run test:ci -w packages/permissions-policy
 
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
@@ -52,9 +55,6 @@ jobs:
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
 
-      - name: 🔍 Test 11ty-plugin Permissions-Policy
-        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
-      
       - name: 🔍 Test 11ty-plugin Plausible
         env:
           PLAUSIBLE: ${{ secrets.PLAUSIBLE }}

@@ -5,10 +5,15 @@ export { defEleventy } from './eleventy.js'
 
 export type { CredentialsConfig } from './utils.js'
 export {
+  assertSingleHostingFileExists,
   clientCredentials,
   cloudStorageUploaderClientOptions,
   cloudTextToSpeechClientOptions,
-  headersContent,
+  fileContentAfterMs,
+  removeAllButOneHostingFile,
+  removeAllHostingFiles,
+  removeHostingFile,
   waitMs,
-  vercelJsonObj
+  writeAllHostingFiles,
+  writeEmptyHostingFile
 } from './utils.js'

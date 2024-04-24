@@ -173,100 +173,6 @@
       "preserveMemberOrder": false,
       "members": [
         {
-          "kind": "Function",
-          "canonicalReference": "@jackdbd/hosting-utils!createOrUpdateHeaders:function(1)",
-          "docComment": "/**\n * Creates or updates a plain text `_headers` file.\n *\n * @see\n *\n * [developers.cloudflare.com - Cloudflare Pages Headers](https://developers.cloudflare.com/pages/configuration/headers/)\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "createOrUpdateHeaders: (config: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Config",
-              "canonicalReference": "@jackdbd/hosting-utils!~Config:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ") => "
-            },
-            {
-              "kind": "Reference",
-              "text": "Promise",
-              "canonicalReference": "!Promise:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<void>"
-            }
-          ],
-          "fileUrlPath": "src/cloudflare-pages.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 5
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "config",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "createOrUpdateHeaders"
-        },
-        {
-          "kind": "Function",
-          "canonicalReference": "@jackdbd/hosting-utils!createOrUpdateVercelJSON:function(1)",
-          "docComment": "/**\n * Creates or updates a `vercel.json` file.\n *\n * @see\n *\n * [vercel.com - Configuring Projects with vercel.json](https://vercel.com/docs/projects/project-configuration)\n */\n",
-          "excerptTokens": [
-            {
-              "kind": "Content",
-              "text": "createOrUpdateVercelJSON: (config: "
-            },
-            {
-              "kind": "Reference",
-              "text": "Config",
-              "canonicalReference": "@jackdbd/hosting-utils!~Config_2:interface"
-            },
-            {
-              "kind": "Content",
-              "text": ") => "
-            },
-            {
-              "kind": "Reference",
-              "text": "Promise",
-              "canonicalReference": "!Promise:interface"
-            },
-            {
-              "kind": "Content",
-              "text": "<void>"
-            }
-          ],
-          "fileUrlPath": "src/vercel.ts",
-          "returnTypeTokenRange": {
-            "startIndex": 3,
-            "endIndex": 5
-          },
-          "releaseTag": "Public",
-          "overloadIndex": 1,
-          "parameters": [
-            {
-              "parameterName": "config",
-              "parameterTypeTokenRange": {
-                "startIndex": 1,
-                "endIndex": 2
-              },
-              "isOptional": false
-            }
-          ],
-          "name": "createOrUpdateVercelJSON"
-        },
-        {
           "kind": "Variable",
           "canonicalReference": "@jackdbd/hosting-utils!DEBUG_PREFIX:var",
           "docComment": "",
@@ -383,32 +289,172 @@
           "extendsTokenRanges": []
         },
         {
-          "kind": "Variable",
-          "canonicalReference": "@jackdbd/hosting-utils!SUPPORTED_HOSTING_PROVIDERS:var",
-          "docComment": "",
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/hosting-utils!updateHeaders:function(1)",
+          "docComment": "/**\n * Updates an existing `_headers` file.\n *\n * @see\n *\n * [developers.cloudflare.com - Cloudflare Pages Headers](https://developers.cloudflare.com/pages/configuration/headers/)\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "SUPPORTED_HOSTING_PROVIDERS: "
+              "text": "updateHeaders: (config: "
             },
             {
               "kind": "Reference",
-              "text": "Set",
-              "canonicalReference": "!Set:interface"
+              "text": "Config",
+              "canonicalReference": "@jackdbd/hosting-utils!~Config:interface"
             },
             {
               "kind": "Content",
-              "text": "<string>"
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: string;\n    error?: undefined;\n}>"
             }
           ],
-          "fileUrlPath": "src/constants.ts",
-          "isReadonly": true,
+          "fileUrlPath": "src/cloudflare-pages.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
           "releaseTag": "Public",
-          "name": "SUPPORTED_HOSTING_PROVIDERS",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
-            "endIndex": 3
-          }
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "updateHeaders"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/hosting-utils!updateServeJSON:function(1)",
+          "docComment": "/**\n * Updates an existing `serve.json` file.\n *\n * @see\n *\n * [serve](https://github.com/vercel/serve)\n *\n * @see\n *\n * [serve-handler options](https://github.com/vercel/serve-handler#options)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "updateServeJSON: (config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Config",
+              "canonicalReference": "@jackdbd/hosting-utils!~Config_2:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: string;\n    error?: undefined;\n}>"
+            }
+          ],
+          "fileUrlPath": "src/serve.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "updateServeJSON"
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/hosting-utils!updateVercelJSON:function(1)",
+          "docComment": "/**\n * Updates an existing `vercel.json` file.\n *\n * @see\n *\n * [vercel.com - Configuring Projects with vercel.json](https://vercel.com/docs/projects/project-configuration)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "updateVercelJSON: (config: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Config",
+              "canonicalReference": "@jackdbd/hosting-utils!~Config_2:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: string;\n    error?: undefined;\n}>"
+            }
+          ],
+          "fileUrlPath": "src/vercel.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 7
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "config",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "updateVercelJSON"
         },
         {
           "kind": "TypeAlias",

@@ -19,18 +19,7 @@ Generate an audio asset from a text.
 npm install @jackdbd/text-to-audio-asset
 ```
 
-> :warning: **Peer Dependencies**
->
-> This package defines 6 peer dependencies.
-
-| Peer | Version range |
-|---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
-| `@aws-sdk/client-s3` | `>=3.0.0` |
-| `@aws-sdk/lib-storage` | `>=3.0.0` |
-| `@google-cloud/storage` | `>=7.0.0` |
-| `@google-cloud/text-to-speech` | `>=5.0.0` |
-| `debug` | `>=4.0.0` |
+**Note**: this library was tested on Node.js >=18. It might work on other Node.js versions though.
 
 ## Usage
 
@@ -54,6 +43,19 @@ export DEBUG=11ty-plugin:*
 |---|---|
 | [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
 | [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
+
+> ⚠️ **Peer Dependencies**
+>
+> This package defines 6 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
+| `@aws-sdk/client-s3` | `>=3.0.0` |
+| `@aws-sdk/lib-storage` | `>=3.0.0` |
+| `@google-cloud/storage` | `>=7.0.0` |
+| `@google-cloud/text-to-speech` | `>=5.0.0` |
+| `debug` | `>=4.0.0` |
 
 ## License
 

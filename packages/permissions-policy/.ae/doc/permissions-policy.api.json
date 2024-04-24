@@ -1,0 +1,1812 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.43.1",
+    "schemaVersion": 1011,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@jackdbd/permissions-policy!",
+  "docComment": "",
+  "name": "@jackdbd/permissions-policy",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@jackdbd/permissions-policy!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/permissions-policy!allow_item:var",
+          "docComment": "/**\n * @see\n *\n * [w3c.github.io - Allowlists special value](https://w3c.github.io/webappsec-permissions-policy/#the-special-value)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "allow_item: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"*\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"none\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"self\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"src\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": "]>"
+            }
+          ],
+          "fileUrlPath": "src/allowlist.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "allow_item",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 13
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/permissions-policy!Allowlist:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Allowlist = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "allowlist",
+              "canonicalReference": "@jackdbd/permissions-policy!allowlist:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/allowlist.ts",
+          "releaseTag": "Public",
+          "name": "Allowlist",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/permissions-policy!allowlist:var",
+          "docComment": "/**\n * @see\n *\n * [w3c.github.io - Allowlists](https://w3c.github.io/webappsec-permissions-policy/#allowlists)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "allowlist: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodEffects",
+              "canonicalReference": "zod!ZodEffects:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"*\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"none\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"self\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"src\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": "]>, \"many\">, string[], string[]>"
+            }
+          ],
+          "fileUrlPath": "src/allowlist.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "allowlist",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 17
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/permissions-policy!AllowlistItem:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type AllowlistItem = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "allow_item",
+              "canonicalReference": "@jackdbd/permissions-policy!allow_item:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/allowlist.ts",
+          "releaseTag": "Public",
+          "name": "AllowlistItem",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/permissions-policy!Feature:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Feature = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.infer",
+              "canonicalReference": "zod!TypeOf:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "feature",
+              "canonicalReference": "@jackdbd/permissions-policy!feature:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/feature.ts",
+          "releaseTag": "Public",
+          "name": "Feature",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/permissions-policy!feature:var",
+          "docComment": "/**\n * Browser features that can be controlled with the Permissions-Policy header.\n *\n * @see\n *\n * [developer.mozilla.org - Permissions-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#directives)\n *\n * @see\n *\n * [techdocs.akamai.com - Permissions-Policy](https://techdocs.akamai.com/property-mgr/docs/permissions-policy)\n *\n * @see\n *\n * [w3c.github.io - Interacting with Permissions for Powerful Features](https://w3c.github.io/permissions/#dfn-powerful-feature)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "feature: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"accelerometer\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ambient-light-sensor\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"attribution-reporting\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"autoplay\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"battery\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"bluetooth\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"browsing-topics\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"camera\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-device-memory\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-downlink\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ect\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-rtt\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-save-data\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ua-arch\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ua-bitness\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"clipboard-read\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"clipboard-write\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"conversion-measurement\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"cross-origin-isolated\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"display-capture\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"document-domain\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"encrypted-media\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"execution-while-not-rendered\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"execution-while-out-of-viewport\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"focus-without-user-activation\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"fullscreen\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"gamepad\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"geolocation\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"gyroscope\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"hid\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"idle-detection\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"layout-animations\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"legacy-image-formats\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"magnetometer\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"microphone\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"midi\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"navigation-override\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"oversized-images\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"payment\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"picture-in-picture\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"publickey-credentials-get\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"screen-wake-lock\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"serial\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"speaker-selection\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"sync-script\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"sync-xhr\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"trust-token-redemption\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unload\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unoptimized-images\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unsized-media\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"usb\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"vertical-scroll\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"web-share\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"window-placement\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"xr-spatial-tracking\">]>"
+            }
+          ],
+          "fileUrlPath": "src/feature.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "feature",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 113
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/permissions-policy!featurePolicy:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "featurePolicy: (options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Options",
+              "canonicalReference": "@jackdbd/permissions-policy!Options:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: string;\n    error?: undefined;\n}"
+            }
+          ],
+          "fileUrlPath": "src/index.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "featurePolicy"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "@jackdbd/permissions-policy!Options:type",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export type Options = "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.input",
+              "canonicalReference": "zod!input:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<typeof "
+            },
+            {
+              "kind": "Reference",
+              "text": "options",
+              "canonicalReference": "@jackdbd/permissions-policy!options:var"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "src/options.ts",
+          "releaseTag": "Public",
+          "name": "Options",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Variable",
+          "canonicalReference": "@jackdbd/permissions-policy!options:var",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "options: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodObject",
+              "canonicalReference": "zod!ZodObject:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<{\n    features: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodDefault",
+              "canonicalReference": "zod!ZodDefault:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodRecord",
+              "canonicalReference": "zod!ZodRecord:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"accelerometer\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ambient-light-sensor\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"attribution-reporting\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"autoplay\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"battery\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"bluetooth\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"browsing-topics\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"camera\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-device-memory\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-downlink\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ect\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-rtt\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-save-data\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ua-arch\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"ch-ua-bitness\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"clipboard-read\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"clipboard-write\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"conversion-measurement\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"cross-origin-isolated\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"display-capture\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"document-domain\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"encrypted-media\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"execution-while-not-rendered\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"execution-while-out-of-viewport\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"focus-without-user-activation\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"fullscreen\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"gamepad\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"geolocation\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"gyroscope\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"hid\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"idle-detection\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"layout-animations\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"legacy-image-formats\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"magnetometer\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"microphone\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"midi\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"navigation-override\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"oversized-images\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"payment\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"picture-in-picture\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"publickey-credentials-get\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"screen-wake-lock\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"serial\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"speaker-selection\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"sync-script\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"sync-xhr\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"trust-token-redemption\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unload\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unoptimized-images\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"unsized-media\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"usb\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"vertical-scroll\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"web-share\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"window-placement\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"xr-spatial-tracking\">]>, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodEffects",
+              "canonicalReference": "zod!ZodEffects:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodArray",
+              "canonicalReference": "zod!ZodArray:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodUnion",
+              "canonicalReference": "zod!ZodUnion:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<["
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"*\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"none\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"self\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodLiteral",
+              "canonicalReference": "zod!ZodLiteral:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"src\">, "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": "]>, \"many\">, string[], string[]>>>;\n    reportingEndpoint: "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodOptional",
+              "canonicalReference": "zod!ZodOptional:class"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodString",
+              "canonicalReference": "zod!ZodString:class"
+            },
+            {
+              "kind": "Content",
+              "text": ">;\n}, \"strip\", "
+            },
+            {
+              "kind": "Reference",
+              "text": "z.ZodTypeAny",
+              "canonicalReference": "zod!ZodTypeAny:type"
+            },
+            {
+              "kind": "Content",
+              "text": ", {\n    features: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"accelerometer\" | \"ambient-light-sensor\" | \"attribution-reporting\" | \"autoplay\" | \"battery\" | \"bluetooth\" | \"browsing-topics\" | \"camera\" | \"ch-device-memory\" | \"ch-downlink\" | \"ch-ect\" | \"ch-rtt\" | \"ch-save-data\" | \"ch-ua-arch\" | \"ch-ua-bitness\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\", string[]>>;\n    reportingEndpoint?: string | undefined;\n}, {\n    features?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Partial",
+              "canonicalReference": "!Partial:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<\"accelerometer\" | \"ambient-light-sensor\" | \"attribution-reporting\" | \"autoplay\" | \"battery\" | \"bluetooth\" | \"browsing-topics\" | \"camera\" | \"ch-device-memory\" | \"ch-downlink\" | \"ch-ect\" | \"ch-rtt\" | \"ch-save-data\" | \"ch-ua-arch\" | \"ch-ua-bitness\" | \"clipboard-read\" | \"clipboard-write\" | \"conversion-measurement\" | \"cross-origin-isolated\" | \"display-capture\" | \"document-domain\" | \"encrypted-media\" | \"execution-while-not-rendered\" | \"execution-while-out-of-viewport\" | \"focus-without-user-activation\" | \"fullscreen\" | \"gamepad\" | \"geolocation\" | \"gyroscope\" | \"hid\" | \"idle-detection\" | \"layout-animations\" | \"legacy-image-formats\" | \"magnetometer\" | \"microphone\" | \"midi\" | \"navigation-override\" | \"oversized-images\" | \"payment\" | \"picture-in-picture\" | \"publickey-credentials-get\" | \"screen-wake-lock\" | \"serial\" | \"speaker-selection\" | \"sync-script\" | \"sync-xhr\" | \"trust-token-redemption\" | \"unload\" | \"unoptimized-images\" | \"unsized-media\" | \"usb\" | \"vertical-scroll\" | \"web-share\" | \"window-placement\" | \"xr-spatial-tracking\", string[]>> | undefined;\n    reportingEndpoint?: string | undefined;\n}>"
+            }
+          ],
+          "fileUrlPath": "src/options.ts",
+          "isReadonly": true,
+          "releaseTag": "Public",
+          "name": "options",
+          "variableTypeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 149
+          }
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/permissions-policy!permissionsPolicy:function(1)",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "permissionsPolicy: (options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Options",
+              "canonicalReference": "@jackdbd/permissions-policy!Options:type"
+            },
+            {
+              "kind": "Content",
+              "text": ") => "
+            },
+            {
+              "kind": "Content",
+              "text": "{\n    error: "
+            },
+            {
+              "kind": "Reference",
+              "text": "Error",
+              "canonicalReference": "!Error:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";\n    value?: undefined;\n} | {\n    value: string;\n    error?: undefined;\n}"
+            }
+          ],
+          "fileUrlPath": "src/index.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 6
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "permissionsPolicy"
+        }
+      ]
+    }
+  ]
+}

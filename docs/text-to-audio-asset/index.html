@@ -13,6 +13,29 @@
 </ul>
 <a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@jackdbd/text-to-audio-asset</span>
 </code><button>Copy</button></pre>
+<p><strong>Note</strong>: this library was tested on Node.js &gt;=18. It might work on other Node.js versions though.</p>
+<a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p>TODO</p>
+<a id="md:troubleshooting" class="tsd-anchor"></a><h2><a href="#md:troubleshooting">Troubleshooting</a></h2><p>This plugin uses the <a href="https://github.com/debug-js/debug">debug</a> library for logging.
+You can control what&#39;s logged using the <code>DEBUG</code> environment variable.</p>
+<p>For example, if you set your environment variables in a <code>.envrc</code> file, you can do:</p>
+<pre><code class="language-sh"><span class="hl-3"># print all logging statements</span><br/><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-5">DEBUG</span><span class="hl-1">=</span><span class="hl-6">11</span><span class="hl-2">ty-plugin:</span><span class="hl-4">*</span>
+</code><button>Copy</button></pre>
+<a id="md:dependencies" class="tsd-anchor"></a><h2><a href="#md:dependencies">Dependencies</a></h2><table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://www.npmjs.com/package/zod">zod</a></td>
+<td><code>^3.23.0</code></td>
+</tr>
+<tr>
+<td><a href="https://www.npmjs.com/package/zod-validation-error">zod-validation-error</a></td>
+<td><code>^3.1.0</code></td>
+</tr>
+</tbody></table>
 <blockquote>
 <p>:warning: <strong>Peer Dependencies</strong></p>
 <p>This package defines 6 peer dependencies.</p>
@@ -47,28 +70,6 @@
 <tr>
 <td><code>debug</code></td>
 <td><code>&gt;=4.0.0</code></td>
-</tr>
-</tbody></table>
-<a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p>TODO</p>
-<a id="md:troubleshooting" class="tsd-anchor"></a><h2><a href="#md:troubleshooting">Troubleshooting</a></h2><p>This plugin uses the <a href="https://github.com/debug-js/debug">debug</a> library for logging.
-You can control what&#39;s logged using the <code>DEBUG</code> environment variable.</p>
-<p>For example, if you set your environment variables in a <code>.envrc</code> file, you can do:</p>
-<pre><code class="language-sh"><span class="hl-3"># print all logging statements</span><br/><span class="hl-4">export</span><span class="hl-1"> </span><span class="hl-5">DEBUG</span><span class="hl-1">=</span><span class="hl-6">11</span><span class="hl-2">ty-plugin:</span><span class="hl-4">*</span>
-</code><button>Copy</button></pre>
-<a id="md:dependencies" class="tsd-anchor"></a><h2><a href="#md:dependencies">Dependencies</a></h2><table>
-<thead>
-<tr>
-<th>Package</th>
-<th>Version</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><a href="https://www.npmjs.com/package/zod">zod</a></td>
-<td><code>^3.23.0</code></td>
-</tr>
-<tr>
-<td><a href="https://www.npmjs.com/package/zod-validation-error">zod-validation-error</a></td>
-<td><code>^3.1.0</code></td>
 </tr>
 </tbody></table>
 <a id="md:license" class="tsd-anchor"></a><h2><a href="#md:license">License</a></h2><p>&copy; 2022 - 2024 <a href="https://www.giacomodebidda.com/">Giacomo Debidda</a> // <a href="https://spdx.org/licenses/MIT.html">MIT License</a></p>

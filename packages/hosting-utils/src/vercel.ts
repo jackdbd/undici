@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import path from 'node:path'
 import util from 'node:util'
 import defDebug from 'debug'
 import lockfile from 'proper-lockfile'
@@ -24,109 +23,112 @@ export type VercelJSON = {
 }
 
 export interface Config {
+  filepath: string
   headerKey: string
   headerValue: string
-  outdir: string
   sources: string[]
 }
 
+type Release = () => Promise<void>
+
+export const defOnAcquiredLock = ({
+  filepath,
+  headerKey,
+  headerValue,
+  sources
+}: Config) => {
+  const sourcesToProcess = new Set(sources)
+
+  const onAcquiredLock = async (release: Release) => {
+    debug(`🔒 acquired lock on ${filepath}. Will attach ${headerKey}`)
+
+    const str = fs.readFileSync(filepath, { encoding: 'utf8' })
+    const obj_in = JSON.parse(str) as VercelJSON
+    const obj_out = { ...obj_in, headers: [] } as VercelJSON
+
+    if (obj_in.headers) {
+      obj_in.headers.forEach((ho) => {
+        debug(`URL pattern: ${ho.source}`)
+        const i_source = sources.findIndex((source) => source === ho.source)
+        if (i_source === -1) {
+          debug(`  unalter: ${ho.headers.map((h) => h.key).join(', ')}`)
+          obj_out.headers.push({ ...ho })
+        } else {
+          sourcesToProcess.delete(ho.source)
+          const unaltered = ho.headers.filter((h) => h.key !== headerKey)
+          debug(`  unalter: ${unaltered.map((h) => h.key).join(', ')}`)
+          debug(`  attach: ${headerKey}`)
+          obj_out.headers.push({
+            ...ho,
+            headers: [...unaltered, { key: headerKey, value: headerValue }]
+          })
+        }
+      })
+
+      for (const source of sourcesToProcess) {
+        debug(`URL pattern: ${source}`)
+        debug(`  attach: ${headerKey}`)
+        obj_out.headers.push({
+          source,
+          headers: [{ key: headerKey, value: headerValue }]
+        })
+      }
+    } else {
+      sources.forEach((source) => {
+        debug(`URL pattern: ${source}`)
+        debug(`  attach: ${headerKey}`)
+        obj_out.headers.push({
+          source,
+          headers: [{ key: headerKey, value: headerValue }]
+        })
+      })
+    }
+
+    await writeFileAsync(filepath, JSON.stringify(obj_out, null, 2), {
+      encoding: 'utf8'
+    })
+
+    debug(`🔓 release lock on ${filepath}`)
+    return release()
+  }
+
+  return onAcquiredLock
+}
+
 /**
- * Creates or updates a `vercel.json` file.
+ * Updates an existing `vercel.json` file.
  *
  * @see [vercel.com - Configuring Projects with vercel.json](https://vercel.com/docs/projects/project-configuration)
  */
-export const createOrUpdateVercelJSON = async (config: Config) => {
-  const { outdir, headerKey, headerValue, sources } = config
+export const updateVercelJSON = async (config: Config) => {
+  const { filepath, headerKey, headerValue, sources } = config
+
+  if (!fs.existsSync(filepath)) {
+    return { error: new Error(`${ERR_PREFIX}: ${filepath} does not exist`) }
+  }
 
   if (!headerValue) {
-    debug(`${headerKey} is empty, so nothing to do`)
-    return
+    return {
+      error: new Error(
+        `${ERR_PREFIX}: the value of ${headerKey} is an empty string`
+      )
+    }
   }
 
-  const vercelJsonFilepath = path.join(outdir, 'vercel.json')
+  const onAcquiredLock = defOnAcquiredLock({
+    filepath,
+    headerKey,
+    headerValue,
+    sources
+  })
 
-  const sourcesToProcess = new Set(sources)
-
-  if (!fs.existsSync(vercelJsonFilepath)) {
-    debug(`create empty vercel.json file at ${vercelJsonFilepath}`)
-    fs.writeFileSync(vercelJsonFilepath, '{}', { encoding: 'utf8' })
-  } else {
-    debug(`found existing vercel.json file at ${vercelJsonFilepath}`)
-  }
-
-  // Multiple callers might try to open the same file in writing mode. To avoid
-  // a race condition, we use file locking.
-  // If we set retries to 0 and try to acquire a lock on the same file more than
-  // once, only the first attempt will succeed. Subsequent attempts will fail.
   const lock_options = { retries: 5 }
-  debug(`trying to acquire lock on ${vercelJsonFilepath} %O`, lock_options)
-
-  lockfile
-    .lock(vercelJsonFilepath, lock_options)
-    .then(async (release) => {
-      debug(
-        `🔒 acquired lock on ${vercelJsonFilepath} for attaching/detaching ${headerKey}`
-      )
-
-      const str = fs.readFileSync(vercelJsonFilepath, { encoding: 'utf8' })
-      const vercelJsonIn = JSON.parse(str) as VercelJSON
-      let vercelJsonOut = { headers: [] } as VercelJSON
-      vercelJsonOut = { ...vercelJsonIn, headers: [] } as VercelJSON
-
-      if (vercelJsonIn.headers) {
-        vercelJsonIn.headers.forEach((ho) => {
-          debug(`URL pattern: ${ho.source}`)
-          const i_source = sources.findIndex((source) => source === ho.source)
-          if (i_source === -1) {
-            debug(`  unalter: ${ho.headers.map((h) => h.key).join(', ')}`)
-            vercelJsonOut.headers.push({ ...ho })
-          } else {
-            sourcesToProcess.delete(ho.source)
-            const unaltered = ho.headers.filter((h) => h.key !== headerKey)
-            debug(`  unalter: ${unaltered.map((h) => h.key).join(', ')}`)
-            debug(`  attach: ${headerKey}`)
-            vercelJsonOut.headers.push({
-              ...ho,
-              headers: [...unaltered, { key: headerKey, value: headerValue }]
-            })
-          }
-        })
-
-        for (const source of sourcesToProcess) {
-          debug(`URL pattern: ${source}`)
-          debug(`  attach: ${headerKey}`)
-          vercelJsonOut.headers.push({
-            source,
-            headers: [{ key: headerKey, value: headerValue }]
-          })
-        }
-      } else {
-        sources.forEach((source) => {
-          debug(`URL pattern: ${source}`)
-          debug(`  attach: ${headerKey}`)
-          vercelJsonOut.headers.push({
-            source,
-            headers: [{ key: headerKey, value: headerValue }]
-          })
-        })
-      }
-
-      await writeFileAsync(
-        vercelJsonFilepath,
-        JSON.stringify(vercelJsonOut, null, 2),
-        {
-          encoding: 'utf8'
-        }
-      )
-
-      debug(
-        `🔓 release lock on ${vercelJsonFilepath} for attaching/detaching ${headerKey}`
-      )
-      return release()
-    })
-    .catch((err) => {
-      // either lock could not be acquired, or releasing it failed
-      console.error(err)
-      throw new Error(`${ERR_PREFIX}: ${err.message}`)
-    })
+  debug(`trying to acquire lock on ${filepath} %O`, lock_options)
+  try {
+    const release = await lockfile.lock(filepath, lock_options)
+    await onAcquiredLock(release)
+    return { value: `updated ${filepath} with ${headerKey}` }
+  } catch (err) {
+    return { error: err as Error }
+  }
 }

@@ -19,23 +19,34 @@ Description
 </th></tr></thead>
 <tbody><tr><td>
 
-[createOrUpdateHeaders(config)](./hosting-utils.createorupdateheaders.md)
+[updateHeaders(config)](./hosting-utils.updateheaders.md)
 
 
 </td><td>
 
-Creates or updates a plain text `_headers` file.
+Updates an existing `_headers` file.
 
 
 </td></tr>
 <tr><td>
 
-[createOrUpdateVercelJSON(config)](./hosting-utils.createorupdateverceljson.md)
+[updateServeJSON(config)](./hosting-utils.updateservejson.md)
 
 
 </td><td>
 
-Creates or updates a `vercel.json` file.
+Updates an existing `serve.json` file.
+
+
+</td></tr>
+<tr><td>
+
+[updateVercelJSON(config)](./hosting-utils.updateverceljson.md)
+
+
+</td><td>
+
+Updates an existing `vercel.json` file.
 
 
 </td></tr>
@@ -90,15 +101,6 @@ Description
 <tr><td>
 
 [ERR\_PREFIX](./hosting-utils.err_prefix.md)
-
-
-</td><td>
-
-
-</td></tr>
-<tr><td>
-
-[SUPPORTED\_HOSTING\_PROVIDERS](./hosting-utils.supported_hosting_providers.md)
 
 
 </td><td>

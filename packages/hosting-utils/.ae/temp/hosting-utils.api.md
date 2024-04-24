@@ -4,18 +4,6 @@
 
 ```ts
 
-// Warning: (ae-forgotten-export) The symbol "Config" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "createOrUpdateHeaders" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public
-export const createOrUpdateHeaders: (config: Config) => Promise<void>;
-
-// Warning: (ae-forgotten-export) The symbol "Config_2" needs to be exported by the entry point index.d.ts
-// Warning: (ae-missing-release-tag) "createOrUpdateVercelJSON" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
-//
-// @public
-export const createOrUpdateVercelJSON: (config: Config_2) => Promise<void>;
-
 // Warning: (ae-missing-release-tag) "DEBUG_PREFIX" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
@@ -34,10 +22,40 @@ export interface RuleMap {
     [url_pattern: string]: string[];
 }
 
-// Warning: (ae-missing-release-tag) "SUPPORTED_HOSTING_PROVIDERS" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+// Warning: (ae-forgotten-export) The symbol "Config" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "updateHeaders" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
-// @public (undocumented)
-export const SUPPORTED_HOSTING_PROVIDERS: Set<string>;
+// @public
+export const updateHeaders: (config: Config) => Promise<{
+    error: Error;
+    value?: undefined;
+} | {
+    value: string;
+    error?: undefined;
+}>;
+
+// Warning: (ae-forgotten-export) The symbol "Config_2" needs to be exported by the entry point index.d.ts
+// Warning: (ae-missing-release-tag) "updateServeJSON" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const updateServeJSON: (config: Config_2) => Promise<{
+    error: Error;
+    value?: undefined;
+} | {
+    value: string;
+    error?: undefined;
+}>;
+
+// Warning: (ae-missing-release-tag) "updateVercelJSON" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
+//
+// @public
+export const updateVercelJSON: (config: Config_2) => Promise<{
+    error: Error;
+    value?: undefined;
+} | {
+    value: string;
+    error?: undefined;
+}>;
 
 // Warning: (ae-missing-release-tag) "VercelJSON" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

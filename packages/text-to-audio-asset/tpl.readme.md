@@ -8,8 +8,6 @@
 
 {{pkg.installation}}
 
-{{pkg.peerDependencies}}
-
 ## Usage
 
 TODO
@@ -17,5 +15,7 @@ TODO
 {{troubleshooting}}
 
 {{pkg.deps}}
+
+{{pkg.peerDependencies}}
 
 {{pkg.license}}

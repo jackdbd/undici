@@ -5,12 +5,12 @@ import { describe, it, before, beforeEach, afterEach } from 'node:test'
 import util from 'node:util'
 import {
   _HEADERS_OUTPUT,
-  ELEVENTY_INPUT,
   FIXTURES_ROOT,
+  STATIC_SITE_BUILD_ROOT,
   VERCEL_JSON_OUTPUT,
   defEleventy,
-  headersContent,
-  vercelJsonObj
+  headersContentAfterMs,
+  vercelJsonObjAfterMs
 } from '@jackdbd/eleventy-test-utils'
 import {
   starter_policy,
@@ -28,7 +28,7 @@ const VERCEL_JSON_INPUT = path.join(FIXTURES_ROOT, 'json', 'vercel.json')
 const HOSTING = 'cloudflare-pages'
 
 const CONFIG_JSON_FILEPATH = path.join(
-  ELEVENTY_INPUT,
+  STATIC_SITE_BUILD_ROOT,
   'eleventy-plugin-content-security-policy-config.json'
 )
 
@@ -106,7 +106,7 @@ describe('contentSecurityPolicyPlugin', () => {
     await defEleventy({
       plugin: contentSecurityPolicyPlugin,
       pluginConfig: { directives: {}, hosting: 'cloudflare-pages' },
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
     assert.equal(fs.existsSync(_HEADERS_OUTPUT), false)
@@ -116,125 +116,11 @@ describe('contentSecurityPolicyPlugin', () => {
     await defEleventy({
       plugin: contentSecurityPolicyPlugin,
       pluginConfig: { directives: {}, hosting: 'vercel' },
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
     assert.equal(fs.existsSync(VERCEL_JSON_OUTPUT), false)
   })
-
-  it(
-    'creates a _headers file containing a "starter" Content-Security-Policy',
-    async () => {
-      await defEleventy({
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {
-          directives: directives_starter_policy,
-          hosting: HOSTING
-        },
-        dir: { output: ELEVENTY_INPUT }
-      })
-
-      const str = await headersContent()
-
-      assert.match(str, /Content-Security-Policy:/)
-      assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
-      assert.match(str, /base-uri 'self'/)
-      assert.match(str, /connect-src 'self'/)
-      assert.match(str, /default-src 'none'/)
-      assert.match(str, /form-action 'self'/)
-      assert.match(str, /img-src 'self'/)
-      assert.match(str, /script-src 'self'/)
-      assert.match(str, /style-src 'self'/)
-    },
-    timeoutMs
-  )
-
-  it(
-    'creates a _headers file containing a "recommended" Content-Security-Policy',
-    async () => {
-      await defEleventy({
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {
-          directives: directives_recommended_policy,
-          hosting: HOSTING
-        },
-        dir: { output: ELEVENTY_INPUT }
-      })
-
-      const str = await headersContent()
-
-      assert.match(str, /Content-Security-Policy:/)
-      assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
-      assert.match(str, /base-uri 'self'/)
-      assert.match(str, /connect-src 'self'/)
-      assert.match(str, /default-src 'none'/)
-      assert.match(str, /font-src 'self'/)
-      assert.match(str, /frame-ancestors 'none'/)
-      assert.match(str, /form-action 'self'/)
-      assert.match(str, /img-src 'self'/)
-      assert.match(str, /manifest-src 'self'/)
-      assert.match(str, /object-src 'none'/)
-      assert.match(str, /script-src 'self'/)
-      assert.match(str, /style-src 'self'/)
-      assert.match(str, /upgrade-insecure-requests/)
-    },
-    timeoutMs
-  )
-
-  it(
-    'creates a _headers file containing the expected Content-Security-Policy',
-    async () => {
-      await defEleventy({
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {
-          allowDeprecatedDirectives: true,
-          directives,
-          globPatternsDetach: ['/*.png'],
-          hosting: HOSTING,
-          includePatterns: ['/**/**.html'],
-          excludePatterns: []
-        },
-        dir: { output: ELEVENTY_INPUT }
-      })
-
-      const str = await headersContent()
-
-      assert.match(str, /Content-Security-Policy:/)
-      assert.doesNotMatch(str, /Content-Security-Policy-Report-Only:/)
-      // see directives above
-      assert.match(str, /base-uri 'self'/)
-      assert.match(str, /default-src 'none'/)
-    },
-    timeoutMs
-  )
-
-  it(
-    'creates a _headers file containing the expected Content-Security-Policy-Report-Only',
-    async () => {
-      await defEleventy({
-        plugin: contentSecurityPolicyPlugin,
-        pluginConfig: {
-          allowDeprecatedDirectives: true,
-          directives,
-          globPatternsDetach: ['/*.png'],
-          hosting: HOSTING,
-          includePatterns: ['/**/**.html'],
-          excludePatterns: [],
-          reportOnly: true
-        },
-        dir: { output: ELEVENTY_INPUT }
-      })
-
-      const str = await headersContent()
-
-      assert.doesNotMatch(str, /Content-Security-Policy:/)
-      assert.match(str, /Content-Security-Policy-Report-Only:/)
-      // see directives above
-      assert.match(str, /base-uri 'self'/)
-      assert.match(str, /default-src 'none'/)
-    },
-    timeoutMs
-  )
 
   it(`add Content-Security-Policy to an existing _headers file`, async () => {
     await copyFileAsync(_HEADERS_INPUT, _HEADERS_OUTPUT)
@@ -250,10 +136,10 @@ describe('contentSecurityPolicyPlugin', () => {
         globPatterns: ['/*'],
         includePatterns: ['/**/**.html']
       },
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
-    const str_after = await headersContent()
+    const str_after = await headersContentAfterMs(0)
 
     assert.match(str_after, /Content-Security-Policy:/)
     assert.doesNotMatch(str_after, /Content-Security-Policy-Report-Only:/)
@@ -277,10 +163,10 @@ describe('contentSecurityPolicyPlugin', () => {
         globPatterns: ['/*'],
         includePatterns: ['/**/**.html']
       },
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
-    const obj_after = await vercelJsonObj()
+    const obj_after = await vercelJsonObjAfterMs(0)
     const arr_after = obj_after.headers.filter((h) => h.source === '/*')
     assert.equal(arr_after.length, 1)
     assert.equal(arr_after[0].headers.length, 1)
@@ -296,7 +182,7 @@ describe('contentSecurityPolicyPlugin', () => {
 
     const eleventy = await defEleventy({
       plugin: contentSecurityPolicyPlugin,
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
     assert.equal(eleventy.outputDir, './_site/')
@@ -307,7 +193,7 @@ describe('contentSecurityPolicyPlugin', () => {
 
     const eleventy = await defEleventy({
       plugin: contentSecurityPolicyPlugin,
-      dir: { output: ELEVENTY_INPUT }
+      dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
     assert.equal(eleventy.outputDir, './_site/')
@@ -319,7 +205,7 @@ describe('contentSecurityPolicyPlugin', () => {
       // return Promise.resolve('some success')
       return defEleventy({
         plugin: contentSecurityPolicyPlugin,
-        dir: { output: ELEVENTY_INPUT }
+        dir: { output: STATIC_SITE_BUILD_ROOT }
       })
     })
   })
@@ -329,7 +215,7 @@ describe('contentSecurityPolicyPlugin', () => {
   //   try {
   //     await defEleventy({
   //       plugin: contentSecurityPolicyPlugin,
-  //       dir: { output: ELEVENTY_INPUT }
+  //       dir: { output: STATIC_SITE_BUILD_ROOT }
   //     })
   //   } catch (err) {
   //     assert.match(err.message, /hosting not set in plugin options/)

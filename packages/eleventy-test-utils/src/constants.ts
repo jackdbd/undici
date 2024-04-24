@@ -28,8 +28,19 @@ export const ELEVENTY_INITIAL_EVENTS_COUNT = 2
 
 export const REPO_ROOT = path.join(__filename, '..', '..', '..', '..')
 export const ASSETS_ROOT = path.join(REPO_ROOT, 'assets')
-export const ELEVENTY_INPUT = path.join(REPO_ROOT, 'assets', 'html-pages')
+
 export const FIXTURES_ROOT = path.join(REPO_ROOT, 'fixtures')
 
-export const _HEADERS_OUTPUT = path.join(ELEVENTY_INPUT, '_headers')
-export const VERCEL_JSON_OUTPUT = path.join(ELEVENTY_INPUT, 'vercel.json')
+export const DEMO_SITE_ROOT = path.join(REPO_ROOT, 'packages', 'demo-site')
+
+export const STATIC_SITE_BUILD_ROOT = path.join(
+  REPO_ROOT,
+  'assets',
+  'html-pages'
+)
+
+export const _HEADERS_OUTPUT = path.join(STATIC_SITE_BUILD_ROOT, '_headers')
+export const VERCEL_JSON_OUTPUT = path.join(
+  STATIC_SITE_BUILD_ROOT,
+  'vercel.json'
+)

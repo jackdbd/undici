@@ -31,42 +31,7 @@
 </ul>
 <a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code class="language-sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@jackdbd/eleventy-plugin-text-to-speech</span>
 </code><button>Copy</button></pre>
-<blockquote>
-<p>:warning: <strong>Peer Dependencies</strong></p>
-<p>This package defines 6 peer dependencies.</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>Peer</th>
-<th>Version range</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>@11ty/eleventy</code></td>
-<td><code>&gt;=2.0.0 or 3.0.0-alpha.6</code></td>
-</tr>
-<tr>
-<td><code>@aws-sdk/client-s3</code></td>
-<td><code>&gt;=3.0.0</code></td>
-</tr>
-<tr>
-<td><code>@aws-sdk/lib-storage</code></td>
-<td><code>&gt;=3.0.0</code></td>
-</tr>
-<tr>
-<td><code>@google-cloud/storage</code></td>
-<td><code>&gt;=7.0.0</code></td>
-</tr>
-<tr>
-<td><code>@google-cloud/text-to-speech</code></td>
-<td><code>&gt;=5.0.0</code></td>
-</tr>
-<tr>
-<td><code>debug</code></td>
-<td><code>&gt;=4.0.0</code></td>
-</tr>
-</tbody></table>
+<p><strong>Note</strong>: this library was tested on Node.js &gt;=18. It might work on other Node.js versions though.</p>
 <a id="md:about" class="tsd-anchor"></a><h2><a href="#md:about">About</a></h2><p>Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.</p>
 <p>To <strong>synthesize</strong> text into speech you can use:</p>
 <ul>
@@ -223,6 +188,42 @@ You can control what&#39;s logged using the <code>DEBUG</code> environment varia
 <tr>
 <td><a href="https://www.npmjs.com/package/zod-validation-error">zod-validation-error</a></td>
 <td><code>^3.1.0</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>:warning: <strong>Peer Dependencies</strong></p>
+<p>This package defines 6 peer dependencies.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Peer</th>
+<th>Version range</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@11ty/eleventy</code></td>
+<td><code>&gt;=2.0.0 or 3.0.0-alpha.6</code></td>
+</tr>
+<tr>
+<td><code>@aws-sdk/client-s3</code></td>
+<td><code>&gt;=3.0.0</code></td>
+</tr>
+<tr>
+<td><code>@aws-sdk/lib-storage</code></td>
+<td><code>&gt;=3.0.0</code></td>
+</tr>
+<tr>
+<td><code>@google-cloud/storage</code></td>
+<td><code>&gt;=7.0.0</code></td>
+</tr>
+<tr>
+<td><code>@google-cloud/text-to-speech</code></td>
+<td><code>&gt;=5.0.0</code></td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td><code>&gt;=4.0.0</code></td>
 </tr>
 </tbody></table>
 <a id="md:credits" class="tsd-anchor"></a><h2><a href="#md:credits">Credits</a></h2><p>I had the idea of this plugin while reading the code of the homonym <a href="https://github.com/larryhudson/eleventy-plugin-text-to-speech">eleventy-plugin-text-to-speech</a> by <a href="https://larryhudson.io/">Larry Hudson</a>. Larry&#39;s plugin uses the <a href="https://docs.microsoft.com/en-us/azure/cognitive-services/speech-service/speech-sdk">Microsoft Azure Speech SDK</a>.</p>

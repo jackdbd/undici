@@ -8,22 +8,22 @@
 
 {{pkg.installation}}
 
-{{pkg.peerDependencies}}
-
 ## Usage
 
 Let's say that you are hosting your Eleventy site on Vercel and that you want to programmatically add a `Content-Security-Policy` header to a bunch of routes. You could do something like this:
 
 ```ts
-import { createOrUpdateVercelJSON } from '@jackdbd/hosting-utils'
+import { updateVercelJSON } from '@jackdbd/hosting-utils'
 
-await createOrUpdateVercelJSON({
+await updateVercelJSON({
   headerKey: 'Content-Security-Policy',
   headerValue: "default-src 'self'; img-src 'self' cdn.example.com;",
-  outdir: '_site/',
-  sources: ['/(.*)', '/nested-route/*.html']
+  filepath: '_site/vercel.json',
+  sources: ['/(404|index).html', '/posts/**/*.html']
 })
 ```
+
+{{configuration}}
 
 ## Troubleshooting
 
@@ -38,5 +38,7 @@ export DEBUG=hosting-utils:*
 ```
 
 {{pkg.deps}}
+
+{{pkg.peerDependencies}}
 
 {{pkg.license}}

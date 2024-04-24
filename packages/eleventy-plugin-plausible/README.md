@@ -22,14 +22,7 @@ Eleventy plugin that retrieves analytics from Plausible when building your site.
 npm install @jackdbd/eleventy-plugin-plausible
 ```
 
-> :warning: **Peer Dependencies**
->
-> This package defines 2 peer dependencies.
-
-| Peer | Version range |
-|---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
-| `debug` | `>=4.0.0` |
+**Note**: this library was tested on Node.js >=18. It might work on other Node.js versions though.
 
 ## About
 
@@ -120,6 +113,15 @@ export DEBUG=11ty-plugin:*
 | [@jackdbd/plausible-client](https://www.npmjs.com/package/@jackdbd/plausible-client) | `^1.0.2` |
 | [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
 | [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
+
+> ⚠️ **Peer Dependencies**
+>
+> This package defines 2 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
+| `debug` | `>=4.0.0` |
 
 ## License
 

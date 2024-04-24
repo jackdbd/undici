@@ -4,8 +4,6 @@ import slugify from 'slugify'
 import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
 import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
-import { permissionsPolicyPlugin } from '@jackdbd/eleventy-plugin-permissions-policy'
-import { contentSecurityPolicyPlugin } from '@jackdbd/eleventy-plugin-content-security-policy'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { defClient as defCloudflareR2Client } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloudflare-r2'
@@ -25,9 +23,6 @@ import { copyright } from './src/shortcodes/index.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const FILE_NAME = path.basename(__filename)
-
-const hosting = 'cloudflare-pages'
-// const hosting = 'vercel'
 
 export default async function (eleventyConfig) {
   // 11ty shortcodes
@@ -51,45 +46,6 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPlugin(navigation)
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
-
-  // Here I register contentSecurityPolicyPlugin twice to show that it generates
-  // different Content-Security-Policy headers for different URL patterns.
-
-  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
-    directives: {
-      'base-uri': ['self'],
-      'default-src': ['none'],
-      'img-src': ['self'],
-      'script-src': ['self'],
-      'style-src': ['self']
-    },
-    globPatterns: ['/*'],
-    globPatternsDetach: ['/*.png'],
-    hosting
-  })
-
-  eleventyConfig.addPlugin(contentSecurityPolicyPlugin, {
-    directives: {
-      'default-src': ['self']
-    },
-    globPatterns: ['/nested/*'],
-    hosting
-  })
-
-  eleventyConfig.addPlugin(permissionsPolicyPlugin, {
-    directives: [
-      { feature: 'autoplay', allowlist: ['*'] },
-      { feature: 'geolocation', allowlist: ['self'] },
-      {
-        feature: 'camera',
-        allowlist: ['self', 'https://trusted-site.example']
-      },
-      { feature: 'fullscreen', allowlist: [] }
-    ],
-    hosting,
-    includeFeaturePolicy: true,
-    jsonRecap: true
-  })
 
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
   eleventyConfig.addPlugin(telegramPlugin, {

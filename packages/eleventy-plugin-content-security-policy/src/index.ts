@@ -7,10 +7,7 @@ import {
   cspDirectives,
   validationErrorOrWarnings
 } from '@jackdbd/content-security-policy'
-import {
-  createOrUpdateHeaders,
-  createOrUpdateVercelJSON
-} from '@jackdbd/hosting-utils'
+import { updateHeaders, updateVercelJSON } from '@jackdbd/hosting-utils'
 import {
   DEBUG_PREFIX,
   DEFAULT_OPTIONS,
@@ -79,7 +76,6 @@ export const contentSecurityPolicyPlugin = (
     const {
       excludePatterns,
       globPatterns,
-      globPatternsDetach,
       includePatterns,
       jsonRecap,
       reportOnly
@@ -141,27 +137,24 @@ export const contentSecurityPolicyPlugin = (
 
     const headerValue = directives.join('; ')
 
+    const sources = globPatterns
+
     if (hosting === 'vercel') {
-      // I'm not sure the patterns to use in the vercel.json are the same as
-      // the globPatterns used in the _headers file.
-      // https://vercel.com/docs/projects/project-configuration#headers
-      const sources = globPatterns
       // const sources = ['/(.*)', '/service-worker.js']
-      await createOrUpdateVercelJSON({
+      await updateVercelJSON({
+        filepath: path.join(outdir, 'vercel.json'),
         headerKey,
         headerValue,
-        outdir,
         sources
       })
     } else if (hosting === 'cloudflare-pages' || hosting === 'netlify') {
       // TODO: Cloudflare Pages and Netlify both use a _headers file, but I'm not
       // 100% sure these two files have the exact same syntax.
-      await createOrUpdateHeaders({
-        globPatterns,
-        globPatternsDetach,
+      await updateHeaders({
+        filepath: path.join(outdir, '_headers'),
         headerKey,
         headerValue,
-        outdir
+        sources
       })
     } else {
       throw new Error(

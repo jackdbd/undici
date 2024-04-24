@@ -20,7 +20,10 @@
   },
   "type": "module",
   "scripts": {
-    "build": "DEBUG='hosting-utils:*,11ty-plugin:csp:*,11ty-plugin:permissions-policy:*' eleventy --config eleventy.mjs",
+    "build": "run-s build:eleventy build:csp build:pp",
+    "build:eleventy": "eleventy --config eleventy.mjs",
+    "build:csp": "DEBUG='hosting-utils:*,csp:*,script:*' tsm ./scripts/content-security-policy.ts",
+    "build:pp": "DEBUG='hosting-utils:*,permissions-policy,script:*' tsm ./scripts/permissions-policy.ts",
     "clean": "rimraf _site/ .cache/",
     "dev": "eleventy --config eleventy.mjs --serve --port 8090",
     "deploy": "npx wrangler pages deploy _site --project-name undici",
@@ -28,6 +31,7 @@
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
+    "serve": "serve _site/ -p 8090",
     "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
   },
   "dependencies": {
