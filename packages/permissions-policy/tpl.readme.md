@@ -1,6 +1,6 @@
 # {{pkg.name}}
 
-<!-- {{badges}} -->
+{{badges}}
 
 {{pkg.description}}
 

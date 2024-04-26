@@ -206,15 +206,6 @@
             },
             {
               "kind": "Content",
-              "text": "<\"none\">, "
-            },
-            {
-              "kind": "Reference",
-              "text": "z.ZodLiteral",
-              "canonicalReference": "zod!ZodLiteral:class"
-            },
-            {
-              "kind": "Content",
               "text": "<\"self\">, "
             },
             {
@@ -242,7 +233,7 @@
           "name": "allow_item",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 13
+            "endIndex": 11
           }
         },
         {
@@ -337,15 +328,6 @@
             },
             {
               "kind": "Content",
-              "text": "<\"none\">, "
-            },
-            {
-              "kind": "Reference",
-              "text": "z.ZodLiteral",
-              "canonicalReference": "zod!ZodLiteral:class"
-            },
-            {
-              "kind": "Content",
               "text": "<\"self\">, "
             },
             {
@@ -373,7 +355,7 @@
           "name": "allowlist",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 17
+            "endIndex": 15
           }
         },
         {
@@ -1653,15 +1635,6 @@
             },
             {
               "kind": "Content",
-              "text": "<\"none\">, "
-            },
-            {
-              "kind": "Reference",
-              "text": "z.ZodLiteral",
-              "canonicalReference": "zod!ZodLiteral:class"
-            },
-            {
-              "kind": "Content",
               "text": "<\"self\">, "
             },
             {
@@ -1752,7 +1725,7 @@
           "name": "options",
           "variableTypeTokenRange": {
             "startIndex": 1,
-            "endIndex": 149
+            "endIndex": 147
           }
         },
         {

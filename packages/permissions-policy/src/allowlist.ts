@@ -12,14 +12,8 @@ export const origin = z
  * @see [w3c.github.io - Allowlists special value](https://w3c.github.io/webappsec-permissions-policy/#the-special-value)
  */
 export const allow_item = z
-  .union([
-    z.literal('*'),
-    z.literal('none'),
-    z.literal('self'),
-    z.literal('src'),
-    origin
-  ])
-  .describe('An origin or a special value (`*`, `none`, `self`, `src`)')
+  .union([z.literal('*'), z.literal('self'), z.literal('src'), origin])
+  .describe('An origin or a special value (`*`, `self`, `src`)')
 
 export type AllowlistItem = z.infer<typeof allow_item>
 
@@ -31,8 +25,6 @@ export const allowlist = z
   .refine(isUnique, {
     message: 'Must be an array of unique strings'
   })
-  .describe(
-    'A set of origins and/or special values (`*`, `none`, `self`, `src`).'
-  )
+  .describe('A set of origins and/or special values (`*`, `self`, `src`).')
 
 export type Allowlist = z.infer<typeof allowlist>

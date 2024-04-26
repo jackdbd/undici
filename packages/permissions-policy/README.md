@@ -1,9 +1,9 @@
 # @jackdbd/permissions-policy
 
-<!-- [![npm version](https://badge.fury.io/js/@jackdbd%2Fpermissions-policy.svg)](https://badge.fury.io/js/@jackdbd%2Fpermissions-policy)
+[![npm version](https://badge.fury.io/js/@jackdbd%2Fpermissions-policy.svg)](https://badge.fury.io/js/@jackdbd%2Fpermissions-policy)
 [![install size](https://packagephobia.com/badge?p=@jackdbd/permissions-policy)](https://packagephobia.com/result?p=@jackdbd/permissions-policy)
 [![CodeCov badge](https://codecov.io/gh/jackdbd/undici/graph/badge.svg?token=BpFF8tmBYS)](https://app.codecov.io/gh/jackdbd/undici?flags%5B0%5D=permissions-policy)
-[![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/permissions-policy)](https://socket.dev/npm/package/@jackdbd/permissions-policy) -->
+[![Socket Badge](https://socket.dev/api/badge/npm/package/@jackdbd/permissions-policy)](https://socket.dev/npm/package/@jackdbd/permissions-policy)
 
 Define your `Permissions-Policy` in JavaScript and let this library generate the header for you.
 

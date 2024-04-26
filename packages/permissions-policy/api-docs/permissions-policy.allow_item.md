@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-allow_item: z.ZodUnion<[z.ZodLiteral<"*">, z.ZodLiteral<"none">, z.ZodLiteral<"self">, z.ZodLiteral<"src">, z.ZodString]>
+allow_item: z.ZodUnion<[z.ZodLiteral<"*">, z.ZodLiteral<"self">, z.ZodLiteral<"src">, z.ZodString]>
 ```

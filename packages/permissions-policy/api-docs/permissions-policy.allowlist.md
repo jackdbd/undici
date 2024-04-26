@@ -7,5 +7,5 @@
 **Signature:**
 
 ```typescript
-allowlist: z.ZodEffects<z.ZodArray<z.ZodUnion<[z.ZodLiteral<"*">, z.ZodLiteral<"none">, z.ZodLiteral<"self">, z.ZodLiteral<"src">, z.ZodString]>, "many">, string[], string[]>
+allowlist: z.ZodEffects<z.ZodArray<z.ZodUnion<[z.ZodLiteral<"*">, z.ZodLiteral<"self">, z.ZodLiteral<"src">, z.ZodString]>, "many">, string[], string[]>
 ```
