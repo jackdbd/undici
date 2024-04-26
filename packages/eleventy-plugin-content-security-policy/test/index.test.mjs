@@ -9,8 +9,7 @@ import {
   STATIC_SITE_BUILD_ROOT,
   VERCEL_JSON_OUTPUT,
   defEleventy,
-  headersContentAfterMs,
-  vercelJsonObjAfterMs
+  fileContentAfterMs
 } from '@jackdbd/eleventy-test-utils'
 import {
   starter_policy,
@@ -139,7 +138,7 @@ describe('contentSecurityPolicyPlugin', () => {
       dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
-    const str_after = await headersContentAfterMs(0)
+    const str_after = await fileContentAfterMs(_HEADERS_OUTPUT, 0)
 
     assert.match(str_after, /Content-Security-Policy:/)
     assert.doesNotMatch(str_after, /Content-Security-Policy-Report-Only:/)
@@ -166,7 +165,7 @@ describe('contentSecurityPolicyPlugin', () => {
       dir: { output: STATIC_SITE_BUILD_ROOT }
     })
 
-    const obj_after = await vercelJsonObjAfterMs(0)
+    const obj_after = await fileContentAfterMs(VERCEL_JSON_OUTPUT, 0)
     const arr_after = obj_after.headers.filter((h) => h.source === '/*')
     assert.equal(arr_after.length, 1)
     assert.equal(arr_after[0].headers.length, 1)
