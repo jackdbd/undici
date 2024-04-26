@@ -75,6 +75,7 @@
     "@microsoft/api-documenter": "^7.24.2",
     "@microsoft/api-extractor": "^7.43.1",
     "@qiwi/multi-semantic-release": "^7.1.1",
+    "@reporters/github": "^1.7.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/exec": "^6.0.3",
     "@semantic-release/git": "^10.0.1",

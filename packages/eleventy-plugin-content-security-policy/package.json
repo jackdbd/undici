@@ -72,7 +72,7 @@
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
     "test": "DEBUG='' node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
+    "test:ci": "node --test --test-reporter=@reporters/github --test-reporter-destination=stdout --test-reporter=spec --test-reporter-destination=stdout",
     "test:watch": "node --test --watch"
   },
   "dependencies": {
