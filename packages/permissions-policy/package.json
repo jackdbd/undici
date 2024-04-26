@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/permissions-policy",
-  "version": "0.1.0",
+  "version": "1.0.0-canary.1",
   "description": "Define your `Permissions-Policy` in JavaScript and let this library generate the header for you.",
   "author": {
     "name": "Giacomo Debidda",
