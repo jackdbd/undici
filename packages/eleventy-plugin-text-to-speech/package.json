@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-text-to-speech",
-  "version": "3.2.0-canary.1",
+  "version": "3.2.0",
   "description": "Eleventy plugin that uses text-to-speech to generate audio assets for your website, then injects audio players in your HTML.",
   "author": {
     "name": "Giacomo Debidda",
