@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-telegram",
-  "version": "2.2.0-canary.1",
+  "version": "2.2.0",
   "description": "Eleventy plugin that sends Telegram messages when Eleventy starts/finishes building your site.",
   "author": {
     "name": "Giacomo Debidda",
