@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-content-security-policy [2.2.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@2.1.2...@jackdbd/eleventy-plugin-content-security-policy@2.2.0) (2024-04-29)
+
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** add tests ([c6df47f](https://github.com/jackdbd/undici/commit/c6df47f85703dc1ec5e5493f4737bb85540379ca))
+* **eleventy-plugin-content-security-policy:** generate header rules in vercel.json ([90b4a5e](https://github.com/jackdbd/undici/commit/90b4a5e110a5ba243117798ac26be7a5f2d89766))
+* **hosting-utils:** add package ([19d3456](https://github.com/jackdbd/undici/commit/19d345632683ce85bbc88d741d0bbe7168b3e302))
+
+
+
+### Dependencies
+
+* **@jackdbd/hosting-utils:** upgraded to 1.0.0
+
 ## @jackdbd/eleventy-plugin-content-security-policy [2.2.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-content-security-policy@2.1.2...@jackdbd/eleventy-plugin-content-security-policy@2.2.0-canary.1) (2024-04-23)
 
 
