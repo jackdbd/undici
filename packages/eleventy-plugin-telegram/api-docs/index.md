@@ -6,7 +6,24 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [@jackdbd/eleventy-plugin-telegram](./eleventy-plugin-telegram.md) |  |
+<table><thead><tr><th>
 
+Package
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[@jackdbd/eleventy-plugin-telegram](./eleventy-plugin-telegram.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

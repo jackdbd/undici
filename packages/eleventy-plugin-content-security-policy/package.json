@@ -1,6 +1,6 @@
 {
   "name": "@jackdbd/eleventy-plugin-content-security-policy",
-  "version": "2.1.2",
+  "version": "2.2.0-canary.1",
   "description": "Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-Report-Only headers to a `_headers` file when Eleventy builds your site.",
   "author": {
     "name": "Giacomo Debidda",
@@ -59,7 +59,7 @@
     "build:ts": "tsc -p tsconfig.json",
     "build:ts:watch": "tsc -p tsconfig.json --watch",
     "clean": "rimraf lib/ tsconfig.tsbuildinfo",
-    "dev": "run-p build:ts:watch test:watch",
+    "dev": "DEBUG='' run-p build:ts:watch test:watch",
     "docs": "run-s 'docs:ae' 'docs:ad' 'docs:typedoc' 'readme' --print-label",
     "docs:ad": "../../scripts/api-documenter.mjs",
     "docs:ae": "../../scripts/api-extractor.mjs",
@@ -71,17 +71,18 @@
     "publint": "publint run .",
     "readme": "tsm ../../scripts/readme.ts eleventy-plugin-content-security-policy",
     "size": "pkg-size ./lib --sort-by=brotli --ignore-files {*.d.ts,*.map}",
-    "test": "node --test --experimental-test-coverage",
-    "test:ci": "node --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=lcov.info",
+    "test": "DEBUG='' node --test --experimental-test-coverage",
+    "test:ci": "node --test --test-reporter=@reporters/github --test-reporter-destination=stdout --test-reporter=spec --test-reporter-destination=stdout",
     "test:watch": "node --test --watch"
   },
   "dependencies": {
-    "@jackdbd/content-security-policy": "2.1.3",
-    "zod": "^3.22.4",
-    "zod-validation-error": "^3.0.0"
+    "@jackdbd/content-security-policy": "3.0.0-canary.1",
+    "@jackdbd/hosting-utils": "1.0.0-canary.1",
+    "zod": "^3.23.0",
+    "zod-validation-error": "^3.1.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4",
+    "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.6",
     "debug": ">=4.0.0"
   },
   "devDependencies": {

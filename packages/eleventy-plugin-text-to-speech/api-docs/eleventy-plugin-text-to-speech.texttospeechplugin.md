@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-text-to-speech](./eleventy-plugin-text-to-speech.md) &gt; [textToSpeechPlugin](./eleventy-plugin-text-to-speech.texttospeechplugin.md)
 
-## textToSpeechPlugin variable
+## textToSpeechPlugin() function
 
 Adds Text-to-Speech functionality to an Eleventy site.
 
@@ -11,3 +11,55 @@ Adds Text-to-Speech functionality to an Eleventy site.
 ```typescript
 textToSpeechPlugin: (eleventyConfig: EleventyConfig, config: Config) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+eleventyConfig
+
+
+</td><td>
+
+EleventyConfig
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+config
+
+
+</td><td>
+
+[Config](./eleventy-plugin-text-to-speech.config.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+void
+

@@ -22,12 +22,25 @@ export const ELEVENLABS_DEFAULT_OUTPUT_FORMAT = 'mp3_44100_128'
 export const ELEVENLABS_DEFAULT_VOICE_ID = '21m00Tcm4TlvDq8ikWAM'
 // export const ELEVENLABS_DEFAULT_VOICE_ID = '29vD33N1CtxCmqQRPOHJ'
 
-// By default, Eleventy listens to an `eleventy.layout` event
-export const ELEVENTY_INITIAL_EVENTS_COUNT = 1
+// By default, Eleventy listens to these events: `eleventy.layout`, `eleventy.contentMap`
+// However, this might change from version to version, so try not to rely on this.
+export const ELEVENTY_INITIAL_EVENTS_COUNT = 2
 
 export const REPO_ROOT = path.join(__filename, '..', '..', '..', '..')
 export const ASSETS_ROOT = path.join(REPO_ROOT, 'assets')
-export const ELEVENTY_INPUT = path.join(REPO_ROOT, 'assets', 'html-pages')
+
 export const FIXTURES_ROOT = path.join(REPO_ROOT, 'fixtures')
-export const HEADERS_FILEPATH = path.join(ELEVENTY_INPUT, '_headers')
-export const HEADERS_CONTENT = '# Here are my custom HTTP response headers'
+
+export const DEMO_SITE_ROOT = path.join(REPO_ROOT, 'packages', 'demo-site')
+
+export const STATIC_SITE_BUILD_ROOT = path.join(
+  REPO_ROOT,
+  'assets',
+  'html-pages'
+)
+
+export const _HEADERS_OUTPUT = path.join(STATIC_SITE_BUILD_ROOT, '_headers')
+export const VERCEL_JSON_OUTPUT = path.join(
+  STATIC_SITE_BUILD_ROOT,
+  'vercel.json'
+)

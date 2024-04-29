@@ -4,17 +4,85 @@
 
 ## eleventy-plugin-plausible package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[plausiblePlugin(eleventyConfig, options)](./eleventy-plugin-plausible.plausibleplugin.md)
+
+
+</td><td>
+
+Plugin configuration function.
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [DEFAULT\_OPTIONS](./eleventy-plugin-plausible.default_options.md) |  |
-|  [options](./eleventy-plugin-plausible.options.md) |  |
-|  [plausiblePlugin](./eleventy-plugin-plausible.plausibleplugin.md) | Plugin configuration function. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[DEFAULT\_OPTIONS](./eleventy-plugin-plausible.default_options.md)
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+[options](./eleventy-plugin-plausible.options.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-plausible.options.md) |  |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Options](./eleventy-plugin-plausible.options.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

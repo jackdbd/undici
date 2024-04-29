@@ -4,16 +4,87 @@
 
 ## eleventy-plugin-content-security-policy package
 
+## Functions
+
+<table><thead><tr><th>
+
+Function
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[contentSecurityPolicyPlugin(eleventyConfig, options)](./eleventy-plugin-content-security-policy.contentsecuritypolicyplugin.md)
+
+
+</td><td>
+
+Plugin configuration function.
+
+We give the plugin configuration function a name, so it can be easily spotted in the Eleventy:ErrorHandler debug logs.
+
+Hosting providers like Cloudflare Pages and Netlify allow to define custom response headers in a plain text file called \_headers. This file must be placed in the publish directory of your site (e.g. usually \_site for a Eleventy site).
+
+https://developers.cloudflare.com/pages/platform/headers/ https://docs.netlify.com/routing/headers/
+
+
+</td></tr>
+</tbody></table>
+
 ## Variables
 
-|  Variable | Description |
-|  --- | --- |
-|  [contentSecurityPolicyPlugin](./eleventy-plugin-content-security-policy.contentsecuritypolicyplugin.md) | <p>Plugin configuration function.</p><p>We give the plugin configuration function a name, so it can be easily spotted in the Eleventy:ErrorHandler debug logs.</p><p>Hosting providers like Cloudflare Pages and Netlify allow to define custom response headers in a plain text file called \_headers. This file must be placed in the publish directory of your site (e.g. usually \_site for a Eleventy site).</p><p>https://developers.cloudflare.com/pages/platform/headers/ https://docs.netlify.com/routing/headers/</p> |
-|  [DEFAULT\_OPTIONS](./eleventy-plugin-content-security-policy.default_options.md) | Default options for the plugin. |
+<table><thead><tr><th>
+
+Variable
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[DEFAULT\_OPTIONS](./eleventy-plugin-content-security-policy.default_options.md)
+
+
+</td><td>
+
+Default options for the plugin.
+
+
+</td></tr>
+</tbody></table>
 
 ## Type Aliases
 
-|  Type Alias | Description |
-|  --- | --- |
-|  [Options](./eleventy-plugin-content-security-policy.options.md) | <p>Plugin options.</p> |
+<table><thead><tr><th>
 
+Type Alias
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[Options](./eleventy-plugin-content-security-policy.options.md)
+
+
+</td><td>
+
+Plugin options.
+
+
+
+</td></tr>
+</tbody></table>

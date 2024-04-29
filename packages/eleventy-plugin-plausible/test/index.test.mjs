@@ -1,6 +1,9 @@
 import assert from 'node:assert'
 import { describe, it, before } from 'node:test'
-import { makeEleventy, ELEVENTY_INPUT } from '@jackdbd/eleventy-test-utils'
+import {
+  defEleventy,
+  STATIC_SITE_BUILD_ROOT
+} from '@jackdbd/eleventy-test-utils'
 import { DEFAULT_OPTIONS } from '../lib/schemas.js'
 import { plausiblePlugin } from '../lib/index.js'
 
@@ -20,12 +23,10 @@ describe('plugin', () => {
   it.skip(
     'adds the expected `eleventy.globalData` as an async function',
     async () => {
-      const eleventy = await makeEleventy({
-        input: undefined,
-        output: undefined,
+      const eleventy = await defEleventy({
         plugin: plausiblePlugin,
         pluginConfig: { apiKey, siteId },
-        dir: { output: ELEVENTY_INPUT }
+        dir: { output: STATIC_SITE_BUILD_ROOT }
       })
 
       const userConfig = eleventy.eleventyConfig.userConfig

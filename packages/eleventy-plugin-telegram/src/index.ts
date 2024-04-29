@@ -16,7 +16,7 @@ const debug = defDebug(`${DEBUG_PREFIX}:index`)
 /**
  * @internal
  */
-const makeEleventyEventHandler = (config: SendMessageConfig) => {
+const defEleventyEventHandler = (config: SendMessageConfig) => {
   debug(`create Eleventy event handler`)
   return async (arg: EventArguments) => {
     debug(`current Eleventy project directories %o`, arg.dir)
@@ -71,7 +71,7 @@ export const telegramPlugin = (
   }
 
   if (textBeforeBuild) {
-    const onBefore = makeEleventyEventHandler({
+    const onBefore = defEleventyEventHandler({
       chatId,
       text: textBeforeBuild,
       token
@@ -81,7 +81,7 @@ export const telegramPlugin = (
   }
 
   if (textAfterBuild) {
-    const onAfter = makeEleventyEventHandler({
+    const onAfter = defEleventyEventHandler({
       chatId,
       text: textAfterBuild,
       token

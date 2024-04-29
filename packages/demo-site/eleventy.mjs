@@ -1,9 +1,9 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import slugify from 'slugify'
 import helmet from 'eleventy-plugin-helmet'
 import navigation from '@11ty/eleventy-navigation'
 import { ensureEnvVarsPlugin } from '@jackdbd/eleventy-plugin-ensure-env-vars'
-import { permissionsPolicyPlugin } from '@jackdbd/eleventy-plugin-permissions-policy'
 import { telegramPlugin } from '@jackdbd/eleventy-plugin-telegram'
 import { textToSpeechPlugin } from '@jackdbd/eleventy-plugin-text-to-speech'
 import { defClient as defCloudflareR2Client } from '@jackdbd/eleventy-plugin-text-to-speech/hosting/cloudflare-r2'
@@ -21,7 +21,10 @@ import {
 } from './eleventy-test-utils/index.js'
 import { copyright } from './src/shortcodes/index.js'
 
-export default function (eleventyConfig) {
+const __filename = fileURLToPath(import.meta.url)
+const FILE_NAME = path.basename(__filename)
+
+export default async function (eleventyConfig) {
   // 11ty shortcodes
   // https://www.11ty.dev/docs/shortcodes/
   eleventyConfig.addShortcode('copyright', copyright)
@@ -44,29 +47,13 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPlugin(ensureEnvVarsPlugin)
 
-  eleventyConfig.addPlugin(permissionsPolicyPlugin, {
-    directives: [
-      { feature: 'autoplay', allowlist: ['*'] },
-      { feature: 'geolocation', allowlist: ['self'] },
-      {
-        feature: 'camera',
-        allowlist: ['self', 'https://trusted-site.example']
-      },
-      { feature: 'fullscreen', allowlist: [] }
-    ],
-    includeFeaturePolicy: true,
-    jsonRecap: true
-  })
-
   const { chat_id: chatId, token } = JSON.parse(process.env.TELEGRAM)
-  if (process.env.SKIP_TELEGRAM_MESSAGES === undefined) {
-    eleventyConfig.addPlugin(telegramPlugin, {
-      chatId,
-      token,
-      textBeforeBuild: `<i>demo-site</i> build <b>START</b>`,
-      textAfterBuild: `<i>demo-site</i> build <b>FINISHED</b>`
-    })
-  }
+  eleventyConfig.addPlugin(telegramPlugin, {
+    chatId,
+    token,
+    textBeforeBuild: `🕚 <b>Undici demo-site</b>\n\nBuild start.\n\nSent by <code>${FILE_NAME}</code>`,
+    textAfterBuild: `🕚 <b>Undici demo-site</b>\n\nBuild finished.\n\nSent by <code>${FILE_NAME}</code>`
+  })
 
   // Static assets
   eleventyConfig.addPassthroughCopy({

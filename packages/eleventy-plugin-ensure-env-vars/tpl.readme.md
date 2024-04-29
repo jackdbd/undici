@@ -8,8 +8,6 @@
 
 {{pkg.installation}}
 
-{{pkg.peerDependencies}}
-
 ## Usage
 
 In your Eleventy config file:
@@ -33,5 +31,7 @@ export default function (eleventyConfig) {
 {{troubleshooting}}
 
 {{pkg.deps}}
+
+{{pkg.peerDependencies}}
 
 {{pkg.license}}

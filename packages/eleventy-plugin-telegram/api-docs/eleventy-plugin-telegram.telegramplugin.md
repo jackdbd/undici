@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-telegram](./eleventy-plugin-telegram.md) &gt; [telegramPlugin](./eleventy-plugin-telegram.telegramplugin.md)
 
-## telegramPlugin variable
+## telegramPlugin() function
 
 Plugin that sends Telegram messages when Eleventy starts/finishes building your site.
 
@@ -11,6 +11,61 @@ Plugin that sends Telegram messages when Eleventy starts/finishes building your 
 ```typescript
 telegramPlugin: (eleventyConfig: EleventyConfig, options?: Options) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+eleventyConfig
+
+
+</td><td>
+
+EleventyConfig
+
+
+</td><td>
+
+.
+
+
+</td></tr>
+<tr><td>
+
+options
+
+
+</td><td>
+
+[Options](./eleventy-plugin-telegram.options.md)
+
+
+</td><td>
+
+_(Optional)_ Plugin [options](./eleventy-plugin-telegram.options.md)<!-- -->.
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+void
 
 ## Remarks
 

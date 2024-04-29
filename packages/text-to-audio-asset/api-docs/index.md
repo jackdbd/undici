@@ -6,7 +6,24 @@
 
 ## Packages
 
-|  Package | Description |
-|  --- | --- |
-|  [@jackdbd/text-to-audio-asset](./text-to-audio-asset.md) |  |
+<table><thead><tr><th>
 
+Package
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+[@jackdbd/text-to-audio-asset](./text-to-audio-asset.md)
+
+
+</td><td>
+
+
+</td></tr>
+</tbody></table>

@@ -1,6 +1,19 @@
 import assert from 'node:assert'
+import path from 'node:path'
 import { describe, it } from 'node:test'
+import { fileURLToPath } from 'node:url'
 import { sendMessage } from '../lib/send-message.js'
+
+const __filename = fileURLToPath(import.meta.url)
+const FILE_NAME = path.basename(__filename)
+const PACKAGE_ROOT = path.join(__filename, '..', '..')
+const PACKAGE_NAME = path.basename(PACKAGE_ROOT)
+
+const TEST_MESSAGE = [
+  `🧪 <b>Test message</b>`,
+  `This is a test message defined in <code>${FILE_NAME}</code>.`,
+  `Sent by <code>${PACKAGE_NAME}</code>`
+].join('\n\n')
 
 const credentials = () => {
   const parsed = JSON.parse(process.env.TELEGRAM)
@@ -27,9 +40,9 @@ describe('sendMessage', () => {
     await assert.rejects(
       () => {
         return sendMessage({
-          hatId: undefined,
+          chatId: undefined,
           token: undefined,
-          text: `<b>TEST</b> function <code>sendMessage</code>`
+          text: TEST_MESSAGE
         })
       },
       (err) => {
@@ -47,7 +60,7 @@ describe('sendMessage', () => {
     const { message, delivered, deliveredAt } = await sendMessage({
       chatId: chat_id,
       token,
-      text: `<b>TEST</b> function <code>sendMessage</code>`
+      text: TEST_MESSAGE
     })
 
     assert.equal(delivered, true)
@@ -64,7 +77,7 @@ describe('sendMessage', () => {
     const { message, delivered, deliveredAt } = await sendMessage({
       chatId: chat_id,
       token,
-      text: `<b>TEST</b> function <code>sendMessage</code>`
+      text: TEST_MESSAGE
     })
 
     assert.equal(delivered, false)
@@ -81,7 +94,7 @@ describe('sendMessage', () => {
     const { message, delivered, deliveredAt } = await sendMessage({
       chatId: chat_id,
       token,
-      text: `<b>TEST</b> function <code>sendMessage</code>`
+      text: TEST_MESSAGE
     })
 
     assert.equal(delivered, false)

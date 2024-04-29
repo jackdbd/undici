@@ -1,11 +1,11 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
-import { makeEleventy } from '@jackdbd/eleventy-test-utils'
+import { defEleventy } from '@jackdbd/eleventy-test-utils'
 import { ensureEnvVarsPlugin } from '../lib/index.js'
 
 describe('ensureEnvVarsPlugin', () => {
   it('allows zero config', async () => {
-    const eleventy = await makeEleventy({ plugin: ensureEnvVarsPlugin })
+    const eleventy = await defEleventy({ plugin: ensureEnvVarsPlugin })
 
     const userConfig = eleventy.eleventyConfig.userConfig
 
@@ -13,7 +13,7 @@ describe('ensureEnvVarsPlugin', () => {
   })
 
   it('adds neither a `eleventy.before` nor a `eleventy.after` event handler', async () => {
-    const eleventy = await makeEleventy({ plugin: ensureEnvVarsPlugin })
+    const eleventy = await defEleventy({ plugin: ensureEnvVarsPlugin })
 
     const userConfig = eleventy.eleventyConfig.userConfig
 
@@ -25,7 +25,7 @@ describe('ensureEnvVarsPlugin', () => {
   it('rejects with the expected error message when `envVars` is an empty array', async () => {
     await assert.rejects(
       () => {
-        return makeEleventy({
+        return defEleventy({
           plugin: ensureEnvVarsPlugin,
           pluginConfig: { envVars: [] }
         })
@@ -49,7 +49,7 @@ describe('ensureEnvVarsPlugin', () => {
 
     await assert.rejects(
       () => {
-        return makeEleventy({
+        return defEleventy({
           plugin: ensureEnvVarsPlugin,
           pluginConfig: { envVars: ['FOO', 'BAR', 'BAZ'] }
         })

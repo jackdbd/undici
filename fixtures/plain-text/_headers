@@ -1,0 +1,23 @@
+# Service workers—at least in Chromium-based browsers—are invalidated in the
+# HTTP cache every 24 hours, so using the Cache-Control directives no-store and
+# max-age=0 is probably overkill.
+# https://chromium.googlesource.com/chromium/src/+/master/docs/security/service-worker-security-faq.md#do-service-workers-live-forever
+# I think it's better to err on the side of caution though. So:
+# - never store the service worker in any cache (no-store), and
+# - clear any existing cache responses (max-age=0)
+/sw.js
+  Cache-Control: no-store, max-age=0
+
+# Attach headers to all Cloudflare Pages responses matching the /* URL pattern.
+# https://developers.cloudflare.com/pages/configuration/headers/#attach-a-header
+/*
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+
+# Detach headers which have been added by a more pervasive rule.
+# https://developers.cloudflare.com/pages/configuration/headers/#detach-a-header
+/*.jpg
+  ! Referrer-Policy
+  ! X-Frame-Options

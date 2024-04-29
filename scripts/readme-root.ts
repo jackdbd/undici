@@ -205,7 +205,12 @@ const main = async ({
 }
 
 await main({
-  excluded: ['demo-site', 'eleventy-test-utils', 'text-to-audio-asset'],
+  excluded: [
+    'demo-site',
+    'eleventy-test-utils',
+    'hosting-utils',
+    'text-to-audio-asset'
+  ],
   github_username: 'jackdbd',
   npm_scope: '@jackdbd',
   output: join(REPO_ROOT, 'README.md'),

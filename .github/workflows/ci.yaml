@@ -23,7 +23,7 @@ jobs:
         node: [lts/Iron]
         # node: [lts/Hydrogen, lts/Iron, current]
         # https://www.npmjs.com/package/@11ty/eleventy?activeTab=versions
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4
@@ -51,7 +51,7 @@ jobs:
         run: npm run build:libs
 
       - run: npm run publint --workspaces --if-present
-      
+
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
 
@@ -73,18 +73,6 @@ jobs:
           DEBUG: Eleventy:EleventyErrorHandler,11ty-plugin*
           NODE_ENV: test
         run: npm run test:ci -w packages/eleventy-plugin-ensure-env-vars
-
-      - name: 🔍 Test 11ty-plugin Permissions-Policy
-        run: npm run test:ci -w packages/eleventy-plugin-permissions-policy
-      
-      - name: ⬆️ Upload test coverage to Codecov (eleventy-plugin-permissions-policy)
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          fail_ci_if_error: false
-          files: ./packages/eleventy-plugin-permissions-policy/lcov.info
-          flags: eleventy-plugin-permissions-policy
       
       - name: 🔍 Test 11ty-plugin Plausible
         env:
@@ -131,7 +119,7 @@ jobs:
       matrix:
         os: [macos-latest]
         node: [lts/Iron]
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4
@@ -172,7 +160,7 @@ jobs:
       matrix:
         os: [windows-latest]
         node: [lts/Iron]
-        eleventy: ['3.0.0-alpha.4']
+        eleventy: ['3.0.0-alpha.6']
     steps:
       - name: 🛎️ Checkout repo
         uses: actions/checkout@v4

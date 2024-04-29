@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import path from 'node:path'
 import {
   image,
   licenseLink,
@@ -10,13 +10,9 @@ import {
   transcludeFile
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
-import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc/lib'
+import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc'
 import defDebug from 'debug'
 import { config as eev_config } from '../packages/eleventy-plugin-ensure-env-vars/lib/schemas.js'
-import {
-  directive as pp_directive,
-  options as pp_options
-} from '../packages/eleventy-plugin-permissions-policy/lib/schemas.js'
 import { options as plausible_options } from '../packages/eleventy-plugin-plausible/lib/schemas.js'
 import { options as telegram_options } from '../packages/eleventy-plugin-telegram/lib/schemas.js'
 import { config as tts_config } from '../packages/eleventy-plugin-text-to-speech/lib/eleventy/plugin.js'
@@ -42,13 +38,15 @@ const readme = ({
   project_started_in_year,
   repo_name
 }: ReadmeConfig) => {
-  const pkg = JSON.parse(readFileSync(join(pkg_root, 'package.json'), 'utf-8'))
+  const pkg = JSON.parse(
+    readFileSync(path.join(pkg_root, 'package.json'), { encoding: 'utf-8' })
+  )
   debug(`generating README.md for ${pkg.name}`)
 
   const [npm_scope, unscoped_pkg_name] = pkg.name.split('/')
   const github_username = npm_scope.replace('@', '') as string
 
-  return transcludeFile(join(pkg_root, 'tpl.readme.md'), {
+  return transcludeFile(path.join(pkg_root, 'tpl.readme.md'), {
     user: pkg.author,
     templates: {
       badges: () => {
@@ -137,15 +135,22 @@ const readme = ({
       },
 
       'pkg.installation': () => {
-        const lines = [
-          `## Installation`,
-          '\n\n',
-          `\`\`\`sh`,
-          '\n',
-          `npm install ${pkg.name}`,
-          '\n',
-          `\`\`\``
-        ]
+        const lines = [`## Installation`]
+
+        lines.push('\n\n')
+        lines.push(`\`\`\`sh`)
+        lines.push('\n')
+        lines.push(`npm install ${pkg.name}`)
+        lines.push('\n')
+        lines.push(`\`\`\``)
+
+        if (pkg.engines && pkg.engines.node) {
+          lines.push('\n\n')
+          lines.push(
+            `**Note**: this library was tested on Node.js ${pkg.engines.node}. It might work on other Node.js versions though.`
+          )
+        }
+
         return lines.join('')
       },
 
@@ -184,7 +189,8 @@ const readme = ({
 
           const strings = [
             callout({
-              emoji: ':warning:',
+              // emoji: ':warning:',
+              emoji: '⚠️',
               title: `Peer Dependencies`,
               message: `This package defines ${entries.length} ${what}.`
             }),
@@ -233,9 +239,10 @@ const main = async ({
   repo_name,
   unscoped_pkg_name
 }: Config) => {
-  const pkg_root = join(packages_root, unscoped_pkg_name)
+  const pkg_root = path.join(packages_root, unscoped_pkg_name)
 
   const errors: Error[] = []
+  const warnings: string[] = []
   const configurations: string[] = [`## Configuration`, '\n\n']
 
   if (unscoped_pkg_name === 'eleventy-plugin-content-security-policy') {
@@ -244,7 +251,7 @@ const main = async ({
       `Refer also to the library ${link('@jackdbd/content-security-policy', 'https://www.npmjs.com/package/@jackdbd/content-security-policy')} for the configuration.`
     )
   } else if (unscoped_pkg_name === 'eleventy-plugin-ensure-env-vars') {
-    const res = markdownTableFromZodSchema(eev_config)
+    const res = markdownTableFromZodSchema(eev_config as any)
     if (res.error) {
       errors.push(res.error)
     } else {
@@ -253,56 +260,8 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res.value)
     }
-  } else if (unscoped_pkg_name === 'eleventy-plugin-permissions-policy') {
-    configurations.push(
-      `Read these resources to understand how to configure the \`Permissions-Policy\` and the \`Feature-Policy\` HTTP response headers.`
-    )
-
-    const links = [
-      link(
-        'A new security header: Feature Policy',
-        'https://scotthelme.co.uk/a-new-security-header-feature-policy/'
-      ),
-      link(
-        'Goodbye Feature Policy and hello Permissions Policy!',
-        'https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/'
-      ),
-      link(
-        'Permissions Policy Explainer',
-        'https://github.com/w3c/webappsec-permissions-policy/blob/main/permissions-policy-explainer.md'
-      ),
-      link(
-        'Policy Controlled Features',
-        'https://github.com/w3c/webappsec-permissions-policy/blob/main/features.md'
-      ),
-      link(
-        'Controlling browser features with Permissions Policy',
-        'https://developer.chrome.com/en/docs/privacy-sandbox/permissions-policy/'
-      )
-    ]
-
-    configurations.push('\n\n')
-    configurations.push(list(links))
-    const res_a = markdownTableFromZodSchema(pp_options)
-    if (res_a.error) {
-      errors.push(res_a.error)
-    } else {
-      configurations.push('\n\n')
-      configurations.push(`### Plugin options`)
-      configurations.push('\n\n')
-      configurations.push(res_a.value)
-    }
-    const res_b = markdownTableFromZodSchema(pp_directive)
-    if (res_b.error) {
-      errors.push(res_b.error)
-    } else {
-      configurations.push('\n\n')
-      configurations.push(`### Permissions-Policy directive`)
-      configurations.push('\n\n')
-      configurations.push(res_b.value)
-    }
   } else if (unscoped_pkg_name === 'eleventy-plugin-plausible') {
-    const res = markdownTableFromZodSchema(plausible_options)
+    const res = markdownTableFromZodSchema(plausible_options as any)
     if (res.error) {
       errors.push(res.error)
     } else {
@@ -325,7 +284,7 @@ const main = async ({
     //   configurations.push(res.value)
     // }
   } else if (unscoped_pkg_name === 'eleventy-plugin-text-to-speech') {
-    const res_a = markdownTableFromZodSchema(tts_config)
+    const res_a = markdownTableFromZodSchema(tts_config as any)
     if (res_a.error) {
       errors.push(res_a.error)
     } else {
@@ -334,7 +293,7 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res_a.value)
     }
-    const res_b = markdownTableFromZodSchema(tts_rule)
+    const res_b = markdownTableFromZodSchema(tts_rule as any)
     if (res_b.error) {
       errors.push(res_b.error)
     } else {
@@ -343,6 +302,29 @@ const main = async ({
       configurations.push('\n\n')
       configurations.push(res_b.value)
     }
+  } else if (unscoped_pkg_name === 'hosting-utils') {
+    configurations.push(
+      'Read these resources to understand how to configure `_headers`, `serve.json`, `vercel.json`.'
+    )
+
+    const links = [
+      link(
+        'Attach headers to Cloudflare Pages responses',
+        'https://developers.cloudflare.com/pages/configuration/headers/'
+      ),
+      link('serve', 'https://github.com/vercel/serve'),
+      link(
+        'serve-handler options',
+        'https://github.com/vercel/serve-handler#options'
+      ),
+      link(
+        'Configure headers in `vercel.json`',
+        'https://vercel.com/docs/projects/project-configuration#headers'
+      )
+    ]
+
+    configurations.push('\n\n')
+    configurations.push(list(links))
   } else if (unscoped_pkg_name === 'text-to-audio-asset') {
     configurations.push(`TODO`)
   } else {
@@ -352,6 +334,10 @@ const main = async ({
     ]
     errors.push(new Error(messages.join('\n')))
   }
+
+  warnings.forEach((w) => {
+    console.warn(`⚠️ ${w}`)
+  })
 
   if (errors.length > 0) {
     throw new Error(
@@ -371,12 +357,12 @@ const main = async ({
   // console.log(`=== ${outdoc} BEGIN ===`)
   // console.log(transcluded.src)
   // console.log(`=== ${outdoc} END ===`)
-  writeFileSync(join(pkg_root, outdoc), transcluded.src)
+  writeFileSync(path.join(pkg_root, outdoc), transcluded.src)
 }
 
 await main({
   current_year: new Date().getFullYear(),
-  packages_root: join(REPO_ROOT, 'packages'),
+  packages_root: path.join(REPO_ROOT, 'packages'),
   repo_name: 'undici',
   unscoped_pkg_name: process.argv[2],
   project_started_in_year: 2022

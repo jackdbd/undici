@@ -12,7 +12,7 @@
 > When Eleventy 3 becomes available as a regular release and is no longer in [alpha](https://www.zachleat.com/web/eleventy-v3-alpha/), update the `peerDependencies` of all packages from:
 >
 > ```txt
-> "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.4"
+> "@11ty/eleventy": ">=2.0.0 || 3.0.0-alpha.6"
 > ```
 >
 > to:

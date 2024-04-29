@@ -1,6 +1,6 @@
 import { Readable } from 'node:stream'
 import defDebug from 'debug'
-import { z } from 'zod'
+import { z, type ZodTypeAny } from 'zod'
 import { TextToSpeechClient } from '@google-cloud/text-to-speech'
 import { cloud_text_to_speech, iam } from '@jackdbd/zod-schemas/gcp'
 import { DEBUG_PREFIX } from '../constants.js'
@@ -60,7 +60,7 @@ export const synthesize_config = z
      * @remarks
      * Character limit for the Google Cloud Text-to-Speech API: 5000 characters
      */
-    text: cloud_text_to_speech.text
+    text: cloud_text_to_speech.text as unknown as ZodTypeAny
   })
   .describe('Google Cloud Text-to-Speech synthesize config')
 

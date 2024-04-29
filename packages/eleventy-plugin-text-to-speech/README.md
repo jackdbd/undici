@@ -32,18 +32,7 @@ Eleventy plugin that uses text-to-speech to generate audio assets for your websi
 npm install @jackdbd/eleventy-plugin-text-to-speech
 ```
 
-> :warning: **Peer Dependencies**
->
-> This package defines 6 peer dependencies.
-
-| Peer | Version range |
-|---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
-| `@aws-sdk/client-s3` | `>=3.0.0` |
-| `@aws-sdk/lib-storage` | `>=3.0.0` |
-| `@google-cloud/storage` | `>=7.0.0` |
-| `@google-cloud/text-to-speech` | `>=5.0.0` |
-| `debug` | `>=4.0.0` |
+**Note**: this library was tested on Node.js >=18. It might work on other Node.js versions though.
 
 ## About
 
@@ -185,20 +174,20 @@ Have a look at the Eleventy configuration of the [demo-site in this monorepo](..
 
 | Key | Default | Description |
 |---|---|---|
-| `collectionName` | `"audio-items"` | Name of the 11ty collection defined by this plugin |
-| `rules` | `undefined` | Rules that determine which texts to convert into speech (1 to ∞ elements) |
-| `transformName` | `"inject-audio-tags-into-html"` | Name of the 11ty transform defined by this plugin |
+| `collectionName` | `undefined` | Name of the 11ty collection defined by this plugin |
+| `rules` | `undefined` | Rules that determine which texts to convert into speech |
+| `transformName` | `undefined` | Name of the 11ty transform defined by this plugin |
 
 ### Rule
 
 | Key | Default | Description |
 |---|---|---|
 | `audioInnerHTML` | `undefined` | Function that returns some HTML from the list of hrefs where the generated audio assets are hosted. |
-| `cssSelectors` | `[]` | CSS selectors to find matches in a HTML document |
+| `cssSelectors` | `undefined` | CSS selectors to find matches in a HTML document |
 | `hosting` | `undefined` | Client that provides hosting capabilities |
-| `regex` | `{}` | RegExp to find matches in the output path |
+| `regex` | `undefined` | RegExp to find matches in the output path |
 | `synthesis` | `undefined` | Client that provides Text-to-Speech capabilities |
-| `xPathExpressions` | `[]` | XPath expressions to find matches in a HTML document |
+| `xPathExpressions` | `undefined` | XPath expressions to find matches in a HTML document |
 
 ## Troubleshooting
 
@@ -216,12 +205,25 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [@jackdbd/zod-schemas](https://www.npmjs.com/package/@jackdbd/zod-schemas) | `^2.0.0` |
+| [@jackdbd/zod-schemas](https://www.npmjs.com/package/@jackdbd/zod-schemas) | `^2.2.0` |
 | [html-to-text](https://www.npmjs.com/package/html-to-text) | `^9.0.5` |
-| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
-| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
 | [jsdom](https://www.npmjs.com/package/jsdom) | `^24.0.0` |
 | [specificity](https://www.npmjs.com/package/specificity) | `^1.0.0` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
+
+> ⚠️ **Peer Dependencies**
+>
+> This package defines 6 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
+| `@aws-sdk/client-s3` | `>=3.0.0` |
+| `@aws-sdk/lib-storage` | `>=3.0.0` |
+| `@google-cloud/storage` | `>=7.0.0` |
+| `@google-cloud/text-to-speech` | `>=5.0.0` |
+| `debug` | `>=4.0.0` |
 
 ## Credits
 

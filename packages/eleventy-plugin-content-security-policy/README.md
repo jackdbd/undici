@@ -21,14 +21,7 @@ Eleventy plugin that writes Content-Security-Policy and Content-Security-Policy-
 npm install @jackdbd/eleventy-plugin-content-security-policy
 ```
 
-> :warning: **Peer Dependencies**
->
-> This package defines 2 peer dependencies.
-
-| Peer | Version range |
-|---|---|
-| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.4` |
-| `debug` | `>=4.0.0` |
+**Note**: this library was tested on Node.js >=18. It might work on other Node.js versions though.
 
 ## About
 
@@ -116,9 +109,19 @@ export DEBUG=11ty-plugin:*
 
 | Package | Version |
 |---|---|
-| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `2.1.3` |
-| [zod](https://www.npmjs.com/package/zod) | `^3.22.4` |
-| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.0.0` |
+| [@jackdbd/content-security-policy](https://www.npmjs.com/package/@jackdbd/content-security-policy) | `3.0.0-canary.1` |
+| [@jackdbd/hosting-utils](https://www.npmjs.com/package/@jackdbd/hosting-utils) | `1.0.0-canary.1` |
+| [zod](https://www.npmjs.com/package/zod) | `^3.23.0` |
+| [zod-validation-error](https://www.npmjs.com/package/zod-validation-error) | `^3.1.0` |
+
+> ⚠️ **Peer Dependencies**
+>
+> This package defines 2 peer dependencies.
+
+| Peer | Version range |
+|---|---|
+| `@11ty/eleventy` | `>=2.0.0 or 3.0.0-alpha.6` |
+| `debug` | `>=4.0.0` |
 
 ## License
 

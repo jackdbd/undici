@@ -1,7 +1,7 @@
 {
   "metadata": {
     "toolPackage": "@microsoft/api-extractor",
-    "toolVersion": "7.39.4",
+    "toolVersion": "7.43.1",
     "schemaVersion": 1011,
     "oldestForwardsCompatibleVersion": 1001,
     "tsdocConfig": {
@@ -173,17 +173,13 @@
       "preserveMemberOrder": false,
       "members": [
         {
-          "kind": "Variable",
-          "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!contentSecurityPolicyPlugin:var",
+          "kind": "Function",
+          "canonicalReference": "@jackdbd/eleventy-plugin-content-security-policy!contentSecurityPolicyPlugin:function(1)",
           "docComment": "/**\n * Plugin configuration function.\n *\n * We give the plugin configuration function a name, so it can be easily spotted in the Eleventy:ErrorHandler debug logs.\n *\n * Hosting providers like Cloudflare Pages and Netlify allow to define custom response headers in a plain text file called _headers. This file must be placed in the publish directory of your site (e.g. usually _site for a Eleventy site).\n *\n * https://developers.cloudflare.com/pages/platform/headers/ https://docs.netlify.com/routing/headers/\n */\n",
           "excerptTokens": [
             {
               "kind": "Content",
-              "text": "contentSecurityPolicyPlugin: "
-            },
-            {
-              "kind": "Content",
-              "text": "(eleventyConfig: "
+              "text": "contentSecurityPolicyPlugin: (eleventyConfig: "
             },
             {
               "kind": "Reference",
@@ -201,17 +197,39 @@
             },
             {
               "kind": "Content",
-              "text": ") => void"
+              "text": ") => "
+            },
+            {
+              "kind": "Content",
+              "text": "void"
             }
           ],
           "fileUrlPath": "src/index.ts",
-          "isReadonly": true,
-          "releaseTag": "Public",
-          "name": "contentSecurityPolicyPlugin",
-          "variableTypeTokenRange": {
-            "startIndex": 1,
+          "returnTypeTokenRange": {
+            "startIndex": 5,
             "endIndex": 6
-          }
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "eleventyConfig",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": false
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              },
+              "isOptional": false
+            }
+          ],
+          "name": "contentSecurityPolicyPlugin"
         },
         {
           "kind": "Variable",
@@ -224,7 +242,7 @@
             },
             {
               "kind": "Content",
-              "text": "{\n    allowDeprecatedDirectives: boolean;\n    directives: any;\n    globPatterns: string[];\n    globPatternsDetach: never[];\n    excludePatterns: never[];\n    includePatterns: string[];\n    jsonRecap: boolean;\n    reportOnly: boolean;\n}"
+              "text": "{\n    allowDeprecatedDirectives: boolean;\n    directives: any;\n    excludePatterns: never[];\n    globPatterns: string[];\n    globPatternsDetach: never[];\n    hosting: string | undefined;\n    includePatterns: string[];\n    jsonRecap: boolean;\n    reportOnly: boolean;\n}"
             }
           ],
           "fileUrlPath": "src/constants.ts",

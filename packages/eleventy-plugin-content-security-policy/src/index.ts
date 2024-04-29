@@ -7,10 +7,12 @@ import {
   cspDirectives,
   validationErrorOrWarnings
 } from '@jackdbd/content-security-policy'
+import { updateHeaders, updateVercelJSON } from '@jackdbd/hosting-utils'
 import {
   DEBUG_PREFIX,
   DEFAULT_OPTIONS,
   ERR_PREFIX,
+  SUPPORTED_HOSTING_PROVIDERS,
   WARN_PREFIX
 } from './constants.js'
 import { validationError } from './errors.js'
@@ -42,7 +44,6 @@ export const contentSecurityPolicyPlugin = (
   eleventyConfig: EleventyConfig,
   options: Options
 ) => {
-  //
   eleventyConfig.on('eleventy.after', async () => {
     debug('plugin options (provided by the user) %O', options)
 
@@ -75,15 +76,45 @@ export const contentSecurityPolicyPlugin = (
     const {
       excludePatterns,
       globPatterns,
-      globPatternsDetach,
       includePatterns,
       jsonRecap,
       reportOnly
     } = config
 
+    // We have to access the output directory only now, in the `eleventy.after`
+    // handler. Otherwise it would be the default `_site` directory from the
+    // Eleventy TemplateConfig instance.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const outdir = (eleventyConfig as any).dir.output
-    const headersFilepath = path.join(outdir, '_headers')
+
+    // TODO: decide what to do when multiple config files are available (e.g. a
+    // vercel.json and a _headers file). Maybe the best approach is to throw an
+    // error and ask the user to decide which hosting provider to use (i.e. the
+    // user should manually cleanup his deploy directory).
+
+    let hosting_provider_config_files: string[] = []
+    if (fs.existsSync(path.join(outdir, '_headers'))) {
+      debug(`found _headers file (Cloudflare Pages)`)
+      hosting_provider_config_files.push('cloudflare-pages') // or netlify
+    }
+    if (fs.existsSync(path.join(outdir, 'vercel.json'))) {
+      debug(`found vercel.json (Vercel)`)
+      hosting_provider_config_files.push('vercel')
+    }
+
+    let hosting: string | undefined
+    if (hosting_provider_config_files.length > 0) {
+      hosting = hosting_provider_config_files[0]
+    }
+
+    if (config.hosting) {
+      hosting = config.hosting
+      debug(`hosting: ${hosting}`)
+    }
+
+    if (!hosting) {
+      throw new Error(`${ERR_PREFIX}: hosting not set in plugin options`)
+    }
 
     const patterns = [
       ...includePatterns.map((pattern) => `${outdir}${pattern}`),
@@ -95,6 +126,42 @@ export const contentSecurityPolicyPlugin = (
       patterns
     )
 
+    const directives = await cspDirectives({
+      directives: config.directives,
+      patterns
+    })
+
+    const headerKey = reportOnly
+      ? 'Content-Security-Policy-Report-Only'
+      : 'Content-Security-Policy'
+
+    const headerValue = directives.join('; ')
+
+    const sources = globPatterns
+
+    if (hosting === 'vercel') {
+      // const sources = ['/(.*)', '/service-worker.js']
+      await updateVercelJSON({
+        filepath: path.join(outdir, 'vercel.json'),
+        headerKey,
+        headerValue,
+        sources
+      })
+    } else if (hosting === 'cloudflare-pages' || hosting === 'netlify') {
+      // TODO: Cloudflare Pages and Netlify both use a _headers file, but I'm not
+      // 100% sure these two files have the exact same syntax.
+      await updateHeaders({
+        filepath: path.join(outdir, '_headers'),
+        headerKey,
+        headerValue,
+        sources
+      })
+    } else {
+      throw new Error(
+        `${ERR_PREFIX}: ${hosting} is not a supported hosting provider. This plugin supports the following hosting providers: ${[...SUPPORTED_HOSTING_PROVIDERS].join(', ')}`
+      )
+    }
+
     if (jsonRecap) {
       await writeFileAsync(
         path.join(
@@ -104,35 +171,5 @@ export const contentSecurityPolicyPlugin = (
         JSON.stringify(config, null, 2)
       )
     }
-
-    const directives = await cspDirectives({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      directives: config.directives as any,
-      patterns
-    })
-
-    if (!fs.existsSync(headersFilepath)) {
-      fs.writeFileSync(headersFilepath, '', { encoding: 'utf8' })
-      debug(`${headersFilepath} did not exist, so it was created`)
-    }
-
-    const headerKey = reportOnly
-      ? 'Content-Security-Policy-Report-Only'
-      : 'Content-Security-Policy'
-
-    const headerValue = directives.join('; ')
-
-    globPatterns.forEach((pattern) => {
-      debug(`add ${headerKey} header for resources matching ${pattern}`)
-      fs.appendFileSync(
-        headersFilepath,
-        `\n${pattern}\n  ${headerKey}: ${headerValue}\n`
-      )
-    })
-
-    globPatternsDetach.forEach((pattern) => {
-      debug(`remove ${headerKey} header for resources matching ${pattern}`)
-      fs.appendFileSync(headersFilepath, `\n${pattern}\n  ! ${headerKey}\n`)
-    })
   })
 }

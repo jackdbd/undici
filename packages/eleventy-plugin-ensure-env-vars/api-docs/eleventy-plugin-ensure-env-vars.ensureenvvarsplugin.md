@@ -2,7 +2,7 @@
 
 [Home](./index.md) &gt; [@jackdbd/eleventy-plugin-ensure-env-vars](./eleventy-plugin-ensure-env-vars.md) &gt; [ensureEnvVarsPlugin](./eleventy-plugin-ensure-env-vars.ensureenvvarsplugin.md)
 
-## ensureEnvVarsPlugin variable
+## ensureEnvVarsPlugin() function
 
 Plugin that checks whether the environment variables you specified are set when Eleventy builds your site.
 
@@ -11,3 +11,57 @@ Plugin that checks whether the environment variables you specified are set when 
 ```typescript
 ensureEnvVarsPlugin: (_eleventyConfig: EleventyConfig, options?: Options) => void
 ```
+
+## Parameters
+
+<table><thead><tr><th>
+
+Parameter
+
+
+</th><th>
+
+Type
+
+
+</th><th>
+
+Description
+
+
+</th></tr></thead>
+<tbody><tr><td>
+
+\_eleventyConfig
+
+
+</td><td>
+
+EleventyConfig
+
+
+</td><td>
+
+
+</td></tr>
+<tr><td>
+
+options
+
+
+</td><td>
+
+[Options](./eleventy-plugin-ensure-env-vars.options.md)
+
+
+</td><td>
+
+_(Optional)_ Plugin [options](./eleventy-plugin-ensure-env-vars.options.md)<!-- -->.
+
+
+</td></tr>
+</tbody></table>
+**Returns:**
+
+void
+

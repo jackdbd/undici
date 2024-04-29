@@ -8,8 +8,6 @@
 
 {{pkg.installation}}
 
-{{pkg.peerDependencies}}
-
 ## Usage
 
 In your Eleventy config file:
@@ -54,5 +52,7 @@ If you forgot the API token of a Telegram bot you created, you can retrieve it a
 {{troubleshooting}}
 
 {{pkg.deps}}
+
+{{pkg.peerDependencies}}
 
 {{pkg.license}}
