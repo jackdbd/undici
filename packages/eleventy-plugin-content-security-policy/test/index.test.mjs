@@ -101,14 +101,6 @@ describe('contentSecurityPolicyPlugin', () => {
     await cleanup()
   })
 
-  it('this is a test failure to check whether the github reporter for the Node.js test runner is working', () => {
-    assert.equal(1, 2)
-  })
-
-  it('this is another test failure to check if the message gets printed on GitHub', () => {
-    assert.equal(11, 22, 'Hey, this is a custom message')
-  })
-
   it('does not create a _headers file when no Content-Security-Policy directives are specified', async () => {
     await defEleventy({
       plugin: contentSecurityPolicyPlugin,

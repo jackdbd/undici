@@ -29,17 +29,18 @@
     "lint": "eslint --config ../../config/eslint.cjs",
     "nuke": "npm run clean && rimraf node_modules 'package-lock.json'",
     "precommit": "lint-staged --config ../../config/lint-staged.cjs",
-    "preserve": "DEBUG='csp:*,permissions-policy,script:*' tsm ./scripts/headers.ts serve.json",
+    "preserve": "DEBUG='csp:*,script:*' tsm ./scripts/headers.ts serve.json",
     "serve": "serve _site/ -p 8090",
     "size": "pkg-size ./_site --sort-by=brotli --ignore-files {*.d.ts,*.map}"
   },
   "dependencies": {
     "@11ty/eleventy": "3.0.0-alpha.6",
     "@11ty/eleventy-navigation": "^0.3.5",
-    "@jackdbd/eleventy-plugin-content-security-policy": "*",
+    "@jackdbd/content-security-policy": "3.0.0-canary.1",
     "@jackdbd/eleventy-plugin-ensure-env-vars": "*",
     "@jackdbd/eleventy-plugin-telegram": "*",
     "@jackdbd/eleventy-plugin-text-to-speech": "*",
+    "@jackdbd/permissions-policy": "^1.0.0",
     "eleventy-plugin-helmet": "^0.2.2"
   },
   "overrides": {

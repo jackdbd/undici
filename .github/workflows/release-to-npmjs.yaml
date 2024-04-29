@@ -43,9 +43,6 @@ jobs:
       - name: 📦 Build all libraries
         run: npm run build:libs
       
-      - name: 🔍 Test permissions-policy
-        run: npm run test:ci -w packages/permissions-policy
-
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
 

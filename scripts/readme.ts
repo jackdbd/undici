@@ -10,15 +10,8 @@ import {
   transcludeFile
 } from '@thi.ng/transclude'
 import { REPO_ROOT } from '@jackdbd/eleventy-test-utils'
-import {
-  markdownTableFromZodSchema,
-  stringsFromZodAnyType
-} from '@jackdbd/zod-to-doc/lib'
+import { markdownTableFromZodSchema } from '@jackdbd/zod-to-doc'
 import defDebug from 'debug'
-import {
-  feature,
-  options as pp_options
-} from '../packages/permissions-policy/lib/index.js'
 import { config as eev_config } from '../packages/eleventy-plugin-ensure-env-vars/lib/schemas.js'
 import { options as plausible_options } from '../packages/eleventy-plugin-plausible/lib/schemas.js'
 import { options as telegram_options } from '../packages/eleventy-plugin-telegram/lib/schemas.js'
@@ -29,46 +22,6 @@ import { rule as tts_rule } from '../packages/eleventy-plugin-text-to-speech/lib
 import { callout } from './ui-components.js'
 
 const debug = defDebug(`script:readme`)
-
-const permissionsPolicyFeaturesMarkdown = () => {
-  const arr = stringsFromZodAnyType(feature)
-
-  const links = arr.map((s) => {
-    const feature = (s as any).replaceAll('`', '').replaceAll('"', '')
-    return link(
-      feature,
-      `https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy/${feature}`
-    )
-  })
-
-  const lines: string[] = []
-  lines.push('\n\n')
-  lines.push(`### Features`)
-  lines.push('\n\n')
-  lines.push(
-    `This library defines ${arr.length} \`Permissions-Policy\` features:`
-  )
-  lines.push('\n\n')
-  lines.push(links.join(', '))
-  return lines.join('')
-}
-
-const permissionsPolicyAllowlistMarkdown = () => {
-  // const arr = stringsFromZodAnyType(allow_item)
-
-  const lines: string[] = []
-  lines.push('\n\n')
-  lines.push(`### Allowlist`)
-  lines.push('\n\n')
-  lines.push(
-    `An ${link(
-      'allowlist',
-      'https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy#allowlists'
-    )} is a list containing specific origins or special values.`
-  )
-
-  return lines.join('')
-}
 
 interface ReadmeConfig {
   configuration: string
@@ -372,49 +325,6 @@ const main = async ({
 
     configurations.push('\n\n')
     configurations.push(list(links))
-  } else if (unscoped_pkg_name === 'permissions-policy') {
-    configurations.push(
-      `Read these resources to understand how to configure the \`Permissions-Policy\` and the \`Feature-Policy\` HTTP response headers.`
-    )
-
-    const links = [
-      link(
-        'A new security header: Feature Policy',
-        'https://scotthelme.co.uk/a-new-security-header-feature-policy/'
-      ),
-      link(
-        'Goodbye Feature Policy and hello Permissions Policy!',
-        'https://scotthelme.co.uk/goodbye-feature-policy-and-hello-permissions-policy/'
-      ),
-      link(
-        'Permissions Policy Explainer',
-        'https://github.com/w3c/webappsec-permissions-policy/blob/main/permissions-policy-explainer.md'
-      ),
-      link(
-        'Policy Controlled Features',
-        'https://github.com/w3c/webappsec-permissions-policy/blob/main/features.md'
-      ),
-      link(
-        'Controlling browser features with Permissions Policy',
-        'https://developer.chrome.com/en/docs/privacy-sandbox/permissions-policy/'
-      )
-    ]
-
-    configurations.push('\n\n')
-    configurations.push(list(links))
-
-    const res_a = markdownTableFromZodSchema(pp_options as any)
-    if (res_a.error) {
-      errors.push(res_a.error)
-    } else {
-      configurations.push('\n\n')
-      configurations.push(`### Options`)
-      configurations.push('\n\n')
-      configurations.push(res_a.value)
-    }
-
-    configurations.push(permissionsPolicyFeaturesMarkdown())
-    configurations.push(permissionsPolicyAllowlistMarkdown())
   } else if (unscoped_pkg_name === 'text-to-audio-asset') {
     configurations.push(`TODO`)
   } else {

@@ -52,22 +52,6 @@ jobs:
 
       - run: npm run publint --workspaces --if-present
 
-      - name: 🔍 Test permissions-policy
-        run: npm run test:ci -w packages/permissions-policy
-
-      - name: ⬆️ Upload test coverage to Codecov (permissions-policy)
-        if: runner.os == 'Linux'
-        # if: matrix.os == 'ubuntu-latest'
-        # https://github.com/marketplace/actions/codecov
-        uses: codecov/codecov-action@v4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        with:
-          fail_ci_if_error: false
-          files: ./packages/permissions-policy/lcov.info
-          flags: permissions-policy
-          # verbose: true
-      
       - name: 🔍 Test 11ty-plugin Content-Security-Policy
         run: npm run test:ci -w packages/eleventy-plugin-content-security-policy
 

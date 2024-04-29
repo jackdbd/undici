@@ -7,9 +7,6 @@
       "path": "./packages/hosting-utils/tsconfig.json"
     },
     {
-      "path": "./packages/permissions-policy/tsconfig.json"
-    },
-    {
       "path": "./packages/text-to-audio-asset/tsconfig.json"
     },
     {
