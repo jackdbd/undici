@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## @jackdbd/eleventy-plugin-ensure-env-vars [1.2.0](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-ensure-env-vars@1.1.1...@jackdbd/eleventy-plugin-ensure-env-vars@1.2.0) (2024-04-29)
+
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** generate header rules in vercel.json ([90b4a5e](https://github.com/jackdbd/undici/commit/90b4a5e110a5ba243117798ac26be7a5f2d89766))
+* **hosting-utils:** add package ([19d3456](https://github.com/jackdbd/undici/commit/19d345632683ce85bbc88d741d0bbe7168b3e302))
+
 ## @jackdbd/eleventy-plugin-ensure-env-vars [1.2.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/eleventy-plugin-ensure-env-vars@1.1.1...@jackdbd/eleventy-plugin-ensure-env-vars@1.2.0-canary.1) (2024-04-23)
 
 
