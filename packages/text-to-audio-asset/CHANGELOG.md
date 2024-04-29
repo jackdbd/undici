@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## @jackdbd/text-to-audio-asset [1.2.0](https://github.com/jackdbd/undici/compare/@jackdbd/text-to-audio-asset@1.1.0...@jackdbd/text-to-audio-asset@1.2.0) (2024-04-29)
+
+
+### Features
+
+* **eleventy-plugin-content-security-policy:** generate header rules in vercel.json ([90b4a5e](https://github.com/jackdbd/undici/commit/90b4a5e110a5ba243117798ac26be7a5f2d89766))
+
 ## @jackdbd/text-to-audio-asset [1.2.0-canary.1](https://github.com/jackdbd/undici/compare/@jackdbd/text-to-audio-asset@1.1.0...@jackdbd/text-to-audio-asset@1.2.0-canary.1) (2024-04-23)
 
 
