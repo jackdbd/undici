@@ -25,15 +25,21 @@
   in {
     devShells = forEachSupportedSystem ({pkgs}: {
       default = pkgs.mkShell {
-        packages = with pkgs; [nodejs];
+        packages = with pkgs; [
+          # Cowsay reborn, just for fun
+          # https://github.com/Code-Hex/Neo-cowsay
+          neo-cowsay
+          nodejs
+        ];
 
         shellHook = ''
-          echo "Nix dev shell"
+          cowthink "Welcome to this nix dev shell!" --bold -f tux --rainbow
+          echo "Versions:"
           echo "- Node.js $(node --version)"
           echo "- npm $(npm --version)"
 
           # secrets exposed as environment variables
-          export CLOUDFLARE_R2=$(cat /run/secrets/cloudflare_r2/personal);
+          export CLOUDFLARE_R2=$(cat /run/secrets/cloudflare/r2 | jq .personal | tr -d '"');
           export ELEVENLABS_API_KEY=$(cat /run/secrets/elevenlabs/api_key);
           export GITHUB_TOKEN=$(cat /run/secrets/github-tokens/semantic_release_bot);
           export NPM_TOKEN=$(cat /run/secrets/npm-tokens/semantic_release_bot);
